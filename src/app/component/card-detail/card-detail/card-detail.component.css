@@ -11,10 +11,14 @@
     background-color: ghostwhite;
     height: fit-content;
     margin-left: 5%;
-   
 
 }
 
+#subMainDiv{
+    border: 1px solid #DEE2E6;
+    border-radius: 5px;
+    padding: 10px;
+}
 
 #cabecalho{
     width: 95%;
@@ -223,7 +227,7 @@
     background-color: #f1f2f3;
    
     width: fit-content;
-    margin-bottom: 5px;
+    margin-top: 10px;
     padding: 5px;
     font-size: 12px;
     border: solid thin silver;
@@ -255,8 +259,7 @@
     align-items: center;
     list-style: none;
    /*justify-content: space-around*/
-    padding: 5px; 
-
+  
 }
 
 .collection-description{

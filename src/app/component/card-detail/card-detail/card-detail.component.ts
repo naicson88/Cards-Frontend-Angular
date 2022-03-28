@@ -21,9 +21,9 @@ export class CardDetailComponent implements OnInit {
 
 
   ngOnInit() {
-    window.scrollTo(0, 0);
     this.loadCardDetail();
     this.cardPriceGrafic();
+    window.scrollTo(0, 0); 
 
   }
 
@@ -31,22 +31,55 @@ export class CardDetailComponent implements OnInit {
   userKonamiCollectionMap: Map<any,any>
   userHaveByUserCollection: Map<any,any>;
   totalViews:number;
+  isLINKCard: boolean = false;
+  cardTypes:string = "";
 
   loadCardDetail(){
    // const id = localStorage.getItem("idCard");
-    let id = this.service.getCardNumber();
-    
-    if(id == null || id == undefined){
-      id = Number(localStorage.getItem("idCard"));
-    }
-      this.service.getCardDetails(id).subscribe(data => { 
+    let idd =  Number(localStorage.getItem("idCard"));
+
+      this.service.getCardDetails(idd).subscribe(data => { 
         this.card = data['card'];
         this.qtdUserHaveByKonamiCollection(data);
         this.qtdUserHaveByUserCollection(data);
         this.totalViews = data['views']['totalQtdViews'];
+        this.verifyIfIsLinkCard(data);
+        this.setCardTypes(data)
 
       })  
   
+  }
+  setCardTypes(data:any){
+    let card = data['card'];
+    this.cardTypes += card.tipo.name;
+
+    if(card.genericType == 'XYZ' )
+      this.cardTypes += " / XYZ";
+    else if(card.genericType == 'FUSION')  
+      this.cardTypes += " / Fusion";
+    else if(card.genericType == 'LINK') 
+      this.cardTypes += " / Link"; 
+    else if(card.genericType == 'SYNCHRO' )
+      this.cardTypes += " / Synchro"; 
+    else if(card.genericType == 'PENDULUM' )
+      this.cardTypes += " / Pendulum"; 
+    
+    if(card.categoria.includes('Toon'))
+      this.cardTypes += " / Toon"; 
+    if(card.categoria.includes('Effect'))
+      this.cardTypes += " / Effect"; 
+    if(card.categoria.includes('Flip'))
+      this.cardTypes += " / Flip"; 
+    if(card.categoria.includes('Tuner'))
+      this.cardTypes += " / Tuner"; 
+
+  }
+
+  verifyIfIsLinkCard(data:any){
+      let card = data['card'];
+      if(card.genericType == 'LINK')
+        this.isLINKCard = true;
+        console.log("is link: " + this.isLINKCard)
   }
 
   cardImagem(cardId: any){

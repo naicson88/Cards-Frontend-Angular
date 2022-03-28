@@ -1,10 +1,15 @@
 #header_div{
+    margin-top: 30px;
     background: #e9ecef;
     height: fit-content;
     padding: 20px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: solid thin silver;
 }
-
+#mainDivHome{
+    padding: 20px;
+    background: white; 
+}
 .my-card
 {
     position:absolute;
@@ -78,6 +83,13 @@
    letter-spacing: 1px;
     text-align: center;
     border-radius: 5px 5px 0 0;
+}
+
+#third_block{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: solid thin silver;
+    border-radius: 5px;
 }
 
 #third_block .block {
