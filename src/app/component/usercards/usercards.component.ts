@@ -215,9 +215,9 @@ export class UsercardsComponent implements OnInit {
 
 
     storedCardId(event){
-      /*  const id = event.target.name;
+        const id = event.target.name;
         console.log(id);
-        localStorage.setItem("idCard", id);*/
+        localStorage.setItem("idCard", id);
     
         const cardNumber = event.target.name;
         if(cardNumber != null && cardNumber != ""){

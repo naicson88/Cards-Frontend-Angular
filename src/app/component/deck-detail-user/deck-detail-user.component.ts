@@ -91,8 +91,10 @@ cardsSearched = []; // Guarda o numero dos cards que ja tiveram Setcode consulta
 
   storedCardId(cardNumber:any){
   
-      if(cardNumber != null && cardNumber != ""){
-        this.cardService.setCardNumber(cardNumber);
+    localStorage.setItem("idCard", cardNumber);
+
+    if(cardNumber != null && cardNumber != ""){
+      this.cardService.setCardNumber(cardNumber);
 
       } else {
          console.log("Unable to consult this card, try again later.");
@@ -704,7 +706,7 @@ saveDeck(){
   this.deckService.saveUserDeck(deckEdited).subscribe(result => {
    // console.log("result " + JSON.stringify(result.headers))
       if(result.ok)
-          this.successDialog("Deck was saved successfully!")
+          this.successDialog("Deck was successfully saved!")
        
   }, error =>{
     console.log(JSON.stringify(error.body))

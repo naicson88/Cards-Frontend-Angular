@@ -23,6 +23,24 @@
  
     
   }
+
+  #toManege{
+    margin-left: 10;
+    border: solid thin #9370DB; 
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-weight: 500;
+    color: white;
+    background-color: #9370DB;
+    width: fit-content;
+    display: inline-block;
+    height: 37px;
+
+  }
+
+  .mat-checkbox-inner-container{
+    background-color: white !important;
+  }
  
 
   #deckContainer{
@@ -261,12 +279,14 @@ select {
 #optionsBtn{
  width: 100%; 
  height: 50px;
-   
+    
     margin-bottom: 10px;
      border: solid thin silver;
       padding: 5px;
       box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
       border-radius: 5px;
+      display: flex;
+     justify-content: space-between;
 
 }
 
