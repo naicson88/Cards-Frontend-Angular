@@ -94,7 +94,7 @@ export class CardDetailComponent implements OnInit {
     
   }
 
-  /*atributoImagem(atributo:string){
+  atributoImagem(atributo:string){
     switch(atributo){
       case 'WATER':
       return '..\\..\\assets\\img\\outras\\WATER.png';
@@ -124,7 +124,7 @@ export class CardDetailComponent implements OnInit {
           return '..\\..\\assets\\img\\outras\\Equip.jpg'; 
     }
     
-  }*/
+  }
 
   /*
   tipoImagem(tipo:string){
