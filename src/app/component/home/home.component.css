@@ -8,7 +8,7 @@
 }
 #mainDivHome{
     padding: 20px;
-    background: white; 
+    background: ghostwhite; 
 }
 .my-card
 {
@@ -55,6 +55,7 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     display: block;
     position: relative;
+    border: solid thin silver
 }
 
 #third_block .block {
@@ -71,6 +72,7 @@
     width: 73%;
     margin-left: 27%;
     margin-top: -320px;
+    border: solid thin #9002bf;
    
 }
 
@@ -123,6 +125,7 @@ max-height:100%;
     border-right: solid thin silver;
     display: inline-block;
     font-family: 'Open Sans', sans-serif
+    
 }
 
 .last_img{

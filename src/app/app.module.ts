@@ -1,6 +1,6 @@
 import { UsercardsModule } from './component/usercards/usercards.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { Injector, NgModule } from '@angular/core';
+import { Injector, LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { DeckComponent } from './component/deck/deck.component';
@@ -96,9 +96,12 @@ import { AdminDashboardModule } from './component/admin/admin-dashboard/admin-da
   providers: [
     BaseRoleGuard,
     authStrategyProvider, 
-    {provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    
+    },
 
   {provide: HTTP_INTERCEPTORS,useClass: SpinnerService, multi: true },
   Imagens,

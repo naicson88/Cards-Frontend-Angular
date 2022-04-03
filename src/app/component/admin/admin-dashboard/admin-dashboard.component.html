@@ -1,9 +1,9 @@
 <div class="container">
 
     <div id="header-block">
-        <button type="button" class="btn btn-outline-primary btn-lg">NEW SET</button>
-        <button type="button" class="btn btn-outline-secondary btn-lg">NEW CARD</button>
-        <button type="button" class="btn btn-outline-success btn-lg">EDIT CARD</button>
+        <button type="button" class="btn btn-outline-primary btn-lg" (click)="showForm('NEW SET')">NEW SET</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg" (click)="showForm('NEW COLLECTION')">NEW COLLECTION</button>
+        <button type="button" class="btn btn-outline-success btn-lg" >EDIT CARD</button>
         <button type="button" class="btn btn-outline-danger btn-lg">REMOVE SET</button>
         <button type="button" class="btn btn-outline-dark btn-lg">NEW ARCHETYPE</button>
     </div>
@@ -11,10 +11,11 @@
     <div class="body-admin">
 
         <div id="divTitle" style="color: navy;  margin-left: 40%;">
-            <h3 style="font-weight: 600;">NEW SET</h3>
+            <h3 style="font-weight: 600;">{{chosenMenu}}</h3>
         </div>
 
-       <form action="" [formGroup]="formDeck" (ngSubmit)="onSubmit()">
+        <!--NEW SET-->
+       <form *ngIf="chosenMenu == 'NEW SET'" action="" [formGroup]="formDeck" (ngSubmit)="onSubmit()" style="padding: 20px;">
            <div class="form-group">
                 <label for="nome" style="color: blueviolet; font-weight: 600;">Set Name</label>
                 <input type="text" class="form-control" name="nome" id="nome" required formControlName="nome">
@@ -42,7 +43,7 @@
 
            <div class="form-group">
                <label for="releaseDate" style="color:cornflowerblue; font-weight: 600;">Release Date</label><br>
-                <input matInput [matDatepicker]="picker"  style="width:20%" name="releaseDate" formControlName="lancamento" >
+                <input matInput [matDatepicker]="picker" class="form-control" style="width:20%" name="releaseDate" formControlName="lancamento" >
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
            </div>
@@ -50,5 +51,59 @@
          <input type="submit" class="btn btn-primary mt-4" value="Save" style="margin-left: 45%;">
 
        </form>
+
+       <!--NEW COLLECTION-->
+       <form *ngIf="chosenMenu == 'NEW COLLECTION'" action="" [formGroup]="formCollection" (ngSubmit)="onSubmit()" style="padding: 20px;">
+            <div class="form-group">
+                <label for="name" style="color: blueviolet;">Collection Name</label>
+                <input type="text" class="form-control" name="name" id="name" required formControlName="name">
+            </div>
+
+            <div class="form-group">
+                <label for="portugueseName" style="color: green; ">Collection Portuguese Name</label>
+                <input type="text" class="form-control" name="portugueseName" id="portugueseName" required formControlName="portugueseName">
+            </div>
+
+        <div class="form-group">
+            <label for="imgPath" style="color: blue; ">Image Path</label>
+            <input type="text" class="form-control" name="imgPath" id="imgPath" required formControlName="imgPath"  style="width:50%">
+        </div>
+
+        <div class="form-group">
+            <label for="deckParameters" style="color:cornflowerblue; ">Deck Parameters</label><br>
+            <span style="font-size: x-small;"><i>Ex: ESS03-AN;DeckName;ABC-YA;default</i> </span>
+            <input type="text" class="form-control" name="deckParameters" id="deckParameters"  formControlName="deckParameters"  style="width:50%">
+        </div>
+
+        <div style="display: flex; justify-content: space-around; align-items: center;">
+            
+            <div class="form-group" style="width: fit-content;">
+                <label for="setType" style="color:brown; ">Collection Type</label>
+                <select name="setType" class="form-control" id="setType" style="width:100%" formControlName="setType"> 
+                    <option value="BST" selected>Booster</option>
+                    <option value="B">Box</option>
+                    <option value="T">Tin</option>                   
+                </select>
+            </div>
+
+            <div class="form-group" style="width: fit-content;">
+                <label for="releaseDate" style="color:cornflowerblue;">Release Date</label><br>             
+                <input matInput  [matDatepicker]="picker" style="width:50%" name="releaseDate" formControlName="releaseDate" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+               
+            </div>
+
+            <div class="form-group">             
+                <mat-checkbox class="example-margin"  formControlName="onlyDefaultDeck" id="onlyDefaultDeck" name="onlyDefaultDeck">Only Default Deck</mat-checkbox>                            
+            </div>
+        </div>
+     
+        <input type="button" (click)="onSubmitSetCollection()" class="btn btn-primary mt-4" value="Save" style="margin-left: 45%;">
+
+    </form>
+
+
+
     </div>
 </div>
