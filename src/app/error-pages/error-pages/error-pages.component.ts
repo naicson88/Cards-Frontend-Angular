@@ -41,9 +41,7 @@ export class ErrorPagesComponent implements OnInit, AfterViewChecked {
           this.errorImage = '..//..//..//assets//img//error//500.jpg';
           return;
         }
-        
-      
-   
+
   }
 
 }

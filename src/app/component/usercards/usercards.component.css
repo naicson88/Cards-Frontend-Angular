@@ -16,6 +16,10 @@
 #main-div {
     transition: margin-left .5s;
     padding: 16px;
+    margin-top: 20px;
+    border: solid thin silver; 
+    background:ghostwhite;
+    
   }
 
 .set-header{

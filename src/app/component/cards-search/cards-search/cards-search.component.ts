@@ -393,7 +393,7 @@ export class CardsSearchComponent implements OnInit {
       
         const cardNumber = event.target.name;
         if(cardNumber != null && cardNumber != ""){
-          console.log(cardNumber)
+          localStorage.setItem("idCard", cardNumber);
           this.cardService.setCardNumber(cardNumber);
         
         } else {

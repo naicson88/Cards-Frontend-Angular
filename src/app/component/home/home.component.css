@@ -1,10 +1,15 @@
 #header_div{
+    margin-top: 30px;
     background: #e9ecef;
     height: fit-content;
     padding: 20px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: solid thin silver;
 }
-
+#mainDivHome{
+    padding: 20px;
+    background: ghostwhite; 
+}
 .my-card
 {
     position:absolute;
@@ -50,6 +55,7 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     display: block;
     position: relative;
+    border: solid thin silver
 }
 
 #third_block .block {
@@ -66,6 +72,7 @@
     width: 73%;
     margin-left: 27%;
     margin-top: -320px;
+    border: solid thin #9002bf;
    
 }
 
@@ -78,6 +85,13 @@
    letter-spacing: 1px;
     text-align: center;
     border-radius: 5px 5px 0 0;
+}
+
+#third_block{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: solid thin silver;
+    border-radius: 5px;
 }
 
 #third_block .block {
@@ -111,6 +125,7 @@ max-height:100%;
     border-right: solid thin silver;
     display: inline-block;
     font-family: 'Open Sans', sans-serif
+    
 }
 
 .last_img{

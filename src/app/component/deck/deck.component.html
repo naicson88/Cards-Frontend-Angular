@@ -92,12 +92,12 @@
                                  <a *ngIf="set_type != 'UD'" name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/deck-details/', deck.nome]" >
                                  <!--(click)="storeDeckId($event)"-->
                                   {{deck.nome}}
-                                 </a><br>
+                                 </a>
 
                                  <a *ngIf="set_type == 'UD'" name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/user-deck-details/', deck.nome]" >
                                     <!--(click)="storeDeckId($event)"-->
                                      {{deck.nome}}
-                                 </a><br>
+                                 </a>
                               <!-- <a href="#">
                                  <span >{{deck.nomePortugues}}</span>
                               </a>                             -->
@@ -105,7 +105,7 @@
                            </h6>
                            <span class="tag1"></span>
                      </div>
-                     <div class="col-md-6 col-sm-10 col-xs-10" style="margin-left: -4px;">
+                     <div class="col-md-6 col-sm-10 col-xs-10" style="margin-left: -6px;">
                         <div class="deckuct-image">
                            <img [src]='deck.imagem' class="img-responsive" height="238px" width="200px" title="{{deck.nome}}">
                            <!-- <span class="tag2 hot">

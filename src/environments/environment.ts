@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   devCardsMain: 'http://localhost:8080/yugiohAPI',
   devCardsAdmin: 'http://localhost:8081/v1/admin',
-  devCardsAPIGateway:'http://localhost:8082'
+  cardsAPIGateway:'http://localhost:8082'
 };
 
 /*
