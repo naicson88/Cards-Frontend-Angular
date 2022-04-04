@@ -6,6 +6,7 @@ export class SetCollection {
     setType:string;
     releaseDate:Date;
     onlyDefaultDeck:boolean
+    isSpeedDuel:boolean
 
 
 }

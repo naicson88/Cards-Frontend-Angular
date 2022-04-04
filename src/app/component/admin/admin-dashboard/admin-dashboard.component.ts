@@ -79,7 +79,8 @@ export class AdminDashboardComponent implements OnInit {
       deckParameters: new FormControl(setCollection.deckParameters),
       setType: new FormControl(setCollection.setType),
       releaseDate: new FormControl(setCollection.releaseDate),
-      onlyDefaultDeck: new FormControl(setCollection.onlyDefaultDeck)
+      onlyDefaultDeck: new FormControl(setCollection.onlyDefaultDeck),
+      isSpeedDuel: new FormControl(setCollection.isSpeedDuel)
     })
    
   }
