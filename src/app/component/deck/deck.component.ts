@@ -119,7 +119,8 @@ export class DeckComponent implements OnInit {
 
     addSetToUserCollection(event:any){
       let qtdCardManeged:number;
-      let setId = event.target.name;
+      let setId =  event //event.target.name;
+      debugger
 
       this.service.addSetToUsersCollection(setId).subscribe(data => {
         qtdCardManeged = data;

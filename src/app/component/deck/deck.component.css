@@ -337,8 +337,29 @@ margin-left: 50%;
   font-size: 20px;
 }
 
+.image_card_bottom{
 
+width: 95%;
+ height: 30px; 
+ margin-top: 5px;
+padding-left: 5px;
+}
 
+.input_qtd_userhave{
+ height: 30px;
+ width: 45px;
+  border-radius: 2px;
+  border: solid red thin;
+}
+
+.btn_add {
+ float: right;
+  background-color: #28a745 !important;
+}
+
+.btn_add:hover{
+  background-color: #2cbd4e !important;
+}
 
 
 
