@@ -23,7 +23,7 @@ export class DeckService {
   } */
 
     public getDecks(params, set_type:string): Observable<any>{
-      if(set_type == "D" || set_type == "T" || set_type == "B"){ // Se for Konami set
+      if(set_type == "DECK" || set_type == "TIN" || set_type == "BOX"){ // Se for Konami set
          
         return  this.http.get(this.base_url+`/decks/get-sets?size=${params.size}&page=${params.page}&setType=${set_type}`)
         .pipe(

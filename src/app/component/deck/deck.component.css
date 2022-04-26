@@ -161,10 +161,9 @@ justify-items: center;
   border-right: 0px solid #fff !important
 }
 
-.deckuct-deatil .name {
-  margin-top: 0;
-  margin-bottom: 0;
-  width: 250% !important;
+.deckuct-deatil-div {
+
+  width: 100% !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -281,15 +280,6 @@ max-width:900px ;
 margin-left: 50%;
 }
 
-#row-list{
-  display: inline-block;
-  margin-left: auto; 
-  width: 48%;
-  margin-bottom: 5px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border: solid thin cadetblue;
-  margin: 1px;
-}
 
 #divSelectCollection{
   margin-left: 10%; 
@@ -361,10 +351,28 @@ padding-left: 5px;
   background-color: #2cbd4e !important;
 }
 
+.img_deck_list {
+  width: 50px; 
+  position: relative;
+}
 
+#row-list{
+  display: inline-flex;
+  width: 48%;
+  margin-bottom: 5px;
+ 
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: solid thin cadetblue;
+  margin: 1px;
+}
 
+#sets-list{
 
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 5%;
 
+}
 
 
 

@@ -41,7 +41,7 @@ export class DeckComponent implements OnInit {
      private toastr: ToastrService, private  spinner: SpinnerService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    debugger
+    
     this.route.data.subscribe(set_type =>{
       this.set_type = set_type.set_type;
     })
@@ -64,7 +64,7 @@ export class DeckComponent implements OnInit {
     this.service.getDecks(params, this.set_type).subscribe(data => {
   
      const {content, totalElements} = data;
-      //this.deck = data
+      console.log(data);
       this.deck = content;
       this.totalItens = totalElements;
 

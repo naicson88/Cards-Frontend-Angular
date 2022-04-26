@@ -18,7 +18,7 @@ import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.compo
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 
 const routes: Routes = [
-  { path: 'decks', component: DeckComponent , data : {set_type: 'D'}},
+  { path: 'decks', component: DeckComponent , data : {set_type: 'DECK'}},
   { path: 'tins', component: DeckComponent , data : {set_type: 'T'}},
   { path: 'boxes', component: DeckComponent , data : {set_type: 'B'}},
   { path: 'usercollection/decks', component: DeckComponent , data : {set_type: 'UD'}},
