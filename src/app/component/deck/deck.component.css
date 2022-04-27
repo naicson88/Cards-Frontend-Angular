@@ -42,6 +42,9 @@ justify-items: center;
   padding: 5px;
   background-color: #3f51b5;
   height: 50px;
+  display: flex;
+  justify-content: space-between;
+
 
  
 }
@@ -187,7 +190,7 @@ div .row {
 
 
 input[type=search] {
-  background: rgb(255, 252, 252) url(https://upload.wikimedia.org/wikipedia/commons/c/ca/VisualEditor_-_Icon_-_Search.svg)no-repeat 5px center; ;
+  background: rgb(255, 252, 252) url(https://upload.wikimedia.org/wikipedia/commons/c/ca/VisualEditor_-_Icon_-_Search.svg) no-repeat 5px center; 
 	border: solid 1px #ccc;
 	padding: 9px 10px 9px 32px;
   width: 55px;
@@ -373,6 +376,24 @@ padding-left: 5px;
   margin-left: 5%;
 
 }
+
+.form-select {
+  border-radius: 5px;
+  padding: 5px;
+ 
+}
+
+select option {
+  padding: 4px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+
+
+
+
 
 
 

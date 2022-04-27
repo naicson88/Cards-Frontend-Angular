@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
+import { Imagens } from 'src/app/classes/Imagens';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class DeckComponent implements OnInit {
  pageSizes = [12,24,48,100];
  totalItens = 0;
 
- set_type: any;
+ set_type: string;
 
  deck: Deck[]
  relUserDeck: any[];
@@ -36,6 +37,8 @@ export class DeckComponent implements OnInit {
  deckFilter: any= {nome:''}
 
  user: any;
+
+ imgPath: string;
  
   constructor(private service: DeckService, private domSanitizer: DomSanitizer, private  router: Router, public dialog: MatDialog,
      private toastr: ToastrService, private  spinner: SpinnerService, private route: ActivatedRoute) { }
@@ -55,16 +58,17 @@ export class DeckComponent implements OnInit {
       this.router.navigate(['deck-details', nome]);
     }
   }
-
-  
+ 
   getDecksInfo(): void {
-  
+    this.imgPath =  Imagens.basic_img_path + this.set_type.toLowerCase() + "\\";
+    console.log(this.imgPath)
+
     const params = this.getRequestParam(this.pageSize, this.page);
-    
+    this.spinner.show();
     this.service.getDecks(params, this.set_type).subscribe(data => {
-  
+      
      const {content, totalElements} = data;
-      console.log(data);
+      //console.log(data);
       this.deck = content;
       this.totalItens = totalElements;
 
@@ -73,30 +77,32 @@ export class DeckComponent implements OnInit {
         this.safeUrl = this.domSanitizer.bypassSecurityTrustUrl(this.deck[i].imagem);  
 
       }
+
       let decksIds = [];
 
       for(var i = 0; i < this.deck.length; i++){
+        //CHANGE CASE IMG PATH CHANGE TO CLOUD
+        this.deck[i].imagem = this.imgPath + this.deck[i].nome + ".jpg";
         if(this.deck[i]['id'] != null){decksIds.push(this.deck[i]['id'] )}
        }
 
-      this.service.relUserDeck(decksIds).subscribe(rel => {
-       this.relUserDeck = rel;
-       console.log(this.relUserDeck);
-      //Adiciona ao objeto a quantidade de Decks que o usuário tem
-       this.deck.forEach( comp => {
-         this.relUserDeck.map( e => {
-           if(e.deckId === comp.id){
-             Object.assign(comp, {"quantityUserHave": e.quantity})
-           }
-         })
-       })
+      // this.service.relUserDeck(decksIds).subscribe(rel => {
+      //   this.relUserDeck = rel;
 
-     })
+      //   //Adiciona ao objeto a quantidade de Decks que o usuário tem
+      //   this.deck.forEach( comp => {
 
-     
-       
+      //     this.relUserDeck.map( e => {
+      //       if(e.deckId === comp.id){
+      //         Object.assign(comp, {"quantityUserHave": e.quantity})
+      //       }
+      //     })
+      //   })
+
+      // })
+
     })
-
+    
     error => {
       console.log(error);
     }
@@ -258,6 +264,21 @@ export class DeckComponent implements OnInit {
       this.errorDialog("Sorry, some error happened. Try again later.");
     })
 
+  }
+
+  getSetTypeValue(setType:string){
+
+    if(setType == null || setType == undefined){
+      this.errorDialog("Sorry, it was not possible consult itens.");
+      return false;
+    }
+
+    this.set_type = setType;
+    this.deck = [];
+    this.totalItens = null;
+
+    this.getDecksInfo();
+     
   }
 
   errorDialog(errorMessage:string){

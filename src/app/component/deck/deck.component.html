@@ -7,15 +7,8 @@
    </div>
 
    <div id="header-main" >
-
-      <div >
-
-         <!-- <div class="input-group input-group-sm" style="width: 300px; margin-top: 5px; margin-left: 10px;">
-           <input class="form-control mr-sm-2" type="search"
-           placeholder="Search deck.." aria-label="Search" [(ngModel)]="deckFilter.nome"  >
-       </div>  -->
        
-       <div class="wrap" style="margin-top: 5px;">
+       <div class="wrap" >
          <div class="search">
             <input type="text" class="searchTerm" placeholder="Search deck..." maxlength="50" [(ngModel)]="setName" name="setName">
             <button type="submit" class="searchButton" >
@@ -25,52 +18,24 @@
       </div>
        
             <!-- PAGINATION-->
-      <div style="margin-left: 40%; margin-top: -23px;">
-<!--
-         <mat-form-field appearance="standard">
-            <mat-label style="color: white;">Quantity per page</mat-label>
-            <mat-select (selectionChange)="handlePageSizeChange($event)" style="color: white;">
-            <mat-option [value]="size" *ngFor="let size of pageSizes">
-               {{size}}
-            </mat-option>
-            </mat-select>
-         </mat-form-field> -->
-         <label for="" style="color: white; font-size: small;">Quantity per page: </label>&nbsp;
-         <select class="form-select" aria-label="Default select example" (change)="handlePageSizeChange($event.target.value)">
-            <option [value]="size" *ngFor="let size of pageSizes"> {{size}}</option>
-         </select>
-
-         <div style="width: 30%; float:right">
+         <div style="width:fit-content">
+            <label for="" style="color: white; font-size: small;">Quantity per page: </label>&nbsp;
+            <select class="form-select" aria-label="Default select example" (change)="handlePageSizeChange($event.target.value)">
+               <option [value]="size" *ngFor="let size of pageSizes"> {{size}}</option>
+            </select>
+         </div>
+        <!-- SET TYPE-->
+         <div style="width: 30%;">
             <label for=""  style="color: white; font-size: small;">Collection: </label>&nbsp;
-            <select class="form-select" aria-label="Default select example">
-               <option value="1" selected>Deck</option>
-               <option value="2">Tin</option>
-               <option value="3">Box</option>
-               <option value="4">Booster</option>
+            <select class="form-select" aria-label="Default select example" (change)="getSetTypeValue($event.target.value)">
+               <option value="DECK" selected>Deck</option>
+               <option value="TIN">Tin</option>
+               <option value="BOX">Box</option>
+               <option value="BOOSTER">Booster</option>
              </select>
          </div>
-        
-
-    </div>
-
-
-
-      </div>
 
    </div>
-   <!-- <div id="divSelectCollection">
-
-      <mat-form-field appearance="fill">
-         <mat-label >Collection</mat-label>
-         <mat-select  value="DECK" (selectionChange)="handlePageSizeChange($event)">
-         <mat-option value="DECK"> DECK </mat-option>
-         <mat-option value="TIN"> TIN </mat-option>
-         <mat-option value="BOX"> BOX </mat-option>
-
-         </mat-select>
-      </mat-form-field>
-   </div> -->
-
 
    <!-- Decks-->
    <mat-tab-group mat-align-tabs="end">
@@ -196,9 +161,9 @@
 
             <div  id="row-list" *ngFor="let decklist of deck" >
 
-                   <div  class="img_deck_list">
+                    <div  class="img_deck_list">
                      <img [src]='decklist.imagem'  height="70px" width="50px" title="{{decklist.nome}}" >
-                   </div> 
+                   </div>  
 
                   <div  style="width:90%; height: 70px; background-color:ghostwhite; padding: 5px; display: inline-block; " >
                
