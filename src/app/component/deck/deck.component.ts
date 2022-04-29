@@ -82,7 +82,8 @@ export class DeckComponent implements OnInit {
 
       for(var i = 0; i < this.deck.length; i++){
         //CHANGE CASE IMG PATH CHANGE TO CLOUD
-        this.deck[i].imagem = this.imgPath + this.deck[i].nome + ".jpg";
+        this.deck[i].imagem = this.imgPath + this.deck[i].imagem + ".jpg";
+       
         if(this.deck[i]['id'] != null){decksIds.push(this.deck[i]['id'] )}
        }
 

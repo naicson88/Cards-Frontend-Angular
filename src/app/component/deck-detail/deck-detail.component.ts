@@ -5,6 +5,7 @@ import {Chart} from   'Chart.js';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { ActivatedRoute} from '@angular/router';
+import { Imagens } from 'src/app/classes/Imagens';
 
 
 @Component({
@@ -45,12 +46,16 @@ export class DeckDetailComponent implements OnInit {
   isShowTooltip: boolean = false;
   
   source:string
+  set_type:string;
+
+  imgPath: string;
   constructor(private service: DeckService, private cardService: CardServiceService, private router: ActivatedRoute) { }
 
   ngOnInit() {
 
     this.router.data.subscribe(source =>{
       this.source = source.source;
+      this.set_type= source.set_type;
     })
 
     window.scrollTo(0, 0);
@@ -65,9 +70,12 @@ export class DeckDetailComponent implements OnInit {
   
     const id = localStorage.getItem("idDeckDetails");
     let src = this.source == 'U' ? 'User' : 'Konami'
-    this.service.getDeckDetails(id, src).subscribe(data => {
+    this.service.getDeckDetails(id, src, this.set_type).subscribe(data => {
       this.deckDetails = data;
+
+      this.imgPath =  Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
       console.log(this.deckDetails);
+    //  console.log(this.imgPath);
 
       this.setCodeAndPrice(this.deckDetails)
       this.estatisticasDeck(data);  
@@ -81,12 +89,13 @@ export class DeckDetailComponent implements OnInit {
     })
    
   }
+
   setCodeAndPrice(deckDetails: Deck) {
-    
+      
       let rel:RelDeckCards[] = deckDetails['rel_deck_cards'];
 
       this.deckDetails.cards.forEach(card => {
-          let relationOfACard: RelDeckCards = rel.find(relation => relation.card_numero == card.numero);
+          let relationOfACard: RelDeckCards = rel.find(relation => relation.cardNumber == card.numero);
 
           if(relationOfACard != null && relationOfACard != undefined){
               card.price =relationOfACard.card_price;
@@ -233,13 +242,13 @@ export class DeckDetailComponent implements OnInit {
 
     for(let j = 0; j <= 2; j++){
       let objCardsValiosos = {
-        numero:arrCardsVal[j].card_numero,
+        numero:arrCardsVal[j].cardNumber,
         imagem:'',
         preco:arrCardsVal[j].card_price
       }
 
-      let img = data['cards'].filter((card_numero) => {
-        return (card_numero.numero == objCardsValiosos.numero);
+      let img = data['cards'].filter((cardNumber) => {
+        return (cardNumber.numero == objCardsValiosos.numero);
       })
 
       objCardsValiosos.imagem = img[0].imagem;
@@ -462,7 +471,7 @@ export class DeckDetailComponent implements OnInit {
 
   returnCardRarityImage(cardNumber:any){
     
-    let card:RelDeckCards = this.deckDetails['rel_deck_cards'].find(card => card.card_numero == cardNumber);
+    let card:RelDeckCards = this.deckDetails['rel_deck_cards'].find(card => card.cardNumber == cardNumber);
 
     if(card != null && card != undefined){
       if(card.card_raridade == "Ultra Rare")

@@ -8,13 +8,14 @@
     border-color: #BEBEBE;
     margin-left: 7%;
     min-width: 900px;
+    background: white;
 }
 
 #cabecalhoDeck{
     width: 65%;
     height: 310px;
-    background-color: white;
-    border: solid thin;
+    background-color: ghostwhite;
+    border: solid brown ;
     margin-left: 20%;
     padding: 10px;
     vertical-align:top;
@@ -53,6 +54,16 @@
     margin-top: 10px;
     padding-top: 5px;
 }*/
+
+.nome-cabecalho {
+  font-size: 1.3em;
+  color: darkblue; 
+  font-weight: 700;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;              /* "overflow" value must be different from "visible" */
+  text-overflow:    ellipsis;
+}
 
 .raridade ul li {
   font-weight: 500;
@@ -258,4 +269,5 @@
       padding: 7px;
       text-align: justify;
   }
+ 
  

@@ -40,9 +40,9 @@ export class DeckService {
    
   } 
 
-  public getDeckDetails(id:any, source:string) {
+  public getDeckDetails(id:any, source:string, set_type:string ) {
 
-    return this.http.get<Deck>(this.base_url+`/decks?id=${id}&source=${source}`) 
+    return this.http.get<Deck>(this.base_url+`/decks/set-details?id=${id}&source=${source}&setType=${set_type}`) 
     .pipe(
       catchError(HandleErros.handleError)
     )

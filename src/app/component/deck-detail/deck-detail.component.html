@@ -7,19 +7,19 @@
     <div id="cabecalhoDeck" class="row">
       
         <div id="imagemCabecalho">
-            <img [src]='deckDetails.imagem' alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;">
+            <img [src]='imgPath' alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;">
         </div>
 
         <div id="informacoes">
             <!--Nome do Deck e data de lançamento-->
            
             <div class="row" style="border-bottom: solid thin #ccc; height: 40px;">
-                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 hide-sm">
-                    <p class="nome-cabecalho" style="font-size: 1.3em; color: #0d0d0d; font-weight: 700;">{{deckDetails.nome}}</p>
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 hide-sm" >
+                    <p class="nome-cabecalho">{{deckDetails.nome}}</p>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4">
                     <p class="dt_lancamento" style=" color:#555;
-                    font-weight: 700;"> <i> 04/07/2017 </i></p>
+                    font-weight: 700;"> <i> {{deckDetails.lancamento}}</i></p>
                 </div>
             </div>
             <!--Raridade-->
@@ -60,17 +60,7 @@
                 </div>
 
             </div>
-            <!--Total de Cartas-->
-     
-            <!--Descrição-->
-            <!-- <div class="row" style="margin-top: 20px;">
-                <label class="col-xl-9 col-lg-9 col-md-9 col-sm-8 hide-sm" style="font-size: small;">Description:</label> <br>
-                <p class="p-descricao">
-                    Deck Inicial: Ataque Link é um Deck Inicial no Yu-Gi-Oh! Estampas Ilustradas (TCG).
-                     É o décimo segundo deck na série de Decks Iniciais anuais do TCG, e é sucessor do Deck Inicial - Yuya e 
-                     o antecessor do Deck Inicial: Decifrador de Códigos.
-                </p>
-            </div> -->
+            
         </div>
     </div>
 
