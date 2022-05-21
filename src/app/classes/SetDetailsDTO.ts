@@ -15,11 +15,11 @@ export class SetDetailsDTO {
     setType: string;
     dt_criacao: Date
     isSpeedDuel: string;
-    insideDeck: InsideDeck;
+    insideDeck: InsideDeck[];
     statsQuantityByAttribute: [];
     statsQuantityByLevel: [];
     statsQuantityByProperty: [];
-    statsQuantityByGenericType: [];
+    statsQuantityByGenericType: any;
     statsAtk: [];
     statsDef: [];
 }

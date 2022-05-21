@@ -54,7 +54,7 @@
 
                
                 <div id="allCards">
-                  <label for="" style="font-size: small">Cards: <a  *ngFor="let card of deckDetails.cards" style="font-size: small;"
+                  <label for="" style="font-size: small">Cards: <a  *ngFor="let card of arrInsideDecksCards" style="font-size: small;"
                      [routerLink]="['/card-detail/', card.nome]"  name="{{card.numero}}" (click)="storedCardId($event)"
                     >	&#9830; {{card.nome}} </a> </label>
                 </div>
@@ -86,7 +86,7 @@
               Card Details
             </div>
             <!-- Row div Card Details-->
-            <div class="row linha-div-carddetails" *ngFor="let cardsInfo of deckDetails.cards"
+            <div class="row linha-div-carddetails" *ngFor="let cardsInfo of arrInsideDecksCards"
             style="background: rgb(2,0,36);
             background: linear-gradient(153deg, rgba(2,0,36,1) 0%, rgba(241,241,241,1) 0%, rgba(230,239,240,1) 25%, rgba(249,241,241,1) 72%, rgba(211,219,221,1) 100%, rgba(241,241,241,1) 100%);">
                <div class="col-xl-2 col-lg-1 col-md-2 col-sm-2 hide-sm">
@@ -277,7 +277,7 @@
                      General View                
                 </div>
                 <div class="container" style="margin-top: 20px; display: flex;  justify-content: space-around; width: 100%; flex-wrap: wrap;" >
-                    <div id="imgGeneral" *ngFor="let imgGen of deckDetails.cards"    
+                    <div id="imgGeneral" *ngFor="let imgGen of arrInsideDecksCards"    
                     style="margin-left: 1%; margin-bottom: 1%; cursor: pointer; " class="imgCard">
                         <img [src]='cardImagem(imgGen.numero)' alt="" width="160px" height="219px"
                         (mouseover)="mostrarImgToolTip(imgGen.imagem, $event)"
@@ -300,28 +300,30 @@
                 Statistics
               </div>
               <div class="grey-bg ">
-                    <section id="minimal-statistics">
+                    <div id="minimal-statistics">
                    
                       <div class="row" >
-                        <div class="col-xl-3 col-sm-6 col-12 box-desc"> 
-                          <div class="card-static" style="border: solid thin BurlyWood;"> 
-                            <div class="card-content">
-                              <div class="card-body">
-                                <div class="media d-flex">
-                                  <div class="align-self-center">
-                                    <img src="/../../assets/img/outras/monsterIcon.png" alt="" width="58px" height="85px">
-                                  </div>
-                                  <div class="media-body text-right">
-                                    <h3> {{countsGeneric_type[0].MONSTER}}</h3>
- 
-                                    <span>Monsters</span>
+
+                          <div class="col-xl-3 col-sm-6 col-12 box-desc" *ngIf="hasProp(countsGeneric_type,'MONSTER')"> 
+                            <div class="card-static " style="border: solid thin BurlyWood;"> 
+                              <div class="card-content">
+                                <div class="card-body">
+                                  <div class="media d-flex">
+                                    <div class="align-self-center">
+                                      <img src="/../../assets/img/outras/monsterIcon.png" alt="" width="58px" height="85px">
+                                    </div>
+                                    <div class="media-body text-right">
+                                      <h3 > {{countsGeneric_type.MONSTER}}</h3>
+  
+                                      <span>Monsters</span>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-xl-3 col-sm-6 col-12 box-desc">
+                          
+                        <div class="col-xl-3 col-sm-6 col-12 box-desc" *ngIf="hasProp(countsGeneric_type,'SPELL')">
                           <div class="card-static" style="border: solid thin green;">
                             <div class="card-content">
                               <div class="card-body">
@@ -330,8 +332,8 @@
                                     <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px">
                                   </div>
                                   <div class="media-body text-right">
-                                    <h3>{{countsGeneric_type[0].SPELL}}</h3>
-                                    <span>Spells cards</span>
+                                    <h3>{{countsGeneric_type.SPELL}}</h3>
+                                    <span>Spell</span>
                                   </div>
                                 </div>
                               </div>
@@ -339,7 +341,7 @@
                           </div>
                         </div>
 
-                        <div class="col-xl-3 col-sm-6 col-12 box-desc">
+                        <div class="col-xl-3 col-sm-6 col-12 box-desc" *ngIf="hasProp(countsGeneric_type,'TRAP')">
                           <div class="card-static" style="border: solid thin red;">
                             <div class="card-content">
                               <div class="card-body">
@@ -349,16 +351,16 @@
                                   </div>
                                   <div class="media-body text-right">
                                    <!-- <h3>{{countsGeneric_type[0].TRAP}}</h3> -->
-                                  <h3 *ngIf="countsGeneric_type[0].TRAP > 0; then maior else menor"> {{countsGeneric_type[0].TRAP}} </h3>
+                                  <h3> {{countsGeneric_type.TRAP}} </h3>
                                 
-                                    <span>Traps cards</span>
+                                    <span>Traps</span>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6 col-12 box-desc">
+                        <div class="col-xl-3 col-sm-6 col-12 box-desc" *ngIf="hasProp(countsGeneric_type,'PENDULUM')">
                           <div class="card-static" style="border: solid thin BurlyWood ;">
                             <div class="card-content">
                               <div class="card-body">
@@ -367,8 +369,8 @@
                                     <img src="/../../assets/img/outras/pendulumIcon.png" alt="" width="58px" height="85px">
                                   </div>
                                   <div class="media-body text-right">
-                                    <h3>{{countsGeneric_type[0].PENDULUM}}</h3>
-                                    <span>Pendulum Monsters</span>
+                                    <h3>{{countsGeneric_type.PENDULUM}}</h3>
+                                    <span>Pendulum</span>
                                   </div>
                                 </div>
                               </div>
@@ -377,15 +379,15 @@
                         </div>
                       </div>
                     
-                      <div class="row">
+                      <div class="row" class="danger" *ngIf="hasProp(countsGeneric_type,'XYZ')">
                         <div class="col-xl-3 col-sm-6 col-12 box-desc">
                           <div class="card-static" style="border: solid thin ;">
                             <div class="card-content">
                               <div class="card-body">
                                 <div class="media d-flex">
                                   <div class="media-body text-left">
-                                    <h3 class="danger">{{countsGeneric_type[0].XYZ}}</h3>
-                                    <span>XYZ Monsters</span>
+                                    <h3 >{{countsGeneric_type.XYZ}}</h3>
+                                    <span>XYZ</span>
                                   </div>
                                   <div class="align-self-center">
                                     <img src="/../../assets/img/outras/xyzIcon.png" alt="" width="58px" height="85px">
@@ -395,35 +397,16 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6 col-12 box-desc">
-                          <div class="card-static" style="border: solid thin silver;">
-                            <div class="card-content">
-                              <div class="card-body">
-                                <div class="media d-flex">
-                                  <div class="media-body text-left">
-                                    <h3 class="success" *ngIf="countsGeneric_type[0].SYNCHRO > 0 ? countsGeneric_type[0].SYNCHRO : 0">
-                                    
-                                    </h3>
-                                    <span>Sincron Monsters</span>
-                                  </div>
-                                  <div class="align-self-center">
-                                    <img src="/../../assets/img/outras/syncronIcon.png" alt="" width="58px" height="85px">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                     
                  
-                        <div class="col-xl-3 col-sm-6 col-12 box-desc" >
+                        <div class="col-xl-3 col-sm-6 col-12 box-desc"  *ngIf="hasProp(countsGeneric_type,'FUSION')">
                           <div class="card-static" style="border: solid thin purple;">
                             <div class="card-content">
                               <div class="card-body">
                                 <div class="media d-flex">
                                   <div class="media-body text-left">
-                                    <h3 class="primary">{{countsGeneric_type[0].FUSION}}</h3>
-                                    <span>Fusion Monsters</span>
+                                    <h3 class="primary">{{countsGeneric_type.FUSION}}</h3>
+                                    <span>Fusion</span>
                                   </div>
                                   <div class="align-self-center">
                                     <img src="/../../assets/img/outras/fusionIcon.png" alt="" width="58px" height="85px">
@@ -434,14 +417,14 @@
                           </div>
                         </div>  
 
-                        <div class="col-xl-3 col-sm-6 col-12 box-desc">
+                        <div class="col-xl-3 col-sm-6 col-12 box-desc" *ngIf="hasProp(countsGeneric_type,'LINK')">
                           <div class="card-static" style="border: solid thin blue;">
                             <div class="card-content">
                               <div class="card-body">
                                 <div class="media d-flex">
                                   <div class="media-body text-left">
-                                    <h3 class="warning">{{countsGeneric_type[0].LINK}}</h3>
-                                    <span>Link Monsters</span>
+                                    <h3 class="warning" >{{countsGeneric_type.LINK}}</h3>
+                                    <span>Link</span>
                                   </div>
                                   <div class="align-self-center">
                                     <img src="/../../assets/img/outras/linkIcon.png" alt="" width="58px" height="85px">
@@ -452,14 +435,14 @@
                           </div>
                         </div>
                          
-                        <div class="col-xl-3 col-sm-6 col-12 box-desc">
+                        <div class="col-xl-3 col-sm-6 col-12 box-desc" *ngIf="hasProp(countsGeneric_type,'RITUAL')">
                           <div class="card-static" style="border-color: solid thin green; outline: 1px solid  CornflowerBlue ;">
                             <div class="card-content">
                               <div class="card-body">
                                 <div class="media d-flex">
                                   <div class="media-body text-left">
-                                    <h3 class="primary">{{countsGeneric_type[0].RITUAL}}</h3>
-                                    <span>Ritual Monsters</span>
+                                    <h3 class="primary" >{{countsGeneric_type.RITUAL}}</h3>
+                                    <span>Ritual</span>
                                   </div>
                                   <div class="align-self-center">
                                     <img src="/../../assets/img/outras/ritualIcon.png" alt="" width="58px" height="85px">
@@ -470,7 +453,7 @@
                           </div>
                         </div>
                       </div>
-                    </section>
+                    </div>
                  
                   <div class="row">
                     <!--COLUNA ESQUERDA-->

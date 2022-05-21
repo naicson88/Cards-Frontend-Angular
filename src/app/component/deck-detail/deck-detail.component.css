@@ -243,9 +243,7 @@
 
   }
 
-  .box-desc{
-    background: ghostwhite;
-  }
+
   #rarity ul {
     display: flex;
     flex-direction: row; 
@@ -270,4 +268,14 @@
       text-align: justify;
   }
  
- 
+  #minimal-statistics{
+    padding: 5px;
+    background-color: ghostwhite;
+    margin-bottom: 20px;
+  
+  }
+
+  .box-desc{
+    background: ghostwhite;
+    margin: 5px;
+  }

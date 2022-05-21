@@ -6,6 +6,7 @@ import { HandleErros } from '../Util/HandleErros';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { KonamiDeck } from '../classes/KonamiDeck';
+import { SetDetailsDTO } from '../classes/SetDetailsDTO';
 
 
 @Injectable({
@@ -42,7 +43,7 @@ export class DeckService {
 
   public getDeckDetails(id:any, source:string, set_type:string ) {
 
-    return this.http.get<Deck>(this.base_url+`/decks/set-details?id=${id}&source=${source}&setType=${set_type}`) 
+    return this.http.get<SetDetailsDTO>(this.base_url+`/decks/set-details?id=${id}&source=${source}&setType=${set_type}`) 
     .pipe(
       catchError(HandleErros.handleError)
     )

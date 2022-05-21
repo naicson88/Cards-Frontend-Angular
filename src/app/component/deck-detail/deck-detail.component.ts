@@ -6,6 +6,10 @@ import { CardServiceService } from 'src/app/service/card-service/card-service.se
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { ActivatedRoute} from '@angular/router';
 import { Imagens } from 'src/app/classes/Imagens';
+import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
+import { InsideDeck } from 'src/app/classes/InsideDeck';
+import { Card } from 'src/app/classes/Card';
+import { CardDetailsDTO } from 'src/app/classes/CardDetailsDTO';
 
 
 @Component({
@@ -17,7 +21,8 @@ import { Imagens } from 'src/app/classes/Imagens';
 export class DeckDetailComponent implements OnInit {
   @ViewChild("attrCanvas",{static: true}) elemento: ElementRef;
 
-  deckDetails: Deck
+  deckDetails: SetDetailsDTO
+  arrInsideDecksCards: CardDetailsDTO[];
   
   quantidadePorTipo = [];
   quantidadePorEstrelas = [];
@@ -26,7 +31,7 @@ export class DeckDetailComponent implements OnInit {
   infoGeralDef = [];
   cardsValiosos =[];
   categoriaCards =[];
-  countsGeneric_type = [];
+  countsGeneric_type: any;
 
 
   //ESTATISTICAS DECK
@@ -71,7 +76,9 @@ export class DeckDetailComponent implements OnInit {
     let src = this.source == 'U' ? 'User' : 'Konami'
     this.service.getDeckDetails(id, src, this.set_type).subscribe(data => {
       this.deckDetails = data;
-
+      this.arrInsideDecksCards = data['insideDeck'][0]['cards'];
+      this.countsGeneric_type = data['statsQuantityByGenericType'];
+      console.log("DECK DETAILS: " + JSON.stringify(this.countsGeneric_type))
       this.imgPath =  Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
       console.log(this.deckDetails);
     //  console.log(this.imgPath);
@@ -81,8 +88,8 @@ export class DeckDetailComponent implements OnInit {
       //this.qtdEstrelas(data);
       this.graficoAtributos();
      // this.qtdPropriedades(data);
-      this.infoGeralAtkEDef(data);
-      this.cardsMaisValiosos(data);
+      //this.infoGeralAtkEDef(data);
+      //this.cardsMaisValiosos(data);
      // this.qtdCategoriaCards(data);
 
     })
@@ -452,7 +459,7 @@ export class DeckDetailComponent implements OnInit {
 
   returnCardRarityImage(cardNumber:any){
     
-    let card:RelDeckCards = this.deckDetails['rel_deck_cards'].find(card => card.cardNumber == cardNumber);
+    let card:CardDetailsDTO = this.deckDetails.insideDeck[0].cards.find(card => card.numero == cardNumber);
 
     if(card != null && card != undefined){
       if(card.card_raridade == "Ultra Rare")
@@ -466,6 +473,9 @@ export class DeckDetailComponent implements OnInit {
     }
   }
 
-  
+  hasProp(obj:Object, name:string){
+    console.log("OBJ: " + obj + " NAME: " + name)
+    return obj.hasOwnProperty(name);
+  }
 
 }
