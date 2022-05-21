@@ -64,7 +64,6 @@ export class DeckDetailComponent implements OnInit {
   
   }
 
-
   //Carrega informações do deck
   loadDeckDetails(){
   
@@ -77,36 +76,36 @@ export class DeckDetailComponent implements OnInit {
       console.log(this.deckDetails);
     //  console.log(this.imgPath);
 
-      this.setCodeAndPrice(this.deckDetails)
-      this.estatisticasDeck(data);  
-      this.qtdEstrelas(data);
+      //this.setCodeAndPrice(this.deckDetails)
+     // this.estatisticasDeck(data);  
+      //this.qtdEstrelas(data);
       this.graficoAtributos();
-      this.qtdPropriedades(data);
+     // this.qtdPropriedades(data);
       this.infoGeralAtkEDef(data);
       this.cardsMaisValiosos(data);
-      this.qtdCategoriaCards(data);
+     // this.qtdCategoriaCards(data);
 
     })
    
   }
 
-  setCodeAndPrice(deckDetails: Deck) {
+  // setCodeAndPrice(deckDetails: Deck) {
       
-      let rel:RelDeckCards[] = deckDetails['rel_deck_cards'];
+  //     let rel:RelDeckCards[] = deckDetails['rel_deck_cards'];
 
-      this.deckDetails.cards.forEach(card => {
-          let relationOfACard: RelDeckCards = rel.find(relation => relation.cardNumber == card.numero);
+  //     this.deckDetails.cards.forEach(card => {
+  //         let relationOfACard: RelDeckCards = rel.find(relation => relation.cardNumber == card.numero);
 
-          if(relationOfACard != null && relationOfACard != undefined){
-              card.price =relationOfACard.card_price;
-              card.card_set_code = relationOfACard.card_set_code;
+  //         if(relationOfACard != null && relationOfACard != undefined){
+  //             card.price = relationOfACard.card_price;
+  //             card.card_set_code = relationOfACard.card_set_code;
 
-          } else {
-            alert("Sorry, could not load the page, try again later.")
-            throw new Error("Relation is empty");
-          }
-      });
-  }
+  //         } else {
+  //           alert("Sorry, could not load the page, try again later.")
+  //           throw new Error("Relation is empty");
+  //         }
+  //     });
+  // }
 
   
   cardImagem(cardId: any){
@@ -115,95 +114,77 @@ export class DeckDetailComponent implements OnInit {
   }
   
   //Traz as propriedades contidas no deck
-  qtdPropriedades(data:Deck){
-    let propriedades = [];
-    for(var i = 0; i < data['cards'].length; i++){
-      if(data['cards'][i].propriedade != null){propriedades.push(data['cards'][i].propriedade)}
-    }
-    //console.log(propriedades)
-    propriedades.reduce((acc, val) => {
-      if(!acc[val] && val != "Normal"){
-        acc[val] =  this.qtdPorPropriedade.push({
-          "Propriedade": val,
-          "Quantidade": 1
-        });
-      }
-      else {
-        for(var i = 0 ; i < this.qtdPorPropriedade.length; i++) {
-          if(this.qtdPorPropriedade[i].Propriedade == val){
-            this.qtdPorPropriedade[i].Quantidade += 1;
-          }
-        }
-      }
-      return acc;
-    },{})
-  }
+  // qtdPropriedades(data:Deck){
+  //   let propriedades = [];
+  //   for(var i = 0; i < data['cards'].length; i++){
+  //     if(data['cards'][i].propriedade != null){propriedades.push(data['cards'][i].propriedade)}
+  //   }
+  //   //console.log(propriedades)
+  //   propriedades.reduce((acc, val) => {
+  //     if(!acc[val] && val != "Normal"){
+  //       acc[val] =  this.qtdPorPropriedade.push({
+  //         "Propriedade": val,
+  //         "Quantidade": 1
+  //       });
+  //     }
+  //     else {
+  //       for(var i = 0 ; i < this.qtdPorPropriedade.length; i++) {
+  //         if(this.qtdPorPropriedade[i].Propriedade == val){
+  //           this.qtdPorPropriedade[i].Quantidade += 1;
+  //         }
+  //       }
+  //     }
+  //     return acc;
+  //   },{})
+  // }
 
-  qtdCategoriaCards(data:Deck){
-    let categorias = [];
+  // qtdCategoriaCards(data:Deck){
+  //   let categorias = [];
   
-    for(var i = 0; i < data ['cards'].length; i++){
-     if(data['cards'][i].genericType != null){categorias.push(data['cards'][i].genericType)}
-    }
-    let counts = {};
-    categorias.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
-    //this.categoriaCards.push(this.countsGeneric_type);
-    this.countsGeneric_type.push(counts);
+  //   for(var i = 0; i < data ['cards'].length; i++){
+  //    if(data['cards'][i].genericType != null){categorias.push(data['cards'][i].genericType)}
+  //   }
+  //   let counts = {};
+  //   categorias.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+  //   //this.categoriaCards.push(this.countsGeneric_type);
+  //   this.countsGeneric_type.push(counts);
 
-    /*categorias.reduce((acc, val) => {
-      if(!acc[val]){
-        acc[val] = this.categoriaCards.push({
-          "Generic": val,
-          "Quantidade": 1
-        });      
-      } 
+  // }
 
-      else{
-        for(let i = 0; i < this.categoriaCards.length; i++){
-          if(this.categoriaCards[i].Generic == val){}
-          this.categoriaCards[i].Quantidade += 1;
-        }
-      }
-      return acc;
-    },{}); */
+  // qtdEstrelas(data:Deck){
+  //    let stars = new Array();
+  //   for(var i = 0; i < data['cards'].length; i++){
+  //     if(data['cards'][i].nivel != null){stars.push(data['cards'][i].nivel)}  
+  //   }
 
-    //console.log(this.categoriaCards)
-  }
+  //   stars.reduce((acc, val) => { 
+  //     if(!acc[val]){
+  //       acc[val] = this.quantidadePorEstrelas.push({
+  //         "Estrelas": val,
+  //         "Quantidade": 1
+  //       });
 
-  qtdEstrelas(data:Deck){
-     let stars = new Array();
-    for(var i = 0; i < data['cards'].length; i++){
-      if(data['cards'][i].nivel != null){stars.push(data['cards'][i].nivel)}  
-    }
+  //     }     
+  //     else {
+  //       for(var i = 0 ; i < this.quantidadePorEstrelas.length; i++) {
+  //         if(this.quantidadePorEstrelas[i].Estrelas == val){
+  //           this.quantidadePorEstrelas[i].Quantidade += 1;
+  //         }
+  //       }
+  //     }
+  //     return acc;     
+  //   },{});
 
-    stars.reduce((acc, val) => { 
-      if(!acc[val]){
-        acc[val] = this.quantidadePorEstrelas.push({
-          "Estrelas": val,
-          "Quantidade": 1
-        });
+  //   this.quantidadePorEstrelas.sort((a,b) =>{
+  //     if(a.Estrelas > b.Estrelas)
+  //       return 1;
+  //     if(a.Estrelas < b.Estrelas)
+  //       return -1;
 
-      }     
-      else {
-        for(var i = 0 ; i < this.quantidadePorEstrelas.length; i++) {
-          if(this.quantidadePorEstrelas[i].Estrelas == val){
-            this.quantidadePorEstrelas[i].Quantidade += 1;
-          }
-        }
-      }
-      return acc;     
-    },{});
-
-    this.quantidadePorEstrelas.sort((a,b) =>{
-      if(a.Estrelas > b.Estrelas)
-        return 1;
-      if(a.Estrelas < b.Estrelas)
-        return -1;
-
-        return 0;
-    })
-    //console.log(this.quantidadePorEstrelas)
-  }
+  //       return 0;
+  //   })
+  //   //console.log(this.quantidadePorEstrelas)
+  // }
 
 
   infoGeralAtkEDef(data:Deck){
@@ -294,40 +275,40 @@ export class DeckDetailComponent implements OnInit {
   } */
 
   // Verifica os dados do Deck para preenchimento das estatisticas
-  estatisticasDeck(data: Object){
+  // estatisticasDeck(data: Object){
 
-    let arr = [];   
+  //   let arr = [];   
     
-    for(var i = 0; i < data['cards'].length; i++){
-      if(data['cards'][i].nivel != null){arr.push(data['cards'][i].tipo.name)}  
+  //   for(var i = 0; i < data['cards'].length; i++){
+  //     if(data['cards'][i].nivel != null){arr.push(data['cards'][i].tipo.name)}  
 
-      if(data['cards'][i].atributo.name == 'DARK'){ this.qtd_total_DARK++;} 
-      if(data['cards'][i].atributo.name  == 'FIRE'){ this.qtd_total_FIRE++;}
-      if(data['cards'][i].atributo.name  == 'WATER'){ this.qtd_total_WATER++;}
-      if(data['cards'][i].atributo.name  == 'EARTH'){ this.qtd_total_EARTH++;}
-      if(data['cards'][i].atributo.name  == 'WIND'){ this.qtd_total_WIND++;}
-      if(data['cards'][i].atributo.name  == 'LIGHT'){ this.qtd_total_LIGTH++;}
-    }
+  //     if(data['cards'][i].atributo.name == 'DARK'){ this.qtd_total_DARK++;} 
+  //     if(data['cards'][i].atributo.name  == 'FIRE'){ this.qtd_total_FIRE++;}
+  //     if(data['cards'][i].atributo.name  == 'WATER'){ this.qtd_total_WATER++;}
+  //     if(data['cards'][i].atributo.name  == 'EARTH'){ this.qtd_total_EARTH++;}
+  //     if(data['cards'][i].atributo.name  == 'WIND'){ this.qtd_total_WIND++;}
+  //     if(data['cards'][i].atributo.name  == 'LIGHT'){ this.qtd_total_LIGTH++;}
+  //   }
 
-        arr.reduce((acc, val) => {
+  //       arr.reduce((acc, val) => {
     
-          if(!acc[val]){
-            acc[val] = this.quantidadePorTipo.push({
-              "Tipo": val,
-              "Quantidade": 1
-            });
+  //         if(!acc[val]){
+  //           acc[val] = this.quantidadePorTipo.push({
+  //             "Tipo": val,
+  //             "Quantidade": 1
+  //           });
 
-          }     
-          else {
-            for(var i = 0 ; i < this.quantidadePorTipo.length; i++) {
-              if(this.quantidadePorTipo[i].Tipo == val){
-                this.quantidadePorTipo[i].Quantidade += 1;
-              }
-            }
-          }
-          return acc;     
-        },{});
-  }
+  //         }     
+  //         else {
+  //           for(var i = 0 ; i < this.quantidadePorTipo.length; i++) {
+  //             if(this.quantidadePorTipo[i].Tipo == val){
+  //               this.quantidadePorTipo[i].Quantidade += 1;
+  //             }
+  //           }
+  //         }
+  //         return acc;     
+  //       },{});
+  // }
 
   mostrarImgToolTip(img:string, e){
      this.leftTp =  e.pageX + 15 + "px";

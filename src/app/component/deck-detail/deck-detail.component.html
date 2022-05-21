@@ -85,10 +85,11 @@
             <div class="card-details-header">
               Card Details
             </div>
+            <!-- Row div Card Details-->
             <div class="row linha-div-carddetails" *ngFor="let cardsInfo of deckDetails.cards"
             style="background: rgb(2,0,36);
             background: linear-gradient(153deg, rgba(2,0,36,1) 0%, rgba(241,241,241,1) 0%, rgba(230,239,240,1) 25%, rgba(249,241,241,1) 72%, rgba(211,219,221,1) 100%, rgba(241,241,241,1) 100%);">
-                <div class="col-xl-2 col-lg-1 col-md-2 col-sm-2 hide-sm">
+               <div class="col-xl-2 col-lg-1 col-md-2 col-sm-2 hide-sm">
                     <div id="imgLinha" >
                        <img [src]='cardImagem(cardsInfo.numero)'                    
                         (mouseover)="mostrarImgToolTip(cardsInfo.imagem, $event)"
@@ -264,7 +265,7 @@
                               
                             </div>
                         </div>
-                 </div>
+                 </div> 
 
             </div>
           </div>
