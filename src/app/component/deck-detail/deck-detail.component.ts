@@ -3,12 +3,9 @@ import { Deck } from 'src/app/classes/deck';
 import { DeckService } from 'src/app/service/deck.service';
 import {Chart} from   'Chart.js';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
-import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { ActivatedRoute} from '@angular/router';
 import { Imagens } from 'src/app/classes/Imagens';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
-import { InsideDeck } from 'src/app/classes/InsideDeck';
-import { Card } from 'src/app/classes/Card';
 import { CardDetailsDTO } from 'src/app/classes/CardDetailsDTO';
 
 
@@ -26,6 +23,7 @@ export class DeckDetailComponent implements OnInit {
   
   quantidadePorTipo = [];
   quantidadePorEstrelas = [];
+  quantidadePorAtributo: any;
   qtdPorPropriedade = [];
   infoGeralAtk = [];
   infoGeralDef = [];
@@ -78,9 +76,11 @@ export class DeckDetailComponent implements OnInit {
       this.deckDetails = data;
       this.arrInsideDecksCards = data['insideDeck'][0]['cards'];
       this.countsGeneric_type = data['statsQuantityByGenericType'];
-      console.log("DECK DETAILS: " + JSON.stringify(this.countsGeneric_type))
+      this.quantidadePorAtributo = data['statsQuantityByAttribute'];
+      this.setQuantityByCardType(data['statsQuantityByType'])
+      this.setQuantityByCardProperty(data['statsQuantityByProperty'])
+      console.log(JSON.stringify(this.quantidadePorTipo))
       this.imgPath =  Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
-      console.log(this.deckDetails);
     //  console.log(this.imgPath);
 
       //this.setCodeAndPrice(this.deckDetails)
@@ -94,6 +94,29 @@ export class DeckDetailComponent implements OnInit {
 
     })
    
+  }
+  setQuantityByCardType(types: any) {
+    if(types != null || types != undefined){
+      Object.entries(types).forEach(item => {
+        this.quantidadePorTipo.push({
+          "Tipo": item[0],
+          "Quantidade": item[1]
+        });
+      })
+    }  
+  }
+
+  setQuantityByCardProperty(types: any) {
+    if(types != null || types != undefined){
+      Object.entries(types).forEach(item => {
+        if(item[0] != 'NORMAL'){
+          this.qtdPorPropriedade.push({
+            "Propriedade": item[0],
+            "Quantidade": item[1]
+          });
+        }       
+      })
+    }  
   }
 
   // setCodeAndPrice(deckDetails: Deck) {
@@ -194,22 +217,20 @@ export class DeckDetailComponent implements OnInit {
   // }
 
 
-  infoGeralAtkEDef(data:Deck){
-    for(var i = 0; i < data['cards'].length; i++){
-      if(data['cards'][i].atk != null && data['cards'][i].atk != undefined ){
-        this.infoGeralAtk.push(data['cards'][i].atk)
-      }
+  // infoGeralAtkEDef(data:Deck){
+  //   for(var i = 0; i < data['cards'].length; i++){
+  //     if(data['cards'][i].atk != null && data['cards'][i].atk != undefined ){
+  //       this.infoGeralAtk.push(data['cards'][i].atk)
+  //     }
 
-      if(data['cards'][i].def != null && data['cards'][i].def != undefined ){
-        this.infoGeralDef.push(data['cards'][i].def)
-      }
-    }
+  //     if(data['cards'][i].def != null && data['cards'][i].def != undefined ){
+  //       this.infoGeralDef.push(data['cards'][i].def)
+  //     }
+  //   }
 
-    this.infoGeralAtk.sort((a, b) => { return a - b;});
-    this.infoGeralDef.sort((a, b) => { return a - b;});
-
-    //console.log(this.infoGeralAtk, this.infoGeralDef)
-  }
+  //   this.infoGeralAtk.sort((a, b) => { return a - b;});
+  //   this.infoGeralDef.sort((a, b) => { return a - b;});
+  // }
 
   //Traz o Top 3 de cards mais valioso do deck
   cardsMaisValiosos(data:Deck){
@@ -344,6 +365,7 @@ export class DeckDetailComponent implements OnInit {
   }
 
   atributoImagem(atributo:string){
+    console.log("Atributo: " + atributo)
     switch(atributo){
       case 'WATER':
       return '..\\..\\assets\\img\\outras\\WATER.png';
@@ -361,15 +383,15 @@ export class DeckDetailComponent implements OnInit {
         return '..\\..\\assets\\img\\outras\\MAGIA.png';
       case 'Trap Card':
         return '..\\..\\assets\\img\\outras\\ARMADILHA.png';
-      case 'Continuous':
+      case 'CONTINUOUS':
         return '..\\..\\assets\\img\\outras\\Continuous.png';
-      case 'Field':
+      case 'FIELD':
         return '..\\..\\assets\\img\\outras\\Field.png';
-      case 'Quick-Play':
+      case 'QUICK_PLAY':
           return '..\\..\\assets\\img\\outras\\Quick.png';
-      case 'Counter':
+      case 'COUNTER':
         return '..\\..\\assets\\img\\outras\\Counter.png';
-      case 'Equip':
+      case 'EQUIP':
         return '..\\..\\assets\\img\\outras\\Equip.jpg';  
     }
     
@@ -413,8 +435,8 @@ export class DeckDetailComponent implements OnInit {
           labels: ['EARTH','FIRE','WIND','DARK','LIGHT', 'WATER'],
           datasets: [{
               label: 'QUANTITY',
-              data: [this.qtd_total_EARTH, this.qtd_total_FIRE,this.qtd_total_WIND,this.qtd_total_DARK, this.qtd_total_LIGTH,
-                 this.qtd_total_WATER],
+              data: [this.quantidadePorAtributo.EARTH, this.quantidadePorAtributo.FIRE,this.quantidadePorAtributo.WIND,this.quantidadePorAtributo.DARK, this.quantidadePorAtributo.LIGHT,
+                this.quantidadePorAtributo.WATER],
               backgroundColor: [
                   'rgba(160, 82, 45, 0.7)',
                   'rgba(255, 0, 0, 0.7)',
@@ -474,8 +496,9 @@ export class DeckDetailComponent implements OnInit {
   }
 
   hasProp(obj:Object, name:string){
-    console.log("OBJ: " + obj + " NAME: " + name)
-    return obj.hasOwnProperty(name);
+    if(obj != undefined && obj != null){
+      return obj.hasOwnProperty(name);
+    }
   }
 
 }

@@ -24,19 +24,7 @@
             </div>
             <!--Raridade-->
             <div class="row" style="border: gold solid thin;">
-                <!-- <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 hide-sm raridade" >
-                   <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center" style="border-top: none !important">Common:
-                        <span class="badge badge-primary badge badge-secondary">{{deckDetails.qtd_comuns}}</span> </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">Rare: 
-                        <span class="badge badge-primary badge">{{deckDetails.qtd_raras}}</span> </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">Super Rare: 
-                        <span class="badge badge-primary badge badge-success">{{deckDetails.qtd_super_raras}}</span> </li>         
-                    <li class="list-group-item d-flex justify-content-between align-items-center">Ultra Rare: 
-                        <span class="badge badge-primary badge badge-danger"> {{deckDetails.qtd_ultra_raras}}</span> </li>
-               
-                   </ul> 
-                </div> -->
+                
                 <div id="rarity" style="width: 100%; background-color: honeydew; height: 35px;">
 
                   <ul >
@@ -511,22 +499,24 @@
                     <div class="col-md-4">
                       <!--TIPOS DE MONSTRO-->
                      <div class="row box-static" style="
-                       border: solid thin #007bff; background-color: ghostwhite;">
-                      <div class="header-static" style="background-color:#007bff;"> Types </div>
-               
-                      <div class="col-md-6" *ngFor="let qtdTipo of quantidadePorTipo" style="margin-bottom: 8px;">
-                           <img [src]='tipoImagem(qtdTipo.Tipo)' alt="" [title]='qtdTipo.Tipo' width="40px" height="40px" style="margin-right: 10px;">
-                           <span style="font-size:x-large; color: darkblue; font-weight:800;">{{qtdTipo.Quantidade}}</span><span style="color: darkblue;" >x</span>      
-                         </div>    
+                        border: solid thin #007bff; background-color: ghostwhite; padding: 5px;">
+                        <div class="header-static" style="background-color:#007bff; margin-bottom: 3px;"> Types </div>
+                
+                        <div class="col-md-6" *ngFor="let qtdTipo of quantidadePorTipo" style="margin-bottom: 8px;">
+                            <img [src]='tipoImagem(qtdTipo.Tipo)' alt="" [title]='qtdTipo.Tipo' width="40px" height="40px" style="margin-right: 10px;">
+                            <span style="font-size:x-large; color: darkblue; font-weight:800;">{{qtdTipo.Quantidade}}</span><span style="color: darkblue;" >x</span>      
+                          </div>    
                       </div>
+
                       <!--PROPRIEDADE-->
-                      <div class="row box-static" style=" margin-top: 20px; border: solid thin red; background-color: ghostwhite;">
-                       <div class="header-static" style="background-color:crimson;"> Property </div>
+                      <div class="row box-static" style=" margin-top: 20px; border: solid thin red; background-color: ghostwhite;  padding: 5px;">
+                       <div class="header-static" style="background-color:crimson; margin-bottom: 3px;"> Property </div>
                         <div class="col-md-6" *ngFor="let qtdAttr of qtdPorPropriedade" style="margin-bottom: 8px">
                           <img [src]='atributoImagem(qtdAttr.Propriedade)' alt="" [title]='qtdAttr.Propriedade' width="40px" height="40px" style="margin-right: 10px;">
                           <span style="font-size:x-large; color:crimson; font-weight:800;">{{qtdAttr.Quantidade}}</span><span style="color: crimson;" >x</span>      
                         </div>    
                      </div>
+
                      <!--INFO GERAL ATK-->
                      <div class="row box-static" style="margin-top: 20px; border: 1px solid  silver;padding: 2px; ">
                       <div class="header-static" style="background-color:silver; line-height: 22px !important"> 

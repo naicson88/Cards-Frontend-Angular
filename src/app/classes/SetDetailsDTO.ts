@@ -20,6 +20,7 @@ export class SetDetailsDTO {
     statsQuantityByLevel: [];
     statsQuantityByProperty: [];
     statsQuantityByGenericType: any;
+    statsQuantityByType: any;
     statsAtk: [];
     statsDef: [];
 }
