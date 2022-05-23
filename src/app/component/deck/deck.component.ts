@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit ,Pipe, PipeTransform} from '@angular/core';
-import { Deck } from 'src/app/classes/deck';
+import { Deck } from 'src/app/classes/Deck';
 import { DeckService } from 'src/app/service/deck.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';

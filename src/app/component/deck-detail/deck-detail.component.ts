@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Deck } from 'src/app/classes/deck';
+import { Deck } from 'src/app/classes/Deck';
 import { DeckService } from 'src/app/service/deck.service';
-import {Chart} from   'Chart.js';
+import {Chart} from   'chart.js';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { ActivatedRoute} from '@angular/router';
 import { Imagens } from 'src/app/classes/Imagens';

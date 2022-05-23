@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Deck } from '../classes/deck';
+import { Deck } from '../classes/Deck';
 import { Observable, throwError } from 'rxjs';
 import { HandleErros } from '../Util/HandleErros';
 import { catchError } from 'rxjs/operators';
