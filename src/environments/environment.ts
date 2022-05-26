@@ -3,11 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   devCardsMain: 'http://localhost:8080/yugiohAPI',
   devCardsAdmin: 'http://localhost:8081/v1/admin',
   cardsAPIGateway:'http://localhost:8082'
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

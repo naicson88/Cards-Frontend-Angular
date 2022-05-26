@@ -6,7 +6,7 @@ import { GenericTypeCard } from 'src/app/Util/enums/GenericTypeCards';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { DeckDetailUserService } from './deck-detail-user.service';
 import {  ToastrService } from 'ngx-toastr';
-import { Deck } from 'src/app/classes/deck';
+import { Deck } from 'src/app/classes/Deck';
 import { MatDialog } from '@angular/material';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { BehaviorSubject, of } from 'rxjs';

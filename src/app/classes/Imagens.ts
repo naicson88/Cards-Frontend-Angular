@@ -1,6 +1,7 @@
 
 export  class Imagens {
     
+    public static basic_img_path = '..\\..\\assets\\img\\';
 
     public dark: string  = "DARK";
     public fire: string  = "FIRE";

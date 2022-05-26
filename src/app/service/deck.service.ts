@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Deck } from '../classes/deck';
+import { Deck } from '../classes/Deck';
 import { Observable, throwError } from 'rxjs';
 import { HandleErros } from '../Util/HandleErros';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { KonamiDeck } from '../classes/KonamiDeck';
+import { SetDetailsDTO } from '../classes/SetDetailsDTO';
 
 
 @Injectable({
@@ -23,9 +24,9 @@ export class DeckService {
   } */
 
     public getDecks(params, set_type:string): Observable<any>{
-      if(set_type == "D" || set_type == "T" || set_type == "B"){ // Se for Konami set
+      if(set_type == "DECK" || set_type == "TIN" || set_type == "BOX"){ // Se for Konami set
          
-        return  this.http.get(this.base_url+`/decks/pagination?size=${params.size}&page=${params.page}&setType=${set_type}`)
+        return  this.http.get(this.base_url+`/decks/get-sets?size=${params.size}&page=${params.page}&setType=${set_type}`)
         .pipe(
           catchError(HandleErros.handleError)
         )
@@ -40,9 +41,9 @@ export class DeckService {
    
   } 
 
-  public getDeckDetails(id:any, source:string) {
+  public getDeckDetails(id:any, source:string, set_type:string ) {
 
-    return this.http.get<Deck>(this.base_url+`/decks?id=${id}&source=${source}`) 
+    return this.http.get<SetDetailsDTO>(this.base_url+`/decks/set-details?id=${id}&source=${source}&setType=${set_type}`) 
     .pipe(
       catchError(HandleErros.handleError)
     )

@@ -8,13 +8,14 @@
     border-color: #BEBEBE;
     margin-left: 7%;
     min-width: 900px;
+    background: white;
 }
 
 #cabecalhoDeck{
     width: 65%;
     height: 310px;
-    background-color: white;
-    border: solid thin;
+    background-color: ghostwhite;
+    border: solid brown ;
     margin-left: 20%;
     padding: 10px;
     vertical-align:top;
@@ -53,6 +54,16 @@
     margin-top: 10px;
     padding-top: 5px;
 }*/
+
+.nome-cabecalho {
+  font-size: 1.3em;
+  color: darkblue; 
+  font-weight: 700;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;              /* "overflow" value must be different from "visible" */
+  text-overflow:    ellipsis;
+}
 
 .raridade ul li {
   font-weight: 500;
@@ -223,18 +234,18 @@
   }
 
   .header-static {
-  width: 100%;
-  font-family:  'Train One', 'Arial Narrow', 'Arial', 'sans-serif'
-  ;font-size: 19px;
-  color: white;
-  line-height: 28px;
-  background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.3));text-align: center; letter-spacing: 5px;
+    width: 100%;
+    font-family:  'Train One', 'Arial Narrow', 'Arial', 'sans-serif'
+    ;font-size: 19px;
+    color: white;
+    line-height: 28px;
+    background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.3));text-align: center; letter-spacing: 5px;
 
   }
 
-  .box-desc{
-    background: ghostwhite;
-  }
+
+
+
   #rarity ul {
     display: flex;
     flex-direction: row; 
@@ -259,3 +270,59 @@
       text-align: justify;
   }
  
+  #minimal-statistics{
+    padding: 5px;
+    background-color: ghostwhite;
+    margin-bottom: 20px;
+  
+  }
+
+  #estrelasPorMonstros{
+    margin-top: 30px;
+    background-color: white;  
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  .box-types{
+      border: solid thin #007bff;
+       background-color: ghostwhite; 
+       padding: 5px;
+  }
+
+  .box-prop {
+    margin-top: 20px; 
+    border: solid thin red;
+    background-color: ghostwhite;
+    padding: 5px;
+  }
+
+  .box-desc{
+    background: ghostwhite;
+    margin: 5px;
+  }
+
+  .div-info-atk {
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-top: 30px;
+  }
+
+  .div-atk-info{
+    margin-top: 20px;
+    border: 1px solid  silver;
+    padding: 2px; 
+
+  }
+
+  .div-atk-info-inside{
+    margin: 3px; 
+    border: solid thin black; 
+    text-align: left; 
+    text-align: center;
+    padding: 4px;
+    
+  }

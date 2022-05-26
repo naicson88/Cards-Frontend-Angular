@@ -16,7 +16,7 @@ import { environment } from "src/environments/environment";
       
     constructor(private http: HttpClient, private router: Router ) {}
 
-    base_url:string = environment.cardsAPIGateway; //"http://localhost:8082/v1/admin/deck/new-deck"
+    base_url:string = "http://localhost:8082/v1/admin/deck/new-deck" //environment.cardsAPIGateway; 
  
   public createNewKonamiDeck(konamiDeck: KonamiDeck) {
     

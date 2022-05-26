@@ -4,7 +4,7 @@ import { Card } from 'src/app/classes/Card';
 import { AchetypeService } from 'src/app/service/archetype-service/achetype.service';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
-import {Chart} from   'Chart.js';
+import {Chart} from 'chart.js';
 
 @Component({
   selector: 'app-card-detail',
@@ -237,11 +237,13 @@ export class CardDetailComponent implements OnInit {
       type: 'line',
       data: data,
       options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          },
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero:true
+                }
+            }]
+        },
           plugins:{
             legend: {
               labels: {

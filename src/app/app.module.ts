@@ -70,7 +70,8 @@ import { AdminDashboardModule } from './component/admin/admin-dashboard/admin-da
     DeckDetailUserComponent,
     SearchBoxComponent,
     ErrorPagesComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+  
   
   ],
   imports: [

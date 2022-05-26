@@ -1,5 +1,5 @@
-import { Deck } from "./deck";
-import { RelDeckCards } from "./Rel_Deck_Cards";
+import { Deck } from "./Deck";
+
 
 export class Card {
     id:number;

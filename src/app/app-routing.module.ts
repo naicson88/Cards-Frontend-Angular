@@ -18,14 +18,17 @@ import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.compo
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 
 const routes: Routes = [
-  { path: 'decks', component: DeckComponent , data : {set_type: 'D'}},
+  { path: 'decks', component: DeckComponent , data : {set_type: 'DECK'}},
   { path: 'tins', component: DeckComponent , data : {set_type: 'T'}},
   { path: 'boxes', component: DeckComponent , data : {set_type: 'B'}},
   { path: 'usercollection/decks', component: DeckComponent , data : {set_type: 'UD'}},
   { path: 'usercollection/cards', component: UsercardsComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'deck-details/:deckName', component: DeckDetailComponent},
+
+  { path: 'deck-details/:deckName', component: DeckDetailComponent, data:{set_type: 'DECK'}},
+  { path: 'collection-details/:deckName', component: DeckDetailComponent, data: {set_type: 'COLLECTION'}},
   { path: 'user-deck-details/:deckName', component: DeckDetailComponent, data: {source: 'U'}},
+  
   { path: 'card-detail/:cardName', component: CardDetailComponent },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent},
