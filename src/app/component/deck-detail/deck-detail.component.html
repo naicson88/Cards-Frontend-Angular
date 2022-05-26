@@ -287,7 +287,7 @@
               <div class="statistics-header">
                 Statistics
               </div>
-              <div class="grey-bg ">
+              <div class="grey-bg">
                     <div id="minimal-statistics">
                    
                       <div class="row" >
@@ -303,7 +303,7 @@
                                     <div class="media-body text-right">
                                       <h3 > {{countsGeneric_type.MONSTER}}</h3>
   
-                                      <span>Monsters</span>
+                                      <span style="color: BurlyWood">Monsters</span>
                                     </div>
                                   </div>
                                 </div>
@@ -321,7 +321,7 @@
                                   </div>
                                   <div class="media-body text-right">
                                     <h3>{{countsGeneric_type.SPELL}}</h3>
-                                    <span>Spell</span>
+                                    <span style="color: green">Spell</span>
                                   </div>
                                 </div>
                               </div>
@@ -341,13 +341,14 @@
                                    <!-- <h3>{{countsGeneric_type[0].TRAP}}</h3> -->
                                   <h3> {{countsGeneric_type.TRAP}} </h3>
                                 
-                                    <span>Traps</span>
+                                    <span style="color: red;">Traps</span>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+
                         <div class="col-xl-3 col-sm-6 col-12 box-desc" *ngIf="hasProp(countsGeneric_type,'PENDULUM')">
                           <div class="card-static" style="border: solid thin BurlyWood ;">
                             <div class="card-content">
@@ -358,7 +359,7 @@
                                   </div>
                                   <div class="media-body text-right">
                                     <h3>{{countsGeneric_type.PENDULUM}}</h3>
-                                    <span>Pendulum</span>
+                                    <span style="color: BurlyWood;">Pendulum</span>
                                   </div>
                                 </div>
                               </div>
@@ -385,7 +386,7 @@
                             </div>
                           </div>
                         </div>
-                    
+                       </div> 
                  
                         <div class="col-xl-3 col-sm-6 col-12 box-desc"  *ngIf="hasProp(countsGeneric_type,'FUSION')">
                           <div class="card-static" style="border: solid thin purple;">
@@ -394,7 +395,7 @@
                                 <div class="media d-flex">
                                   <div class="media-body text-left">
                                     <h3 class="primary">{{countsGeneric_type.FUSION}}</h3>
-                                    <span>Fusion</span>
+                                    <span style="color: purple;">Fusion</span>
                                   </div>
                                   <div class="align-self-center">
                                     <img src="/../../assets/img/outras/fusionIcon.png" alt="" width="58px" height="85px">
@@ -412,7 +413,7 @@
                                 <div class="media d-flex">
                                   <div class="media-body text-left">
                                     <h3 class="warning" >{{countsGeneric_type.LINK}}</h3>
-                                    <span>Link</span>
+                                    <span style="color: blue;">Link</span>
                                   </div>
                                   <div class="align-self-center">
                                     <img src="/../../assets/img/outras/linkIcon.png" alt="" width="58px" height="85px">
@@ -430,7 +431,7 @@
                                 <div class="media d-flex">
                                   <div class="media-body text-left">
                                     <h3 class="primary" >{{countsGeneric_type.RITUAL}}</h3>
-                                    <span>Ritual</span>
+                                    <span style="color:green">Ritual</span>
                                   </div>
                                   <div class="align-self-center">
                                     <img src="/../../assets/img/outras/ritualIcon.png" alt="" width="58px" height="85px">
@@ -441,48 +442,49 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                   
                  
-                  <div class="row">
+                  <div class="row ">
                     <!--COLUNA ESQUERDA-->
-                    <div class="col-md-8" style="box-shadow:0 10px 40px 0 rgba(62,57,107,.07),0 2px 9px 0 rgba(62,57,107,.06); 
-                    padding:6px"> 
-                     <div class=" row" style="margin-left: -5px;" >
-                      <canvas #attrCanvas ></canvas>
-             
-                            <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/EARTH.png" alt="" width="50" height="50"> </div>
-                            <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/FIRE.png" alt="" width="50" height="50" style="margin:0;"> </div>
-                            <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/WIND.png" alt="" width="50" height="50"> </div>
-                            <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/DARK.png" alt="" width="50" height="50"> </div>
-                            <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/LIGHT.png"alt="" width="50" height="50"> </div>
-                            <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/WATER.png" alt="" width="50" height="50"> </div>
-                          </div>
-                            <!--ESTELAS POR MONSTROS-->
-                            <div id="estrasPorMonstros" style="margin-top: 55px;" >
-                              <div style="border: solid thin lightsteelblue;
-                              box-shadow:0 10px 40px 0 rgba(62,57,107,.07),0 2px 9px 0 rgba(62,57,107,.06); border-radius: 5px;">
-                              <div class="header-static" style="background-color: darkcyan; font-family: Arial, Helvetica, sans-serif;">
-                              Quantity Stars per Monsters
-                              </div>
-                                  <table class="table table-sm table-bordered" style="text-align: center;"  >                                   
-                                    <tr scope="row">
-                                      <th *ngFor='let stars of quantidadePorEstrelas'>
-                                        <img src="/../../assets/img/outras/Nivel.png" alt="" width="25px" height="25px">
-                                        <span style="color: tomato;  font-size: x-large; font-weight: 700; margin-left: 5px;">{{stars.Estrelas}}x</span>
-                                      
-                                      </th>
-                                    </tr>
-                                    <tr>
-                                    <td *ngFor='let starsMon of quantidadePorEstrelas'>
-                                      <span style="color:teal; ">{{starsMon.Quantidade}} monsters</span>
-                                      
-                                    </td>
-                                  </tr>
-                                  </table>        
-                              </div>
-                            </div>
+                    <div class="col-md-8" style="box-shadow:0 10px 40px 0 rgba(62,57,107,.07),0 2px 9px 0 rgba(62,57,107,.06); padding:6px"> 
+                  
+                      <div class=" row" style="margin-left: -5px; padding: 5px; border-radius: 5px; border: solid thin silver;" >
+                        <canvas #attrCanvas ></canvas>
+              
+                              <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/EARTH.png" alt="" width="50" height="50"> </div>
+                              <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/FIRE.png" alt="" width="50" height="50" style="margin:0;"> </div>
+                              <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/WIND.png" alt="" width="50" height="50"> </div>
+                              <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/DARK.png" alt="" width="50" height="50"> </div>
+                              <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/LIGHT.png"alt="" width="50" height="50"> </div>
+                              <div class="col-md-2" style="text-align: right;" ><img src="/../../assets/img/outras/WATER.png" alt="" width="50" height="50"> </div>
+                      </div>
+
+                      <!--ESTRELAS POR MONSTROS-->
+                      <div id="estrelasPorMonstros" >
+                        <div style="border: solid thin lightsteelblue;
+                        box-shadow:0 10px 40px 0 rgba(62,57,107,.07),0 2px 9px 0 rgba(62,57,107,.06); border-radius: 5px;">
+                        <div class="header-static" style="background-color: darkcyan; font-family: Arial, Helvetica, sans-serif;">
+                        Quantity Stars per Monsters
+                        </div>
+                            <table class="table table-sm table-bordered" style="text-align: center;"  >                                   
+                                <tr scope="row">
+                                  <th *ngFor='let stars of quantidadePorEstrelas'>
+                                    <img src="/../../assets/img/outras/Nivel.png" alt="" width="25px" height="25px">
+                                    <span style="color: tomato;  font-size: x-large; font-weight: 700; margin-left: 5px;">{{stars.Estrelas}}x</span>
+                                  
+                                  </th>
+                                </tr>
+                                <tr>
+                                <td *ngFor='let starsMon of quantidadePorEstrelas'>
+                                  <span style="color:teal; ">{{starsMon.Quantidade}} monsters</span>
+                                  
+                                </td>
+                              </tr>
+                            </table>        
+                        </div>
+                      </div>
                             <!--Top 3-->
-                            <div class="container" style="margin-top: 25px;">
+                            <!-- <div class="container" style="margin-top: 25px;">
                               <div class="header-static" style="background-color:mediumpurple; font-family: Arial, Helvetica, sans-serif;">
                                 Most valuable cards
                               </div>
@@ -493,13 +495,48 @@
                                   </div>
                                  
                                 </div>
-                            </div>
+                            </div> -->
+
+                                  
+                          <!--INFO GERAL ATK-->
+                          <div class="row box-static div-info-atk" >
+                            <div class="header-static" style="background-color:mediumpurple; line-height: 22px !important; padding: 4px;"> 
+                              <span style="font-weight: bold;"> ATK</span>  Monsters </div>
+                          
+                            <div  *ngFor="let atkInfo of infoGeralAtk" class="div-atk-info-inside" [ngStyle]="{'background-color':setColor(atkInfo.Attack)}">   
+                              <!-- <span style="font-size:medium; color:crimson;">{{atkInfo}}</span>    -->
+                                <div>
+                                  <span style="font-size:medium;"><img src="..\..\assets\img\icons\sword.png" alt="" width="15px" height="15px"> {{atkInfo.Attack}}</span>
+                                </div>
+                                
+                                <div>
+                                  <span style=" font-size: small;" >{{atkInfo.Quantidade}} Monsters</span> 
+                                </div>
+                                
+                            </div>   
+                        </div>
+
+                              <!--INFO GERAL DEF-->
+                          <div class="row box-static div-info-atk ">
+                            <div class="header-static" style="background-color:#007bff; line-height: 25px !important;"> 
+                              <span style="font-weight: bold;"> DEF</span> Monsters </div>
+                              <div  *ngFor="let defInfo of infoGeralDef" class="div-atk-info-inside" [ngStyle]="{'background-color':setColor(defInfo.Defense)}">   
+                                <!-- <span style="font-size:medium; color:crimson;">{{atkInfo}}</span>    -->
+                                  <div>
+                                    <span style="font-size:medium;"><img src="..\..\assets\img\icons\shield.png" alt="" width="15px" height="15px"> {{defInfo.Defense}}</span>
+                                  </div>
+                                  
+                                  <div>
+                                    <span style=" font-size: small;" >{{defInfo.Quantidade}} Monsters</span> 
+                                  </div>
+                                  
+                              </div> 
+                        </div>
                     </div>
                     <!--COLUNA DA DIREITA-->
                     <div class="col-md-4">
                       <!--TIPOS DE MONSTRO-->
-                     <div class="row box-static" style="
-                        border: solid thin #007bff; background-color: ghostwhite; padding: 5px;">
+                     <div class="row box-static box-types" >
                         <div class="header-static" style="background-color:#007bff; margin-bottom: 3px;"> Types </div>
                 
                         <div class="col-md-6" *ngFor="let qtdTipo of quantidadePorTipo" style="margin-bottom: 8px;">
@@ -509,32 +546,13 @@
                       </div>
 
                       <!--PROPRIEDADE-->
-                      <div class="row box-static" style=" margin-top: 20px; border: solid thin red; background-color: ghostwhite;  padding: 5px;">
+                      <div class="row box-static box-prop">
                        <div class="header-static" style="background-color:crimson; margin-bottom: 3px;"> Property </div>
                         <div class="col-md-6" *ngFor="let qtdAttr of qtdPorPropriedade" style="margin-bottom: 8px">
                           <img [src]='atributoImagem(qtdAttr.Propriedade)' alt="" [title]='qtdAttr.Propriedade' width="40px" height="40px" style="margin-right: 10px;">
                           <span style="font-size:x-large; color:crimson; font-weight:800;">{{qtdAttr.Quantidade}}</span><span style="color: crimson;" >x</span>      
                         </div>    
-                     </div>
-
-                     <!--INFO GERAL ATK-->
-                     <div class="row box-static" style="margin-top: 20px; border: 1px solid  silver;padding: 2px; ">
-                      <div class="header-static" style="background-color:silver; line-height: 22px !important"> 
-                        <span style="font-weight: bold;"> ATK</span>  Monsters </div>
-                       <div class="col-md-3" *ngFor="let atkInfo of infoGeralAtk" style="margin-bottom: 8px; border: solid thin; text-align: left;"
-                       [ngStyle]="{'background-color':setColor(atkInfo)}">
-                         <span style="font-size:medium; color:crimson;">{{atkInfo}}</span>   
-                       </div>    
-                    </div>
-                      <!--INFO GERAL DEF-->
-                      <div class="row box-static" style="margin-top: 20px;  border: 1px solid  silver; padding: 2px; ">
-                        <div class="header-static" style="background-color:silver; line-height: 25px !important;"> 
-                          <span style="font-weight: bold;"> DEF</span> Monsters </div>
-                        <div class="col-md-3" *ngFor="let defInfo of infoGeralDef" style="margin-bottom: 8px; border: solid thin"
-                         [ngStyle]="{'background-color':setColor(defInfo)}">
-                          <span style="font-size:medium; color:#007bff;">{{defInfo}}</span>   
-                        </div>    
-                     </div>
+                      </div>
 
                     </div>
                   </div>

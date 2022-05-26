@@ -234,14 +234,16 @@
   }
 
   .header-static {
-  width: 100%;
-  font-family:  'Train One', 'Arial Narrow', 'Arial', 'sans-serif'
-  ;font-size: 19px;
-  color: white;
-  line-height: 28px;
-  background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.3));text-align: center; letter-spacing: 5px;
+    width: 100%;
+    font-family:  'Train One', 'Arial Narrow', 'Arial', 'sans-serif'
+    ;font-size: 19px;
+    color: white;
+    line-height: 28px;
+    background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.3));text-align: center; letter-spacing: 5px;
 
   }
+
+
 
 
   #rarity ul {
@@ -275,7 +277,52 @@
   
   }
 
+  #estrelasPorMonstros{
+    margin-top: 30px;
+    background-color: white;  
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  .box-types{
+      border: solid thin #007bff;
+       background-color: ghostwhite; 
+       padding: 5px;
+  }
+
+  .box-prop {
+    margin-top: 20px; 
+    border: solid thin red;
+    background-color: ghostwhite;
+    padding: 5px;
+  }
+
   .box-desc{
     background: ghostwhite;
     margin: 5px;
+  }
+
+  .div-info-atk {
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-top: 30px;
+  }
+
+  .div-atk-info{
+    margin-top: 20px;
+    border: 1px solid  silver;
+    padding: 2px; 
+
+  }
+
+  .div-atk-info-inside{
+    margin: 3px; 
+    border: solid thin black; 
+    text-align: left; 
+    text-align: center;
+    padding: 4px;
+    
   }

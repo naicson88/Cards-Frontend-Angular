@@ -4,7 +4,7 @@ WORKDIR /app
 # Copy all files from current directory to working dir in image
 COPY . .
 # install node modules and build assets
-RUN npm i && npm run build
+RUN npm i && npm run build --prod
 
 FROM nginx:1.15.8-alpine
 WORKDIR /usr/share/nginx/html
