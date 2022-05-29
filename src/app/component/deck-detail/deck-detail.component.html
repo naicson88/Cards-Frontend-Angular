@@ -4,13 +4,13 @@
      Deck Details
     </div>
 
-    <div id="cabecalhoDeck" class="row">
+    <div id="cabecalhoDeck" >
       
         <div id="imagemCabecalho">
             <img [src]='imgPath' alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;">
         </div>
 
-        <div id="informacoes">
+        <div id="informacoes" >
             <!--Nome do Deck e data de lançamento-->
            
             <div class="row" style="border-bottom: solid thin #ccc; height: 40px;">
@@ -25,25 +25,25 @@
             <!--Raridade-->
             <div class="row" style="border: gold solid thin;">
                 
-                <div id="rarity" style="width: 100%; background-color: honeydew; height: 35px;">
+                <div id="rarity" style="width: 100%; background-color: rgb(164, 154, 231); height: 35px;">
 
                   <ul >
                     <li style="border-top: none !important">
-                        <span class="badge badge badge-secondary "> Common: {{deckDetails.qtd_comuns}}</span> </li>
+                        <span class="badge  badge-secondary"> Common: {{deckDetails.qtd_comuns}}</span> </li>
                     <li>
                         <span class="badge badge-primary ">Rare: {{deckDetails.qtd_raras}}</span> </li>
                     <li > 
-                        <span class="badge badge badge-success">Super Rare: {{deckDetails.qtd_super_raras}}</span> </li>         
+                        <span class="badge  badge-success">Super Rare: {{deckDetails.qtd_super_raras}}</span> </li>         
                     <li >
-                        <span class="badge  badge badge-danger">Ultra Rare:  {{deckDetails.qtd_ultra_raras}}</span> </li>
+                        <span class="badge   badge-danger">Ultra Rare:  {{deckDetails.qtd_ultra_raras}}</span> </li>
               
-                   </ul> 
+                  </ul> 
                 </div>
 
                
                 <div id="allCards">
-                  <label for="" style="font-size: small">Cards: <a  *ngFor="let card of arrInsideDecksCards" style="font-size: small;"
-                     [routerLink]="['/card-detail/', card.nome]"  name="{{card.numero}}" (click)="storedCardId($event)"
+                  <label for="" style="font-size: small"> <b>Cards:</b> <a  *ngFor="let card of arrInsideDecksCards" style="font-size: small;"
+                  [routerLink]="['/card-detail/', card.nome]"  name="{{card.numero}}" (click)="storedCardId($event)"
                     >	&#9830; {{card.nome}} </a> </label>
                 </div>
 
@@ -143,14 +143,14 @@
                         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="max-width: 14%;">
                             <img src="..\..\assets\img\tiposMonstros\atk.JPG" alt="" width="30px" height="30px" 
                             style="display: inline-block; margin-top: -25px; margin-left: -10px;">
-                            <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;">ATK / <br> {{cardsInfo.atk}}</p>
+                            <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;" >ATK / <br><b [ngStyle]="{'color':setColorAtkDef(cardsInfo.atk)}"> {{cardsInfo.atk}}</b></p>
                         </div>
                         <!--Caso não seja monstro Link-->
                         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="max-width: 14% !important;"
                         *ngIf="cardsInfo.categoria !='Link Monster' ">
                             <img src="..\..\assets\img\tiposMonstros\def.JPG" alt="" width="30px" height="30px" 
                             style="display: inline-block; margin-top: -25px; margin-left: -10px;">
-                            <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;">DEF / <br> {{cardsInfo.def}}</p>
+                            <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;">DEF / <br> <b  [ngStyle]="{'color':setColorAtkDef(cardsInfo.def)}">{{cardsInfo.def}}</b> </p>
                         </div>
                         <!--Caso seja monstro LINK-->
                         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="max-width: 17% !important;"
@@ -190,9 +190,9 @@
                                  <p style="margin-bottom: 0;" *ngIf="cardsInfo.archetype.arcName"> <i> <b>Archetype</b> : {{cardsInfo.archetype.arcName}} </i>   </p><br>
                                   <p style="margin-bottom: 0;"> 
                                     <i style="font-size: small; color: rgb(110, 109, 109);">Set code: </i>
-                                      <span style="color:brown; font-size: 14px;"  >{{cardsInfo.card_set_code}}</span>  &nbsp;&nbsp;
+                                      <span style="color:brown; font-size: 14px;"  >{{cardsInfo.cardSetCode}}</span>  &nbsp;&nbsp;
                                     <i style="font-size: small; color: rgb(110, 109, 109);">Price: </i>
-                                     <span style="color: green;font-size: 14px; font-weight: bold;"> {{cardsInfo.price | currency}}</span> 
+                                     <span style="color: green;font-size: 14px; font-weight: bold;"> {{cardsInfo.card_price | currency}}</span> 
                                   </p>
                               
                             </div>
@@ -246,9 +246,9 @@
                                  <p style="margin-bottom: 0;" *ngIf="cardsInfo.arquetipo"> <i> <b>Archetype</b> : {{cardsInfo.arquetipo}} </i>   </p><br>
                                   <p style="margin-bottom: 0;"> 
                                     <i style="font-size: small; color: rgb(110, 109, 109);">Set code: </i>
-                                      <span style="color:brown; font-size: 14px;"  >{{cardsInfo.card_set_code}}</span>  &nbsp;&nbsp;
+                                      <span style="color:brown; font-size: 14px;"  >{{cardsInfo.cardSetCode}}</span>  &nbsp;&nbsp;
                                     <i style="font-size: small; color: rgb(110, 109, 109);">Price: </i>
-                                     <span style="color: green;font-size: 14px; font-weight: bold;"> {{cardsInfo.price | currency}}</span> 
+                                     <span style="color: green;font-size: 14px; font-weight: bold;"> {{cardsInfo.card_price | currency}}</span> 
                                   </p>
                               
                             </div>
@@ -567,6 +567,6 @@
         </div>
         <!-- End rounded tabs -->
   
-      </div>
+    </div>
 </div>
 

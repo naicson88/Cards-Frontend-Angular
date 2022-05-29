@@ -32,17 +32,6 @@ export class DeckDetailComponent implements OnInit {
   countsGeneric_type: any;
 
 
-  //ESTATISTICAS DECK
-   qtd_total_cards:number = 0;
-   qtd_total_DARK:number = 0;
-   qtd_total_FIRE:number = 0;
-   qtd_total_WATER:number = 0;
-   qtd_total_EARTH:number = 0;
-   qtd_total_WIND:number = 0;
-   qtd_total_LIGTH:number = 0;
-   qtd_total_TRAP:number = 0;
-   qtd_total_SPELL:number = 0;
-
   topTp;
   leftTp;
   imgTooltip: string;
@@ -163,6 +152,15 @@ export class DeckDetailComponent implements OnInit {
          return 'rgba(255, 255, 0, 0.3)'
       else
          return 'rgba(255, 64, 0, 0.3)'
+    }
+
+    setColorAtkDef(vlr:number){
+      if(vlr >= 0 && vlr <= 1900 )
+      return 'green'
+        else if(vlr > 1900 && vlr <= 2400 )
+      return 'GoldenRod'
+         else
+      return 'firebrick'
     }
   
     returnCardRarityImage(cardNumber:any){
