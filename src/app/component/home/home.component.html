@@ -82,7 +82,7 @@
             <div id="second_block_body">
                 <div class="last_cards_added" *ngFor="let lasts of infoHome.lastSets">
                     <div class="last_img">
-                       <img src='{{lasts.img}}' height="55" width="45"   >
+                       <img [src]='lasts.img' height="55" width="45"   >
                     </div>
                     <div class="last_desc">
                         <a  (click)="storeDeckId(lasts.id)" [routerLink]="['/userdeck-details/', lasts.name]">
