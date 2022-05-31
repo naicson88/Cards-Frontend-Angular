@@ -16,4 +16,5 @@ export class Deck {
     qtdSuperRare:number = 0;
     qtdUltraRare:number = 0;
     rel_deck_cards:RelDeckCards[]
+    imgurUrl:string;
 }

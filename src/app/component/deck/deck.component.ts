@@ -60,8 +60,8 @@ export class DeckComponent implements OnInit {
   }
  
   getDecksInfo(): void {
-    this.imgPath =  Imagens.basic_img_path + this.set_type.toLowerCase() + "\\";
-    console.log(this.imgPath)
+    // this.imgPath =  Imagens.basic_img_path + this.set_type.toLowerCase() + "\\";
+    // console.log(this.imgPath)
 
     const params = this.getRequestParam(this.pageSize, this.page);
     this.spinner.show();
@@ -77,30 +77,6 @@ export class DeckComponent implements OnInit {
         this.safeUrl = this.domSanitizer.bypassSecurityTrustUrl(this.deck[i].imagem);  
 
       }
-
-      let decksIds = [];
-
-      for(var i = 0; i < this.deck.length; i++){
-        //CHANGE CASE IMG PATH CHANGE TO CLOUD
-        this.deck[i].imagem = this.imgPath + this.deck[i].imagem + ".jpg";
-       
-        if(this.deck[i]['id'] != null){decksIds.push(this.deck[i]['id'] )}
-       }
-
-      // this.service.relUserDeck(decksIds).subscribe(rel => {
-      //   this.relUserDeck = rel;
-
-      //   //Adiciona ao objeto a quantidade de Decks que o usuário tem
-      //   this.deck.forEach( comp => {
-
-      //     this.relUserDeck.map( e => {
-      //       if(e.deckId === comp.id){
-      //         Object.assign(comp, {"quantityUserHave": e.quantity})
-      //       }
-      //     })
-      //   })
-
-      // })
 
     })
     
@@ -127,7 +103,6 @@ export class DeckComponent implements OnInit {
     addSetToUserCollection(event:any){
       let qtdCardManeged:number;
       let setId =  event //event.target.name;
-      debugger
 
       this.service.addSetToUsersCollection(setId).subscribe(data => {
         qtdCardManeged = data;
@@ -229,7 +204,7 @@ export class DeckComponent implements OnInit {
   storeDeckId(id:any){
   //  const id = event.target.name;
     localStorage.setItem("idDeckDetails", id);
-    console.log(id);
+  
   }
 
   addDeckToCollection(e){
