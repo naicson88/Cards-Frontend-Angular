@@ -30,6 +30,7 @@ export class DeckComponent implements OnInit {
  totalItens = 0;
 
  set_type: string;
+ source: string
 
  deck: Deck[]
  relUserDeck: any[];
@@ -48,6 +49,11 @@ export class DeckComponent implements OnInit {
     this.route.data.subscribe(set_type =>{
       this.set_type = set_type.set_type;
     })
+
+    this.route.data.subscribe(source =>{
+      this.source = source.source;
+    })
+
 
     this.getDecksInfo();
 
@@ -70,6 +76,7 @@ export class DeckComponent implements OnInit {
      const {content, totalElements} = data;
       //console.log(data);
       this.deck = content;
+      console.log(this.deck)
       this.totalItens = totalElements;
 
       for(let i = 0; i < this.deck.length; i++){
@@ -204,6 +211,8 @@ export class DeckComponent implements OnInit {
   storeDeckId(id:any){
   //  const id = event.target.name;
     localStorage.setItem("idDeckDetails", id);
+    localStorage.setItem("source", this.source);
+    localStorage.setItem("set_type", this.set_type);
   
   }
 
@@ -221,9 +230,8 @@ export class DeckComponent implements OnInit {
       this.warningDialog("Need at lest 5 caracteres of set name")
       return false;
     }
-    let source = this.set_type == 'UD' ? "U" : "K";
 
-    this.service.searchBySetName(this.setName, source).subscribe( data => {
+    this.service.searchBySetName(this.setName, this.source).subscribe( data => {
         let decksFound:Deck[] = [];
         decksFound = data;
 

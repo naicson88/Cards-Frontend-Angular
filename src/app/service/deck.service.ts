@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Deck } from '../classes/Deck';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HandleErros } from '../Util/HandleErros';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -18,10 +18,6 @@ export class DeckService {
   constructor(private http: HttpClient, private router: Router ) {}
 
   base_url = "http://localhost:8080/yugiohAPI"
-
- /*  public getDecks(params){
-    return  this.http.get<Deck[]>(this.base_url+"/decks/todos");
-  } */
 
     public getDecks(params, set_type:string): Observable<any>{
       if(set_type == "DECK" || set_type == "TIN" || set_type == "BOX"){ // Se for Konami set

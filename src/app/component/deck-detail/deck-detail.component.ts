@@ -60,10 +60,13 @@ export class DeckDetailComponent implements OnInit {
   loadDeckDetails(){
   
     const id = localStorage.getItem("idDeckDetails");
-    let src = this.source == 'U' ? 'User' : 'Konami'
-    this.service.getDeckDetails(id, src, this.set_type).subscribe(data => {
+    const source = localStorage.getItem("source");
+    const set_type = localStorage.getItem("set_type");
+
+    this.service.getDeckDetails(id, source, set_type).subscribe(data => {
 
       this.deckDetails = data;
+      console.log("DETAILS " + JSON.stringify(this.deckDetails));
       this.arrInsideDecksCards = data['insideDeck'][0]['cards'];
       this.countsGeneric_type = data['statsQuantityByGenericType'];
       this.quantidadePorAtributo = data['statsQuantityByAttribute'];
@@ -74,7 +77,7 @@ export class DeckDetailComponent implements OnInit {
       this.setQuantityByAtk(data['statsAtk'])
       this.setQuantityByDef(data['statsDef'])
   
-      this.imgPath =  Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
+      this.imgPath =  this.deckDetails.imgurUrl; //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
 
       this.graficoAtributos();
     
@@ -181,7 +184,6 @@ export class DeckDetailComponent implements OnInit {
   
     hasProp(obj:Object, name:string){
       if(obj != undefined && obj != null){
-        console.log(JSON.stringify(obj) + " " + name)
         return obj.hasOwnProperty(name);
       }
     }
