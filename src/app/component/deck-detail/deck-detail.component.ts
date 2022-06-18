@@ -7,6 +7,7 @@ import { ActivatedRoute} from '@angular/router';
 import { Imagens } from 'src/app/classes/Imagens';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { CardDetailsDTO } from 'src/app/classes/CardDetailsDTO';
+import { InsideDeck } from 'src/app/classes/InsideDeck';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class DeckDetailComponent implements OnInit {
   @ViewChild("attrCanvas",{static: true}) elemento: ElementRef;
 
   deckDetails: SetDetailsDTO
-  arrInsideDecksCards: CardDetailsDTO[];
+  arrInsideDecksCards: InsideDeck[];
   
   quantidadePorTipo = [];
   quantidadePorEstrelas = [];
@@ -67,7 +68,8 @@ export class DeckDetailComponent implements OnInit {
 
       this.deckDetails = data;
       console.log("DETAILS " + JSON.stringify(this.deckDetails));
-      this.arrInsideDecksCards = data['insideDeck'][0]['cards'];
+      this.arrInsideDecksCards = data['insideDeck'] //[0]['cards'];
+      //console.log("Inside: " + JSON.stringify(this.arrInsideDecksCards))
       this.countsGeneric_type = data['statsQuantityByGenericType'];
       this.quantidadePorAtributo = data['statsQuantityByAttribute'];
 

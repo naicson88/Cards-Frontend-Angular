@@ -109,12 +109,49 @@
       border-radius: 50rem !important;
     }
   }
+  #insdeDeckHeader{
+    background-color: rgb(132 204 22); 
+    padding-left: 1px;  
+  }
 
+  #insdeDeckHeader h3 {
+    font-weight: 600;
+    color: white;
+  }
+
+  #insdeDeckHeaderGeneral {
+    background-color: #FFA500;
+    color: white;  
+    padding-left: 1px;
+  }
+
+  #insdeDeckHeader h6 {  
+    color: white;
+  }
+
+ .insideHeader {
+    width: 100%;  
+    margin-bottom: 10px;
+    margin-top: 10px;
+    
+ }
+
+
+
+  .container-general{
+    margin-top: 20px; display: flex;  justify-content: space-around; width: 100%; flex-wrap: wrap;
+  }
   .linha-div-carddetails{ 
     border: solid thin;
     height:max-content;
     padding: 3px;
     min-width: 900px;
+  }
+
+  .ldv {
+    background: rgb(2,0,36);
+    background: linear-gradient(153deg, rgba(2,0,36,1) 0%, rgba(241,241,241,1) 0%, rgba(230,239,240,1) 25%, rgba(249,241,241,1) 72%, rgba(211,219,221,1) 100%, rgba(241,241,241,1) 100%);
+       
   }
 
   #imgLinha{
@@ -300,7 +337,7 @@
 
   .box-desc{
     background: ghostwhite;
-    margin: 5px;
+    margin: 2px;
   }
 
   .div-info-atk {
