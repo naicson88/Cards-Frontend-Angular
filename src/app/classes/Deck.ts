@@ -1,5 +1,6 @@
 import { Card } from "./Card";
 import { RelDeckCards } from "./Rel_Deck_Cards";
+import { SetCollection } from "./SetCollection";
 
 
 export class Deck {
@@ -16,5 +17,6 @@ export class Deck {
     qtdSuperRare:number = 0;
     qtdUltraRare:number = 0;
     rel_deck_cards:RelDeckCards[]
+    setCollection: SetCollection[]
     imgurUrl:string;
 }

@@ -19,7 +19,7 @@ import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 
 const routes: Routes = [
   { path: 'decks', component: DeckComponent , data : {set_type: 'DECK', source: 'KONAMI'}},
-  { path: 'usercollection/decks', component: DeckComponent , data : {set_type: 'DECK', source: 'UD'}},
+  { path: 'usercollection/decks', component: DeckComponent , data : {set_type: 'DECK', source: 'USER'}},
   { path: 'usercollection/cards', component: UsercardsComponent },
   { path: 'home', component: HomeComponent },
 

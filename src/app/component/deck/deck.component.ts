@@ -71,7 +71,7 @@ export class DeckComponent implements OnInit {
 
     const params = this.getRequestParam(this.pageSize, this.page);
     this.spinner.show();
-    this.service.getDecks(params, this.set_type).subscribe(data => {
+    this.service.getDecks(params, this.set_type, this.source).subscribe(data => {
       
      const {content, totalElements} = data;
       //console.log(data);

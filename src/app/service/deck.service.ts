@@ -19,16 +19,15 @@ export class DeckService {
 
   base_url = "http://localhost:8080/yugiohAPI"
 
-    public getDecks(params, set_type:string): Observable<any>{
-      if(set_type == "DECK" || set_type == "TIN" || set_type == "BOX"){ // Se for Konami set
+    public getDecks(params, set_type:string, source:string): Observable<any>{
+      if(source == "KONAMI"){ // Se for Konami set
          
         return  this.http.get(this.base_url+`/decks/get-sets?size=${params.size}&page=${params.page}&setType=${set_type}`)
         .pipe(
           catchError(HandleErros.handleError)
         )
 
-      } else if (set_type == "UD" || set_type == "UT" || set_type == "UB"){ //Se forem sets do usuário
-            set_type.substr(1);
+      } else { //Se forem sets do usuário
           return  this.http.get(this.base_url+`/decks/sets-of-user?size=${params.size}&page=${params.page}&setType=${set_type}`)
           .pipe(
             catchError(HandleErros.handleError)

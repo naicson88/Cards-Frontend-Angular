@@ -8,6 +8,7 @@ import { Imagens } from 'src/app/classes/Imagens';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { CardDetailsDTO } from 'src/app/classes/CardDetailsDTO';
 import { InsideDeck } from 'src/app/classes/InsideDeck';
+import { SpinnerService } from 'src/app/service/spinner.service';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class DeckDetailComponent implements OnInit {
   set_type:string;
 
   imgPath: string;
-  constructor(private service: DeckService, private cardService: CardServiceService, private router: ActivatedRoute) { }
+  constructor(private service: DeckService, private cardService: CardServiceService, private router: ActivatedRoute, private  spinner: SpinnerService) { }
 
   ngOnInit() {
 
@@ -59,7 +60,8 @@ export class DeckDetailComponent implements OnInit {
 
   //Carrega informações do deck
   loadDeckDetails(){
-  
+
+    this.spinner.show();
     const id = localStorage.getItem("idDeckDetails");
     const source = localStorage.getItem("source");
     const set_type = localStorage.getItem("set_type");
@@ -83,10 +85,13 @@ export class DeckDetailComponent implements OnInit {
 
       this.graficoAtributos();
     
-
+      this.spinner.hide();
     })
    
   }
+
+  
+
   setQuantityByCardType(types: any) {
     if(types != null || types != undefined){
       Object.entries(types).forEach(item => {

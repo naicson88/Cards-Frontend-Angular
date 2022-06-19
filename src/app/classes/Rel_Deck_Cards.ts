@@ -6,7 +6,9 @@ export class RelDeckCards {
     card_price:number;
     card_raridade:string;
     isSideDeck: boolean;
-    card_numero: number;
+    cardNumber: number;
+    cardId: number
+    isSpeedDuel: boolean
     
     total: number;
     common: number;
