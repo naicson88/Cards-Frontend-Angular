@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { User } from 'src/app/classes/User';
 import { AuthStrategy, AUTH_STRATEGY } from './auth.strategy';
 import { LoginRequest } from 'src/app/classes/LoginRequest';
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError, subscribeOn } from 'rxjs/operators';
 import { JwtAuthStrategy } from './jwt-auth.strategy';
 import { configg } from './config';
 
@@ -62,7 +62,21 @@ export class AuthService {
   private doLogoutUser() {
     this.auth.doLogoutUser();
   }
+    
+  // isLoggedIn$(): Observable<boolean> {
+  //   var subject = new Subject<boolean>();
+ 
+  //    this.auth.getCurrentUser().subscribe(user =>{
+      
+  //     if(user == null || user == undefined)
+  //         subject.next(false)
+  //     else
+  //         subject.next(true)
+  //   });    
 
+  //   return subject.asObservable();
+  
+  // }
   isLoggedIn$(): Observable<boolean> {
     return this.auth.getCurrentUser().pipe(
       map(user => !!user),
@@ -86,7 +100,7 @@ export class AuthService {
     })
 
     /*this.consultarUsuarioLogado(this.username.sub).subscribe(data =>{
-      debugger
+      
       this.user = data;  
       console.log("This user is " + this.user)  
     });*/

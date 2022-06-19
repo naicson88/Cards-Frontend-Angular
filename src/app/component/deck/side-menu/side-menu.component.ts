@@ -79,7 +79,7 @@ export class SideMenuComponent implements OnInit {
         if(event.url === '/index'){
           this.isIndex = true;
         } 
-        else if(event.url === '/login'){
+        else if(event.url.includes('/login')){
           this.isLogin = true;
         }
         else if(event.url === '/register'){

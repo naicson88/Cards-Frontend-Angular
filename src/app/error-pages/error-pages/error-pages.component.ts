@@ -1,5 +1,6 @@
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute,  Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth-service/auth.service';
 
 @Component({
   selector: 'app-error-pages',
@@ -9,15 +10,18 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 export class ErrorPagesComponent implements OnInit, AfterViewChecked {
   @ViewChild('img',{static: false})img:HTMLElement;
 
-  constructor(private router: ActivatedRoute) { }
+  constructor(private router: ActivatedRoute, private authService: AuthService, private r: Router) { }
 
   ngAfterViewChecked(): void {
    
   }
 
   errorImage:string;
+  isLoggedIn:boolean;
 
   ngOnInit() {
+    debugger
+    this.verifyUser()
     this.loadErrorImage()
   }
 
@@ -42,6 +46,14 @@ export class ErrorPagesComponent implements OnInit, AfterViewChecked {
           return;
         }
 
+  }
+
+  verifyUser(){       
+    this.authService.isLoggedIn$().subscribe(result => {
+     this.isLoggedIn = result;
+      if(!this.isLoggedIn)
+        this.r.navigate(["/index"])
+    })
   }
 
 }
