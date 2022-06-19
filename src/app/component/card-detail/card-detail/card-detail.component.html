@@ -232,7 +232,7 @@
                     </tr >
                     <tr *ngFor="let sets of card.sets">
                         <td style="text-align: center;">
-                            <img [src]='sets.imagem' alt="Image of the set" width="80px" height="110px" >
+                            <img [src]='sets.imgurUrl' alt="Image of the set" width="80px" height="110px" >
                         </td>
                         <td>
                         <a [routerLink]="['/deck-details/', sets.nome]" >{{sets.nome}}</a> 

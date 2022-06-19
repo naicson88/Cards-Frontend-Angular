@@ -15,10 +15,11 @@
     width: 65%;
     height: 310px;
     background-color: ghostwhite;
-    border: solid brown ;
+    border: solid thin silver ;
     margin-left: 20%;
     padding: 10px;
     vertical-align:top;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 #imagemCabecalho{
@@ -26,9 +27,9 @@
     margin-top: 5px;
     margin-bottom: 5px; 
     margin-left: 1%;
-    background: #fff;
+  
     padding: 6px;
-    box-shadow: 0 1px 4px 0 rgba(21,180,255,0.5);
+    box-shadow: 0 2px 4px 0 rgba(21,180,255,0.5);
     width: 200px;
     height: 270px;
     float: left;
@@ -36,8 +37,8 @@
 }
 
 #informacoes{
-    width: 65%;
-    background-color: white;
+    width: 75%;
+    background-color: ghostwhite;
     height: 300px;
     margin-top: -290px;
     margin-left: 230px;
@@ -108,12 +109,49 @@
       border-radius: 50rem !important;
     }
   }
+  #insdeDeckHeader{
+    background-color: rgb(132 204 22); 
+    padding-left: 1px;  
+  }
 
+  #insdeDeckHeader h3 {
+    font-weight: 600;
+    color: white;
+  }
+
+  #insdeDeckHeaderGeneral {
+    background-color: #FFA500;
+    color: white;  
+    padding-left: 1px;
+  }
+
+  #insdeDeckHeader h6 {  
+    color: white;
+  }
+
+ .insideHeader {
+    width: 100%;  
+    margin-bottom: 10px;
+    margin-top: 10px;
+    
+ }
+
+
+
+  .container-general{
+    margin-top: 20px; display: flex;  justify-content: space-around; width: 100%; flex-wrap: wrap;
+  }
   .linha-div-carddetails{ 
     border: solid thin;
     height:max-content;
     padding: 3px;
     min-width: 900px;
+  }
+
+  .ldv {
+    background: rgb(2,0,36);
+    background: linear-gradient(153deg, rgba(2,0,36,1) 0%, rgba(241,241,241,1) 0%, rgba(230,239,240,1) 25%, rgba(249,241,241,1) 72%, rgba(211,219,221,1) 100%, rgba(241,241,241,1) 100%);
+       
   }
 
   #imgLinha{
@@ -262,6 +300,7 @@
 
   #allCards{
     width: 100%; 
+    background-color: white;
     border: solid thin silver; 
     margin-top: 4px; 
     overflow-y: scroll;
@@ -298,7 +337,7 @@
 
   .box-desc{
     background: ghostwhite;
-    margin: 5px;
+    margin: 2px;
   }
 
   .div-info-atk {

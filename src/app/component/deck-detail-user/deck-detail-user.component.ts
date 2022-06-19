@@ -7,7 +7,7 @@ import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { DeckDetailUserService } from './deck-detail-user.service';
 import {  ToastrService } from 'ngx-toastr';
 import { Deck } from 'src/app/classes/Deck';
-import { MatDialog } from '@angular/material';
+import { MatDialog, throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { BehaviorSubject, of } from 'rxjs';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
@@ -16,6 +16,7 @@ import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
 import { error } from 'protractor';
 import { Router } from '@angular/router';
+import { SpinnerService } from 'src/app/service/spinner.service';
 
 
 
@@ -31,7 +32,7 @@ export class DeckDetailUserComponent implements OnInit, AfterViewInit, AfterView
   @ViewChild('dropListContainer',{static: false}) dropListContainer?: ElementRef;
   @ViewChild('deckName', {static:false}) deckNome:ElementRef
 
-  constructor(private cardService: CardServiceService, private ref: ElementRef, private router :Router,
+  constructor(private cardService: CardServiceService, private ref: ElementRef, private router :Router, private spinner: SpinnerService,
     private deckService: DeckService, private deckDetailUSerService: DeckDetailUserService,  private toastr: ToastrService, public dialog: MatDialog) { }
 
   dropListReceiverElement?: HTMLElement;
@@ -76,8 +77,12 @@ mapSetCodes: Map<number, RelDeckCards[]> = new Map();
 cardsSearched = []; // Guarda o numero dos cards que ja tiveram Setcode consultados
 
   ngOnInit() {
-    this.loadDeckCards();
-    this.loadRandomCards();
+    this.spinner.show();
+
+      this.loadDeckCards();
+      this.loadRandomCards();
+
+    this.spinner.hide();
   }
 
   ngAfterViewInit (){
@@ -110,7 +115,7 @@ loadDeckCards(){
   this.deckService.editDeck(id, "User").subscribe(data => {
  
   this.deck = data
-
+  
   this.mainDeckCards = data['cards'];
   this.countTypeCards(this.mainDeckCards, "main");
 
@@ -132,7 +137,7 @@ loadDeckCards(){
 }
 
 
-  loadRandomCards(){
+loadRandomCards(){
     this.arrayCards = [];
     
     this.deckDetailUSerService.randomCardsDetailed().subscribe( cards => {
@@ -236,9 +241,9 @@ setRelDeckCards(){
 }
 
 setRelDeckCardsTypeDeck(card:Card){
-    
-  let rel = this.relDeckCards.find(rel => rel.card_numero === card.numero);
-  let relIndex = this.relDeckCards.findIndex(rel => rel.card_numero === card.numero);
+  
+  let rel = this.relDeckCards.find(rel => rel.cardNumber === card.numero);
+  let relIndex = this.relDeckCards.findIndex(rel => rel.cardNumber === card.numero);
 
   if(rel == undefined || rel == null){
     this.errorDialog("Sorry, some error happened, try again later!");
@@ -672,14 +677,12 @@ sendToMainDeck(index:number){
 
     this.toastr.success("Card sent to Main Deck");
   }
-
-
-
 }
 
 relDeckCardsForSave:RelDeckCards[] = new Array();
 
 saveDeck(){
+
   this.relDeckCardsForSave = [];
 
   let deckEdited:Deck = new Deck();
@@ -700,19 +703,20 @@ saveDeck(){
     this.errorDialog("Deck name cannot be empty");
     return false;
   }
-  
 
-
+  debugger
+  console.log("Edited" + JSON.stringify(deckEdited))
   this.deckService.saveUserDeck(deckEdited).subscribe(result => {
-   // console.log("result " + JSON.stringify(result.headers))
-      if(result.ok)
-          this.successDialog("Deck was successfully saved!")
+  
+    if(result.ok)
+      this.successDialog("Deck was successfully saved!")
        
   }, error =>{
     console.log(JSON.stringify(error.body))
     this.errorDialog("Sorry, can't save deck now, try again later :(")
   })
 }
+
 errorMsg:string;
 insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Element>, deckId:number, isSideDeck:boolean){
   
@@ -734,11 +738,13 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
          let  rel2:RelDeckCards = new RelDeckCards()
          rel2.card_raridade = rel.card_raridade
          rel2.card_set_code = rel.card_set_code
-         rel2.card_numero = rel.card_numero
+         rel2.cardNumber = rel.cardNumber
          rel2.isSideDeck = isSideDeck
          rel2.id = rel.id
          rel2.card_price = rel.card_price
          rel2.deckId = deckId
+         rel2.cardId = rel.cardId
+         rel2.isSpeedDuel = rel.isSpeedDuel
 
           this.relDeckCardsForSave.push(rel2);
 
@@ -746,9 +752,11 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
 
     } else {
       let  rel2:RelDeckCards = new RelDeckCards()
-      rel2.card_numero = array[i].numero
+      rel2.cardNumber = array[i].numero
       rel2.isSideDeck = isSideDeck
       rel2.deckId = deckId
+      rel2.cardId = rel.cardId
+      rel2.isSpeedDuel = rel.isSpeedDuel
       this.relDeckCardsForSave.push(rel2);
     }   
   }

@@ -23,4 +23,5 @@ export class SetDetailsDTO {
     statsQuantityByType: any;
     statsAtk: [];
     statsDef: [];
+    imgurUrl: string;
 }

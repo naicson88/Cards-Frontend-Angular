@@ -30,6 +30,7 @@ export class DeckComponent implements OnInit {
  totalItens = 0;
 
  set_type: string;
+ source: string
 
  deck: Deck[]
  relUserDeck: any[];
@@ -49,6 +50,11 @@ export class DeckComponent implements OnInit {
       this.set_type = set_type.set_type;
     })
 
+    this.route.data.subscribe(source =>{
+      this.source = source.source;
+    })
+
+
     this.getDecksInfo();
 
   }
@@ -60,16 +66,17 @@ export class DeckComponent implements OnInit {
   }
  
   getDecksInfo(): void {
-    this.imgPath =  Imagens.basic_img_path + this.set_type.toLowerCase() + "\\";
-    console.log(this.imgPath)
+    // this.imgPath =  Imagens.basic_img_path + this.set_type.toLowerCase() + "\\";
+    // console.log(this.imgPath)
 
     const params = this.getRequestParam(this.pageSize, this.page);
     this.spinner.show();
-    this.service.getDecks(params, this.set_type).subscribe(data => {
+    this.service.getDecks(params, this.set_type, this.source).subscribe(data => {
       
      const {content, totalElements} = data;
       //console.log(data);
       this.deck = content;
+      console.log(this.deck)
       this.totalItens = totalElements;
 
       for(let i = 0; i < this.deck.length; i++){
@@ -77,30 +84,6 @@ export class DeckComponent implements OnInit {
         this.safeUrl = this.domSanitizer.bypassSecurityTrustUrl(this.deck[i].imagem);  
 
       }
-
-      let decksIds = [];
-
-      for(var i = 0; i < this.deck.length; i++){
-        //CHANGE CASE IMG PATH CHANGE TO CLOUD
-        this.deck[i].imagem = this.imgPath + this.deck[i].imagem + ".jpg";
-       
-        if(this.deck[i]['id'] != null){decksIds.push(this.deck[i]['id'] )}
-       }
-
-      // this.service.relUserDeck(decksIds).subscribe(rel => {
-      //   this.relUserDeck = rel;
-
-      //   //Adiciona ao objeto a quantidade de Decks que o usuário tem
-      //   this.deck.forEach( comp => {
-
-      //     this.relUserDeck.map( e => {
-      //       if(e.deckId === comp.id){
-      //         Object.assign(comp, {"quantityUserHave": e.quantity})
-      //       }
-      //     })
-      //   })
-
-      // })
 
     })
     
@@ -127,7 +110,6 @@ export class DeckComponent implements OnInit {
     addSetToUserCollection(event:any){
       let qtdCardManeged:number;
       let setId =  event //event.target.name;
-      debugger
 
       this.service.addSetToUsersCollection(setId).subscribe(data => {
         qtdCardManeged = data;
@@ -229,7 +211,9 @@ export class DeckComponent implements OnInit {
   storeDeckId(id:any){
   //  const id = event.target.name;
     localStorage.setItem("idDeckDetails", id);
-    console.log(id);
+    localStorage.setItem("source", this.source);
+    localStorage.setItem("set_type", this.set_type);
+  
   }
 
   addDeckToCollection(e){
@@ -246,9 +230,8 @@ export class DeckComponent implements OnInit {
       this.warningDialog("Need at lest 5 caracteres of set name")
       return false;
     }
-    let source = this.set_type == 'UD' ? "U" : "K";
 
-    this.service.searchBySetName(this.setName, source).subscribe( data => {
+    this.service.searchBySetName(this.setName, this.source).subscribe( data => {
         let decksFound:Deck[] = [];
         decksFound = data;
 

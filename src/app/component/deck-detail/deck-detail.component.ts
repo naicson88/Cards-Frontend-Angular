@@ -7,6 +7,8 @@ import { ActivatedRoute} from '@angular/router';
 import { Imagens } from 'src/app/classes/Imagens';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { CardDetailsDTO } from 'src/app/classes/CardDetailsDTO';
+import { InsideDeck } from 'src/app/classes/InsideDeck';
+import { SpinnerService } from 'src/app/service/spinner.service';
 
 
 @Component({
@@ -19,7 +21,7 @@ export class DeckDetailComponent implements OnInit {
   @ViewChild("attrCanvas",{static: true}) elemento: ElementRef;
 
   deckDetails: SetDetailsDTO
-  arrInsideDecksCards: CardDetailsDTO[];
+  arrInsideDecksCards: InsideDeck[];
   
   quantidadePorTipo = [];
   quantidadePorEstrelas = [];
@@ -32,17 +34,6 @@ export class DeckDetailComponent implements OnInit {
   countsGeneric_type: any;
 
 
-  //ESTATISTICAS DECK
-   qtd_total_cards:number = 0;
-   qtd_total_DARK:number = 0;
-   qtd_total_FIRE:number = 0;
-   qtd_total_WATER:number = 0;
-   qtd_total_EARTH:number = 0;
-   qtd_total_WIND:number = 0;
-   qtd_total_LIGTH:number = 0;
-   qtd_total_TRAP:number = 0;
-   qtd_total_SPELL:number = 0;
-
   topTp;
   leftTp;
   imgTooltip: string;
@@ -52,7 +43,7 @@ export class DeckDetailComponent implements OnInit {
   set_type:string;
 
   imgPath: string;
-  constructor(private service: DeckService, private cardService: CardServiceService, private router: ActivatedRoute) { }
+  constructor(private service: DeckService, private cardService: CardServiceService, private router: ActivatedRoute, private  spinner: SpinnerService) { }
 
   ngOnInit() {
 
@@ -69,13 +60,18 @@ export class DeckDetailComponent implements OnInit {
 
   //Carrega informações do deck
   loadDeckDetails(){
-  
+
+    this.spinner.show();
     const id = localStorage.getItem("idDeckDetails");
-    let src = this.source == 'U' ? 'User' : 'Konami'
-    this.service.getDeckDetails(id, src, this.set_type).subscribe(data => {
+    const source = localStorage.getItem("source");
+    const set_type = localStorage.getItem("set_type");
+
+    this.service.getDeckDetails(id, source, set_type).subscribe(data => {
 
       this.deckDetails = data;
-      this.arrInsideDecksCards = data['insideDeck'][0]['cards'];
+      console.log("DETAILS " + JSON.stringify(this.deckDetails));
+      this.arrInsideDecksCards = data['insideDeck'] //[0]['cards'];
+      //console.log("Inside: " + JSON.stringify(this.arrInsideDecksCards))
       this.countsGeneric_type = data['statsQuantityByGenericType'];
       this.quantidadePorAtributo = data['statsQuantityByAttribute'];
 
@@ -85,14 +81,17 @@ export class DeckDetailComponent implements OnInit {
       this.setQuantityByAtk(data['statsAtk'])
       this.setQuantityByDef(data['statsDef'])
   
-      this.imgPath =  Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
+      this.imgPath =  this.deckDetails.imgurUrl; //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
 
       this.graficoAtributos();
     
-
+      this.spinner.hide();
     })
    
   }
+
+  
+
   setQuantityByCardType(types: any) {
     if(types != null || types != undefined){
       Object.entries(types).forEach(item => {
@@ -164,6 +163,15 @@ export class DeckDetailComponent implements OnInit {
       else
          return 'rgba(255, 64, 0, 0.3)'
     }
+
+    setColorAtkDef(vlr:number){
+      if(vlr >= 0 && vlr <= 1900 )
+      return 'green'
+        else if(vlr > 1900 && vlr <= 2400 )
+      return 'GoldenRod'
+         else
+      return 'firebrick'
+    }
   
     returnCardRarityImage(cardNumber:any){
       
@@ -183,7 +191,6 @@ export class DeckDetailComponent implements OnInit {
   
     hasProp(obj:Object, name:string){
       if(obj != undefined && obj != null){
-        console.log(JSON.stringify(obj) + " " + name)
         return obj.hasOwnProperty(name);
       }
     }

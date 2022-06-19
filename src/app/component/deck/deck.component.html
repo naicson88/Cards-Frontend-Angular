@@ -54,20 +54,17 @@
                      <div class="deckuct-deatil" style="margin-bottom: 12px; margin-left: 12px;">
                            <h6 class="name" title=" {{deck.nome}}" style="font-weight: 600;">
                              
-                                 <a *ngIf="set_type == 'DECK'" name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/deck-details/', deck.nome]" class="deck_name">
-                                
+                                 <a *ngIf="source == 'KONAMI' && set_type == 'DECK'" name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/deck-details/', deck.nome]" class="deck_name">                           
                                   {{deck.nome}}
                                  </a>
 
-                                 <a *ngIf="set_type != 'DECK' && set_type != 'UD'" name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/collection-details/', deck.nome]" class="deck_name">
-                                   
+                                  <a *ngIf="source == 'KONAMI' && set_type != 'DECK'" name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/collection-details/', deck.nome]" class="deck_name">                                 
                                      {{deck.nome}}
-                                 </a>
+                                  </a>
 
-                                 <a *ngIf="set_type == 'UD'" name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/user-deck-details/', deck.nome]" class="deck_name">
-                                   
+                                 <a *ngIf="source == 'USER' && set_type == 'DECK'"  name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/user-deck-details/', deck.nome]" class="deck_name">               
                                      {{deck.nome}}
-                                 </a>
+                                 </a> 
                               <!-- <a href="#">
                                  <span >{{deck.lancamento}}</span>
                               </a>                            -->
@@ -107,7 +104,7 @@
 
                      </div> -->
 
-                     <div class="image_card_bottom" *ngIf="set_type != 'UD'">
+                     <div class="image_card_bottom" *ngIf="source == 'KONAMI'">
                         <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have: &nbsp; &nbsp;</span>
                         
                         <input type="text" name="input_qtde" id="inp_{{deck.id}}" disabled
@@ -125,7 +122,7 @@
                      <!--Opções que só aparecem se for deck de usuário-->
                      <!-- &nbsp; <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;"></span>&nbsp;
                      <mat-icon style="color: royalblue; cursor: pointer;" title="Add to your collection">library_add</mat-icon> -->
-                     <div class="row editRemove"   *ngIf="set_type == 'UD'">
+                     <div class="row editRemove"   *ngIf="source == 'USER'">
                         <div class="col-md-6"  style="text-align: center;">
                      <!--    <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>-->
                            <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have:</span><br>

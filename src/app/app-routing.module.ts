@@ -18,10 +18,8 @@ import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.compo
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 
 const routes: Routes = [
-  { path: 'decks', component: DeckComponent , data : {set_type: 'DECK'}},
-  { path: 'tins', component: DeckComponent , data : {set_type: 'T'}},
-  { path: 'boxes', component: DeckComponent , data : {set_type: 'B'}},
-  { path: 'usercollection/decks', component: DeckComponent , data : {set_type: 'UD'}},
+  { path: 'decks', component: DeckComponent , data : {set_type: 'DECK', source: 'KONAMI'}},
+  { path: 'usercollection/decks', component: DeckComponent , data : {set_type: 'DECK', source: 'USER'}},
   { path: 'usercollection/cards', component: UsercardsComponent },
   { path: 'home', component: HomeComponent },
 
