@@ -76,7 +76,7 @@ export class DeckComponent implements OnInit {
      const {content, totalElements} = data;
       //console.log(data);
       this.deck = content;
-      console.log(this.deck)
+  
       this.totalItens = totalElements;
 
       for(let i = 0; i < this.deck.length; i++){
@@ -155,7 +155,9 @@ export class DeckComponent implements OnInit {
             this.toastr.error('Unable to remove the Deck or Cards to the user collection.', 'Error!')
           }
         }, error => {
-          alert("Sorry, something bad happened.")
+          console.log(error)
+          this.errorDialog("Sorry, something bad happened.")
+         
         })
 
         this.deck.splice(i, 1);
@@ -244,7 +246,7 @@ export class DeckComponent implements OnInit {
         }
       
     }, error => {
-      console.log(error.msg)
+    
       this.errorDialog("Sorry, some error happened. Try again later.");
     })
 
