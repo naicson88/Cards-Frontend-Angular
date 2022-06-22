@@ -704,16 +704,16 @@ saveDeck(){
     return false;
   }
 
-  debugger
-  console.log("Edited" + JSON.stringify(deckEdited))
   this.deckService.saveUserDeck(deckEdited).subscribe(result => {
-  
-    if(result.ok)
+    console.log(result)
+    if(result.status == 200)
       this.successDialog("Deck was successfully saved!")
        
   }, error =>{
-    console.log(JSON.stringify(error.body))
-    this.errorDialog("Sorry, can't save deck now, try again later :(")
+    
+    console.log(JSON.stringify(error))
+    if(error.status != 200)
+      this.errorDialog("Sorry, can't save deck now, try again later :(")
   })
 }
 

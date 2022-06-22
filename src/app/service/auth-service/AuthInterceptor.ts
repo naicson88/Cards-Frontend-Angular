@@ -18,21 +18,28 @@ export class AuthInterceptor implements HttpInterceptor {
     if (configg.auth === 'token' && this.jwt && this.jwt.getToken()) {
       request = this.addToken(request, this.jwt.getToken());
     }
-
-     if(this.jwt.getToken() === null || this.jwt.getToken() === "") {
+    
+    let url = window.location.href;
+    if ((this.jwt.getToken() === null || this.jwt.getToken() === "") && !url.includes("/login")) {
         this.authService.logout();
         this.router.navigate(['/index'])
-     }
+    }
 
     return next.handle(request).pipe(catchError(error => {
-      if (error.status === 401) {
+      
+      if(error.error.msg == 'Bad credentials'){
+        this.router.navigate(["/login", {data: true}])
+      }
+
+      else if (error.status === 401) {
         this.authService.doLogoutAndRedirectToLogin();
       }
-       else if(error.status === 500){
+
+      else if (error.status === 500) {
         this.router.navigate(["/error-page", 500])
       }
 
-      else if(error.status === 404){
+      else if (error.status === 404) {
         this.router.navigate(["error-page", 404])
       }
 

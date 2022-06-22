@@ -10,6 +10,7 @@ import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.compo
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { CardinfoComponent } from '../tooltip/cardinfo/cardinfo.component';
 import { Card } from 'src/app/classes/Card';
+import { SpinnerService } from 'src/app/service/spinner.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { Card } from 'src/app/classes/Card';
 export class UsercardsComponent implements OnInit {
   @ViewChild('btnNew',  { static: false }) btnNew: ElementRef;
 
-  constructor(private img: Imagens, private service: CardServiceService, private dialog: MatDialog, private tooltip: CardinfoComponent) { }
+  constructor(private img: Imagens, private service: CardServiceService, private dialog: MatDialog, private spinner: SpinnerService) { }
 
   cardsFromScroll = new BehaviorSubject([]);
   page: number = 1; 
@@ -155,7 +156,7 @@ export class UsercardsComponent implements OnInit {
           this.setQtdRarity();
 
           this.qtdTotal = qtd;
-          console.log(this.arrCardsDetails)
+  
         
         })
     }
@@ -184,16 +185,20 @@ export class UsercardsComponent implements OnInit {
 
         if(this.cardname != null && this.cardname != ""){
           this.service.searchCardsByName(this.cardname).subscribe(data=>{
+            this.spinner.show();
          
-            if(Object.keys(data).length > 0 )
+            if(Object.keys(data).length > 0 ){
               this.arrCards = data;
+              this.spinner.hide();
+            }
             else{
+              this.spinner.hide();
                 this.errorDialog("No cards found with this name!")
             }
             
           })
 
-        }else {
+        } else {
           this.warningDialog("Fill the field with a card name!")
 
           return false;
@@ -221,7 +226,7 @@ export class UsercardsComponent implements OnInit {
     
         const cardNumber = event.target.name;
         if(cardNumber != null && cardNumber != ""){
-          console.log(cardNumber)
+      
           this.service.setCardNumber(cardNumber);
         
         } else {

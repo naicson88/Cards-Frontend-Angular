@@ -29,7 +29,7 @@ const routes: Routes = [
   
   { path: 'card-detail/:cardName', component: CardDetailComponent },
   { path: 'index', component: IndexComponent },
-  { path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent, data: {badCredential: false}},
   { path: 'register', component: RegisterComponent},
   { path: 'archetypes', component: ArchetypeComponent},
   { path: 'archetypeDetails/:archId', component: ArchetypeDetailsComponent},
