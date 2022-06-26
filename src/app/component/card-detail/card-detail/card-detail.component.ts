@@ -203,7 +203,7 @@ export class CardDetailComponent implements OnInit {
    localStorage.setItem("idArchetype", archId);
    // console.log(id);s
    if(archId != null && archId != ""){  
-     console.log( "archid" + archId)
+   
      this.archService.setArchetypeId(archId);
 
    } else {
@@ -267,7 +267,7 @@ export class CardDetailComponent implements OnInit {
    qtdUserHaveByUserCollection(data:any){
      let result = Object.entries(data['qtdUserHaveByUserCollection']);
      this.userHaveByUserCollection = new Map(result);
-     console.log(this.userHaveByUserCollection)
+  
    }
 
 }

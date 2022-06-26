@@ -143,7 +143,7 @@ loadRandomCards(){
     this.deckDetailUSerService.randomCardsDetailed().subscribe( cards => {
       
       this.validTypeDeckCard(cards);
-   
+      
     },
     error =>{
       let errorCode = error.status;
@@ -171,6 +171,7 @@ validTypeDeckCard(cards:any){
         }
 
         this.arrayCards.push(card)
+        console.log( "CARDS" + JSON.stringify(this.arrayCards))
       } 
    
    }
@@ -341,6 +342,7 @@ validAndAddCardRespectiveDeck(index, arrayDeck:Card[], messageToastr:string, typ
   let isLimitOver:boolean = this.isCardLimitOver(this.arrayCards[index], arrayDeck)
 
   if(!isLimitOver){
+    
     let card:Card = this.arrayCards[index]
     card.relDeckCards = [];
     
@@ -689,7 +691,7 @@ saveDeck(){
 
   deckEdited.id = this.deck.id;
   deckEdited.nome = this.deckNome.nativeElement.value.trim();
-  deckEdited.setType = "D";
+  deckEdited.setType = "DECK";
   
   let options = document.querySelectorAll('option:checked');
 
@@ -705,16 +707,22 @@ saveDeck(){
   }
 
   this.deckService.saveUserDeck(deckEdited).subscribe(result => {
-    console.log(result)
+
+    this.spinner.show();
     if(result.status == 200)
       this.successDialog("Deck was successfully saved!")
-       
+      this.spinner.hide();
+
   }, error =>{
-    
+
+    this.spinner.hide();
     console.log(JSON.stringify(error))
     if(error.status != 200)
       this.errorDialog("Sorry, can't save deck now, try again later :(")
+      
   })
+
+
 }
 
 errorMsg:string;
@@ -727,12 +735,14 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
     if(setCode != "SET CODE..." && setCode != ""){
   
      // rel = array[i].relDeckCards.find(rel => rel.card_set_code = setCode);
-
+      
       for(var j = 0; j < array[i].relDeckCards.length; j++){
         if(array[i].relDeckCards[j].card_set_code == setCode){
           rel = array[i].relDeckCards[j]
+          rel.cardId = array[i].id
         }
       }
+      
       //Need instantiate another object becaue typescript was replacing objects inside array
       if(rel != undefined && rel != null){
          let  rel2:RelDeckCards = new RelDeckCards()
@@ -746,17 +756,21 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
          rel2.cardId = rel.cardId
          rel2.isSpeedDuel = rel.isSpeedDuel
 
+         if(rel2.cardId == undefined || rel2.cardId == null)
+            console.log("CARDID INVALID: " + rel2)
+
           this.relDeckCardsForSave.push(rel2);
 
       }
 
     } else {
+      
       let  rel2:RelDeckCards = new RelDeckCards()
       rel2.cardNumber = array[i].numero
       rel2.isSideDeck = isSideDeck
       rel2.deckId = deckId
-      rel2.cardId = rel.cardId
-      rel2.isSpeedDuel = rel.isSpeedDuel
+      rel2.cardId = array[i].id
+      rel2.isSpeedDuel = rel.isSpeedDuel == undefined ? false : rel.isSpeedDuel;
       this.relDeckCardsForSave.push(rel2);
     }   
   }

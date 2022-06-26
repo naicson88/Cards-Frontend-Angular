@@ -19,4 +19,5 @@ export class Deck {
     rel_deck_cards:RelDeckCards[]
     setCollection: SetCollection[]
     imgurUrl:string;
+    isSpeedDuel:boolean
 }

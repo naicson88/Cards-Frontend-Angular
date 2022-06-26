@@ -46,16 +46,14 @@ export class CardServiceService {
       )
   }
 
-  public findByNumero(numero:any) {
-    
+  public findByNumero(numero:any) {  
     return this.http.get<Card>(this.base_url+`/cards/num/${numero}`)
     .pipe(
       catchError(HandleErros.handleError)
     )
   }
 
-  public getCardDetails(id:any) {
-    
+  public getCardDetails(id:any) {   
     return this.http.get<any[]>(this.base_url+`/cards/number/${id}`)
     .pipe(
       catchError(HandleErros.handleError)

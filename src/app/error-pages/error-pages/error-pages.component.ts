@@ -20,7 +20,7 @@ export class ErrorPagesComponent implements OnInit, AfterViewChecked {
   isLoggedIn:boolean;
 
   ngOnInit() {
-    debugger
+    
     this.verifyUser()
     this.loadErrorImage()
   }
