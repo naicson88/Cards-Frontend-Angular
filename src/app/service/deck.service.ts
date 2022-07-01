@@ -13,6 +13,7 @@ import { SetDetailsDTO } from '../classes/SetDetailsDTO';
   providedIn: 'root'
 })
 export class DeckService {
+
   deck: Deck
 
   constructor(private http: HttpClient, private router: Router ) {}
@@ -54,19 +55,34 @@ export class DeckService {
      
   }
 
-  public addSetToUsersCollection(setId:number){
+  public addDeckToUsersCollection(setId:number){
     return this.http.get<any>(this.base_url+`/userDeck/add-deck-to-user-collection/${setId}`)
     .pipe(
       catchError(HandleErros.handleError)
     )
   }
 
-  public removeSetToUsersCollection(setId:number){
+  public addSetToUsersCollection(setId:number){
+    return this.http.get<any>(this.base_url+`/user-setcollection/add/${setId}`)
+    .pipe(
+      catchError(HandleErros.handleError)
+    )
+  }
+
+  public removeDeckToUsersCollection(setId:number){
     return this.http.get<any>(this.base_url+`/userDeck/remove-set-to-user-collection/${setId}`)
     .pipe(
       catchError(HandleErros.handleError)
     )
   }
+
+  public removeSetToUsersCollection(setId:number){
+    return this.http.get<any>(this.base_url+`/user-setcollection/remove/${setId}`)
+    .pipe(
+      catchError(HandleErros.handleError)
+    )
+  }
+
 
   public manegeDeckAndCardsOfUserCollection(deckId: number, flagAddOrRemove:string){
     return this.http.get<any>(this.base_url+`/decks/add-deck-to-user-collection/${deckId}/${flagAddOrRemove}`)

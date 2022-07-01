@@ -1,16 +1,15 @@
-import { Component, Inject, OnInit ,Pipe, PipeTransform} from '@angular/core';
+import { Component, OnInit ,Pipe} from '@angular/core';
 import { Deck } from 'src/app/classes/Deck';
 import { DeckService } from 'src/app/service/deck.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from 'src/app/service/spinner.service';
-import { error } from 'protractor';
 import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
-import { Imagens } from 'src/app/classes/Imagens';
+
 
 
 @Component({
@@ -111,23 +110,47 @@ export class DeckComponent implements OnInit {
       let qtdCardManeged:number;
       let setId =  event //event.target.name;
 
-      this.service.addSetToUsersCollection(setId).subscribe(data => {
-        qtdCardManeged = data;
+      if(this.set_type == 'DECK'){
 
-        if(qtdCardManeged == 0){
-          return false;
-        }
+        this.service.addDeckToUsersCollection(setId).subscribe(data => {
+          qtdCardManeged = data;
+  
+          if(qtdCardManeged == 0){
+            return false;
+          }
+  
+          if(qtdCardManeged > 0){
+            this.toastr.success('The Set has been added to your collection! Plus ' + qtdCardManeged + ' cards of this Deck.', 'Success!');
+              
+            this.manegeQuantity(setId, "A");
+  
+          } else {
+            this.toastr.error('Unable to add the Deck or Cards to the user.', 'Error!')
+          }
+  
+        })
 
-        if(qtdCardManeged > 0){
-          this.toastr.success('The Deck has been added to your collection! Plus ' + qtdCardManeged + ' cards of this Deck.', 'Success!');
-            
-          this.manegeQuantity(setId, "A");
-
-        } else {
-          this.toastr.error('Unable to add the Deck or Cards to the user.', 'Error!')
-        }
-
-      })
+      } else {
+        
+        this.service.addSetToUsersCollection(setId).subscribe(data => {
+          qtdCardManeged = data;
+  
+          if(qtdCardManeged == 0){
+            return false;
+          }
+  
+          if(qtdCardManeged > 0){
+            this.toastr.success('The Set has been added to your collection! Plus ' + qtdCardManeged + ' cards of this Deck.', 'Success!');
+              
+            this.manegeQuantity(setId, "A");
+  
+          } else {
+            this.toastr.error('Unable to add the Deck or Cards to the user.', 'Error!')
+          }
+  
+        })
+      }
+      
     }
 
     removeSetToUserCollection(event:any) {
@@ -143,22 +166,29 @@ export class DeckComponent implements OnInit {
         if(setId == null || setId == undefined || setId == "")
         alert("It was not possible remove this set. Try again later.")
 
-        this.service.removeSetToUsersCollection(setId).subscribe(data => {
-          qtdCardManeged = data;
-  
-          if(qtdCardManeged > 0){
-  
-            this.toastr.warning('The Deck has been removed from your collection! Plus ' + qtdCardManeged + ' cards of this deck.', 'Success!');
-           // this.manegeQuantity(setId, "R");
-            
-          } else {
-            this.toastr.error('Unable to remove the Deck or Cards to the user collection.', 'Error!')
-          }
-        }, error => {
-          console.log(error)
-          this.errorDialog("Sorry, something bad happened.")
+        if(this.set_type == 'DECK'){
+          this.service.removeDeckToUsersCollection(setId).subscribe(data => {
+            qtdCardManeged = data;   
+              this.toastr.warning('The Deck has been removed from your collection! Plus ' + qtdCardManeged + ' cards of this deck.', 'Success!');
          
-        })
+          }, error => {
+            console.log(error)
+            this.errorDialog("Sorry, something bad happened.")
+           
+          })
+        } else {
+          this.service.removeSetToUsersCollection(setId).subscribe(data => {
+            qtdCardManeged = data;    
+              this.toastr.warning('The Deck has been removed from your collection! Plus ' + qtdCardManeged + ' cards of this deck.', 'Success!');
+            
+          }, error => {
+            console.log(error)
+            this.errorDialog("Sorry, something bad happened.")
+           
+          })
+        }
+
+       
 
         this.deck.splice(i, 1);
 
