@@ -30,7 +30,7 @@ export class ArchetypeDetailsComponent  implements OnInit  {
 
     const cardNumber = event.target.name;
     if(cardNumber != null && cardNumber != ""){
-      console.log(cardNumber)
+  
       this.cardService.setCardNumber(cardNumber);
     
     } else {
@@ -46,11 +46,11 @@ export class ArchetypeDetailsComponent  implements OnInit  {
   }
 
   loadArchetypeDetails(){
-    debugger
+    
     //const id = localStorage.getItem("idArchetype");
     const id = this.archService.getArchetypeId();
     this.archService.getArchetype(id).subscribe(data =>{
-      console.log(data)
+
      this.archetype = data;
      
     })

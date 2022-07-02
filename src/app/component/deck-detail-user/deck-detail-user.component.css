@@ -26,12 +26,12 @@
 
   #toManege{
     margin-left: 10;
-    border: solid thin #9370DB; 
+    border: solid thin #A9A9A9; 
     border-radius: 4px;
     padding: 5px 10px;
     font-weight: 500;
     color: white;
-    background-color: #9370DB;
+    background-color: #A9A9A9;
     width: fit-content;
     display: inline-block;
     height: 37px;

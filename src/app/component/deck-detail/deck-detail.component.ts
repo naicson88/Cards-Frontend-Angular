@@ -69,7 +69,7 @@ export class DeckDetailComponent implements OnInit {
     this.service.getDeckDetails(id, source, set_type).subscribe(data => {
 
       this.deckDetails = data;
-      console.log("DETAILS " + JSON.stringify(this.deckDetails));
+      console.log("DATA: " + JSON.stringify(this.deckDetails))
       this.arrInsideDecksCards = data['insideDeck'] //[0]['cards'];
       //console.log("Inside: " + JSON.stringify(this.arrInsideDecksCards))
       this.countsGeneric_type = data['statsQuantityByGenericType'];

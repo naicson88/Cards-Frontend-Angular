@@ -44,7 +44,7 @@ export class ArchetypeComponent implements OnInit {
    // console.log(id);
    const archId = event.target.id;
    if(archId != null && archId != ""){
-     console.log(archId)
+
      this.archService.setArchetypeId(archId);
    
    } else {

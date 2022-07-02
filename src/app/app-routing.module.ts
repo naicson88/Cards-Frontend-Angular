@@ -25,7 +25,8 @@ const routes: Routes = [
 
   { path: 'deck-details/:deckName', component: DeckDetailComponent, data:{set_type: 'DECK'}},
   { path: 'collection-details/:deckName', component: DeckDetailComponent, data: {set_type: 'COLLECTION'}},
-  { path: 'user-deck-details/:deckName', component: DeckDetailComponent, data: {source: 'U'}},
+  { path: 'user-deck-details/:deckName', component: DeckDetailComponent, data: {source: 'USER'}},
+  { path: 'user-setcollection-details/:deckName', component: DeckDetailComponent, data: {source: 'USER'}},
   
   { path: 'card-detail/:cardName', component: CardDetailComponent },
   { path: 'index', component: IndexComponent },

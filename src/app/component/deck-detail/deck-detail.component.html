@@ -21,8 +21,23 @@
                     font-weight: 700;"> <i> {{deckDetails.lancamento}}</i></p>
         </div>
       </div>
+
+      <!--Empty Collection-->   
+        <div *ngIf="!arrInsideDecksCards" id="empty-set" class="row">
+            <p>
+              <i>This Set is empty, edit it and include some cards!</i>
+            </p> 
+          
+           <div>
+            <a  name="teste" [routerLink]="['/userdeck-details/', 'name']" (click)="storeDeckId('teste')" >
+              <button type="button" class="btn btn-outline-warning btn-lg"> Edit  </button>
+              </a> &nbsp;
+           </div>
+        </div>
+      
+
       <!--Raridade-->
-      <div class="row" style="border: gold solid thin;">
+      <div class="row" style="border: gold solid thin;" *ngIf="arrInsideDecksCards">
 
         <div id="rarity" style="width: 100%; background-color: rgb(164, 154, 231); height: 35px;">
 
@@ -57,7 +72,7 @@
     </div>
   </div>
 
-  <div class="p-5  rounded shadow mb-5" style="margin-top: 25px">
+  <div class="p-5  rounded shadow mb-5" style="margin-top: 25px" *ngIf="arrInsideDecksCards">
     <!-- Rounded tabs -->
     <ul id="myTab" role="tablist"
       class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav">
@@ -645,4 +660,8 @@
     <!-- End rounded tabs -->
 
   </div>
+
 </div>
+
+
+<app-footer></app-footer>

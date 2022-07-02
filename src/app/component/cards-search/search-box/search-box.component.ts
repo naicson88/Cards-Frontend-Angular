@@ -144,7 +144,6 @@ export class SearchBoxComponent implements OnInit {
 
       this.cardService.searchCardsDetailed(params, this.criterios).subscribe(data => {
         this.cardsFound = data;
-        console.log(this.cardsFound);
 
        this.relUserCard = GeneralFunctions.relUserCards(this.cardsFound, this.cardService);
        
@@ -319,7 +318,6 @@ export class SearchBoxComponent implements OnInit {
 
         }
       
-       console.log(this.criterios);
       }
 
       typesFilters(){
@@ -346,7 +344,7 @@ export class SearchBoxComponent implements OnInit {
       }
       
       splitString(txt:string, key:string){
-          console.log(key)
+    
             const criterio = new SearchCriteria();
             const criterio2 = new SearchCriteria();
 

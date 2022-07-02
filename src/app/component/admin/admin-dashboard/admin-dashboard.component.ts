@@ -57,12 +57,11 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onSubmitSetCollection(){
-    debugger
-    console.log(this.formCollection);
+
     this.formCollection.value.releaseDate = formatDate(this.formCollection.value.releaseDate, 'dd-MM-yyyy', 'en-US')
      
     this.adminService.createNewSetCollection(this.formCollection.value).subscribe(result => {
-      console.log(result)
+
       this.toastr.success("SetCollection sent to Queue")
       this.formCollection.reset()
     }, error => {

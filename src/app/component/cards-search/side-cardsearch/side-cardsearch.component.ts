@@ -34,7 +34,7 @@ export class SideCardsearchComponent implements OnInit {
   findCardToAddToUserCollection() {
       let teste = 72302403;
       let name = this.searchForm.controls['cardName'].value
-      console.log(name)
+  
       this.service.findCardToAddToUserCollection(teste).subscribe(data  => {
         this.cardFound = data;
         this.arrSets = data.mapDeckSetcode;

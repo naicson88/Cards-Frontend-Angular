@@ -13,6 +13,7 @@ import { SetDetailsDTO } from '../classes/SetDetailsDTO';
   providedIn: 'root'
 })
 export class DeckService {
+
   deck: Deck
 
   constructor(private http: HttpClient, private router: Router ) {}
@@ -28,7 +29,7 @@ export class DeckService {
         )
 
       } else { //Se forem sets do usuário
-          return  this.http.get(this.base_url+`/decks/sets-of-user?size=${params.size}&page=${params.page}&setType=${set_type}`)
+          return  this.http.get(this.base_url+`/userDeck/sets-of-user?size=${params.size}&page=${params.page}&setType=${set_type}`)
           .pipe(
             catchError(HandleErros.handleError)
           )
@@ -47,26 +48,41 @@ export class DeckService {
 
   public editDeck(id:any, setSource:string) {
 
-    return this.http.get<Deck>(this.base_url+`/decks/edit-deck?id=${id}&setSource=${setSource}`) 
+    return this.http.get<Deck>(this.base_url+`/userDeck/edit-deck?id=${id}&setSource=${setSource}`) 
     .pipe(
       catchError(HandleErros.handleError)
     )
      
   }
 
+  public addDeckToUsersCollection(setId:number){
+    return this.http.get<any>(this.base_url+`/userDeck/add-deck-to-user-collection/${setId}`)
+    .pipe(
+      catchError(HandleErros.handleError)
+    )
+  }
+
   public addSetToUsersCollection(setId:number){
-    return this.http.get<any>(this.base_url+`/decks/add-deck-to-user-collection/${setId}`)
+    return this.http.get<any>(this.base_url+`/user-setcollection/add/${setId}`)
+    .pipe(
+      catchError(HandleErros.handleError)
+    )
+  }
+
+  public removeDeckToUsersCollection(setId:number){
+    return this.http.get<any>(this.base_url+`/userDeck/remove-set-to-user-collection/${setId}`)
     .pipe(
       catchError(HandleErros.handleError)
     )
   }
 
   public removeSetToUsersCollection(setId:number){
-    return this.http.get<any>(this.base_url+`/decks/remove-set-to-user-collection/${setId}`)
+    return this.http.get<any>(this.base_url+`/user-setcollection/remove/${setId}`)
     .pipe(
       catchError(HandleErros.handleError)
     )
   }
+
 
   public manegeDeckAndCardsOfUserCollection(deckId: number, flagAddOrRemove:string){
     return this.http.get<any>(this.base_url+`/decks/add-deck-to-user-collection/${deckId}/${flagAddOrRemove}`)
@@ -76,14 +92,14 @@ export class DeckService {
   }
 
   public relUserDeck(decksIds:number[]) {
-    return this.http.get<any>(this.base_url+`/decks/rel-user-decks?decksIds=${decksIds}`)
+    return this.http.get<any>(this.base_url+`/userDeck/rel-user-decks?decksIds=${decksIds}`)
     .pipe(
       catchError(HandleErros.handleError)
     )
   }
 
-  public saveUserDeck(deck:Deck){
-    return this.http.post<Deck>(this.base_url+`/decks/save-userdeck`, deck, {observe:'response'}).pipe(
+  public saveUserDeck(deck:Deck): Observable<HttpResponse<Deck>> {
+    return this.http.post<Deck>(this.base_url+`/userDeck/save-userdeck`, deck, {observe:'response'}).pipe(
       catchError(HandleErros.handleError)
     )
   }
