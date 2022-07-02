@@ -282,7 +282,22 @@
   }
 
 
-
+  #empty-set{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    background-color: ghostwhite; 
+    height: 35px;
+    font-size: 30px;
+    padding: 10px;
+    color: #BEBEBE;
+    font-weight: 600;
+    height: 80%;
+    border: solid thin silver;
+    border-radius: 10px;
+    margin-top: 5px;
+  }
 
   #rarity ul {
     display: flex;

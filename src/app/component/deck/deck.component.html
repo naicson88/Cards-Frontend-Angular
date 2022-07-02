@@ -65,6 +65,12 @@
                                  <a *ngIf="source == 'USER' && set_type == 'DECK'"  name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/user-deck-details/', deck.nome]" class="deck_name">               
                                      {{deck.nome}}
                                  </a> 
+
+                                 <a *ngIf="source == 'USER' && set_type != 'DECK'"  name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/user-setcollection-details/', deck.nome]" class="deck_name">               
+                                    {{deck.nome}}
+                                </a> 
+
+                                
                               <!-- <a href="#">
                                  <span >{{deck.lancamento}}</span>
                               </a>                            -->
