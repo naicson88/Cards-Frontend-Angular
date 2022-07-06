@@ -17,7 +17,7 @@
         Your Cards Collection
     </div>
     
-    <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: ghostwhite;">
+    <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: ghostwhite;" *ngIf="arrCards.length > 0">
 
         <li class="nav-item" *ngFor="let icon of arrIcons" (click)="cardsByGenericType(icon.tipo)">
           <a class="nav-link " id="Monster-tab" data-toggle="tab" href="#{{icon.tipo}}" role="tab"
@@ -25,11 +25,11 @@
             <img [src]='icon.img' alt="" width="28px" height="40px" >&nbsp; {{icon.tipo}}</a>
         </li>
         
-      </ul>
+    </ul>
       
       <div class="tab-content" id="myTabContent">
       
-         <div id="filter-div" style=" margin-top: 20px;"> 
+         <div id="filter-div" style=" margin-top: 20px;" *ngIf="arrCards.length > 0"> 
           <!--Filter-->
             <div class="wrap">
               <div class="search">
@@ -41,10 +41,15 @@
           </div>
          </div>
 
+         <!-- Se a coleção do usuário estiver vazia-->
+         <div id="empty-collection" *ngIf="arrCards.length == 0">
+            <h1> You haven't added any cards to your collection yet!</h1>
+         </div>
+
          <!--Inicio da div que mostra os cards-->
-          <div id="cards" style=" margin-top: 20px; padding: 5px;">
+          <div id="cards" style=" margin-top: 20px; padding: 5px;" *ngIf="arrCards.length > 0">
       
-              <div class="div-cards" *ngFor="let card of arrCards; let i = index">
+            <div class="div-cards" *ngFor="let card of arrCards; let i = index">
                 <p class="card-name">
                     <a [routerLink]="['/card-detail/', card.nome]"  name="{{card.numero}}" (click)="storedCardId($event)"  >
                       {{card.nome}}

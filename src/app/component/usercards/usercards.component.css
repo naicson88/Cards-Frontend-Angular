@@ -22,6 +22,8 @@
     
   }
 
+  
+
 .set-header{
     background: rgb(15,117,178);
     background: linear-gradient(146deg, rgba(15,117,178,1) 59%, rgba(59,216,235,1) 78%, rgba(239,241,241,1) 97%, rgba(241,241,241,1) 100%);
@@ -76,6 +78,22 @@
     z-index: 9999;
     display: block;
   }
+
+  #empty-collection{
+    margin-top: 10px;
+    width:100%;
+    height: 150px;
+    border: solid thin silver;
+    border-radius: 5px;
+    padding: 15px;
+  }
+
+  #empty-collection h1{
+    color: silver;
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  }
+
 
   #table-contains{
     font-family: Mija, -apple-system, BlinkMacSystemFont, Roboto, "Roboto Slab", "Droid Serif", "Segoe UI", system-ui, Arial, sans-serif;

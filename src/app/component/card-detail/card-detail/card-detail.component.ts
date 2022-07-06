@@ -5,6 +5,7 @@ import { AchetypeService } from 'src/app/service/archetype-service/achetype.serv
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import {Chart} from 'chart.js';
+import { SpinnerService } from 'src/app/service/spinner.service';
 
 @Component({
   selector: 'app-card-detail',
@@ -17,7 +18,7 @@ export class CardDetailComponent implements OnInit {
 
   
 
-  constructor(private router: Router, private service: CardServiceService, private archService: AchetypeService) { }
+  constructor(private router: Router, private service: CardServiceService, private archService: AchetypeService, private  spinner: SpinnerService) { }
 
 
   ngOnInit() {
@@ -37,17 +38,19 @@ export class CardDetailComponent implements OnInit {
   loadCardDetail(){
    // const id = localStorage.getItem("idCard");
     let idd =  Number(localStorage.getItem("idCard"));
+      
 
       this.service.getCardDetails(idd).subscribe(data => { 
+        this.spinner.show();
         this.card = data['card'];
         this.qtdUserHaveByKonamiCollection(data);
         this.qtdUserHaveByUserCollection(data);
         this.totalViews = data['views']['totalQtdViews'];
         this.verifyIfIsLinkCard(data);
         this.setCardTypes(data)
-
+        this.spinner.hide();
       })  
-  
+    
   }
   setCardTypes(data:any){
     let card = data['card'];

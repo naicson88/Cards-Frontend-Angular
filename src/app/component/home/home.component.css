@@ -8,7 +8,8 @@
 }
 #mainDivHome{
     padding: 20px;
-    background: ghostwhite; 
+    background: white; 
+    border: solid thin silver;
 }
 .my-card
 {
@@ -143,6 +144,10 @@ max-height:100%;
     width: 87%;
     height: 100%;
     vertical-align:top;
+    white-space: nowrap;                  
+    overflow: hidden; /* "overflow" value must be different from "visible" */
+    text-overflow:    ellipsis;
+   
 }
 
 .card-name {

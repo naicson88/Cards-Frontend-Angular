@@ -11,6 +11,7 @@ import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog
 import { CardinfoComponent } from '../tooltip/cardinfo/cardinfo.component';
 import { Card } from 'src/app/classes/Card';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { SpinnerService } from 'src/app/service/spinner.service';
 export class UsercardsComponent implements OnInit {
   @ViewChild('btnNew',  { static: false }) btnNew: ElementRef;
 
-  constructor(private img: Imagens, private service: CardServiceService, private dialog: MatDialog, private spinner: SpinnerService) { }
+  constructor(private img: Imagens, private service: CardServiceService, private dialog: MatDialog, private spinner: SpinnerService,   private toastr: ToastrService,) { }
 
   cardsFromScroll = new BehaviorSubject([]);
   page: number = 1; 
@@ -66,10 +67,19 @@ export class UsercardsComponent implements OnInit {
     const params = this.getRequestParam(this.pageSize, 0);
 
     if(genericType != null && genericType != " "){
+      this.spinner.show();
+
       this.service.getCardsByGenericType(params, genericType).subscribe(data => {
-        this.arrCards = data;
-        this.page = 2;
+        if(data.length > 0){
+          this.arrCards = data;
+          this.page = 2;
+        } else {
+          this.toastr.warning("No cards found with this type")
+        }
+          
       })
+      
+      this.spinner.hide();
     }
   }
 

@@ -113,7 +113,7 @@ loadDeckCards(){
   const id = localStorage.getItem("idDeckDetails");
   
   this.deckService.editDeck(id, "User").subscribe(data => {
- 
+    
   this.deck = data
   
   this.mainDeckCards = data['cards'];
@@ -170,8 +170,7 @@ validTypeDeckCard(cards:any){
             card.isExtraDeck = false
         }
 
-        this.arrayCards.push(card)
-        console.log( "CARDS" + JSON.stringify(this.arrayCards))
+        this.arrayCards.push(card);
       } 
    
    }
@@ -234,31 +233,36 @@ setRelDeckCards(){
     this.setRelDeckCardsTypeDeck(card);
   }) 
 
-  this.sideDeckCards.forEach((card) => {
-    
+  this.sideDeckCards.forEach((card) => {    
     this.setRelDeckCardsTypeDeck(card);
   }) 
 
 }
 
 setRelDeckCardsTypeDeck(card:Card){
+
+  try {
+
+    let rel = this.relDeckCards.find(rel => rel.cardId === card.id);
+    let relIndex = this.relDeckCards.findIndex(rel => rel.cardId === card.id);
+    console.log("card id " +card.id)
+    if(rel == undefined || rel == null){
+      this.errorDialog("Sorry, some error happened, try again later!");
+      return false;
+    }
   
-  let rel = this.relDeckCards.find(rel => rel.cardNumber === card.numero);
-  let relIndex = this.relDeckCards.findIndex(rel => rel.cardNumber === card.numero);
+   let arr = []
+   arr.push(rel)
+   card.relDeckCards = arr;
+   card.raridade = rel.card_raridade
+   card.price = rel.card_price
+  
+   this.relDeckCards.splice(relIndex, 1); 
 
-  if(rel == undefined || rel == null){
-    this.errorDialog("Sorry, some error happened, try again later!");
-    return false;
+  } catch (error) {
+    console.log("console error: " + error);
   }
-
- let arr = []
- arr.push(rel)
- card.relDeckCards = arr;
- card.raridade = rel.card_raridade
- card.price = rel.card_price
-
- this.relDeckCards.splice(relIndex, 1); 
- 
+  
 }
 
 cardImagem(cardId: any){
@@ -757,7 +761,7 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
          rel2.isSpeedDuel = rel.isSpeedDuel
 
          if(rel2.cardId == undefined || rel2.cardId == null)
-            console.log("CARDID INVALID: " + rel2)
+            console.log("CARD ID INVALID: " + rel2)
 
           this.relDeckCardsForSave.push(rel2);
 

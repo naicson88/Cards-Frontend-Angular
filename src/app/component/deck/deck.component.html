@@ -37,8 +37,13 @@
 
    </div>
 
+   <!-- Se a coleção do usuário estiver vazia-->
+   <div id="empty-collection" *ngIf="deck.length == 0">
+      <h1> You haven't added any Set of that type yet!</h1>
+   </div>
+
    <!-- Decks-->
-   <mat-tab-group mat-align-tabs="end">
+   <mat-tab-group mat-align-tabs="end" *ngIf="deck.length > 0">
       <mat-tab >
          <ng-template mat-tab-label>
             <mat-icon>view_module</mat-icon>
@@ -154,7 +159,7 @@
 
     <!-- First deckuct box start here-->
 
-      </div>
+         </div>
    </div>
       </mat-tab>
 <!--Começo visualização por lista-->
