@@ -230,26 +230,26 @@
                         <th width="7%">Rarity</th>
                         <th width="15%">Price (US$)</th>
                     </tr >
-                    <tr *ngFor="let sets of card.sets">
+                    <tr *ngFor="let sets of konamiSets">
                         <td style="text-align: center;">
-                            <img [src]='sets.imgurUrl' alt="Image of the set" width="80px" height="110px" >
+                            <img [src]='sets.image' alt="Image of the set" width="80px" height="110px" >
                         </td>
                         <td>
-                        <a [routerLink]="['/deck-details/', sets.nome]" >{{sets.nome}}</a> 
+                        <a [routerLink]="['/deck-details/', sets.name]" name="sets.id" (click)="storeDeckId(sets.id, sets.setType)">{{sets.name}}</a> 
                         </td>
                         <td style="text-align: center ;">
-                            {{sets.rel_deck_cards[0].card_set_code}}
+                            {{sets.cardSetCode}}
                         </td>
-                        <td style="text-align: center !important;">
-                            <p  [title]='sets.rel_deck_cards[0].card_raridade'
-                            [ngClass]="['raridade', corRaridade(sets.rel_deck_cards[0].card_raridade)]"
+                        <td style="text-align: center !important; cursor: pointer;">
+                            <p  [title]='sets.rarity'
+                            [ngClass]="['raridade', corRaridade(sets.rarity)]"
                             style="margin-left: 15px;">
                             {{raridade}}
                         </p>
                         </td>
                         <td style="text-align: center !important;">
                             <p class="card-text" style="color: #1c9eff !important;
-                            font-weight: bold; font-size: 1.3em !important;"> {{sets.rel_deck_cards[0].card_price}}</p>
+                            font-weight: bold; font-size: 1.3em !important;"> {{sets.price}}</p>
                         </td>
                     </tr>
                 </table>
