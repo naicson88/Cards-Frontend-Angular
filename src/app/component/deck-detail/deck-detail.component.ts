@@ -210,7 +210,7 @@ export class DeckDetailComponent implements OnInit {
 }
 
  storedCardId(event){
-   
+    
    localStorage.setItem("idCard", event.target.name);
    const cardNumber = event.target.name;
    if(cardNumber != null && cardNumber != ""){
@@ -240,15 +240,15 @@ export class DeckDetailComponent implements OnInit {
        return '..\\..\\assets\\img\\outras\\MAGIA.png';
      case 'Trap Card':
        return '..\\..\\assets\\img\\outras\\ARMADILHA.png';
-     case 'CONTINUOUS':
+     case 'Continuous':
        return '..\\..\\assets\\img\\outras\\Continuous.png';
-     case 'FIELD':
+     case 'Field':
        return '..\\..\\assets\\img\\outras\\Field.png';
-     case 'QUICK_PLAY':
+     case 'Quick-Play':
          return '..\\..\\assets\\img\\outras\\Quick.png';
-     case 'COUNTER':
+     case 'Counter':
        return '..\\..\\assets\\img\\outras\\Counter.png';
-     case 'EQUIP':
+     case 'Equip':
        return '..\\..\\assets\\img\\outras\\Equip.jpg';  
    }
    

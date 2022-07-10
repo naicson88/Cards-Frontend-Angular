@@ -9,11 +9,29 @@
    <div id="header-main" >
        
        <div class="wrap" >
+
+         <mat-autocomplete #auto="matAutocomplete" panelWidth="500px" >
+            <mat-option *ngFor="let complete of filteredAutocomplete" [value]="complete.setName" (click)="searchByName()">
+              <span style="color: olive">{{complete.setName}}</span> 
+            </mat-option>
+          </mat-autocomplete>
+
          <div class="search">
-            <input type="text" class="searchTerm" placeholder="Search deck..." maxlength="50" [(ngModel)]="setName" name="setName">
+            <input 
+            #nameFilter
+            (keypress)="_filter(nameFilter.value)" 
+            type="text" 
+            class="searchTerm" 
+            placeholder="Search deck..." 
+            maxlength="50" 
+            [(ngModel)]="setName"
+            [matAutocomplete]="auto" 
+            name="setName">
+
             <button type="submit" class="searchButton" >
               <i class="fa fa-search" (click)="searchByName()"></i>
            </button>
+
          </div>
       </div>
        
@@ -52,7 +70,7 @@
       <div id="cont-cards" class="flex">
          <div id="cardDiv">
 
-         <div class="deck-info-main deck-wrap clearfix" *ngFor="let deck of (deck |  filterBy: deckFilter) |
+         <div class="deck-info-main deck-wrap clearfix" *ngFor="let deck of deck |
             paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: totalItens} " >    
 
                   <div class="deckuct-deatil-div">

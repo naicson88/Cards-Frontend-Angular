@@ -23,21 +23,8 @@ export class ArchetypeDetailsComponent  implements OnInit  {
     this.loadArchetypeDetails();
   }
 
-  storedCardId(event){
-  /*  const id = event.target.name;
-    console.log(id);
-    localStorage.setItem("idCard", id);*/
-
-    const cardNumber = event.target.name;
-    if(cardNumber != null && cardNumber != ""){
-  
-      this.cardService.setCardNumber(cardNumber);
-    
-    } else {
-       console.log("Unable to consult this card, try again later.");
-       return false;
-    }
-   
+  storedCardId(numero){
+    localStorage.setItem("idCard", numero); 
   }
 
   cardImagem(cardId: any){
@@ -46,9 +33,8 @@ export class ArchetypeDetailsComponent  implements OnInit  {
   }
 
   loadArchetypeDetails(){
-    
-    //const id = localStorage.getItem("idArchetype");
-    const id = this.archService.getArchetypeId();
+    const id = localStorage.getItem("idArchetype");
+   // const id = this.archService.getArchetypeId();
     this.archService.getArchetype(id).subscribe(data =>{
 
      this.archetype = data;

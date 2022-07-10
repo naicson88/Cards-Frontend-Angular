@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Archetype } from 'src/app/classes/Archetype';
 import { AchetypeService } from 'src/app/service/archetype-service/achetype.service';
+import { SpinnerService } from 'src/app/service/spinner.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { AchetypeService } from 'src/app/service/archetype-service/achetype.serv
 })
 export class ArchetypeComponent implements OnInit {
 
-  constructor(private router: Router, private service: AchetypeService, private archService: AchetypeService) { }
+  constructor(private router: Router, private service: AchetypeService, private archService: AchetypeService, private spinner: SpinnerService) { }
 
   ngOnInit() {
     this.loadAllArchetypes();
@@ -20,9 +21,13 @@ export class ArchetypeComponent implements OnInit {
   archetype: Archetype[] = [];
 
   loadAllArchetypes(){
+    this.spinner.show();
     this.service.getAllArchetypes().subscribe(data => {
     this.archetype = data;
-
+      this.spinner.hide();
+    }, error => {
+      console.log(error);
+      this.spinner.hide();
     })
   }
 
@@ -38,19 +43,11 @@ export class ArchetypeComponent implements OnInit {
   }
 
   
-  storedArchetype(event){
-    //const id = event.target.id;
-    //localStorage.setItem("idArchetype", id);
-   // console.log(id);
-   const archId = event.target.id;
-   if(archId != null && archId != ""){
+  storedArchetype(id){
+    debugger
+   // const id = event.target.id;
+    localStorage.setItem("idArchetype", id);
 
-     this.archService.setArchetypeId(archId);
-   
-   } else {
-      console.log("Unable to consult this card, try again later.");
-      return false;
-   }
   }
 
 }

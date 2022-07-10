@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
+import { Observable } from 'rxjs';
+import {startWith, map} from 'rxjs/operators';
 
 
 
@@ -34,7 +36,10 @@ export class DeckComponent implements OnInit {
  deck: Deck[]
  relUserDeck: any[];
  safeUrl: SafeUrl;
- deckFilter: any= {nome:''}
+
+ arrayAutocomplete: any[] = [];
+ filteredAutocomplete: any[];
+
 
  user: any;
 
@@ -55,6 +60,7 @@ export class DeckComponent implements OnInit {
 
 
     this.getDecksInfo();
+    this.autocompleteSets(this.source);
 
   }
 
@@ -67,9 +73,10 @@ export class DeckComponent implements OnInit {
   getDecksInfo(): void {
     // this.imgPath =  Imagens.basic_img_path + this.set_type.toLowerCase() + "\\";
     // console.log(this.imgPath)
+    this.spinner.show();
 
     const params = this.getRequestParam(this.pageSize, this.page);
-    this.spinner.show();
+
     this.service.getDecks(params, this.set_type, this.source).subscribe(data => {
       
      const {content, totalElements} = data;
@@ -83,12 +90,21 @@ export class DeckComponent implements OnInit {
         this.safeUrl = this.domSanitizer.bypassSecurityTrustUrl(this.deck[i].imagem);  
 
       }
+      
+
 
     })
     
     error => {
       console.log(error);
     }
+  }
+
+  autocompleteSets(source:string){
+    this.service.autcompleteSets(source).subscribe(data => {
+      this.arrayAutocomplete = data;
+      console.log(JSON.stringify(this.arrayAutocomplete));
+    })
   }
 
   getRequestParam(pageSize, page){
@@ -257,21 +273,19 @@ export class DeckComponent implements OnInit {
 
   setName:string = '';
   searchByName(){
-    
-    if(this.setName.length < 5){
-      this.warningDialog("Need at lest 5 caracteres of set name")
-      return false;
-    }
 
-    this.service.searchBySetName(this.setName, this.source).subscribe( data => {
-        let decksFound:Deck[] = [];
-        decksFound = data;
+    this.service.searchBySetName(this.setName).subscribe( data => {
+        debugger
+        let decksFound:any[] = [];
+        const {content, totalElements} = data;
+
+        decksFound = content;
 
         if(decksFound == null || decksFound == undefined || decksFound.length == 0){
             this.toastr.warning("No Set found with this name")
         } else {
           this.deck = [];
-          this.deck = data;
+          this.deck = decksFound;
           this.toastr.success(this.deck.length + " Set(s) found")
         }
       
@@ -296,6 +310,20 @@ export class DeckComponent implements OnInit {
     this.getDecksInfo();
      
   }
+
+   _filter(value:string): any[]{
+   
+    if(value.length >= 3){
+      const filterValue = this._normalizeValue(value);    
+      this.filteredAutocomplete = this.arrayAutocomplete.filter(set => this._normalizeValue(set.setName).includes(filterValue)) ;
+      return this.filteredAutocomplete  
+      }
+    }
+
+  private _normalizeValue(value: string): string {
+    return value.toLowerCase().replace(/\s/g, '');
+  }
+ 
 
   errorDialog(errorMessage:string){
     this.dialog.open(ErrorDialogComponent, {

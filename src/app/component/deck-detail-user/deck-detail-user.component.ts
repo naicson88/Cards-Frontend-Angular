@@ -112,6 +112,7 @@ loadDeckCards(){
   
   const id = localStorage.getItem("idDeckDetails");
   
+  this.spinner.show();
   this.deckService.editDeck(id, "User").subscribe(data => {
     
   this.deck = data
@@ -126,13 +127,14 @@ loadDeckCards(){
   this.relDeckCards =  data['rel_deck_cards'];
   this.calculateDeckPrice(this.relDeckCards);
   this.setRelDeckCards();
-
+  this.spinner.hide();
   //this.calculateQtdRarity();
 
   },
   error =>{
     let errorCode = error.status;
     this.router.navigate(["/error-page", errorCode]);
+    this.spinner.hide();
   })
 }
 

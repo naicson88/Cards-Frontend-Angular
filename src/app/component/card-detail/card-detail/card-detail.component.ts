@@ -39,10 +39,11 @@ export class CardDetailComponent implements OnInit {
   loadCardDetail(){
    // const id = localStorage.getItem("idCard");
     let idd =  Number(localStorage.getItem("idCard"));
-      
+
+    this.spinner.show();
 
       this.service.getCardDetails(idd).subscribe(data => { 
-        this.spinner.show();
+       
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
         // console.log("CARD: " + JSON.stringify(this.card))
