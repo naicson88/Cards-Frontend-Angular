@@ -91,12 +91,12 @@ export class DeckService {
     )
   }
 
-  public relUserDeck(decksIds:number[]) {
-    return this.http.get<any>(this.base_url+`/userDeck/rel-user-decks?decksIds=${decksIds}`)
-    .pipe(
-      catchError(HandleErros.handleError)
-    )
-  }
+  // public relUserDeck(decksIds:number[]) {
+  //   return this.http.get<any>(this.base_url+`/userDeck/rel-user-decks?decksIds=${decksIds}`)
+  //   .pipe(
+  //     catchError(HandleErros.handleError)
+  //   )
+  // }
 
   public saveUserDeck(deck:Deck): Observable<HttpResponse<Deck>> {
     return this.http.post<Deck>(this.base_url+`/userDeck/save-userdeck`, deck, {observe:'response'}).pipe(

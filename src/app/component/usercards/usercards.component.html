@@ -76,7 +76,7 @@
                       class="imgTooltip" >
                       </div>-->
 
-                <button class="manageBtn" data-toggle="modal" data-target=".manageCard"  (click)="cardOfUserDetails(card.numero)">
+                <button class="manageBtn" data-toggle="modal" data-target=".manageCard"  (click)="cardOfUserDetails(card.cardId)">
                 Details 
               </button>
             </div>
@@ -96,14 +96,14 @@
           </div>
       </div>
 
-      <div class="modal fade manageCard" tabindex="-1" role="dialog"
+      <div class="modal fade manageCard" tabindex="-1" role="dialog" id="divModal"
        aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content" style="padding: 5px;">
 
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">Details</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModalBtn">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -167,7 +167,7 @@
                                     <tbody id="table-contains-body">
                                       <tr *ngFor="let sets of arrCardsDetails.setsWithThisCard">
                                         <td>
-                                          <a href="">{{sets.setName}}</a>
+                                          <a (click)="storeDeckId(sets.id, sets.setType)" [routerLink]="" >{{sets.setName}}</a>
                                         </td>
                                         <td>{{sets.cardSetCode}}</td>
                                         <td>{{sets.rarity}}</td>
