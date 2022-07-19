@@ -156,9 +156,15 @@
                      <!--    <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>-->
                            <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have:</span><br>
 
-                           <a  name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                           <a *ngIf="set_type == 'DECK'" name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id)" >
                               <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
                            </a> &nbsp;
+
+                           <a *ngIf="set_type != 'DECK'" name="{{deck.id}}" [routerLink]="['/user-setcollection-cards/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                              <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
+                           </a> &nbsp;
+
+
                            
                            <button type="button" class="btn btn-outline-danger btn-sm"  title="Delete from your collection"
                            id="{{deck.id}}" (click)="removeSetToUserCollection($event)">Remove            

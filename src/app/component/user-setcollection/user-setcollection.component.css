@@ -1,0 +1,118 @@
+.container {
+    border: solid thin red;
+    background-color: white;
+    padding: 5px;
+    min-width: 900px;
+    max-width: 85%;
+}
+
+#tableRarity{
+    width: 35%;
+    float: right;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+    border-radius: 5px ; 
+    border: solid thin silver
+  }
+
+  #optionsBtn{
+    width: 100%; 
+    height: 50px;  
+    margin-bottom: 10px;
+    border: solid thin silver;
+    padding: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+  
+  }
+
+  #onlyCardsIhave{
+    margin-left: 10;
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-weight: 400;
+    color: black;
+    background-color: rgb(224, 224, 243);
+    width: fit-content;
+    display: inline-block;
+    height: 37px;
+    box-shadow: 0 3px 1px -2px #0003, 0 2px 2px #00000024, 0 1px 5px #0000001f;
+
+  }
+
+  .form-select{
+    border-radius: 5px; 
+    background-color: #a4ebd1; 
+    color: black !important; 
+    padding: 5px; 
+    box-shadow: 0 3px 1px -2px #0003, 0 2px 2px #00000024, 0 1px 5px #0000001f;
+    font-size: 14px;
+  }
+
+  #divAllCards{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border: solid thin green;
+    
+  }
+
+  #divOptions{
+    border: solid thin silver; 
+    padding: 10px; 
+    width: fit-content; 
+    margin: 10px 0 20px 30px;
+    background-color:#fffafa;
+    display: inline-block;
+  }
+
+  .divSingleCard{
+   
+    width: 180px;
+    height:fit-content;
+    margin: 5px;
+    align-items: center;
+    text-align: center;
+    padding: 2px;
+    font-size: 14px;
+    box-shadow: rgba(21, 180, 255, 0.5)  0px 0px 0px 2px, rgba(21, 180, 255, 0.5)  0px 4px 6px -1px, rgba(21, 180, 255, 0.5)  0px 1px 0px inset; 
+    background: ghostwhite;  
+    
+  }
+
+  .singleCardName{
+    margin: 2px; 
+    text-overflow:ellipsis;  
+    overflow: hidden;  
+    white-space: nowrap;
+  }
+  
+  .number span {
+    cursor: pointer;
+    margin: 1px;
+  }
+
+  .minus, .plus {
+    width: 25px;
+    height: 25px;
+    background: #f2f2f2;
+    border-radius: 4px;
+    padding: 2px 5px 2px 5px;
+    border: 1px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .number input {
+    height: 30px;
+    width: 50px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+  }

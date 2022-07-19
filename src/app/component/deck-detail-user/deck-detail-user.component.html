@@ -2,7 +2,7 @@
 
   <div class="container" id="main-div" style="margin-top: 20px; border: solid thin silver; background-color: ghostwhite; padding: 10px;">
     <div class="set-header">  
-        User's Deck
+        Your Deck
     </div>
 
     <!--Deck name-->
@@ -103,7 +103,7 @@
                         <ul class="cardSimpleInfo">
                             <li>   
                                 <span *ngIf="card.relDeckCards.length == 1 " style="color: #228B22; font-weight: 700; top: 0;" id="main_{{i}}">
-                                $ {{card.relDeckCards[0].card_price}}
+                                 {{card.relDeckCards[0].card_price | currency : 'USD' }}
                                </span>
                                 <span *ngIf="card.relDeckCards.length == 0 || card.relDeckCards.length > 1"  style="color: red; font-weight: 700; top: 0;" id="main_{{i}}"> 
                                     $ 0.00</span>

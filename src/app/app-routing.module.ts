@@ -13,6 +13,7 @@ import { HomeComponent } from './component/home/home.component';
 import { IndexComponent } from './component/index/index.component';
 import { LoginComponent } from './component/index/login/login.component';
 import { RegisterComponent } from './component/index/register/register.component';
+import { UserSetcollectionComponent } from './component/user-setcollection/user-setcollection.component';
 import { UsercardsComponent } from './component/usercards/usercards.component';
 import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.component';
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
@@ -27,7 +28,7 @@ const routes: Routes = [
   { path: 'collection-details/:deckName', component: DeckDetailComponent, data: {set_type: 'COLLECTION'}},
   { path: 'user-deck-details/:deckName', component: DeckDetailComponent, data: {source: 'USER'}},
   { path: 'user-setcollection-details/:deckName', component: DeckDetailComponent, data: {source: 'USER'}},
-  
+  { path: 'user-setcollection-cards/:setName', component: UserSetcollectionComponent},
   { path: 'card-detail/:cardName', component: CardDetailComponent },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent, data: {badCredential: false}},
