@@ -80,12 +80,31 @@
                 </div>
                 
                 <div id="fieldsetCheckbox">
-                  <mat-checkbox class="example-margin" [(ngModel)]="onlyCardsIhave" >Show only Cards I Have.</mat-checkbox> &nbsp;&nbsp;&nbsp;
-                  <!-- <mat-checkbox class="example-margin" [(ngModel)]="onlyCardsIhave" >Select all Cards on display</mat-checkbox>  -->
-                   <br>
-                  <mat-checkbox class="example-margin" [(ngModel)]="onlyCardsIhave" >Show Card Price</mat-checkbox> <br>
+
+                    <mat-checkbox class="example-margin" 
+                    [(ngModel)]="isChecked" 
+                    [disabled]="isCheckedDont"
+                    (change)="onlyCardsUserHave(isChecked? true : false, 'have')" >
+                    Show only Cards I Have.
+                  </mat-checkbox> &nbsp;&nbsp;&nbsp;<br>
+
+                    <mat-checkbox class="example-margin" 
+                    [(ngModel)]="isCheckedDont" 
+                    [disabled]="isChecked"
+                    (change)="onlyCardsUserHave(isCheckedDont? true : false, 'dont')" >
+                    Show only Cards I Don't Have.
+                  </mat-checkbox> &nbsp;&nbsp;&nbsp;
+
+                    <br>
+                    <mat-checkbox 
+                    checked="true"
+                    class="example-margin" 
+                    [(ngModel)]="showDetail" 
+                    (change)="showDetails(showDetail? true : false)">
+                    Show Card Details
+                  </mat-checkbox>
                 </div>
-                
+                <br>
                 <div id="fieldsetButtons">
                     <button mat-raised-button style="background-color:#1E90FF; color: white; margin-top: 5px;" (click)="saveDeck()" title="Only on cards on display">
                         Add to all Cards 	<mat-icon>exposure_plus_1</mat-icon>
@@ -103,54 +122,13 @@
                 Save 	<mat-icon>save</mat-icon>
             </button>
         </div>
- 
-    <!--Div botões-->
-   <!-- <div id="optionsBtn" >
-      
-        <div>
-            <label for="">Set Codes: &nbsp;&nbsp;</label>
-            <select class="form-select" aria-label="Default select example" >
-                <option selected>All</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-        </div>
-        
 
-          <div> 
-            <label for="">Filter: &nbsp;&nbsp;</label>
-            <select class="form-select " style="background-color:#04AA6D !important; color: white !important" aria-label="Default select example" >
-                <option selected>No Filter</option>
-                <option value="1">a-Z</option>
-                <option value="2">Z-a</option>
-                <option value="3">Atk</option>
-                <option value="3">Def</option>
-              </select> 
-          </div>
-     
-
-        <div id="onlyCardsIhave">
-            <mat-checkbox class="example-margin" [(ngModel)]="onlyCardsIhave" >Show only Cards I Have.</mat-checkbox>
-        </div>
-
-        <div >
-            <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="saveDeck()">
-                Save 	<mat-icon>save</mat-icon>
-            </button>
-        </div>
-
-        <div id="btnSearch" >
-            <button mat-raised-button color="primary" (click)="openDialogSearch()" >Search <mat-icon>search</mat-icon></button>
-        </div>
-
-    </div>  -->
     <!--Div All Cards-->
     <div id="divAllCards">
-        <!--Div Single Card-->
-        
+
+        <!--Div Single Card-->       
         <div class="divSingleCard" *ngFor="let card of userSetCollecton?.cards">
-          <div style="width: 95%; margin-left: 5px;">
+          <div style="width: 95%; margin-left: 5px;" [style.display]="isVisible ? 'block' : 'none'">
             <!--Price div-->
             <div style="color: green; font-size: small; width: fit-content; display: inline-block; float: left;">
             <span> {{card.price | currency : 'USD'}}</span> 
@@ -168,14 +146,14 @@
             <div class="singleCardName">
                 <span style="color: #1E90FF;">{{card.name}}</span>
             </div>
-            <div>
+            <div [style.display]="isVisible ? 'block' : 'none'">
                 <div class="number">
                     <span class="minus">-</span>
-                    <input type="text" [value]="card.quantityOtherCollections" min="0" max="999" maxlength="3" (keypress)="keyPressQuantityCard($event)"/>
+                    <input type="text" [value]="card.quantityUserHave" min="0" max="999" maxlength="3" (keypress)="keyPressQuantityCard($event)"/>
                     <span class="plus">+</span>
                 </div>
             </div>
-            <div style="margin: 3px;"> 
+            <div style="margin: 3px;" [style.display]="isVisible ? 'block' : 'none'"> 
                 <select class="form-select " style="background-color:ghostwhite !important; color: #04AA6D !important" aria-label="Default select example" >
                     <option >Set Code...</option>
                     <option selected>{{card.cardSetCode}}</option>

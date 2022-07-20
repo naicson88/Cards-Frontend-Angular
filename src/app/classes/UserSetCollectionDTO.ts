@@ -6,6 +6,6 @@ export class UserSetCollectionDTO {
     name:string;
     totalPrice:string;
     rarities:any;
-    setCodes:[];
+    setCodes:string[];
     cards:CardSetCollectionDTO[];
 }

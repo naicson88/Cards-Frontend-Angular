@@ -17,7 +17,7 @@ import { HandleErros } from "src/app/Util/HandleErros";
 
     public getSetCollection(setId:any) {
 
-        return this.http.get<UserSetCollectionDTO[]>(this.base_url+`/user-setcollection/consult/${setId}`) 
+        return this.http.get<UserSetCollectionDTO>(this.base_url+`/user-setcollection/consult/${setId}`) 
         .pipe(
           catchError(HandleErros.handleError)
         )
