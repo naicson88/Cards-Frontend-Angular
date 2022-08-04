@@ -57,23 +57,32 @@
                         <mat-icon matSuffix class="my-icon" style="cursor: pointer">search</mat-icon>
                       </mat-form-field> &nbsp;
     
-                      <mat-form-field appearance="fill">
+                      <mat-form-field appearance="fill" >
                         <mat-label>Set Code...</mat-label>
-                        <mat-select>
+                        <mat-select (selectionChange)="filterByCardSetCode($event)">
                           <mat-option [value]="0">
                             All Set Codes...
                            </mat-option>
-                          <mat-option *ngFor="let sets of userSetCollecton?.setCodes">
+                          <mat-option [value]="sets" *ngFor="let sets of userSetCollecton?.setCodes">
                            {{sets}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field> &nbsp;
     
                       <mat-form-field appearance="fill">
-                        <mat-label>Filter...</mat-label>
-                        <mat-select>
-                          <mat-option >
-                            Teste
+                        <mat-label>Sort...</mat-label>
+                        <mat-select (selectionChange)="filterCollection($event)">
+                          <mat-option [value]="0">
+                            No filter...
+                          </mat-option>
+                          <mat-option [value]="1">
+                            a-Z
+                          </mat-option>
+                          <mat-option [value]="3">
+                            Price
+                          </mat-option>
+                          <mat-option [value]="2">
+                            Most Added
                           </mat-option>
                         </mat-select>
                       </mat-form-field> &nbsp; <br>
@@ -82,16 +91,18 @@
                 <div id="fieldsetCheckbox">
 
                     <mat-checkbox class="example-margin" 
+                    #IHave
                     [(ngModel)]="isChecked" 
                     [disabled]="isCheckedDont"
-                    (change)="onlyCardsUserHave(isChecked? true : false, 'have')" >
+                    (change)="filterOnlyCardsUserHave(isChecked? true : false, 'have')" >
                     Show only Cards I Have.
                   </mat-checkbox> &nbsp;&nbsp;&nbsp;<br>
 
                     <mat-checkbox class="example-margin" 
+                    #IDontHave
                     [(ngModel)]="isCheckedDont" 
                     [disabled]="isChecked"
-                    (change)="onlyCardsUserHave(isCheckedDont? true : false, 'dont')" >
+                    (change)="filterOnlyCardsUserHave(isCheckedDont? true : false, 'dont')" >
                     Show only Cards I Don't Have.
                   </mat-checkbox> &nbsp;&nbsp;&nbsp;
 

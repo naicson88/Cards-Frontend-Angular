@@ -1,5 +1,5 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatCheckbox, MatDialog, MatSelect } from '@angular/material';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
 import { SpinnerService } from 'src/app/service/spinner.service';
@@ -16,11 +16,14 @@ import { UserSetCollectionService } from './user-setcollection.service';
 })
 export class UserSetcollectionComponent implements OnInit {
 
+  @ViewChild("IDontHave",{static: true}) elemento: MatCheckbox;
+  @ViewChild("IHave",{static: true}) elementoHave: MatCheckbox;
+  
   constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog  ) {}
 
 
   userSetCollecton: UserSetCollectionDTO; 
-  originalCollection: Array<CardSetCollectionDTO>; 
+  originalCollection: Array<CardSetCollectionDTO> = []
   onlyUserHaveCollection: CardSetCollectionDTO[];
   filteredCollection: CardSetCollectionDTO[] = [];
 
@@ -37,7 +40,8 @@ export class UserSetcollectionComponent implements OnInit {
     const id = localStorage.getItem("idDeckDetails");
     this.service.getSetCollection(id).subscribe(data => {
       this.userSetCollecton = data;
-      console.log(this.userSetCollecton)
+      this.originalCollection = this.userSetCollecton.cards;
+      console.log(this.userSetCollecton.cards)
 
     }, error => {
       this.spinner.hide();
@@ -58,12 +62,16 @@ export class UserSetcollectionComponent implements OnInit {
   }
 
   //Checkbox Methods
-  onlyCardsUserHave(event:any, haveOrNot:string){
+  filterOnlyCardsUserHave(event:any, haveOrNot:string){
     let userHave = haveOrNot === 'have' ? true : false;
+    debugger
 
     if(event === true){
-      this.originalCollection = this.userSetCollecton.cards;
+      if(this.originalCollection.length == 0)
+        this.originalCollection = this.userSetCollecton.cards;
+
       this.userSetCollecton.cards = [];
+      this.filteredCollection = [];
 
       this.originalCollection.forEach(card => {
           if(userHave){
@@ -84,6 +92,90 @@ export class UserSetcollectionComponent implements OnInit {
       this.filteredCollection = [];
     }
     
+  }
+
+  filterByCardSetCode(e:any){
+    
+    let setCode = e.value;
+
+    this.elemento.checked = false;//.checked = false;
+    this.elementoHave.checked = false;
+
+    if(setCode == 0){
+      this.userSetCollecton.cards = [];
+      this.userSetCollecton.cards = this.originalCollection;
+    }
+       
+
+    else {
+      
+      this.filteredCollection = [];
+
+      this.originalCollection.forEach(card => {
+          if(card.cardSetCode.includes(setCode))
+            this.filteredCollection.push(card);
+      });
+
+      if(this.filteredCollection.length > 0)
+        this.userSetCollecton.cards = this.filteredCollection;
+    }   
+  }
+
+  filterCollection(e:any){
+    
+    let filter = e.value;
+
+    if(filter == 0){
+      this.userSetCollecton.cards = this.originalCollection;
+      return;
+    }
+
+    if(filter == 1)
+      this.filterByAZ();
+    if(filter == 2)
+      this.filterByMostAdded();
+    if(filter == 3)
+      this.filterByPrice();
+     
+  }
+  filterByPrice() {
+    var sortedArray = this.userSetCollecton.cards.slice(0);
+    sortedArray.sort(function(a,b) {
+        return a.price - b.price;
+    });
+
+    this.userSetCollecton.cards = [];
+    this.userSetCollecton.cards = sortedArray;
+    this.userSetCollecton.cards.reverse()
+  }
+
+  filterByMostAdded() {
+
+    var sortedArray = this.userSetCollecton.cards.slice(0);
+    sortedArray.sort(function(a,b) {
+        return a.quantityUserHave - b.quantityUserHave;
+    });
+
+    this.userSetCollecton.cards = [];
+    this.userSetCollecton.cards = sortedArray;
+    this.userSetCollecton.cards.reverse()
+  }
+
+  filterByAZ(){
+      var sortedArray: CardSetCollectionDTO[] = this.userSetCollecton.cards.sort((n1,n2) => {
+        if (n1.name > n2.name) {
+            return 1;
+        }
+    
+        if (n1.name < n2.name) {
+            return -1;
+        }
+    
+        return 0;
+    })
+
+    this.userSetCollecton.cards = [];
+    this.userSetCollecton.cards = sortedArray;
   }
 
   showDetails(event:any){
