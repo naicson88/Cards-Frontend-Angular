@@ -1,9 +1,11 @@
 import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatCheckbox, MatDialog, MatSelect } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
@@ -19,7 +21,7 @@ export class UserSetcollectionComponent implements OnInit {
   @ViewChild("IDontHave",{static: true}) elemento: MatCheckbox;
   @ViewChild("IHave",{static: true}) elementoHave: MatCheckbox;
   
-  constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog  ) {}
+  constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog, private toast: ToastrService  ) {}
 
 
   userSetCollecton: UserSetCollectionDTO; 
@@ -67,8 +69,6 @@ export class UserSetcollectionComponent implements OnInit {
     debugger
 
     if(event === true){
-      if(this.originalCollection.length == 0)
-        this.originalCollection = this.userSetCollecton.cards;
 
       this.userSetCollecton.cards = [];
       this.filteredCollection = [];
@@ -126,6 +126,7 @@ export class UserSetcollectionComponent implements OnInit {
     let filter = e.value;
 
     if(filter == 0){
+      this.userSetCollecton.cards = [];
       this.userSetCollecton.cards = this.originalCollection;
       return;
     }
@@ -162,7 +163,8 @@ export class UserSetcollectionComponent implements OnInit {
   }
 
   filterByAZ(){
-      var sortedArray: CardSetCollectionDTO[] = this.userSetCollecton.cards.sort((n1,n2) => {
+      var sortedArray: CardSetCollectionDTO[] = this.userSetCollecton.cards.slice(0);
+      sortedArray.sort((n1,n2) => {
         if (n1.name > n2.name) {
             return 1;
         }
@@ -176,6 +178,47 @@ export class UserSetcollectionComponent implements OnInit {
 
     this.userSetCollecton.cards = [];
     this.userSetCollecton.cards = sortedArray;
+  }
+
+
+  searchInput: string;
+
+  searchCard(e:any){
+    
+    let value = this.searchInput.toLowerCase();
+
+    if(value.length > 1){
+      this.userSetCollecton.cards = [];
+      this.originalCollection.forEach(card => {     
+        if(card.name.toLowerCase().includes(value)){
+          this.userSetCollecton.cards.push(card);
+        }
+      })
+    } else {
+        if(this.userSetCollecton.cards.length < this.originalCollection.length)
+          this.userSetCollecton.cards = this.originalCollection;
+    }
+  }
+
+  addOrRemoveCard(cardSetCode: string, operation:string){  
+   let totalPrice = parseFloat(this.userSetCollecton.totalPrice)
+      this.originalCollection.forEach(card =>{
+        if(card.cardSetCode == cardSetCode && operation == 'plus'){
+          card.quantityUserHave += 1;
+          this.userSetCollecton.totalPrice = ((card.price + totalPrice).toFixed(2)).toString();
+        } else if(card.cardSetCode == cardSetCode && operation == 'minus' && card.quantityUserHave > 0){
+          card.quantityUserHave -= 1;
+          this.userSetCollecton.totalPrice = ((totalPrice - card.price).toFixed(2)).toString();
+        }
+      });
+  }
+
+  addPlusOneForall(){
+    this.originalCollection.forEach(card => {
+      card.quantityUserHave += 1;
+    })
+
+    this.toast.success("Plus 1 was added to all Cards!");
   }
 
   showDetails(event:any){
@@ -208,5 +251,28 @@ export class UserSetcollectionComponent implements OnInit {
       data: successMessage
     })
   }
+
+  
+ criterias = new Array();
+ arrayCards = new Array();
+ openDialogSearch() {
+  const dialogRef = this.dialog.open(SearchBoxComponent);
+
+  dialogRef.afterClosed().subscribe(result => {
+    
+    if(result.data != null && result.data != undefined){
+      console.log(result.data)
+      this.arrayCards = [];
+      let page = 0;
+    }
+    else{
+      this.warningDialog("No Cards found in this consult")
+    }
+      this.criterias = result.criterias
+    
+  }, error => {
+      this.toast.error("Sorry, something bad happened, try again later. ERROR " + error.status)
+  });
+}
 
 }

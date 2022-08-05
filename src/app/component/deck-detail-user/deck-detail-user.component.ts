@@ -247,7 +247,6 @@ setRelDeckCardsTypeDeck(card:Card){
 
     let rel = this.relDeckCards.find(rel => rel.cardId === card.id);
     let relIndex = this.relDeckCards.findIndex(rel => rel.cardId === card.id);
-    console.log("card id " +card.id)
     if(rel == undefined || rel == null){
       this.errorDialog("Sorry, some error happened, try again later!");
       return false;

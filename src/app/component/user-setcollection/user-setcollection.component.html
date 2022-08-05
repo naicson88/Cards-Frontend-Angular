@@ -50,8 +50,10 @@
                     <mat-form-field appearance="fill" class="fld">
                         <mat-label>Search Cards</mat-label>
                         <input
+                          (keyup)="searchCard($event)"
+                          [(ngModel)]="searchInput"
                           matInput
-                          placeholder="Name or Number"
+                          placeholder="Card name..."
                           class="inp"
                         >
                         <mat-icon matSuffix class="my-icon" style="cursor: pointer">search</mat-icon>
@@ -117,13 +119,17 @@
                 </div>
                 <br>
                 <div id="fieldsetButtons">
-                    <button mat-raised-button style="background-color:#1E90FF; color: white; margin-top: 5px;" (click)="saveDeck()" title="Only on cards on display">
+                    <!-- <button mat-raised-button style="background-color:#1E90FF; color: white; margin-top: 5px;" (click)="addPlusOneForall()" title="Only on cards on display">
                         Add to all Cards 	<mat-icon>exposure_plus_1</mat-icon>
                       </button> &nbsp;
     
                       <button mat-raised-button style="background-color:#f44336; color: white; margin-top: 5px;" (click)="saveDeck()"  title="Only on cards on display">
                         Remove to all Cards <mat-icon>exposure_neg_1</mat-icon>
-                      </button>
+                      </button> -->
+                      <button mat-raised-button style="background-color:rgb(45, 202, 113); color: white; margin-top: 5px;" 
+                      (click)="openDialogSearch()">                     
+                        Add Cards 	
+                      </button> &nbsp;
                 </div>
               </fieldset>
         </div>
@@ -159,9 +165,9 @@
             </div>
             <div [style.display]="isVisible ? 'block' : 'none'">
                 <div class="number">
-                    <span class="minus">-</span>
-                    <input type="text" [value]="card.quantityUserHave" min="0" max="999" maxlength="3" (keypress)="keyPressQuantityCard($event)"/>
-                    <span class="plus">+</span>
+                    <span class="minus" (click)="addOrRemoveCard(card.cardSetCode, 'minus')">-</span>
+                    <input type="text" [value]="card.quantityUserHave" min="0" max="999" maxlength="3" (keypress)="keyPressQuantityCard($event)" disabled/>
+                    <span class="plus" (click)="addOrRemoveCard(card.cardSetCode, 'plus')">+</span>
                 </div>
             </div>
             <div style="margin: 3px;" [style.display]="isVisible ? 'block' : 'none'"> 
