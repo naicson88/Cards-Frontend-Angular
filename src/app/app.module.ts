@@ -47,6 +47,7 @@ import { UserSetcollectionComponent } from './component/user-setcollection/user-
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +74,7 @@ import { UserSetcollectionComponent } from './component/user-setcollection/user-
     ErrorPagesComponent,
     AdminDashboardComponent,
     UserSetcollectionComponent,
+    
   
   
   ],
@@ -92,6 +94,7 @@ import { UserSetcollectionComponent } from './component/user-setcollection/user-
     DeckDetailUserModule,
     DialogModule,
     AdminDashboardModule,
+    
     ToastrModule.forRoot()
 
   ],

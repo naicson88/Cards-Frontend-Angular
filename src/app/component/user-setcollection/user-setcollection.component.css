@@ -116,3 +116,24 @@
     display: inline-block;
     vertical-align: middle;
   }
+
+  #swipe{
+    border: solid silver;
+    border-radius: 5px;
+    background-color: palegoldenrod;
+    width: 100%;
+    padding: 10px;
+   
+  }
+
+  #close {
+    color: rgb(243, 95, 95);
+    margin-left: 92%;
+    font-size: smaller;
+    font-weight: bold;
+  }
+
+  #close:hover{
+    cursor: pointer;
+    color: red;
+  }

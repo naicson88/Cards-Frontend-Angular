@@ -9,6 +9,7 @@ import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { CardDetailsDTO } from 'src/app/classes/CardDetailsDTO';
 import { InsideDeck } from 'src/app/classes/InsideDeck';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 
 
 @Component({
@@ -160,7 +161,7 @@ export class DeckDetailComponent implements OnInit {
   }
     
   cardImagem(cardId: any){
-    let urlimg = 'https://storage.googleapis.com/ygoprodeck.com/pics/' + cardId + '.jpg';
+    let urlimg = GeneralFunctions.cardImagem + cardId + '.jpg';
     return urlimg;
   }
 

@@ -134,6 +134,20 @@
               </fieldset>
         </div>
 
+        <!--Carousel-->
+        <div style="width: 61%; margin: 0px 0 15px 22%;" *ngIf="cardsSearched.length > 0">
+              <span id="close" (click)="closeSearch()"> <i>Close X</i>	</span>
+              <div id="swipe">
+                <carousel [loop]="true" [cellsToScroll]="1" [objectFit]="'cover'" [lightDOM]="true" class="carousel--slider-alignment">
+                    <div class="carousel-cell" style="width: fit-content;" *ngFor="let searched of cardsSearched">
+                      <img [src]='cardImagem(searched.numero)' title="{{searched.nome}}">
+                      <button type="button" >Small button</button>
+                    </div>
+                </carousel>
+            </div>
+          </div>
+          
+
         <div style="margin-left: 50%; margin-bottom: 10px;">
             <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="saveDeck()">
                 Save 	<mat-icon>save</mat-icon>

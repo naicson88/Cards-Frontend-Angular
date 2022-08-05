@@ -1,6 +1,7 @@
 import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatCheckbox, MatDialog, MatSelect } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
+import { Card } from 'src/app/classes/Card';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
 import { SpinnerService } from 'src/app/service/spinner.service';
@@ -29,6 +30,8 @@ export class UserSetcollectionComponent implements OnInit {
   onlyUserHaveCollection: CardSetCollectionDTO[];
   filteredCollection: CardSetCollectionDTO[] = [];
 
+  cardsSearched: Card[] = [];
+
   isVisible: boolean = true;
   showDetail = true;
   
@@ -36,6 +39,10 @@ export class UserSetcollectionComponent implements OnInit {
   ngOnInit() {
     this.getSetCollection();
   }
+  //SWIPER
+  breakpoints = {
+    320:{slidePerView: 1.6, spaceBetween: 20}
+  };
 
   getSetCollection(){
     this.spinner.show();
@@ -251,28 +258,32 @@ export class UserSetcollectionComponent implements OnInit {
       data: successMessage
     })
   }
-
   
  criterias = new Array();
- arrayCards = new Array();
  openDialogSearch() {
   const dialogRef = this.dialog.open(SearchBoxComponent);
-
+  
   dialogRef.afterClosed().subscribe(result => {
-    
+    this.spinner.show();
     if(result.data != null && result.data != undefined){
       console.log(result.data)
-      this.arrayCards = [];
+      this.cardsSearched = result.data.content;
+      console.log(this.cardsSearched)
       let page = 0;
     }
     else{
       this.warningDialog("No Cards found in this consult")
     }
       this.criterias = result.criterias
-    
+      this.spinner.hide();
   }, error => {
+    this.spinner.hide();
       this.toast.error("Sorry, something bad happened, try again later. ERROR " + error.status)
   });
+}
+
+closeSearch(){
+  this.cardsSearched = [];
 }
 
 }
