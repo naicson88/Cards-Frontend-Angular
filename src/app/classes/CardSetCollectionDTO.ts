@@ -1,7 +1,7 @@
 
 
 export class CardSetCollectionDTO {
-
+    angularId: number
     cardId:number;
     number:number;
     name:string;

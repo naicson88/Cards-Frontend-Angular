@@ -73,7 +73,6 @@ export class UserSetcollectionComponent implements OnInit {
   //Checkbox Methods
   filterOnlyCardsUserHave(event:any, haveOrNot:string){
     let userHave = haveOrNot === 'have' ? true : false;
-    debugger
 
     if(event === true){
 
@@ -265,7 +264,7 @@ export class UserSetcollectionComponent implements OnInit {
   
   dialogRef.afterClosed().subscribe(result => {
     this.spinner.show();
-    if(result.data != null && result.data != undefined){
+    if(result.data != null && result.data != undefined && result.data.content.length > 0){
       console.log(result.data)
       this.cardsSearched = result.data.content;
       console.log(this.cardsSearched)
@@ -282,8 +281,28 @@ export class UserSetcollectionComponent implements OnInit {
   });
 }
 
-closeSearch(){
-  this.cardsSearched = [];
-}
+  closeSearch(){
+    this.cardsSearched = [];
+  }
+
+  addToCollection(card:Card){
+    let newcard:CardSetCollectionDTO = new CardSetCollectionDTO();
+    newcard.angularId = Date.now();
+    newcard.cardId = card.id;
+    newcard.cardSetCode = "";
+    newcard.name = card.nome
+    newcard.number = card.numero
+    newcard.price = 0
+    newcard.quantityOtherCollections = 0;
+    newcard.quantityUserHave = 0;
+    newcard.rarity = "Not Defined";
+    
+    this.originalCollection.unshift(newcard);
+  }
+
+
+  storedCardId(cardNumber){    
+    localStorage.setItem("idCard", cardNumber);
+  }
 
 }

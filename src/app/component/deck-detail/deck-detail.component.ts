@@ -66,7 +66,7 @@ export class DeckDetailComponent implements OnInit {
 
   //Carrega informações do deck
   loadDeckDetails(){
-    debugger
+    
     this.spinner.show();
     const id = localStorage.getItem("idDeckDetails");
     const source = localStorage.getItem("source");

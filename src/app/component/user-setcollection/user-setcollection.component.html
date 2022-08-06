@@ -126,8 +126,8 @@
                       <button mat-raised-button style="background-color:#f44336; color: white; margin-top: 5px;" (click)="saveDeck()"  title="Only on cards on display">
                         Remove to all Cards <mat-icon>exposure_neg_1</mat-icon>
                       </button> -->
-                      <button mat-raised-button style="background-color:rgb(45, 202, 113); color: white; margin-top: 5px;" 
-                      (click)="openDialogSearch()">                     
+                      <button mat-raised-button style="background-color:#059862; color: white; margin-top: 5px;" 
+                      (click)="closeSearch();openDialogSearch()">                     
                         Add Cards 	
                       </button> &nbsp;
                 </div>
@@ -138,10 +138,15 @@
         <div style="width: 61%; margin: 0px 0 15px 22%;" *ngIf="cardsSearched.length > 0">
               <span id="close" (click)="closeSearch()"> <i>Close X</i>	</span>
               <div id="swipe">
-                <carousel [loop]="true" [cellsToScroll]="1" [objectFit]="'cover'" [lightDOM]="true" class="carousel--slider-alignment">
-                    <div class="carousel-cell" style="width: fit-content;" *ngFor="let searched of cardsSearched">
-                      <img [src]='cardImagem(searched.numero)' title="{{searched.nome}}">
-                      <button type="button" >Small button</button>
+                <carousel [loop]="true" [cellsToScroll]="1"  [lightDOM]="true" class="carousel--slider-alignment" [cellWidth]="160">
+                    <div class="carousel-cell" *ngFor="let searched of cardsSearched" style="width: 165px;" >
+                      
+                      <img [src]='cardImagem(searched.numero)' title="{{searched.nome}}" class="searched-img" > 
+                      <span style="margin-left: 35%;"> 
+                        <button type="button" class="btn btn-info btn-sm" style="background-color: #096e7e !important" (click)="addToCollection(searched)">
+                          ADD
+                        </button>
+                      </span> 
                     </div>
                 </carousel>
             </div>
@@ -172,10 +177,14 @@
      
             <!-- <mat-checkbox class="example-margin" [(ngModel)]="onlyCardsIhave" style="margin-left: -90%;"></mat-checkbox> -->
             <div style="margin-top: 3px;">
-                    <img [src]='cardImagem(card.number)' alt="" width="129px" height="169px" >          
+                    <img [src]='cardImagem(card.number)' alt="" width="129px" height="169px"  [style.opacity]="card.quantityUserHave == 0 ? 0.5 : 1">          
             </div>
             <div class="singleCardName">
-                <span style="color: #1E90FF;">{{card.name}}</span>
+                  <p class="card-name">
+                    <a [routerLink]="['/card-detail/', card.name]"  name="{{card.number}}" (click)="storedCardId(card.number)"  >
+                      {{card.name}}                   
+                  </a>
+                </p> 
             </div>
             <div [style.display]="isVisible ? 'block' : 'none'">
                 <div class="number">
@@ -193,3 +202,6 @@
         </div>
     </div>
 </div>
+<div style="margin-top: 60px;">
+  <app-footer></app-footer>
+</div> 

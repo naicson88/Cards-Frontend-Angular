@@ -52,11 +52,13 @@
   }
 
   #divAllCards{
+    margin-top: 20px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    border: solid thin green;
-    
+    border-top: dotted thin  green;    
+    padding-top: 10px;
+ 
   }
 
   #divOptions{
@@ -80,13 +82,6 @@
     box-shadow: rgba(21, 180, 255, 0.5)  0px 0px 0px 2px, rgba(21, 180, 255, 0.5)  0px 4px 6px -1px, rgba(21, 180, 255, 0.5)  0px 1px 0px inset; 
     background: ghostwhite;  
     
-  }
-
-  .singleCardName{
-    margin: 2px; 
-    text-overflow:ellipsis;  
-    overflow: hidden;  
-    white-space: nowrap;
   }
   
   .number span {
@@ -123,6 +118,7 @@
     background-color: palegoldenrod;
     width: 100%;
     padding: 10px;
+    height: fit-content;
    
   }
 
@@ -136,4 +132,15 @@
   #close:hover{
     cursor: pointer;
     color: red;
+  }
+
+  .carousel--slider-alignment{
+    height: 250px !important;
+   
+  }
+
+  .searched-img {
+    width: 160px !important; 
+    height: 210px !important;
+    margin-bottom: 3px;
   }

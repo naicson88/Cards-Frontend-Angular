@@ -45,9 +45,6 @@ import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 import { AdminDashboardModule } from './component/admin/admin-dashboard/admin-dashboard.module';
 import { UserSetcollectionComponent } from './component/user-setcollection/user-setcollection.component';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
