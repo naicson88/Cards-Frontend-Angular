@@ -114,7 +114,7 @@ loadDeckCards(){
   
   this.spinner.show();
   this.deckService.editDeck(id, "User").subscribe(data => {
-    
+    console.log(data)
   this.deck = data
   
   this.mainDeckCards = data['cards'];
@@ -515,22 +515,24 @@ onScroll(){
 }
 
 
-consultCardSetCode(cardNumber:any){
+consultCardSetCode(cardId:any){
     
-  if(cardNumber == null || cardNumber == undefined){
+  if(cardId == null || cardId == undefined){
     this.errorDialog("Sorry, can't consult card's set codes.");
     return false;
   }
 
-  let isSeached = this.cardsSearched.includes(cardNumber,0);
+  console.log("Card id " + cardId)
+
+  let isSeached = this.cardsSearched.includes(cardId,0);
 
   if(!isSeached){
 
-    this.cardService.findAllRelDeckCardsByCardNumber(cardNumber).subscribe(data => {      
+    this.cardService.findAllRelDeckCardsByCardNumber(cardId).subscribe(data => {      
       let relationArray = data;
      
-      this.updateCardSetCode(relationArray, cardNumber)
-      this.cardsSearched.push(cardNumber);
+      this.updateCardSetCode(relationArray, cardId)
+      this.cardsSearched.push(cardId);
 
     },
     error =>{
@@ -545,9 +547,9 @@ consultCardSetCode(cardNumber:any){
 
 updateCardSetCode(relationArray: RelDeckCards[], cardNumber:any){
 
-  let cardMainDeck:Card[] = this.mainDeckCards.filter(card => card.numero == cardNumber)
-  let cardExtraDeck:Card[] = this.extraDeckCards.filter(card => card.numero == cardNumber);
-  let cardSideDeck:Card[] = this.sideDeckCards.filter(card => card.numero == cardNumber);
+  let cardMainDeck:Card[] = this.mainDeckCards.filter(card => card.id == cardNumber)
+  let cardExtraDeck:Card[] = this.extraDeckCards.filter(card => card.id == cardNumber);
+  let cardSideDeck:Card[] = this.sideDeckCards.filter(card => card.id == cardNumber);
 
   if(cardMainDeck != null && cardMainDeck != undefined)  
   this.updateCardSetCodeInSpecificDeck(relationArray, cardMainDeck, false);

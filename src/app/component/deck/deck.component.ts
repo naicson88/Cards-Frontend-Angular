@@ -179,9 +179,6 @@ export class DeckComponent implements OnInit {
 
       if(conf){
 
-        if(setId == null || setId == undefined || setId == "")
-        alert("It was not possible remove this set. Try again later.")
-
         if(this.set_type == 'DECK'){
           this.service.removeDeckToUsersCollection(setId).subscribe(data => {
             qtdCardManeged = data;   

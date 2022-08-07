@@ -111,8 +111,8 @@ export class CardServiceService {
     )
   }
 
-  public findAllRelDeckCardsByCardNumber(cardNumber:any){
-    return this.http.get<RelDeckCards[]>(this.base_url+`/cards/search-cardSetcodes?cardNumber=${cardNumber}`)
+  public findAllRelDeckCardsByCardNumber(cardId:any){
+    return this.http.get<RelDeckCards[]>(this.base_url+`/cards/search-cardSetcodes?cardId=${cardId}`)
       .pipe(
         catchError(HandleErros.handleError)
       )

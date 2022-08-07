@@ -1,3 +1,4 @@
+import { RelDeckCards } from "./Rel_Deck_Cards";
 
 
 export class CardSetCollectionDTO {
@@ -5,9 +6,9 @@ export class CardSetCollectionDTO {
     cardId:number;
     number:number;
     name:string;
-    price:number;
-    cardSetCode:string;
-    rarity:any;
     quantityUserHave:number;
     quantityOtherCollections:number;
+    relDeckCards: RelDeckCards;
+    searchedRelDeckCards: any[];
+    listSetCode:string[]
 }

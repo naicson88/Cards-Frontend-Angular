@@ -167,11 +167,11 @@
           <div style="width: 95%; margin-left: 5px;" [style.display]="isVisible ? 'block' : 'none'">
             <!--Price div-->
             <div style="color: green; font-size: small; width: fit-content; display: inline-block; float: left;">
-            <span> {{card.price | currency : 'USD'}}</span> 
+            <span> {{card.relDeckCards.card_price | currency : 'USD'}}</span> 
           </div>
             <!--Rarity div-->
             <div style="color: silver; font-size: small; width: fit-content; display: inline-block; float: right; ">
-              <span><i>{{card.rarity}}</i> </span> 
+              <span><i>{{card.relDeckCards.card_raridade }}</i> </span> 
             </div>
           </div>
      
@@ -194,10 +194,12 @@
                 </div>
             </div>
             <div style="margin: 3px;" [style.display]="isVisible ? 'block' : 'none'"> 
-                <select class="form-select " style="background-color:ghostwhite !important; color: #04AA6D !important" aria-label="Default select example" >
-                    <option >Set Code...</option>
-                    <option selected>{{card.cardSetCode}}</option>
-                  </select> 
+                <select class="form-select " style="background-color:ghostwhite !important; color: #04AA6D !important" 
+                aria-label="Default select example"
+                (click)="consultCardSetCode(card)" >
+                    <option *ngFor="let setCode of card.listSetCode" selected>{{setCode}}</option>
+                    <option >Set Code...</option>               
+                </select> 
               </div>
         </div>
     </div>

@@ -3,7 +3,9 @@ import { MatCheckbox, MatDialog, MatSelect } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import { Card } from 'src/app/classes/Card';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
+import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
+import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
@@ -22,7 +24,7 @@ export class UserSetcollectionComponent implements OnInit {
   @ViewChild("IDontHave",{static: true}) elemento: MatCheckbox;
   @ViewChild("IHave",{static: true}) elementoHave: MatCheckbox;
   
-  constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog, private toast: ToastrService  ) {}
+  constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog, private toast: ToastrService, private cardService: CardServiceService  ) {}
 
 
   userSetCollecton: UserSetCollectionDTO; 
@@ -118,7 +120,7 @@ export class UserSetcollectionComponent implements OnInit {
       this.filteredCollection = [];
 
       this.originalCollection.forEach(card => {
-          if(card.cardSetCode.includes(setCode))
+          if(card.relDeckCards.cardSetCode.includes(setCode))
             this.filteredCollection.push(card);
       });
 
@@ -148,7 +150,7 @@ export class UserSetcollectionComponent implements OnInit {
   filterByPrice() {
     var sortedArray = this.userSetCollecton.cards.slice(0);
     sortedArray.sort(function(a,b) {
-        return a.price - b.price;
+        return a.relDeckCards.card_price - b.relDeckCards.card_price
     });
 
     this.userSetCollecton.cards = [];
@@ -209,12 +211,12 @@ export class UserSetcollectionComponent implements OnInit {
   addOrRemoveCard(cardSetCode: string, operation:string){  
    let totalPrice = parseFloat(this.userSetCollecton.totalPrice)
       this.originalCollection.forEach(card =>{
-        if(card.cardSetCode == cardSetCode && operation == 'plus'){
+        if(card.relDeckCards.cardSetCode == cardSetCode && operation == 'plus'){
           card.quantityUserHave += 1;
-          this.userSetCollecton.totalPrice = ((card.price + totalPrice).toFixed(2)).toString();
-        } else if(card.cardSetCode == cardSetCode && operation == 'minus' && card.quantityUserHave > 0){
+          this.userSetCollecton.totalPrice = ((card.relDeckCards.card_price + totalPrice).toFixed(2)).toString();
+        } else if(card.relDeckCards.cardSetCode == cardSetCode && operation == 'minus' && card.quantityUserHave > 0){
           card.quantityUserHave -= 1;
-          this.userSetCollecton.totalPrice = ((totalPrice - card.price).toFixed(2)).toString();
+          this.userSetCollecton.totalPrice = ((totalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
         }
       });
   }
@@ -289,13 +291,13 @@ export class UserSetcollectionComponent implements OnInit {
     let newcard:CardSetCollectionDTO = new CardSetCollectionDTO();
     newcard.angularId = Date.now();
     newcard.cardId = card.id;
-    newcard.cardSetCode = "";
+    newcard.relDeckCards.cardSetCode = "";
     newcard.name = card.nome
     newcard.number = card.numero
-    newcard.price = 0
+    newcard.relDeckCards.card_price = 0
     newcard.quantityOtherCollections = 0;
     newcard.quantityUserHave = 0;
-    newcard.rarity = "Not Defined";
+    newcard.relDeckCards.card_raridade = "Not Defined";
     
     this.originalCollection.unshift(newcard);
   }
@@ -303,6 +305,39 @@ export class UserSetcollectionComponent implements OnInit {
 
   storedCardId(cardNumber){    
     localStorage.setItem("idCard", cardNumber);
+  }
+
+  consultCardSetCode(card){
+    
+    if(card.cardId == null || card.cardId == undefined){
+      this.errorDialog("Sorry, can't consult card's set codes.");
+      return false;
+    }
+  
+    console.log("Card id " + card.cardId)
+  
+    let isSeached = this.cardsSearched.includes(card.cardId,0);
+  
+    if(!isSeached){
+  
+      this.cardService.findAllRelDeckCardsByCardNumber(card.cardId).subscribe(data => {      
+        let relationArray: RelDeckCards[] = data;
+        console.log(relationArray)
+        card.listSetCode = [];
+        relationArray.forEach(rel => {
+          card.listSetCode.push(rel.card_set_code);
+        })
+        // this.updateCardSetCode(relationArray, cardId)
+        // this.cardsSearched.push(cardId);
+  
+      },
+      error =>{
+        console.log(error.body)
+        this.errorDialog("ERROR: Something wrong happened, try again later.")
+      }) 
+  
+    } 
+   
   }
 
 }

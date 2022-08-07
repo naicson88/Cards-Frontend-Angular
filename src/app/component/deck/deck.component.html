@@ -163,8 +163,6 @@
                            <a *ngIf="set_type != 'DECK'" name="{{deck.id}}" [routerLink]="['/user-setcollection-cards/', deck.nome]" (click)="storeDeckId(deck.id)" >
                               <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
                            </a> &nbsp;
-
-
                            
                            <button type="button" class="btn btn-outline-danger btn-sm"  title="Delete from your collection"
                            id="{{deck.id}}" (click)="removeSetToUserCollection($event)">Remove            
