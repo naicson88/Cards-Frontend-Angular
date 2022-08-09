@@ -27,4 +27,6 @@ export class SpinnerService  implements HttpInterceptor{
   public hide(){
     this.spinner.hide();
   }
+
+  
 }

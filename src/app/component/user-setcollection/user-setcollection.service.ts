@@ -9,6 +9,7 @@ import { HandleErros } from "src/app/Util/HandleErros";
     providedIn: 'root'
   })
   export class UserSetCollectionService {
+
     userSet: UserSetCollectionDTO
 
     constructor(private http: HttpClient, private router: Router ) {}
@@ -23,4 +24,12 @@ import { HandleErros } from "src/app/Util/HandleErros";
         )
          
       }
+
+          
+    public saveSetCollection(userCollection: UserSetCollectionDTO) {
+      return this.http.post<any>(this.base_url+`/user-setcollection/save-set-collection`, userCollection) 
+      .pipe(
+        catchError(HandleErros.handleError)
+      )
+    }
   }

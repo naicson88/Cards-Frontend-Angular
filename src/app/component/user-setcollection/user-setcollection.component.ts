@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatCheckbox, MatDialog, MatSelect } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import { Card } from 'src/app/classes/Card';
@@ -23,9 +23,10 @@ export class UserSetcollectionComponent implements OnInit {
 
   @ViewChild("IDontHave",{static: true}) elemento: MatCheckbox;
   @ViewChild("IHave",{static: true}) elementoHave: MatCheckbox;
-  
-  constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog, private toast: ToastrService, private cardService: CardServiceService  ) {}
 
+  
+  constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog,
+     private toast: ToastrService, private cardService: CardServiceService, private ElByClassName: ElementRef ) {}
 
   userSetCollecton: UserSetCollectionDTO; 
   originalCollection: Array<CardSetCollectionDTO> = []
@@ -52,7 +53,7 @@ export class UserSetcollectionComponent implements OnInit {
     this.service.getSetCollection(id).subscribe(data => {
       this.userSetCollecton = data;
       this.originalCollection = this.userSetCollecton.cards;
-      console.log(this.userSetCollecton.cards)
+      console.log(this.userSetCollecton)
 
     }, error => {
       this.spinner.hide();
@@ -208,17 +209,33 @@ export class UserSetcollectionComponent implements OnInit {
     }
   }
 
-  addOrRemoveCard(cardSetCode: string, operation:string){  
-   let totalPrice = parseFloat(this.userSetCollecton.totalPrice)
-      this.originalCollection.forEach(card =>{
-        if(card.relDeckCards.cardSetCode == cardSetCode && operation == 'plus'){
-          card.quantityUserHave += 1;
-          this.userSetCollecton.totalPrice = ((card.relDeckCards.card_price + totalPrice).toFixed(2)).toString();
-        } else if(card.relDeckCards.cardSetCode == cardSetCode && operation == 'minus' && card.quantityUserHave > 0){
-          card.quantityUserHave -= 1;
-          this.userSetCollecton.totalPrice = ((totalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
-        }
-      });
+  // addOrRemoveCard(cardSetCode: string, operation:string){  
+  //   debugger
+  //  let totalPrice = parseFloat(this.userSetCollecton.totalPrice)
+  //     this.originalCollection.forEach(card =>{
+  //       if(card.relDeckCards.card_set_code == cardSetCode && operation == 'plus'){
+  //         card.quantityUserHave += 1;
+  //         this.userSetCollecton.totalPrice = ((card.relDeckCards.card_price + totalPrice).toFixed(2)).toString();
+  //       } else if(card.relDeckCards.card_set_code == cardSetCode && operation == 'minus' && card.quantityUserHave > 0){
+  //         card.quantityUserHave -= 1;
+  //         this.userSetCollecton.totalPrice = ((totalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
+  //       }
+  //     });
+  // }
+
+  addOrRemoveCard(card: CardSetCollectionDTO, operation:string){  
+    
+   let totalPrice = parseFloat(this.userSetCollecton.totalPrice);
+   
+    this.originalCollection.filter(c1 => c1.relDeckCards.card_set_code == card.relDeckCards.card_set_code).forEach(cardFiltered => {
+      if(operation == 'plus'){
+        cardFiltered.quantityUserHave += 1;
+        this.userSetCollecton.totalPrice = ((cardFiltered.relDeckCards.card_price + totalPrice).toFixed(2)).toString();
+      } else if(operation == 'minus' && card.quantityUserHave > 0){
+        cardFiltered.quantityUserHave -= 1;
+        this.userSetCollecton.totalPrice = ((totalPrice - cardFiltered.relDeckCards.card_price).toFixed(2)).toString();
+      }
+    });    
   }
 
   addPlusOneForall(){
@@ -288,16 +305,23 @@ export class UserSetcollectionComponent implements OnInit {
   }
 
   addToCollection(card:Card){
+    
     let newcard:CardSetCollectionDTO = new CardSetCollectionDTO();
+    let rel: RelDeckCards = new RelDeckCards();
+
     newcard.angularId = Date.now();
     newcard.cardId = card.id;
-    newcard.relDeckCards.cardSetCode = "";
     newcard.name = card.nome
     newcard.number = card.numero
-    newcard.relDeckCards.card_price = 0
     newcard.quantityOtherCollections = 0;
     newcard.quantityUserHave = 0;
-    newcard.relDeckCards.card_raridade = "Not Defined";
+    newcard.searchedRelDeckCards = [];
+
+    rel.card_raridade = "Not Defined";
+    rel.card_set_code = "";
+    rel.card_price = 0
+
+    newcard.relDeckCards = rel;
     
     this.originalCollection.unshift(newcard);
   }
@@ -313,31 +337,75 @@ export class UserSetcollectionComponent implements OnInit {
       this.errorDialog("Sorry, can't consult card's set codes.");
       return false;
     }
+    
+    if(card.searchedRelDeckCards.length == 0){
   
-    console.log("Card id " + card.cardId)
-  
-    let isSeached = this.cardsSearched.includes(card.cardId,0);
-  
-    if(!isSeached){
-  
-      this.cardService.findAllRelDeckCardsByCardNumber(card.cardId).subscribe(data => {      
+      this.cardService.findAllRelDeckCardsByCardNumber(card.cardId).subscribe(data => { 
+        this.spinner.show();     
         let relationArray: RelDeckCards[] = data;
-        console.log(relationArray)
         card.listSetCode = [];
         relationArray.forEach(rel => {
           card.listSetCode.push(rel.card_set_code);
-        })
-        // this.updateCardSetCode(relationArray, cardId)
-        // this.cardsSearched.push(cardId);
-  
+        });
+        card.searchedRelDeckCards = relationArray;
+        this.spinner.hide();
       },
       error =>{
+        this.spinner.hide();
         console.log(error.body)
         this.errorDialog("ERROR: Something wrong happened, try again later.")
-      }) 
-  
+      });
     } 
    
   }
 
+  setRelInfo(card:CardSetCollectionDTO, setCode: string){
+    debugger
+    card.angularId = Date.now();
+
+    this.originalCollection.filter(c => c.angularId == card.angularId).forEach(c => {
+      debugger
+        let rel:RelDeckCards = c.searchedRelDeckCards.filter(r => r.card_set_code === setCode)[0];
+
+        if(rel != null && rel != undefined && setCode != "undefined"){
+            c.relDeckCards.card_price = rel.card_price;
+            c.relDeckCards.card_raridade = rel.card_raridade;
+            c.relDeckCards.card_set_code = rel.card_set_code;
+        } else if (setCode == "undefined"){
+            c.relDeckCards.card_price = 0
+            c.relDeckCards.card_raridade = "Not Defined"
+            c.relDeckCards.card_set_code = "";
+        }
+    })
+
+    console.log(this.originalCollection)
+    
+  }
+
+  saveSetCollection(){
+
+    this.spinner.show();
+    this.userSetCollecton.cards = [];
+    debugger
+    //this.userSetCollecton.cards = this.originalCollection.filter(card => card.quantityUserHave > 0);
+
+    for(let i = 0; i < this.originalCollection.length; i++ ){
+      if(this.originalCollection[i].quantityUserHave > 0){
+        const allSelectsCards = (<HTMLElement>this.ElByClassName.nativeElement).querySelectorAll('.form-select option:checked')[i].innerHTML;
+        if(this.originalCollection[i].relDeckCards.card_set_code != allSelectsCards){
+          let setCode = allSelectsCards == "Set Code..." ? "Not Defined" : allSelectsCards;
+          this.originalCollection[i].relDeckCards.card_set_code = setCode;
+        }         
+        this.userSetCollecton.cards.push(this.originalCollection[i]);
+      }
+    }
+    console.log(this.userSetCollecton.cards)
+    this.service.saveSetCollection(this.userSetCollecton).subscribe(data => {
+      this.userSetCollecton.cards = this.originalCollection;
+      this.successDialog("Set Collection was successfully saved!");
+    }, error => {
+      console.log(error);
+      this.errorDialog("Sorry, It was not possible save Collection, try again later!");
+    })
+  }
 }

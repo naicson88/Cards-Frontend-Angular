@@ -11,4 +11,5 @@ export class CardSetCollectionDTO {
     relDeckCards: RelDeckCards;
     searchedRelDeckCards: any[];
     listSetCode:string[]
+    isSpeedDuel:boolean
 }

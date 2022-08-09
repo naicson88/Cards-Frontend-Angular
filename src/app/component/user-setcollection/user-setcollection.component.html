@@ -154,7 +154,7 @@
           
 
         <div style="margin-left: 50%; margin-bottom: 10px;">
-            <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="saveDeck()">
+            <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="saveSetCollection()">
                 Save 	<mat-icon>save</mat-icon>
             </button>
         </div>
@@ -188,17 +188,18 @@
             </div>
             <div [style.display]="isVisible ? 'block' : 'none'">
                 <div class="number">
-                    <span class="minus" (click)="addOrRemoveCard(card.cardSetCode, 'minus')">-</span>
+                    <span class="minus" (click)="addOrRemoveCard(card, 'minus')">-</span>
                     <input type="text" [value]="card.quantityUserHave" min="0" max="999" maxlength="3" (keypress)="keyPressQuantityCard($event)" disabled/>
-                    <span class="plus" (click)="addOrRemoveCard(card.cardSetCode, 'plus')">+</span>
+                    <span class="plus" (click)="addOrRemoveCard(card, 'plus')">+</span>
                 </div>
             </div>
             <div style="margin: 3px;" [style.display]="isVisible ? 'block' : 'none'"> 
-                <select class="form-select " style="background-color:ghostwhite !important; color: #04AA6D !important" 
+                <select class="form-select " style="background-color:ghostwhite !important; color: #04AA6D !important"  [ngClass]="{'hasCard' : card.quantityUserHave > 0}"
                 aria-label="Default select example"
-                (click)="consultCardSetCode(card)" >
-                    <option *ngFor="let setCode of card.listSetCode" selected>{{setCode}}</option>
-                    <option >Set Code...</option>               
+                (click)="consultCardSetCode(card)"
+                (change)="setRelInfo(card, set.value)" >
+                    <option *ngFor="let setCode of card.listSetCode" selected [value]="setCode" >{{setCode}}</option>
+                    <option [value]="vazio">Set Code...</option>               
                 </select> 
               </div>
         </div>
