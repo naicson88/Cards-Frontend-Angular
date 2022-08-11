@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Deck } from 'src/app/classes/Deck';
 import { DeckService } from 'src/app/service/deck.service';
 import {Chart} from   'chart.js';
@@ -9,6 +9,7 @@ import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { CardDetailsDTO } from 'src/app/classes/CardDetailsDTO';
 import { InsideDeck } from 'src/app/classes/InsideDeck';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 
 
 @Component({
@@ -18,7 +19,9 @@ import { SpinnerService } from 'src/app/service/spinner.service';
 })
 
 export class DeckDetailComponent implements OnInit {
-  @ViewChild("attrCanvas",{static: true}) elemento: ElementRef;
+  @ViewChild("attrCanvas",{static: true}) elemento: ElementRef; 
+  @ViewChild("divCardDetails",{static: true}) divCardDetails: ElementRef; 
+  
 
   deckDetails: SetDetailsDTO
   arrInsideDecksCards: InsideDeck[];
@@ -38,6 +41,7 @@ export class DeckDetailComponent implements OnInit {
   leftTp;
   imgTooltip: string;
   isShowTooltip: boolean = false;
+  isVisible = false;
   
   source:string
   set_type:string;
@@ -58,9 +62,11 @@ export class DeckDetailComponent implements OnInit {
   
   }
 
+  ngAfeter
+
   //Carrega informações do deck
   loadDeckDetails(){
-
+    
     this.spinner.show();
     const id = localStorage.getItem("idDeckDetails");
     const source = localStorage.getItem("source");
@@ -69,22 +75,27 @@ export class DeckDetailComponent implements OnInit {
     this.service.getDeckDetails(id, source, set_type).subscribe(data => {
 
       this.deckDetails = data;
-      console.log("DATA: " + JSON.stringify(this.deckDetails))
-      this.arrInsideDecksCards = data['insideDeck'] //[0]['cards'];
-      //console.log("Inside: " + JSON.stringify(this.arrInsideDecksCards))
-      this.countsGeneric_type = data['statsQuantityByGenericType'];
-      this.quantidadePorAtributo = data['statsQuantityByAttribute'];
+      this.arrInsideDecksCards = data['insideDeck']
+      
+      if(this.arrInsideDecksCards.length > 0) {
+        this.isVisible = true;
+        this.countsGeneric_type = data['statsQuantityByGenericType'];
+        this.quantidadePorAtributo = data['statsQuantityByAttribute'];
 
-      this.setQuantityByCardType(data['statsQuantityByType'])
-      this.setQuantityByCardProperty(data['statsQuantityByProperty'])
-      this.setQuantityByStars(data['statsQuantityByLevel'])
-      this.setQuantityByAtk(data['statsAtk'])
-      this.setQuantityByDef(data['statsDef'])
-  
-      this.imgPath =  this.deckDetails.imgurUrl; //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
+        this.setQuantityByCardType(data['statsQuantityByType'])
+        this.setQuantityByCardProperty(data['statsQuantityByProperty'])
+        this.setQuantityByStars(data['statsQuantityByLevel'])
+        this.setQuantityByAtk(data['statsAtk'])
+        this.setQuantityByDef(data['statsDef'])
+        
+        this.imgPath =  this.deckDetails.imgurUrl; //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
+        this.graficoAtributos();
+        this.spinner.hide();
+      }
 
-      this.graficoAtributos();
-    
+     
+    }, error => {
+      console.log(error)
       this.spinner.hide();
     })
    
@@ -150,7 +161,7 @@ export class DeckDetailComponent implements OnInit {
   }
     
   cardImagem(cardId: any){
-    let urlimg = 'https://storage.googleapis.com/ygoprodeck.com/pics/' + cardId + '.jpg';
+    let urlimg = GeneralFunctions.cardImagem + cardId + '.jpg';
     return urlimg;
   }
 
@@ -210,7 +221,7 @@ export class DeckDetailComponent implements OnInit {
 }
 
  storedCardId(event){
-   
+    
    localStorage.setItem("idCard", event.target.name);
    const cardNumber = event.target.name;
    if(cardNumber != null && cardNumber != ""){
@@ -223,7 +234,9 @@ export class DeckDetailComponent implements OnInit {
  }
 
  atributoImagem(atributo:string){
-   switch(atributo){
+    let attr = atributo.toUpperCase();
+
+   switch(attr){
      case 'WATER':
      return '..\\..\\assets\\img\\outras\\WATER.png';
      case 'EARTH':
@@ -236,14 +249,16 @@ export class DeckDetailComponent implements OnInit {
        return '..\\..\\assets\\img\\outras\\DARK.png';
      case 'WIND':  
        return '..\\..\\assets\\img\\outras\\WIND.png';
-     case 'Spell Card':
+     case 'SPELL CARD':
        return '..\\..\\assets\\img\\outras\\MAGIA.png';
-     case 'Trap Card':
+     case 'TRAP CARD':
        return '..\\..\\assets\\img\\outras\\ARMADILHA.png';
      case 'CONTINUOUS':
        return '..\\..\\assets\\img\\outras\\Continuous.png';
      case 'FIELD':
        return '..\\..\\assets\\img\\outras\\Field.png';
+     case 'QUICK-PLAY':
+         return '..\\..\\assets\\img\\outras\\Quick.png';
      case 'QUICK_PLAY':
          return '..\\..\\assets\\img\\outras\\Quick.png';
      case 'COUNTER':

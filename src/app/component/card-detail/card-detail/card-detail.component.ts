@@ -5,6 +5,7 @@ import { AchetypeService } from 'src/app/service/archetype-service/achetype.serv
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import {Chart} from 'chart.js';
+import { SpinnerService } from 'src/app/service/spinner.service';
 
 @Component({
   selector: 'app-card-detail',
@@ -17,7 +18,7 @@ export class CardDetailComponent implements OnInit {
 
   
 
-  constructor(private router: Router, private service: CardServiceService, private archService: AchetypeService) { }
+  constructor(private router: Router, private service: CardServiceService, private archService: AchetypeService, private  spinner: SpinnerService) { }
 
 
   ngOnInit() {
@@ -30,6 +31,7 @@ export class CardDetailComponent implements OnInit {
   card: Card[]=[];
   userKonamiCollectionMap: Map<any,any>
   userHaveByUserCollection: Map<any,any>;
+  konamiSets:[] = [];
   totalViews:number;
   isLINKCard: boolean = false;
   cardTypes:string = "";
@@ -38,17 +40,26 @@ export class CardDetailComponent implements OnInit {
    // const id = localStorage.getItem("idCard");
     let idd =  Number(localStorage.getItem("idCard"));
 
+    this.spinner.show();
+
       this.service.getCardDetails(idd).subscribe(data => { 
+       
         this.card = data['card'];
+        this.konamiSets = data['konamiSets'];
+        // console.log("CARD: " + JSON.stringify(this.card))
         this.qtdUserHaveByKonamiCollection(data);
         this.qtdUserHaveByUserCollection(data);
         this.totalViews = data['views']['totalQtdViews'];
         this.verifyIfIsLinkCard(data);
         this.setCardTypes(data)
-
+        this.spinner.hide();
+      }, error => {
+        console.log(error)
+        this.spinner.hide();
       })  
-  
+    
   }
+  
   setCardTypes(data:any){
     let card = data['card'];
     this.cardTypes += card.tipo.name;
@@ -88,11 +99,13 @@ export class CardDetailComponent implements OnInit {
       return urlimg;
   }
 
-  storeDeckId(event){
-    const id = event.target.name;
-    localStorage.setItem("idDeckDetails", id);
+  storeDeckId(id:any, set_type:string){
+    //  const id = event.target.name;
+      localStorage.setItem("idDeckDetails", id);
+      localStorage.setItem("source",'konami');
+      localStorage.setItem("set_type", set_type);
     
-  }
+    }
 
   atributoImagem(atributo:string){
     switch(atributo){

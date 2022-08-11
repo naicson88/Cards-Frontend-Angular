@@ -9,11 +9,29 @@
    <div id="header-main" >
        
        <div class="wrap" >
+
+         <mat-autocomplete #auto="matAutocomplete" panelWidth="500px" >
+            <mat-option *ngFor="let complete of filteredAutocomplete" [value]="complete.setName" (click)="searchByName()">
+              <span style="color: olive">{{complete.setName}}</span> 
+            </mat-option>
+          </mat-autocomplete>
+
          <div class="search">
-            <input type="text" class="searchTerm" placeholder="Search deck..." maxlength="50" [(ngModel)]="setName" name="setName">
+            <input 
+            #nameFilter
+            (keypress)="_filter(nameFilter.value)" 
+            type="text" 
+            class="searchTerm" 
+            placeholder="Search deck..." 
+            maxlength="50" 
+            [(ngModel)]="setName"
+            [matAutocomplete]="auto" 
+            name="setName">
+
             <button type="submit" class="searchButton" >
               <i class="fa fa-search" (click)="searchByName()"></i>
            </button>
+
          </div>
       </div>
        
@@ -37,8 +55,13 @@
 
    </div>
 
+   <!-- Se a coleção do usuário estiver vazia-->
+   <div id="empty-collection" *ngIf="deck.length == 0">
+      <h1> You haven't added any Set of that type yet!</h1>
+   </div>
+
    <!-- Decks-->
-   <mat-tab-group mat-align-tabs="end">
+   <mat-tab-group mat-align-tabs="end" *ngIf="deck.length > 0">
       <mat-tab >
          <ng-template mat-tab-label>
             <mat-icon>view_module</mat-icon>
@@ -47,7 +70,7 @@
       <div id="cont-cards" class="flex">
          <div id="cardDiv">
 
-         <div class="deck-info-main deck-wrap clearfix" *ngFor="let deck of (deck |  filterBy: deckFilter) |
+         <div class="deck-info-main deck-wrap clearfix" *ngFor="let deck of deck |
             paginate: {itemsPerPage: pageSize, currentPage: page, totalItems: totalItens} " >    
 
                   <div class="deckuct-deatil-div">
@@ -133,7 +156,11 @@
                      <!--    <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>-->
                            <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have:</span><br>
 
-                           <a  name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                           <a *ngIf="set_type == 'DECK'" name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                              <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
+                           </a> &nbsp;
+
+                           <a *ngIf="set_type != 'DECK'" name="{{deck.id}}" [routerLink]="['/user-setcollection-cards/', deck.nome]" (click)="storeDeckId(deck.id)" >
                               <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
                            </a> &nbsp;
                            
@@ -154,7 +181,7 @@
 
     <!-- First deckuct box start here-->
 
-      </div>
+         </div>
    </div>
       </mat-tab>
 <!--Começo visualização por lista-->

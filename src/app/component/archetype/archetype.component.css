@@ -1,5 +1,6 @@
 .container {
     margin-top: 25px;
+    margin-bottom: 50px;
     align-items: center;
     max-width: 80%; 
     background-color: #CE4D39;
@@ -43,7 +44,18 @@
   margin-top:0;
 }
 
-h2{
+#header-div{
+    margin-left: 10%;
+    margin-top: 20px;
+    margin-bottom: -10px;
+    background-color: ghostwhite;
+    border: solid thin silver; 
+    width: 80%; 
+    height: 120px;
+    padding: 10px;
+}
+
+h1{
     color: #CE4D39;
     font-family: "ff-cocon-web-pro",sans-serif;
     font-style: normal;

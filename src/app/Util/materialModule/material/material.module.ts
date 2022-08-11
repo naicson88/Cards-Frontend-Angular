@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     DragDropModule,
     MatTooltipModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule ,
+    MatAutocompleteModule
    
   ],
   exports: [
@@ -50,7 +52,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatExpansionModule,
     MatTooltipModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+    MatAutocompleteModule
   ],
 
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt-BR' }]

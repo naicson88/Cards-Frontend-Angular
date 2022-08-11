@@ -1,16 +1,18 @@
+#empty-collection{
+  margin: 20px;
+  margin-left: 20%;
+  width:60%;
+  height: 150px;
+  border: solid thin silver;
+  border-radius: 5px;
+  padding: 15px;
+}
 
-/*
-.container{
-    transition: margin-left .5s;
-    border: solid thin;
-    max-width: 90%;
-    margin: 1% 1% 4% auto;
-    padding: 10px;
-    border-radius: 5px;
-    border-color: #BEBEBE;
-    background-color: #f1f1f1;
-    margin-left: 5%;
-} */
+#empty-collection h1{
+  color: silver;
+  font-weight: 600;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
 
 .container {
  max-width: 85%;

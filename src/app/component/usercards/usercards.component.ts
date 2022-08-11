@@ -11,6 +11,8 @@ import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog
 import { CardinfoComponent } from '../tooltip/cardinfo/cardinfo.component';
 import { Card } from 'src/app/classes/Card';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +23,8 @@ import { SpinnerService } from 'src/app/service/spinner.service';
 export class UsercardsComponent implements OnInit {
   @ViewChild('btnNew',  { static: false }) btnNew: ElementRef;
 
-  constructor(private img: Imagens, private service: CardServiceService, private dialog: MatDialog, private spinner: SpinnerService) { }
+  constructor(private img: Imagens, private service: CardServiceService, private router: Router,
+    private dialog: MatDialog, private spinner: SpinnerService,   private toastr: ToastrService,) { }
 
   cardsFromScroll = new BehaviorSubject([]);
   page: number = 1; 
@@ -66,10 +69,19 @@ export class UsercardsComponent implements OnInit {
     const params = this.getRequestParam(this.pageSize, 0);
 
     if(genericType != null && genericType != " "){
+      this.spinner.show();
+
       this.service.getCardsByGenericType(params, genericType).subscribe(data => {
-        this.arrCards = data;
-        this.page = 2;
+        if(data.length > 0){
+          this.arrCards = data;
+          this.page = 2;
+        } else {
+          this.toastr.warning("No cards found with this type")
+        }
+          
       })
+      
+      this.spinner.hide();
     }
   }
 
@@ -121,7 +133,7 @@ export class UsercardsComponent implements OnInit {
       this.isShowTooltip = true;
      
       this.cardImage = GeneralFunctions.cardImagem + cardNumber + '.jpg';
-      this.service.findByNumero(cardNumber).subscribe(card => { console.log(this.card); this.card = card  });
+      this.service.findByNumero(cardNumber).subscribe(card => {this.card = card  });
     
     }
  
@@ -140,15 +152,12 @@ export class UsercardsComponent implements OnInit {
     
     qtdTotal:number = 0;
     
-    cardOfUserDetails(cardNumber) {
+    cardOfUserDetails(cardId:number) {            
 
-        if(cardNumber == null || cardNumber == undefined)
-            alert("It was not possible consult, Try again later.")
-
-        this.service.cardOfUserDetails(cardNumber).subscribe(data =>{
+        this.service.cardOfUserDetails(cardId).subscribe(data =>{
           let qtd = 0;
           this.arrCardsDetails = data;
- 
+          console.log(data)
           this.arrCardsDetails['setsWithThisCard'].forEach(element => {
             qtd += element.quantity 
           });
@@ -158,7 +167,9 @@ export class UsercardsComponent implements OnInit {
           this.qtdTotal = qtd;
   
         
-        })
+        });
+
+       
     }
 
     qtdCommon: number = 0;
@@ -182,8 +193,14 @@ export class UsercardsComponent implements OnInit {
     }
 
     searchCardsByName(){
-
+      
         if(this.cardname != null && this.cardname != ""){
+
+          if(this.cardname.length <= 3){
+            this.warningDialog("Please write at least 4 characteres");
+            return false;
+          }
+
           this.service.searchCardsByName(this.cardname).subscribe(data=>{
             this.spinner.show();
          
@@ -221,7 +238,6 @@ export class UsercardsComponent implements OnInit {
 
     storedCardId(event){
         const id = event.target.name;
-        console.log(id);
         localStorage.setItem("idCard", id);
     
         const cardNumber = event.target.name;
@@ -235,6 +251,18 @@ export class UsercardsComponent implements OnInit {
         }
        
       }
+
+      storeDeckId(id:any, setType:string){
+        debugger
+         let modal = (document.getElementById('closeModalBtn') as HTMLElement);
+          modal.click();
+        //  const id = event.target.name;
+          localStorage.setItem("idDeckDetails", id);
+          localStorage.setItem("source", "USER");
+          localStorage.setItem("set_type", setType);
+          this.router.navigate(['/user-deck-details/', 'sets.setName'])
+         
+        }
 }
 
 

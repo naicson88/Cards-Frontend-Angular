@@ -22,6 +22,52 @@ button {
     cursor: pointer;
 }
 
-a {
-    cursor:  pointer !important;
-}
+
+.default-header{
+    background: rgb(15,117,178);
+    background: linear-gradient(146deg, rgba(15,117,178,1) 59%, rgba(59,216,235,1) 78%, rgba(239,241,241,1) 97%, rgba(241,241,241,1) 100%);
+    color: white;
+     font-size: 1.5em;
+     text-align: center;
+     vertical-align: center;
+     text-transform: uppercases;
+     height: 35px; 
+     margin-bottom: 20px;
+  }
+
+
+  .card-name {
+    color: #21c2f8;
+    font-family: Lato, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    margin-left: 4%;
+
+  }
+
+  .color-rare {
+    color: #CC0033;
+    font-weight: 500;
+  }
+
+  .color-super-rare {
+    color: #6699CC;
+    font-weight: 500;
+  }
+
+  .color-ultra-rare {
+    color: goldenrod;
+    font-weight: 500;
+  }
+
+  .color-secret-rare{
+    background-image: linear-gradient(to left, violet, indigo, blue, green, goldenrod, orange, red);   -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 500;
+
+  }

@@ -1,0 +1,219 @@
+<div class="container" >
+    <div class="default-header" style="margin-top: 10px;">
+       Set Collection Cards
+    </div>
+    <!--Cabeçalho com informações do Set-->
+    <div style="margin-bottom: 20px; padding: 10px; background-color: ghostwhite;">
+        <span>
+            <mat-form-field appearance="outline" style="width: 35%;">
+              <mat-label>Deck name</mat-label>
+              <input matInput placeholder="Placeholder" [value]="userSetCollecton?.name" style="width: 500px;" #deckName maxlength="80">
+              <mat-hint>Deck Code:  <b>{{userSetCollecton?.id}}</b></mat-hint>
+            </mat-form-field>
+            
+        </span>
+
+    <span style="color: green; margin-left: 10%;" >
+        <span class="material-icons" title="Deck total value" style="cursor: pointer;" > paid </span>   <span style="font-size:xx-large">{{userSetCollecton?.totalPrice}}</span>   
+    </span>
+        
+    <div id="tableRarity" >
+    
+        <table style="border-collapse: separate; border-spacing: 3px 0; font-weight: 400; text-align: center; padding: 5px; width: 100%;">
+            <thead>
+              <tr>
+                <th  class="table-primary" width="20%">Common</th>
+                <th  class="table-info" width="20%">Rare</th>
+                <th class="table-success" width="20%">Super Rare</th>
+                <th class="table-warning" width="20%">Ultra Rare</th>
+                <th class="table-primary" width="20%">Secret Rare</th>
+              </tr>
+             
+            </thead>
+            <tbody>
+              <tr style="background-color: ghostwhite;">
+                <td >{{userSetCollecton?.rarities.Common}}</td>
+                <td >{{userSetCollecton?.rarities.Rare}}</td>
+                <td >{{userSetCollecton?.rarities.Secret_Rare}}</td>
+                <td >{{userSetCollecton?.rarities.Super_Rare}}</td>
+                <td >{{userSetCollecton?.rarities.Ultra_Rare}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    </div>
+    <!--Div opções-->
+        <div id="divOptions">
+            <fieldset>
+                <legend>Options</legend>
+                <div id="fieldsetInputs">
+                    <mat-form-field appearance="fill" class="fld">
+                        <mat-label>Search Cards</mat-label>
+                        <input
+                          (keyup)="searchCard($event)"
+                          [(ngModel)]="searchInput"
+                          matInput
+                          placeholder="Card name..."
+                          class="inp"
+                        >
+                        <mat-icon matSuffix class="my-icon" style="cursor: pointer">search</mat-icon>
+                      </mat-form-field> &nbsp;
+    
+                      <mat-form-field appearance="fill" >
+                        <mat-label>Set Code...</mat-label>
+                        <mat-select (selectionChange)="filterByCardSetCode($event)">
+                          <mat-option [value]="0">
+                            All Set Codes...
+                           </mat-option>
+                          <mat-option [value]="sets" *ngFor="let sets of userSetCollecton?.setCodes">
+                           {{sets}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field> &nbsp;
+    
+                      <mat-form-field appearance="fill">
+                        <mat-label>Sort...</mat-label>
+                        <mat-select (selectionChange)="filterCollection($event)">
+                          <mat-option [value]="0">
+                            No filter...
+                          </mat-option>
+                          <mat-option [value]="1">
+                            a-Z
+                          </mat-option>
+                          <mat-option [value]="3">
+                            Price
+                          </mat-option>
+                          <mat-option [value]="4">
+                            Rarity
+                          </mat-option>
+                          <mat-option [value]="2">
+                            Most Added
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field> &nbsp; <br>
+                </div>
+                
+                <div id="fieldsetCheckbox">
+
+                    <mat-checkbox class="example-margin" 
+                    #IHave
+                    [(ngModel)]="isChecked" 
+                    [disabled]="isCheckedDont"
+                    (change)="filterOnlyCardsUserHave(isChecked? true : false, 'have')" >
+                    Show only Cards I Have.
+                  </mat-checkbox> &nbsp;&nbsp;&nbsp;<br>
+
+                    <mat-checkbox class="example-margin" 
+                    #IDontHave
+                    [(ngModel)]="isCheckedDont" 
+                    [disabled]="isChecked"
+                    (change)="filterOnlyCardsUserHave(isCheckedDont? true : false, 'dont')" >
+                    Show only Cards I Don't Have.
+                  </mat-checkbox> &nbsp;&nbsp;&nbsp;
+
+                    <br>
+                    <mat-checkbox 
+                    checked="true"
+                    class="example-margin" 
+                    [(ngModel)]="showDetail" 
+                    (change)="showDetails(showDetail? true : false)">
+                    Show Card Details
+                  </mat-checkbox>
+                </div>
+                <br>
+                <div id="fieldsetButtons">
+                    <!-- <button mat-raised-button style="background-color:#1E90FF; color: white; margin-top: 5px;" (click)="addPlusOneForall()" title="Only on cards on display">
+                        Add to all Cards 	<mat-icon>exposure_plus_1</mat-icon>
+                      </button> &nbsp;
+    
+                      <button mat-raised-button style="background-color:#f44336; color: white; margin-top: 5px;" (click)="saveDeck()"  title="Only on cards on display">
+                        Remove to all Cards <mat-icon>exposure_neg_1</mat-icon>
+                      </button> -->
+                      <button mat-raised-button style="background-color:#059862; color: white; margin-top: 5px;" 
+                      (click)="closeSearch();openDialogSearch()">                     
+                        Add Cards 	
+                      </button> &nbsp;
+                </div>
+              </fieldset>
+        </div>
+
+        <!--Carousel-->
+        <div style="width: 61%; margin: 0px 0 15px 22%;" *ngIf="cardsSearched.length > 0">
+              <span id="close" (click)="closeSearch()"> <i>Close X</i>	</span>
+              <div id="swipe">
+                <carousel [loop]="true" [cellsToScroll]="1"  [lightDOM]="true" class="carousel--slider-alignment" [cellWidth]="160">
+                    <div class="carousel-cell" *ngFor="let searched of cardsSearched" style="width: 165px;" >
+                      
+                      <img [src]='cardImagem(searched.numero)' title="{{searched.nome}}" class="searched-img" > 
+                      <span style="margin-left: 35%;"> 
+                        <button type="button" class="btn btn-info btn-sm" style="background-color: #096e7e !important" (click)="addToCollection(searched)">
+                          ADD
+                        </button>
+                      </span> 
+                    </div>
+                </carousel>
+            </div>
+          </div>
+          
+
+        <div style="margin-left: 50%; margin-bottom: 10px;">
+            <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="saveSetCollection()">
+                Save 	<mat-icon>save</mat-icon>
+            </button>
+            <!-- <span style=" margin-left: 50%; color: goldenrod;">
+              <mat-icon style="size: 5cm;">info</mat-icon>
+            </span>
+         -->
+        </div>
+
+    <!--Div All Cards-->
+    <div id="divAllCards">
+
+        <!--Div Single Card-->       
+        <div class="divSingleCard" *ngFor="let card of userSetCollecton?.cards">
+          <!-- [ngClass]="card.quantityOtherCollections > 0 ? 'shadow-gold' : 'shadow-blue'" -->
+            <div style="width: 95%; margin-left: 5px;" [style.display]="isVisible ? 'block' : 'none'">
+            <!--Price div-->
+            <div style="color: green; font-size: small; width: fit-content; display: inline-block; float: left;">
+            <span> {{card.relDeckCards.card_price | currency : 'USD'}}</span> 
+          </div>
+            <!--Rarity div-->
+            <div style="color: silver; font-size: small; width: fit-content; display: inline-block; float: right; ">
+              <span [ngClass]="setRarityColor(card.relDeckCards.card_raridade)"><i>{{card.relDeckCards.card_raridade }}</i> </span> 
+            </div>
+          </div>
+     
+            <!-- <mat-checkbox class="example-margin" [(ngModel)]="onlyCardsIhave" style="margin-left: -90%;"></mat-checkbox> -->
+            <div style="margin-top: 3px;">
+                    <img [src]='cardImagem(card.number)' alt="" width="129px" height="169px"  [style.opacity]="card.quantityUserHave == 0 ? 0.5 : 1">          
+            </div>
+            <div class="singleCardName">
+                  <p class="card-name">
+                    <a [routerLink]="['/card-detail/', card.name]"  name="{{card.number}}" (click)="storedCardId(card.number)">
+                      <span *ngIf="card.quantityOtherCollections > 0" title="Quantity of this Card-Set Code in your other Sets">(<span style="color: orange;">{{card.quantityOtherCollections}}</span>)</span> 
+                      {{card.name}}                   
+                  </a>
+                </p>   
+            </div>
+            <div [style.display]="isVisible ? 'block' : 'none'">
+                <div class="number">
+                    <span class="minus" (click)="addOrRemoveCard(card, 'minus')">-</span>
+                    <input type="text" [value]="card.quantityUserHave" min="0" max="999" maxlength="3" (keypress)="keyPressQuantityCard($event)" disabled/>
+                    <span class="plus" (click)="addOrRemoveCard(card, 'plus')">+</span>
+                </div>
+            </div>
+            <div style="margin: 3px;" [style.display]="isVisible ? 'block' : 'none'"> 
+                <select class="form-select" style="background-color:ghostwhite !important; color: #04AA6D !important" #set [ngClass]="{'hasCard' : card.quantityUserHave > 0}"
+                aria-label="Default select example"
+                (click)="consultCardSetCode(card)"
+                (change)="setRelInfo(card, set.value)" >
+                    <option *ngFor="let setCode of card.listSetCode" selected [value]="setCode" >{{setCode}}</option>
+                    <option [value]="vazio">Set Code...</option>               
+                </select> 
+              </div>
+        </div>
+    </div>
+</div>
+<div style="margin-top: 60px;">
+  <app-footer></app-footer>
+</div> 

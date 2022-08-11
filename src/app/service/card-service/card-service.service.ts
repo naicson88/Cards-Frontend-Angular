@@ -96,8 +96,8 @@ export class CardServiceService {
     )
   } 
 
-  public cardOfUserDetails(cardNumber:number) {
-    return this.http.get<any>(this.base_url+`/cards/card-user-details?cardNumber=${cardNumber}`)
+  public cardOfUserDetails(cardId:number) {
+    return this.http.get<any>(this.base_url+`/cards/card-user-details?cardId=${cardId}`)
     .pipe(
         catchError(HandleErros.handleError)
       )
@@ -111,11 +111,13 @@ export class CardServiceService {
     )
   }
 
-  public findAllRelDeckCardsByCardNumber(cardNumber:any){
-    return this.http.get<RelDeckCards[]>(this.base_url+`/cards/search-cardSetcodes?cardNumber=${cardNumber}`)
+  public findAllRelDeckCardsByCardNumber(cardId:any){
+    return this.http.get<RelDeckCards[]>(this.base_url+`/cards/search-cardSetcodes?cardId=${cardId}`)
       .pipe(
         catchError(HandleErros.handleError)
       )
   } 
+
+  
 
 }

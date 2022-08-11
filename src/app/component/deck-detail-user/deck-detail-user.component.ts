@@ -112,8 +112,8 @@ loadDeckCards(){
   
   const id = localStorage.getItem("idDeckDetails");
   
+  this.spinner.show();
   this.deckService.editDeck(id, "User").subscribe(data => {
- 
   this.deck = data
   
   this.mainDeckCards = data['cards'];
@@ -126,13 +126,14 @@ loadDeckCards(){
   this.relDeckCards =  data['rel_deck_cards'];
   this.calculateDeckPrice(this.relDeckCards);
   this.setRelDeckCards();
-
+  this.spinner.hide();
   //this.calculateQtdRarity();
 
   },
   error =>{
     let errorCode = error.status;
     this.router.navigate(["/error-page", errorCode]);
+    this.spinner.hide();
   })
 }
 
@@ -170,8 +171,7 @@ validTypeDeckCard(cards:any){
             card.isExtraDeck = false
         }
 
-        this.arrayCards.push(card)
-        console.log( "CARDS" + JSON.stringify(this.arrayCards))
+        this.arrayCards.push(card);
       } 
    
    }
@@ -234,31 +234,35 @@ setRelDeckCards(){
     this.setRelDeckCardsTypeDeck(card);
   }) 
 
-  this.sideDeckCards.forEach((card) => {
-    
+  this.sideDeckCards.forEach((card) => {    
     this.setRelDeckCardsTypeDeck(card);
   }) 
 
 }
 
 setRelDeckCardsTypeDeck(card:Card){
+
+  try {
+
+    let rel = this.relDeckCards.find(rel => rel.cardId === card.id);
+    let relIndex = this.relDeckCards.findIndex(rel => rel.cardId === card.id);
+    if(rel == undefined || rel == null){
+      this.errorDialog("Sorry, some error happened, try again later!");
+      return false;
+    }
   
-  let rel = this.relDeckCards.find(rel => rel.cardNumber === card.numero);
-  let relIndex = this.relDeckCards.findIndex(rel => rel.cardNumber === card.numero);
+   let arr = []
+   arr.push(rel)
+   card.relDeckCards = arr;
+   card.raridade = rel.card_raridade
+   card.price = rel.card_price
+  
+   this.relDeckCards.splice(relIndex, 1); 
 
-  if(rel == undefined || rel == null){
-    this.errorDialog("Sorry, some error happened, try again later!");
-    return false;
+  } catch (error) {
+    console.log("console error: " + error);
   }
-
- let arr = []
- arr.push(rel)
- card.relDeckCards = arr;
- card.raridade = rel.card_raridade
- card.price = rel.card_price
-
- this.relDeckCards.splice(relIndex, 1); 
- 
+  
 }
 
 cardImagem(cardId: any){
@@ -510,22 +514,22 @@ onScroll(){
 }
 
 
-consultCardSetCode(cardNumber:any){
+consultCardSetCode(cardId:any){
     
-  if(cardNumber == null || cardNumber == undefined){
+  if(cardId == null || cardId == undefined){
     this.errorDialog("Sorry, can't consult card's set codes.");
     return false;
   }
 
-  let isSeached = this.cardsSearched.includes(cardNumber,0);
+  let isSeached = this.cardsSearched.includes(cardId,0);
 
   if(!isSeached){
 
-    this.cardService.findAllRelDeckCardsByCardNumber(cardNumber).subscribe(data => {      
+    this.cardService.findAllRelDeckCardsByCardNumber(cardId).subscribe(data => {      
       let relationArray = data;
      
-      this.updateCardSetCode(relationArray, cardNumber)
-      this.cardsSearched.push(cardNumber);
+      this.updateCardSetCode(relationArray, cardId)
+      this.cardsSearched.push(cardId);
 
     },
     error =>{
@@ -540,9 +544,9 @@ consultCardSetCode(cardNumber:any){
 
 updateCardSetCode(relationArray: RelDeckCards[], cardNumber:any){
 
-  let cardMainDeck:Card[] = this.mainDeckCards.filter(card => card.numero == cardNumber)
-  let cardExtraDeck:Card[] = this.extraDeckCards.filter(card => card.numero == cardNumber);
-  let cardSideDeck:Card[] = this.sideDeckCards.filter(card => card.numero == cardNumber);
+  let cardMainDeck:Card[] = this.mainDeckCards.filter(card => card.id == cardNumber)
+  let cardExtraDeck:Card[] = this.extraDeckCards.filter(card => card.id == cardNumber);
+  let cardSideDeck:Card[] = this.sideDeckCards.filter(card => card.id == cardNumber);
 
   if(cardMainDeck != null && cardMainDeck != undefined)  
   this.updateCardSetCodeInSpecificDeck(relationArray, cardMainDeck, false);
@@ -757,7 +761,7 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
          rel2.isSpeedDuel = rel.isSpeedDuel
 
          if(rel2.cardId == undefined || rel2.cardId == null)
-            console.log("CARDID INVALID: " + rel2)
+            console.log("CARD ID INVALID: " + rel2)
 
           this.relDeckCardsForSave.push(rel2);
 

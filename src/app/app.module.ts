@@ -43,8 +43,7 @@ import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.compo
 import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin-dashboard.component';
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 import { AdminDashboardModule } from './component/admin/admin-dashboard/admin-dashboard.module';
-
-
+import { UserSetcollectionComponent } from './component/user-setcollection/user-setcollection.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +70,8 @@ import { AdminDashboardModule } from './component/admin/admin-dashboard/admin-da
     SearchBoxComponent,
     ErrorPagesComponent,
     AdminDashboardComponent,
+    UserSetcollectionComponent,
+    
   
   
   ],
@@ -90,6 +91,7 @@ import { AdminDashboardModule } from './component/admin/admin-dashboard/admin-da
     DeckDetailUserModule,
     DialogModule,
     AdminDashboardModule,
+    
     ToastrModule.forRoot()
 
   ],

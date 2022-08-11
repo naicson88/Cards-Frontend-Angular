@@ -91,12 +91,12 @@ export class DeckService {
     )
   }
 
-  public relUserDeck(decksIds:number[]) {
-    return this.http.get<any>(this.base_url+`/userDeck/rel-user-decks?decksIds=${decksIds}`)
-    .pipe(
-      catchError(HandleErros.handleError)
-    )
-  }
+  // public relUserDeck(decksIds:number[]) {
+  //   return this.http.get<any>(this.base_url+`/userDeck/rel-user-decks?decksIds=${decksIds}`)
+  //   .pipe(
+  //     catchError(HandleErros.handleError)
+  //   )
+  // }
 
   public saveUserDeck(deck:Deck): Observable<HttpResponse<Deck>> {
     return this.http.post<Deck>(this.base_url+`/userDeck/save-userdeck`, deck, {observe:'response'}).pipe(
@@ -104,8 +104,8 @@ export class DeckService {
     )
   }
 
-  public searchBySetName(name:string, source:string){
-      return this.http.get<Deck[]>(this.base_url+`/decks/search-by-set-name?setName=${name}&source=${source}`)
+  public searchBySetName(name:string){
+      return this.http.get<any>(this.base_url+`/decks/search-by-set-name?setName=${name}`)
         .pipe(
           catchError(HandleErros.handleError)
         )
@@ -114,6 +114,15 @@ export class DeckService {
   public createNewKonamiDeck(konamiDeck: KonamiDeck) {
     
     return this.http.post<KonamiDeck>("http://localhost:8082/v1/admin/deck/new-deck", konamiDeck)
+    .pipe(
+      catchError(HandleErros.handleError)
+    )
+     
+  }
+
+  public autcompleteSets(source:string) {
+    
+    return this.http.get<any>(this.base_url+`/decks/autocomplete-sets?source=${source}`)
     .pipe(
       catchError(HandleErros.handleError)
     )

@@ -2,7 +2,7 @@
 
   <div class="container" id="main-div" style="margin-top: 20px; border: solid thin silver; background-color: ghostwhite; padding: 10px;">
     <div class="set-header">  
-        User's Deck
+        Your Deck
     </div>
 
     <!--Deck name-->
@@ -11,8 +11,8 @@
         <span>
             <mat-form-field appearance="outline" style="width: 35%;">
               <mat-label>Deck name</mat-label>
-              <input matInput placeholder="Placeholder" [value]="deck.nome" style="width: 500px;" #deckName maxlength="80">
-              <mat-hint>Deck Code:  <b>{{deck.id}}</b></mat-hint>
+              <input matInput placeholder="Placeholder" [value]="deck?.nome" style="width: 500px;" #deckName maxlength="80">
+              <mat-hint>Deck Code:  <b>{{deck?.id}}</b></mat-hint>
             </mat-form-field>
             
         </span>
@@ -90,7 +90,7 @@
                 <div class="example-box" *ngFor="let card of mainDeckCards; let i = index; " style="background: transparent;" >
                    
                     <div>
-                        <a [routerLink]="['/card-detail/', card.nome]"  name="{{card.numero}}" (click)="storedCardId(card.numero)">
+                        <a [routerLink]="['/card-detail/', card?.nome]"  name="{{card.numero}}" (click)="storedCardId(card.numero)">
                             <img [src]='cardImagem(card.numero)' alt="" width="105px" height="136px" >
                         </a>
                        
@@ -103,7 +103,7 @@
                         <ul class="cardSimpleInfo">
                             <li>   
                                 <span *ngIf="card.relDeckCards.length == 1 " style="color: #228B22; font-weight: 700; top: 0;" id="main_{{i}}">
-                                $ {{card.relDeckCards[0].card_price}}
+                                 {{card.relDeckCards[0].card_price | currency : 'USD' }}
                                </span>
                                 <span *ngIf="card.relDeckCards.length == 0 || card.relDeckCards.length > 1"  style="color: red; font-weight: 700; top: 0;" id="main_{{i}}"> 
                                     $ 0.00</span>
@@ -115,7 +115,7 @@
                                 </span> 
                             </li>
                             <li>
-                                <select  style="font-size: smaller; " #set (click)="consultCardSetCode(card.numero, i)" 
+                                <select  style="font-size: smaller; " #set (click)="consultCardSetCode(card?.id, i)" 
                                 (click)="onChangeCardSetCode(set.value, 'main', i)">
                                      <option [value]="0" [selected]="card.relDeckCards.length == 0 || card.relDeckCards.length > 1">SET CODE...</option>  
                                     <option  *ngFor="let setCode of card.relDeckCards" [selected]="card.relDeckCards.length == 1"
@@ -282,7 +282,7 @@
 
                 <div style="width: 70%; display: inline-block; background: ghostwhite; height: 92px;  float: right;  border-collapse:collapse;
                 display : table;" >   
-                 <a [routerLink]="['/card-detail/', item.nome]"   (click)="storedCardId(item.numero)">
+                 <a [routerLink]="['/card-detail/', item?.nome]"   (click)="storedCardId(item.numero)">
                     <span style="font-family: Lato, sans-serif; color: #0056b3; font-size: 14px ; font-weight: 700;" >{{item.nome}}  </span>
                  </a>               
                 

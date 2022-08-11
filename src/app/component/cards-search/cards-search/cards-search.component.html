@@ -1,8 +1,8 @@
-<div class="container" style="border: solid thin red; background-color: ghostwhite;">
+<div class="container" style="border: solid thin silver; background-color: ghostwhite;">
     
     <div id="search-div">
 
-        <mat-expansion-panel  style="background-color: ghostwhite;">
+        <mat-expansion-panel   style="background-color: ghostwhite;"  [expanded]="true">
          
             <mat-expansion-panel-header style="background-color: #63b175 !important;">
             <mat-panel-title>
@@ -16,7 +16,7 @@
                     
             <div id="div_inputs" style="border: solid thin white;  margin-top: 15px; padding: 10px;">
         
-                <mat-expansion-panel (opened)="panelOpenState = true"
+                <mat-expansion-panel (opened)="panelOpenState = true"  [expanded]="true"
                 (closed)="panelOpenState = false">
                     <mat-expansion-panel-header>
                     <mat-panel-title>
