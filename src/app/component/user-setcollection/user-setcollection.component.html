@@ -83,6 +83,9 @@
                           <mat-option [value]="3">
                             Price
                           </mat-option>
+                          <mat-option [value]="4">
+                            Rarity
+                          </mat-option>
                           <mat-option [value]="2">
                             Most Added
                           </mat-option>
@@ -157,6 +160,10 @@
             <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="saveSetCollection()">
                 Save 	<mat-icon>save</mat-icon>
             </button>
+            <!-- <span style=" margin-left: 50%; color: goldenrod;">
+              <mat-icon style="size: 5cm;">info</mat-icon>
+            </span>
+         -->
         </div>
 
     <!--Div All Cards-->
@@ -164,14 +171,15 @@
 
         <!--Div Single Card-->       
         <div class="divSingleCard" *ngFor="let card of userSetCollecton?.cards">
-          <div style="width: 95%; margin-left: 5px;" [style.display]="isVisible ? 'block' : 'none'">
+          <!-- [ngClass]="card.quantityOtherCollections > 0 ? 'shadow-gold' : 'shadow-blue'" -->
+            <div style="width: 95%; margin-left: 5px;" [style.display]="isVisible ? 'block' : 'none'">
             <!--Price div-->
             <div style="color: green; font-size: small; width: fit-content; display: inline-block; float: left;">
             <span> {{card.relDeckCards.card_price | currency : 'USD'}}</span> 
           </div>
             <!--Rarity div-->
             <div style="color: silver; font-size: small; width: fit-content; display: inline-block; float: right; ">
-              <span><i>{{card.relDeckCards.card_raridade }}</i> </span> 
+              <span [ngClass]="setRarityColor(card.relDeckCards.card_raridade)"><i>{{card.relDeckCards.card_raridade }}</i> </span> 
             </div>
           </div>
      
@@ -181,10 +189,11 @@
             </div>
             <div class="singleCardName">
                   <p class="card-name">
-                    <a [routerLink]="['/card-detail/', card.name]"  name="{{card.number}}" (click)="storedCardId(card.number)"  >
+                    <a [routerLink]="['/card-detail/', card.name]"  name="{{card.number}}" (click)="storedCardId(card.number)">
+                      <span *ngIf="card.quantityOtherCollections > 0" title="Quantity of this Card-Set Code in your other Sets">(<span style="color: orange;">{{card.quantityOtherCollections}}</span>)</span> 
                       {{card.name}}                   
                   </a>
-                </p> 
+                </p>   
             </div>
             <div [style.display]="isVisible ? 'block' : 'none'">
                 <div class="number">
@@ -194,7 +203,7 @@
                 </div>
             </div>
             <div style="margin: 3px;" [style.display]="isVisible ? 'block' : 'none'"> 
-                <select class="form-select " style="background-color:ghostwhite !important; color: #04AA6D !important"  [ngClass]="{'hasCard' : card.quantityUserHave > 0}"
+                <select class="form-select" style="background-color:ghostwhite !important; color: #04AA6D !important" #set [ngClass]="{'hasCard' : card.quantityUserHave > 0}"
                 aria-label="Default select example"
                 (click)="consultCardSetCode(card)"
                 (change)="setRelInfo(card, set.value)" >

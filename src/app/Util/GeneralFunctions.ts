@@ -54,7 +54,6 @@ export abstract class GeneralFunctions  {
     }
 
     public static rarity(raridade:string):string {
-
         if(raridade == null || raridade == undefined)
           return null;
         if(raridade == 'Common')
@@ -64,8 +63,25 @@ export abstract class GeneralFunctions  {
         if(raridade == 'Super Rare')
           return "super_rare";    
         if(raridade == 'Ultra Rare')
-          return "ultra_rare";
-           
+          return "ultra_rare";           
     }
+
+    public static colorRarity(raridade:string):string {
+      if(raridade == null || raridade == undefined)
+        return null;
+      if(raridade == 'Common')
+          return "color-common"     
+      else if(raridade == 'Rare')
+        return "color-rare";       
+      else if(raridade == 'Super Rare')
+        return "color-super-rare";    
+      else if(raridade == 'Ultra Rare')
+        return "color-ultra-rare";
+      else if(raridade == 'Secret Rare')
+        return "color-secret-rare";
+      else{
+          return "color-common"
+      }          
+  }
 
 }

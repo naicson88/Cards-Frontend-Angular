@@ -49,3 +49,25 @@ button {
     margin-left: 4%;
 
   }
+
+  .color-rare {
+    color: #CC0033;
+    font-weight: 500;
+  }
+
+  .color-super-rare {
+    color: #6699CC;
+    font-weight: 500;
+  }
+
+  .color-ultra-rare {
+    color: goldenrod;
+    font-weight: 500;
+  }
+
+  .color-secret-rare{
+    background-image: linear-gradient(to left, violet, indigo, blue, green, goldenrod, orange, red);   -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 500;
+
+  }

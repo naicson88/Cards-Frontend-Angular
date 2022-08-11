@@ -52,7 +52,8 @@ export class UserSetcollectionComponent implements OnInit {
     const id = localStorage.getItem("idDeckDetails");
     this.service.getSetCollection(id).subscribe(data => {
       this.userSetCollecton = data;
-      this.originalCollection = this.userSetCollecton.cards;
+      let arr = this.userSetCollecton.cards.slice(0);
+      this.originalCollection = arr;
       console.log(this.userSetCollecton)
 
     }, error => {
@@ -103,6 +104,20 @@ export class UserSetcollectionComponent implements OnInit {
     
   }
 
+  filterByRarity(){
+      let filteredArray = new Array();
+
+      this.userSetCollecton.cards.filter(c => c.relDeckCards.card_raridade == 'Secret Rare').forEach(card => { filteredArray.push(card)});
+      this.userSetCollecton.cards.filter(c => c.relDeckCards.card_raridade == 'Ultra Rare').forEach(card => { filteredArray.push(card)});
+      this.userSetCollecton.cards.filter(c => c.relDeckCards.card_raridade == 'Super Rare').forEach(card => { filteredArray.push(card)});
+      this.userSetCollecton.cards.filter(c => c.relDeckCards.card_raridade == 'Rare').forEach(card => { filteredArray.push(card)});
+      this.userSetCollecton.cards.filter(c => c.relDeckCards.card_raridade == 'Common').forEach(card => { filteredArray.push(card)});
+      this.userSetCollecton.cards.filter(c => c.relDeckCards.card_raridade == 'Not Defined').forEach(card => { filteredArray.push(card)});
+
+      this.userSetCollecton.cards = [];
+      this.userSetCollecton.cards = filteredArray;
+  }
+
   filterByCardSetCode(e:any){
     
     let setCode = e.value;
@@ -146,8 +161,11 @@ export class UserSetcollectionComponent implements OnInit {
       this.filterByMostAdded();
     if(filter == 3)
       this.filterByPrice();
+    if(filter == 4)
+      this.filterByRarity();  
      
   }
+
   filterByPrice() {
     var sortedArray = this.userSetCollecton.cards.slice(0);
     sortedArray.sort(function(a,b) {
@@ -208,21 +226,6 @@ export class UserSetcollectionComponent implements OnInit {
           this.userSetCollecton.cards = this.originalCollection;
     }
   }
-
-  // addOrRemoveCard(cardSetCode: string, operation:string){  
-  //   debugger
-  //  let totalPrice = parseFloat(this.userSetCollecton.totalPrice)
-  //     this.originalCollection.forEach(card =>{
-  //       if(card.relDeckCards.card_set_code == cardSetCode && operation == 'plus'){
-  //         card.quantityUserHave += 1;
-  //         this.userSetCollecton.totalPrice = ((card.relDeckCards.card_price + totalPrice).toFixed(2)).toString();
-  //       } else if(card.relDeckCards.card_set_code == cardSetCode && operation == 'minus' && card.quantityUserHave > 0){
-  //         card.quantityUserHave -= 1;
-  //         this.userSetCollecton.totalPrice = ((totalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
-  //       }
-  //     });
-  // }
-
   addOrRemoveCard(card: CardSetCollectionDTO, operation:string){  
     
    let totalPrice = parseFloat(this.userSetCollecton.totalPrice);
@@ -345,9 +348,12 @@ export class UserSetcollectionComponent implements OnInit {
         let relationArray: RelDeckCards[] = data;
         card.listSetCode = [];
         relationArray.forEach(rel => {
-          card.listSetCode.push(rel.card_set_code);
+          if(!card.listSetCode.includes(rel.card_set_code))
+              card.listSetCode.push(rel.card_set_code);
         });
         card.searchedRelDeckCards = relationArray;
+        card.quantityOtherCollections = 0;
+
         this.spinner.hide();
       },
       error =>{
@@ -360,26 +366,24 @@ export class UserSetcollectionComponent implements OnInit {
   }
 
   setRelInfo(card:CardSetCollectionDTO, setCode: string){
-    debugger
     card.angularId = Date.now();
 
     this.originalCollection.filter(c => c.angularId == card.angularId).forEach(c => {
-      debugger
         let rel:RelDeckCards = c.searchedRelDeckCards.filter(r => r.card_set_code === setCode)[0];
 
         if(rel != null && rel != undefined && setCode != "undefined"){
             c.relDeckCards.card_price = rel.card_price;
             c.relDeckCards.card_raridade = rel.card_raridade;
             c.relDeckCards.card_set_code = rel.card_set_code;
+            c.quantityOtherCollections = card.quantityOtherCollections
         } else if (setCode == "undefined"){
             c.relDeckCards.card_price = 0
             c.relDeckCards.card_raridade = "Not Defined"
             c.relDeckCards.card_set_code = "";
+            c.quantityOtherCollections = 0
         }
     })
-
-    console.log(this.originalCollection)
-    
+    console.log(this.originalCollection);   
   }
 
   saveSetCollection(){
@@ -399,13 +403,17 @@ export class UserSetcollectionComponent implements OnInit {
         this.userSetCollecton.cards.push(this.originalCollection[i]);
       }
     }
-    console.log(this.userSetCollecton.cards)
-    this.service.saveSetCollection(this.userSetCollecton).subscribe(data => {
-      this.userSetCollecton.cards = this.originalCollection;
-      this.successDialog("Set Collection was successfully saved!");
-    }, error => {
-      console.log(error);
-      this.errorDialog("Sorry, It was not possible save Collection, try again later!");
-    })
+      console.log(this.userSetCollecton.cards)
+      this.service.saveSetCollection(this.userSetCollecton).subscribe(data => {
+        this.userSetCollecton.cards = this.originalCollection;
+        this.successDialog("Set Collection was successfully saved!");
+      }, error => {
+        console.log(error);
+        this.errorDialog("Sorry, It was not possible save Collection, try again later!");
+      })
+  }
+
+  setRarityColor(rarity:string){
+    return GeneralFunctions.colorRarity(rarity);
   }
 }

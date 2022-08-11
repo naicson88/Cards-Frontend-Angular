@@ -114,7 +114,6 @@ loadDeckCards(){
   
   this.spinner.show();
   this.deckService.editDeck(id, "User").subscribe(data => {
-    console.log(data)
   this.deck = data
   
   this.mainDeckCards = data['cards'];
@@ -521,8 +520,6 @@ consultCardSetCode(cardId:any){
     this.errorDialog("Sorry, can't consult card's set codes.");
     return false;
   }
-
-  console.log("Card id " + cardId)
 
   let isSeached = this.cardsSearched.includes(cardId,0);
 
