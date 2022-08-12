@@ -44,6 +44,7 @@ import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 import { AdminDashboardModule } from './component/admin/admin-dashboard/admin-dashboard.module';
 import { UserSetcollectionComponent } from './component/user-setcollection/user-setcollection.component';
+import { TransferComponent } from './component/transfer/transfer.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { UserSetcollectionComponent } from './component/user-setcollection/user-
     ErrorPagesComponent,
     AdminDashboardComponent,
     UserSetcollectionComponent,
+    TransferComponent,
     
   
   

@@ -13,6 +13,7 @@ import { HomeComponent } from './component/home/home.component';
 import { IndexComponent } from './component/index/index.component';
 import { LoginComponent } from './component/index/login/login.component';
 import { RegisterComponent } from './component/index/register/register.component';
+import { TransferComponent } from './component/transfer/transfer.component';
 import { UserSetcollectionComponent } from './component/user-setcollection/user-setcollection.component';
 import { UsercardsComponent } from './component/usercards/usercards.component';
 import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'decks', component: DeckComponent , data : {set_type: 'DECK', source: 'KONAMI'}},
   { path: 'usercollection/decks', component: DeckComponent , data : {set_type: 'DECK', source: 'USER'}},
   { path: 'usercollection/cards', component: UsercardsComponent },
+  { path: 'usercollection/transfer', component: TransferComponent},
   { path: 'home', component: HomeComponent },
 
   { path: 'deck-details/:deckName', component: DeckDetailComponent, data:{set_type: 'DECK'}},

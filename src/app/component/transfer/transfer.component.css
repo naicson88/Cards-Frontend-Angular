@@ -1,0 +1,68 @@
+#main-div{
+    border: solid thin red; 
+    width: 90%;
+    margin: 10px 0 20px 5%;
+    background-color: white;
+}
+
+#div-all-boxes{
+    display: flex;
+    justify-content: space-around
+    
+}
+
+.card-box {
+    border: rgb(185, 184, 184) solid;
+    width: 47%;
+    padding: 2px;
+}
+
+.select-row{
+    width: 100%;
+    background-color: ghostwhite;
+    border-radius: 3px;
+    margin: 2px 0 2px 0;
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+}
+
+/* .example-panel-blue.mat-select-panel {
+    background: rgba(0, 0, 255, 0.5);
+
+  } */
+
+/* .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: green;
+  } */
+
+  .mat-select-panel {
+    background: white;  
+}
+
+.inside-cards{
+    width: 100%;
+    padding: 2px;
+    border: purple solid thin;
+    display: flex;
+    justify-content: space-around;
+}
+
+.single-card{
+    height: 108px;
+    width: 82px;
+    border: solid thin silver;
+    position: relative;
+    padding-bottom: 1px;
+    align-items: center;
+   
+}
+
+.single-card img {
+    display: block;
+}
+
+.single-card i {
+    position: absolute; bottom:5px; left:3px; 
+    cursor: pointer;
+}
