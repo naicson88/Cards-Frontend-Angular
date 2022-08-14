@@ -9,8 +9,9 @@
            <div class="select-row">
                 <mat-form-field appearance="outline" class="left">
                     <mat-label>Set Type</mat-label>
-                    <mat-select [formControl]="panelColor"
-                                panelClass="example-panel-blue">
+                    <mat-select #set
+                                panelClass="example-panel-blue"
+                                (selectionChange)="searchSets(set.value, 'L')">
                     <mat-option value="Deck">Deck</mat-option>
                     <mat-option value="Tin">Tin</mat-option>
                     <mat-option value="Booster">Booster</mat-option>
@@ -20,12 +21,10 @@
                            
                 <mat-form-field appearance="outline" style="width: 60%;">
                     <mat-label>Sets</mat-label>
-                    <mat-select [formControl]="panelColor"
-                                panelClass="example-panel-blue">
-                    <mat-option value="Deck">Deck</mat-option>
-                    <mat-option value="Tin">Tin</mat-option>
-                    <mat-option value="Booster">Booster</mat-option>
-                    <mat-option value="Box">Box</mat-option>
+                    <mat-select [disabled]="leftSets.length == 0 ? true : false">
+                        <mat-option *ngFor="let lefts of leftSets" value="{{lefts.id}}">
+                            {{lefts.name}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
           </div> 
@@ -40,17 +39,19 @@
                 matTooltipClass="example-tooltip-red"                   
                 matTooltip="Send Card" 
                 (click)="addCardSideDeck(i)">keyboard_double_arrow_right</i>  
-                <img [src]="cardImagem('55623480')" width="78px" height="99px">
+                <img [src]="cardImagem('55623480')" width="109px" height="139px" (mouseover)="mostrarImgToolTip('55623480', $event)"
+                (mousemove)="mostrarImgToolTip('55623480', $event)" (mouseout)="esconderImgToolTip()">
             </div>
           </div>
         </div>
 
         <div id="right-box" class="card-box">
             <div class="select-row">
-                <mat-form-field appearance="outline" class="left">
+                <mat-form-field appearance="outline" class="right">
                     <mat-label>Set Type</mat-label>
-                    <mat-select [formControl]="panelColor"
-                                panelClass="example-panel-blue">
+                    <mat-select  #setsRight
+                                panelClass="example-panel-blue"
+                                (selectionChange)="searchSets(setsRight.value, 'R')">
                     <mat-option value="Deck">Deck</mat-option>
                     <mat-option value="Tin">Tin</mat-option>
                     <mat-option value="Booster">Booster</mat-option>
@@ -60,26 +61,23 @@
                            
                 <mat-form-field appearance="outline" style="width: 60%;">
                     <mat-label>Sets</mat-label>
-                    <mat-select [formControl]="panelColor"
-                                panelClass="example-panel-blue">
-                    <mat-option value="Deck">Deck</mat-option>
-                    <mat-option value="Tin">Tin</mat-option>
-                    <mat-option value="Booster">Booster</mat-option>
-                    <mat-option value="Box">Box</mat-option>
+                    <mat-select  panelClass="example-panel-blue" [disabled]="rightSets.length == 0 ? true : false">
+                        <mat-option *ngFor="let rights of rightSets" value="{{rights.id}}">{{rights.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div> 
 
             <div class="inside-cards">
                 <div class="single-card">
-                    <span class="position-absolute top-0 right-0 start-100 translate-middle badge rounded-pill bg-info" style="color: white">
+                    <span class="position-absolute translate-middle badge rounded-pill bg-info" style="color: white">
                         100
                     </span>
                     <i class="material-icons card-item-icon" style="margin-left: 35%; color: white; background-color: orange;font-size:20px" 
                     matTooltipClass="example-tooltip-red"                   
                     matTooltip="Send Card" 
                     (click)="addCardSideDeck(i)">keyboard_double_arrow_left</i>  
-                    <img [src]="cardImagem('55623480')" width="78px" height="99px">
+                    <img [src]="cardImagem('55623480')" width="109px" height="139px" (mouseover)="mostrarImgToolTip(cardsInfo.imagem, $event)"
+                    (mousemove)="mostrarImgToolTip(cardsInfo.imagem, $event)" (mouseout)="esconderImgToolTip()">
                 </div>
             </div>
         </div>

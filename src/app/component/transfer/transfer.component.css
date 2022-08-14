@@ -49,8 +49,8 @@
 }
 
 .single-card{
-    height: 108px;
-    width: 82px;
+    height: 140px;
+    width: 110px;
     border: solid thin silver;
     position: relative;
     padding-bottom: 1px;
@@ -63,6 +63,6 @@
 }
 
 .single-card i {
-    position: absolute; bottom:5px; left:3px; 
+    position: absolute; bottom:0px; left:3px; 
     cursor: pointer;
 }
