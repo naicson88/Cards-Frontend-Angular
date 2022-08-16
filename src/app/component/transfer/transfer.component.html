@@ -21,13 +21,50 @@
                            
                 <mat-form-field appearance="outline" style="width: 60%;">
                     <mat-label>Sets</mat-label>
-                    <mat-select [disabled]="leftSets.length == 0 ? true : false">
-                        <mat-option *ngFor="let lefts of leftSets" value="{{lefts.id}}">
+                    <mat-select [disabled]="leftSets.length == 0 ? true : false" (selectionChange)="getSetAndCards('L', set.value, leftSide.value)" #leftSide>
+                        <mat-option *ngFor="let lefts of leftSets" value="{{lefts.setId}}">
                             {{lefts.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
           </div> 
+
+          <div class="SetDetails">
+            <div class="setImage">
+                <img [src]="cardImagem('55623480')" alt="Set Image" width="85px" height="100px">
+            </div>
+
+            <div class="setDescription">
+                <p class="nome-set">Link Strike_57202222010</p>
+                <div class="description-bottom">
+                        <table >
+                            <thead>
+                              <tr>
+                                <th  class="table-primary" width="20%" *ngIf="leftUserSetCollecton?.rarities.Common > 0">Common</th>
+                                <th  class="table-info"    width="20%" *ngIf="leftUserSetCollecton?.rarities.Rare > 0">Rare</th>
+                                <th class="table-success"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Super_Rare > 0">Super Rare</th>                         
+                                <th class="table-primary"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Secret_Rare > 0">Secret Rare</th>
+                                <th class="table-warning"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Ultra_Rare > 0">Ultra Rare</th>
+                              </tr>
+                             
+                            </thead>
+                            <tbody>
+                              <tr style="background-color: ghostwhite;">
+                                <td *ngIf="leftUserSetCollecton?.rarities.Common > 0">{{leftUserSetCollecton?.rarities.Common}}</td>
+                                <td *ngIf="leftUserSetCollecton?.rarities.Rare > 0">{{leftUserSetCollecton?.rarities.Rare}}</td>
+                                <td *ngIf="leftUserSetCollecton?.rarities.Super_Rare > 0">{{leftUserSetCollecton?.rarities.Super_Rare}}</td>
+                                <td *ngIf="leftUserSetCollecton?.rarities.Secret_Rare > 0">{{leftUserSetCollecton?.rarities.Secret_Rare}}</td>                        
+                                <td *ngIf="leftUserSetCollecton?.rarities.Ultra_Rare > 0">{{leftUserSetCollecton?.rarities.Ultra_Rare}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+    
+                    <div class="totalPrice">
+                        <span> Total Price <br>  $ 108.98</span>                  
+                    </div>
+                </div>
+            </div>
+          </div>
 
           <div class="inside-cards">
 
@@ -66,6 +103,43 @@
                     </mat-select>
                 </mat-form-field>
             </div> 
+
+            <div class="SetDetails">
+                <div class="setImage">
+                    <img [src]="cardImagem('55623480')" alt="Set Image" width="85px" height="100px">
+                </div>
+    
+                <div class="setDescription">
+                    <p class="nome-set">Link Strike_57202222010</p>
+                    <div class="description-bottom">
+                            <table >
+                                <thead>
+                                  <tr>
+                                    <th  class="table-primary" width="20%" *ngIf="leftUserSetCollecton?.rarities.Common > 0">Common</th>
+                                    <th  class="table-info"    width="20%" *ngIf="leftUserSetCollecton?.rarities.Rare > 0">Rare</th>
+                                    <th class="table-success"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Super_Rare > 0">Super Rare</th>                         
+                                    <th class="table-primary"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Secret_Rare > 0">Secret Rare</th>
+                                    <th class="table-warning"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Ultra_Rare > 0">Ultra Rare</th>
+                                  </tr>
+                                 
+                                </thead>
+                                <tbody>
+                                  <tr style="background-color: ghostwhite;">
+                                    <td *ngIf="leftUserSetCollecton?.rarities.Common > 0">{{leftUserSetCollecton?.rarities.Common}}</td>
+                                    <td *ngIf="leftUserSetCollecton?.rarities.Rare > 0">{{leftUserSetCollecton?.rarities.Rare}}</td>
+                                    <td *ngIf="leftUserSetCollecton?.rarities.Super_Rare > 0">{{leftUserSetCollecton?.rarities.Super_Rare}}</td>
+                                    <td *ngIf="leftUserSetCollecton?.rarities.Secret_Rare > 0">{{leftUserSetCollecton?.rarities.Secret_Rare}}</td>                        
+                                    <td *ngIf="leftUserSetCollecton?.rarities.Ultra_Rare > 0">{{leftUserSetCollecton?.rarities.Ultra_Rare}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+        
+                        <div class="totalPrice">
+                            <span> Total Price <br>  $ 108.98</span>                  
+                        </div>
+                    </div>
+                </div>
+              </div>
 
             <div class="inside-cards">
                 <div class="single-card">

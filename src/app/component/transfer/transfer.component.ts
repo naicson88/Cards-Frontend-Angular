@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
+import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
+import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
+import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { TransferService } from './transfer.service';
 
 @Component({
@@ -12,7 +17,7 @@ import { TransferService } from './transfer.service';
 })
 export class TransferComponent implements OnInit {
 
-  constructor(private service: TransferService) { }
+  constructor(private service: TransferService, private dialog: MatDialog) { }
 
   topTp;
   leftTp;
@@ -23,19 +28,23 @@ export class TransferComponent implements OnInit {
   rightSets: any[] = [];
   leftSets: any[] = [];
 
+
+
+  leftUserSetCollecton: UserSetCollectionDTO; 
+  rightUserSetCollection: UserSetCollectionDTO;
+
   ngOnInit() {
   }
 
 
   searchSets(setType:string, side:string){
-    debugger
+    
     if(setType == 'Deck'){
       this.service.getDecksNames().subscribe(names => {
         if(side == 'R')
           this.rightSets = names;     
         else
           this.leftSets = names;
-
       })
     } else {
       this.service.getSetCollectionNames(setType).subscribe(names => {
@@ -44,8 +53,31 @@ export class TransferComponent implements OnInit {
         else
           this.leftSets = names;
       })
+    }  
+  }
+
+  getSetAndCards(side:string, setType:string, id:number){
+    let setId = Number(id);
+    if(setType == 'Deck'){
+      this.getDeckAndCardsForTransfer(side, setId);
     }
   }
+
+  getDeckAndCardsForTransfer(side:string, deckId:number){
+    this.service.getDeckAndCardsForTransfer(deckId).subscribe(data => {
+      if(side == 'L'){
+        this.leftUserSetCollecton = data;
+      } else {
+        this.rightUserSetCollection = data;
+      }
+
+
+    }, error => {
+      this.errorDialog("Sorry, something wrong happened! Try again later");
+      console.log(error);
+    })
+  }
+
 
 
   cardImagem(cardId: any){
@@ -64,6 +96,25 @@ export class TransferComponent implements OnInit {
 
  esconderImgToolTip(){
   this.isShowTooltip = false;
+}
+
+   
+errorDialog(errorMessage:string){
+  this.dialog.open(ErrorDialogComponent, {
+    data: errorMessage
+  })
+}
+
+warningDialog(warningMessage:string){
+  this.dialog.open(WarningDialogComponent, {
+    data: warningMessage
+  })
+}
+
+successDialog(successMessage:string){
+  this.dialog.open(SuccessDialogComponent,{
+    data: successMessage
+  })
 }
 
 }

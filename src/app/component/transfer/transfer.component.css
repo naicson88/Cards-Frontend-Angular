@@ -66,3 +66,76 @@
     position: absolute; bottom:0px; left:3px; 
     cursor: pointer;
 }
+
+.SetDetails{
+    width: 98%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: solid thin silver;
+    border-radius: 3px;
+    margin-left: 1%;
+    background-color:#f8eacf ;
+    display: flex;  
+    justify-content: left;
+    padding: 10px;
+}
+
+.setImage{
+    width: 15%;
+}
+
+.setImage img{
+    
+    border: 1px solid #97d2f0;
+    padding: 2px;
+    box-shadow: 1px 4px 4px 1px rgba(6, 154, 223, 0.5);
+}
+
+.setDescription{
+    width: 85%;
+    padding: 3px;
+}
+
+.nome-set {
+    font-size: 1.1em;
+    color: rgb(44, 44, 196); 
+    font-weight: 600;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;              /* "overflow" value must be different from "visible" */
+    text-overflow:   ellipsis;
+    border-bottom: solid thin silver;
+  }
+
+table {
+    font-size: small;
+    border-collapse: separate; 
+    border-spacing: 2px 0; 
+    text-align: center; 
+    padding: 2px; 
+    width: 70% ;
+    margin-top: -10px;
+    border: solid thin silver;
+    background-color: white;
+    border-radius: 3px;
+}
+
+
+
+.totalPrice{
+    height: 50px;
+    width: 100px;
+    border-radius: 5px;
+    background-color: #49b417;
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.description-bottom{
+    display: flex;
+    justify-content: space-around;
+}
