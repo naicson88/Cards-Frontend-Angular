@@ -43,18 +43,22 @@
 .inside-cards{
     width: 100%;
     padding: 2px;
-    border: purple solid thin;
+    border: silver double;
     display: flex;
     justify-content: space-around;
+    padding: 2px;
+    flex-wrap: wrap;
 }
 
 .single-card{
-    height: 140px;
+    height: fit-content;
     width: 110px;
     border: solid thin silver;
     position: relative;
     padding-bottom: 1px;
     align-items: center;
+    background-color: ghostwhite;
+    margin: 2px;
    
 }
 
@@ -99,7 +103,7 @@
 .nome-set {
     font-size: 1.1em;
     color: rgb(44, 44, 196); 
-    font-weight: 600;
+    font-weight: 500;
     white-space: nowrap;
     width: 100%;
     overflow: hidden;              /* "overflow" value must be different from "visible" */
@@ -123,7 +127,7 @@ table {
 
 
 .totalPrice{
-    height: 50px;
+    height: 55px;
     width: 100px;
     border-radius: 5px;
     background-color: #49b417;
@@ -132,10 +136,22 @@ table {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     
 }
 
 .description-bottom{
     display: flex;
     justify-content: space-around;
+}
+
+#cardDetails{
+    
+    padding: 3px;
+    margin-bottom: 20px;
+}
+
+#cardDetails span{
+    font-size: x-small;
+   
 }

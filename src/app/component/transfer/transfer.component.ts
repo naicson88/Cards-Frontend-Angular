@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
+import { SpinnerService } from 'src/app/service/spinner.service';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
@@ -17,13 +18,16 @@ import { TransferService } from './transfer.service';
 })
 export class TransferComponent implements OnInit {
 
-  constructor(private service: TransferService, private dialog: MatDialog) { }
+  constructor(private service: TransferService, private dialog: MatDialog, private spinner: SpinnerService) { }
 
   topTp;
   leftTp;
   imgTooltip: string;
   isShowTooltip: boolean = false;
   isVisible = false;
+
+  showLeftDetails = false;
+  showRightDetails = false;
 
   rightSets: any[] = [];
   leftSets: any[] = [];
@@ -64,7 +68,9 @@ export class TransferComponent implements OnInit {
   }
 
   getDeckAndCardsForTransfer(side:string, deckId:number){
+    
     this.service.getDeckAndCardsForTransfer(deckId).subscribe(data => {
+      console.log(data)
       if(side == 'L'){
         this.leftUserSetCollecton = data;
       } else {

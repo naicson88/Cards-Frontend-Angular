@@ -28,7 +28,6 @@ export class TransferService {
    }
    
    public getDeckAndCardsForTransfer(deckId:number){
-    debugger
     return this.http.get<any>(this.base_url+`/userDeck/deck-transfer?deckId=${deckId}`)
         .pipe(
             catchError(HandleErros.handleError)
