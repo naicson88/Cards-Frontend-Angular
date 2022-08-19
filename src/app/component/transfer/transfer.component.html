@@ -7,7 +7,7 @@
         <div id="left-box" class="card-box">
 
            <div class="select-row">
-                <mat-form-field appearance="outline" class="left">
+                <mat-form-field appearance="fill" class="left" >
                     <mat-label>Set Type</mat-label>
                     <mat-select #set
                                 panelClass="example-panel-blue"
@@ -19,7 +19,7 @@
                     </mat-select>
                 </mat-form-field>&nbsp;  &nbsp;
                            
-                <mat-form-field appearance="outline" style="width: 60%;">
+                <mat-form-field appearance="fill" style="width: 60%;">
                     <mat-label>Sets</mat-label>
                     <mat-select [disabled]="leftSets.length == 0 ? true : false" (selectionChange)="getSetAndCards('L', set.value, leftSide.value)" #leftSide>
                         <mat-option *ngFor="let lefts of leftSets" value="{{lefts.setId}}">
@@ -71,17 +71,22 @@
           </section>
 
           <div class="inside-cards">
+                <div *ngIf="!leftUserSetCollecton?.cards.length > 0" class="empty-set" class="row">
+                  <p>
+                    <i>Choose the Set you want to add in transfer!</i>
+                  </p> 
+              </div>
               <div class="single-card" *ngFor="let leftSingleCard of leftUserSetCollecton?.cards">
                 <div>
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark" style="color: white" *ngIf="leftSingleCard.quantityUserHave > 1">
                     {{leftSingleCard.quantityUserHave}}
                   </span>
-                <i class="material-icons card-item-icon" style="margin-left: 37%; color: blue; background-color: yellow; font-size:20px; border: solid thin silver;" 
-                matTooltipClass="example-tooltip-red"                   
-                matTooltip="Send Card" 
-                (click)="addCardSideDeck(i)">keyboard_double_arrow_right</i>  
-                <img [src]="cardImagem(leftSingleCard.number)" width="109px" height="139px" (mouseover)="mostrarImgToolTip(leftSingleCard.number, $event)"
-                (mousemove)="mostrarImgToolTip(leftSingleCard.number, $event)" (mouseout)="esconderImgToolTip()">
+                    <i class="material-icons card-item-icon" style="margin-left: 37%; color: blue; background-color: yellow; font-size:20px; border: solid thin silver;" 
+                    matTooltipClass="example-tooltip-red"                   
+                    matTooltip="Send Card" 
+                    (click)="transferCardToOtherSide('L', leftSingleCard.relDeckCards.card_set_code)">keyboard_double_arrow_right</i>  
+                    <img [src]="cardImagem(leftSingleCard.number)" width="109px" height="139px" [title]="leftSingleCard.name">
+                  
                 </div>                                 
                 <!--Price div-->
                 <div id="cardDetails" *ngIf="showLeftDetails">
@@ -95,7 +100,7 @@
 
         <div id="right-box" class="card-box">
             <div class="select-row">
-                <mat-form-field appearance="outline" class="right">
+                <mat-form-field appearance="fill" class="right">
                     <mat-label>Set Type</mat-label>
                     <mat-select  #setsRight
                                 panelClass="example-panel-blue"
@@ -107,77 +112,83 @@
                     </mat-select>
                 </mat-form-field>&nbsp;  &nbsp;
                            
-                <mat-form-field appearance="outline" style="width: 60%;">
+                <mat-form-field appearance="fill" style="width: 60%;">
                     <mat-label>Sets</mat-label>
-                    <mat-select  panelClass="example-panel-blue" [disabled]="rightSets.length == 0 ? true : false">
-                        <mat-option *ngFor="let rights of rightSets" value="{{rights.id}}">{{rights.name}}</mat-option>
+                    <mat-select  panelClass="example-panel-blue" [disabled]="rightSets.length == 0 ? true : false" 
+                                 (selectionChange)="getSetAndCards('R', setsRight.value, rightSide.value)" #rightSide>
+                        <mat-option *ngFor="let rights of rightSets" value="{{rights.setId}}">{{rights.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div> 
 
-            <div class="SetDetails">
+
+            <div class="SetDetails" *ngIf="rightUserSetCollection?.name != null" style="background-color: #f0e6fc !important;">
                 <div class="setImage">
-                    <img [src]="cardImagem('55623480')" alt="Set Image" width="85px" height="100px">
+                    <img [src]="rightUserSetCollection?.image" alt="Set Image" width="85px" height="100px">
                 </div>
     
                 <div class="setDescription">
-                    <p class="nome-set">Link Strike_57202222010</p>
+                    <p class="nome-set">{{rightUserSetCollection?.name}}</p>
                     <div class="description-bottom">
                             <table >
                                 <thead>
                                   <tr>
-                                    <th  class="table-primary" width="20%" *ngIf="leftUserSetCollecton?.rarities.Common > 0">Common</th>
-                                    <th  class="table-info"    width="20%" *ngIf="leftUserSetCollecton?.rarities.Rare > 0">Rare</th>
-                                    <th class="table-success"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Super_Rare > 0">Super Rare</th>                         
-                                    <th class="table-primary"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Secret_Rare > 0">Secret Rare</th>
-                                    <th class="table-warning"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Ultra_Rare > 0">Ultra Rare</th>
+                                    <th  class="table-primary" width="20%" *ngIf="rightUserSetCollection?.rarities.Common > 0">Common</th>
+                                    <th  class="table-info"    width="20%" *ngIf="rightUserSetCollection?.rarities.Rare > 0">Rare</th>
+                                    <th class="table-success"  width="20%" *ngIf="rightUserSetCollection?.rarities.Super_Rare > 0">Super Rare</th>                         
+                                    <th class="table-primary"  width="20%" *ngIf="rightUserSetCollection?.rarities.Secret_Rare > 0">Secret Rare</th>
+                                    <th class="table-warning"  width="20%" *ngIf="rightUserSetCollection?.rarities.Ultra_Rare > 0">Ultra Rare</th>
                                   </tr>
                                  
                                 </thead>
                                 <tbody>
                                   <tr style="background-color: ghostwhite;">
-                                    <td *ngIf="leftUserSetCollecton?.rarities.Common > 0">{{leftUserSetCollecton?.rarities.Common}}</td>
-                                    <td *ngIf="leftUserSetCollecton?.rarities.Rare > 0">{{leftUserSetCollecton?.rarities.Rare}}</td>
-                                    <td *ngIf="leftUserSetCollecton?.rarities.Super_Rare > 0">{{leftUserSetCollecton?.rarities.Super_Rare}}</td>
-                                    <td *ngIf="leftUserSetCollecton?.rarities.Secret_Rare > 0">{{leftUserSetCollecton?.rarities.Secret_Rare}}</td>                        
-                                    <td *ngIf="leftUserSetCollecton?.rarities.Ultra_Rare > 0">{{leftUserSetCollecton?.rarities.Ultra_Rare}}</td>
+                                    <td *ngIf="rightUserSetCollection?.rarities.Common > 0">{{rightUserSetCollection?.rarities.Common}}</td>
+                                    <td *ngIf="rightUserSetCollection?.rarities.Rare > 0">{{rightUserSetCollection?.rarities.Rare}}</td>
+                                    <td *ngIf="rightUserSetCollection?.rarities.Super_Rare > 0">{{rightUserSetCollection?.rarities.Super_Rare}}</td>
+                                    <td *ngIf="rightUserSetCollection?.rarities.Secret_Rare > 0">{{rightUserSetCollection?.rarities.Secret_Rare}}</td>                        
+                                    <td *ngIf="rightUserSetCollection?.rarities.Ultra_Rare > 0">{{rightUserSetCollection?.rarities.Ultra_Rare}}</td>
                                   </tr>
                                 </tbody>
                               </table>
         
                         <div class="totalPrice">
-                            <span> Total Price <br>  $ 18.98</span>                  
+                            <span> Total Price <br>{{rightUserSetCollection?.totalPrice | currency : 'USD'}}</span>                  
                         </div>
                     </div>
                 </div>
-              </div>
+            </div>
                         
-            <section class="example-section" style="margin-left: 10px;">
+            <section class="example-section" style="margin-left: 10px;" *ngIf="rightUserSetCollection?.name != null">
               <mat-checkbox class="example-margin" [color]='primary' [(ngModel)]="showRightDetails">Show Cards Details</mat-checkbox>
             </section>
 
             <div class="inside-cards">
-                <div class="single-card">
-                  
+                  <div *ngIf="!rightUserSetCollection?.cards.length > 0" class="empty-set" class="row">
+                    <p>
+                      <i>Choose the Set you want to add in transfer!</i>
+                    </p> 
+                </div>
+                <div class="single-card" *ngFor="let rightSingleCard of rightUserSetCollection?.cards">
+                 
                     <div>
-                      <span class="position-absolute translate-middle badge rounded-pill bg-info" style="color: white">
-                        100
+                      <span class="position-absolute translate-middle badge rounded-pill bg-info" style="color: white" *ngIf="rightUserSetCollection.quantityUserHave > 1">
+                       {{rightUserSetCollection.quantityUserHave}}
                       </span>
                       <i class="material-icons card-item-icon" style="margin-left: 37%; color: white; background-color: orange;font-size:20px; border: solid thin silver;" 
                       matTooltipClass="example-tooltip-red"                   
                       matTooltip="Send Card" 
-                      (click)="addCardSideDeck(i)">keyboard_double_arrow_left</i>  
-                      <img [src]="cardImagem('55623480')" width="109px" height="139px" (mouseover)="mostrarImgToolTip(cardsInfo.imagem, $event)"
-                      (mousemove)="mostrarImgToolTip(cardsInfo.imagem, $event)" (mouseout)="esconderImgToolTip()">   
+                      (click)="transferCardToOtherSide('R', rightSingleCard.relDeckCards.card_set_code)">keyboard_double_arrow_left</i>  
+                      <img [src]="cardImagem(rightSingleCard.number)" width="109px" height="139px" [title]="rightSingleCard.name">                   
+                      
                     </div>
                                     
-                        <!--Price div-->
-                    <div id="cardDetails" *ngIf="showRightDetails">
-                      <span style="float: left; color: green;"> $100.00</span> 
-                      <span style="float: right;">Secret Rare</span>  
-                      <span style="margin-left: 20%;color:#604FCD ; font-weight: 500;"> YAHS-00332</span>
-                      
-                    </div>             
+                      <!--Price div-->
+                      <div id="cardDetails" *ngIf="showLeftDetails">
+                        <span style="float: left; color: green;"> {{rightSingleCard.relDeckCards.card_price | currency : 'USD'}}</span> 
+                        <span style="float: right; ">{{rightSingleCard.relDeckCards.card_raridade}}</span>  
+                        <span style="margin-left: 20%;color:#604FCD ; font-weight: 500;"> {{rightSingleCard.relDeckCards.card_set_code}}</span>                   
+                      </div>            
                 </div>
             </div>
         </div>
