@@ -68,16 +68,17 @@ export class TransferComponent implements OnInit {
   getSetAndCards(side:string, setType:string, id:number){
     if(this.isSetChoosenValid(id, side, setType)){
       let setId = Number(id);
-       if(setType == 'Deck'){
-      this.getDeckAndCardsForTransfer(side, setId, setType);
-        }
-      }   
+      if(setType == 'Deck'){
+        this.getDeckAndCardsForTransfer(side, setId, setType);
+      } else {
+        this.getSetCollectionForTransfer(side, setId, setType);
+      }
+    }   
   }
 
   getDeckAndCardsForTransfer(side:string, deckId:number, setType:string){
       this.spinner.show()
     this.service.getDeckAndCardsForTransfer(deckId).subscribe(data => {
-      console.log(data)
       if(side == 'L'){
         this.leftUserSetCollecton = data;
         this.leftUserSetCollecton.setType = setType
@@ -93,6 +94,27 @@ export class TransferComponent implements OnInit {
     })
   }
 
+  getSetCollectionForTransfer(side:string, deckId:number, setType:string){
+    
+    this.spinner.show()
+    this.service.getSetCollectionForTransfer(deckId).subscribe(data => {
+      if(side == 'L'){
+        this.leftUserSetCollecton = data;
+        this.leftUserSetCollecton.setType = setType
+        this.countRarities(this.leftUserSetCollecton)
+      } else {
+        this.rightUserSetCollection = data;
+        this.rightUserSetCollection.setType = setType
+        this.countRarities(this.rightUserSetCollection)
+      }
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
+      this.errorDialog("Sorry, something wrong happened! Try again later");
+      console.log(error);
+    })
+}
+
   isSetChoosenValid(setId:number, side:string, setType: string):boolean {
       if(this.rightUserSetCollection == undefined && this.leftUserSetCollecton == undefined){
         return true;
@@ -107,7 +129,7 @@ export class TransferComponent implements OnInit {
   }
 
   transferCardToOtherSide(side:string, cardSetCode:string){
-    debugger
+    
     let card: CardSetCollectionDTO = side == 'R' ? this.getCardBySide(this.rightUserSetCollection, cardSetCode) : this.getCardBySide(this.leftUserSetCollecton, cardSetCode);
     if((side == 'R' && this.leftUserSetCollecton == undefined) || (side == 'L') && this.rightUserSetCollection == undefined){
       this.errorDialog("First, choose the Set of other side");
@@ -120,9 +142,18 @@ export class TransferComponent implements OnInit {
       this.transferCardToRight(card);
   }
 
+  countRarities(userSet: UserSetCollectionDTO){
+    
+    userSet.rarities.Secret_Rare = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Secret Rare').length 
+    userSet.rarities.Ultra_Rare = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Ultra Rare').length
+    userSet.rarities.Super_Rare = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Super Rare').length
+    userSet.rarities.Rare = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Rare').length
+    userSet.rarities.Common = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Common').length
+ 
+  }
+
   transferCardToLeft(card: CardSetCollectionDTO){
-    let qtdRight = card.quantityUserHave;
-    debugger 
+    let qtdRight = card.quantityUserHave; 
         this.rightUserSetCollection.cards.forEach((c,i) => {
             if(c.relDeckCards.card_set_code == card.relDeckCards.card_set_code){
               if(qtdRight == 1)
@@ -134,9 +165,10 @@ export class TransferComponent implements OnInit {
 
       let rightCard:CardSetCollectionDTO[] = this.leftUserSetCollecton.cards.filter(c => c.relDeckCards.card_set_code == card.relDeckCards.card_set_code);
 
-      if(rightCard != null && rightCard != undefined && rightCard.length > 0){
+      if(rightCard != null && rightCard != undefined && rightCard.length > 0 && this.leftUserSetCollecton.setType != 'Deck'){
         rightCard[0].quantityUserHave ++;
       } else {
+        card.quantityUserHave = 1;
         this.leftUserSetCollecton.cards.unshift(card);
       }
 
@@ -147,11 +179,14 @@ export class TransferComponent implements OnInit {
    this.leftUserSetCollecton.totalPrice = ((card.relDeckCards.card_price + leftTotalPrice).toFixed(2)).toString();
    this.rightUserSetCollection.totalPrice = ((rightTotalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
 
+   this.countRarities(this.leftUserSetCollecton)
+   this.countRarities(this.rightUserSetCollection)
+
   }
 
   transferCardToRight(card: CardSetCollectionDTO){
     let qtdLeft = card.quantityUserHave;
-    debugger
+    
 
         this.leftUserSetCollecton.cards.forEach((c,i) => {
             if(c.relDeckCards.card_set_code == card.relDeckCards.card_set_code){
@@ -163,9 +198,10 @@ export class TransferComponent implements OnInit {
         });
         let rightCard:CardSetCollectionDTO[] = this.rightUserSetCollection.cards.filter(c => c.relDeckCards.card_set_code == card.relDeckCards.card_set_code);
 
-        if(rightCard != null && rightCard != undefined && rightCard.length > 0){
+        if(rightCard != null && rightCard != undefined && rightCard.length > 0 && this.rightUserSetCollection.setType != 'Deck'){
           rightCard[0].quantityUserHave ++;
         } else {
+          card.quantityUserHave = 1;
           this.rightUserSetCollection.cards.unshift(card);
         }
 
@@ -174,11 +210,18 @@ export class TransferComponent implements OnInit {
    
    this.leftUserSetCollecton.totalPrice =   ((leftTotalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
    this.rightUserSetCollection.totalPrice = ((rightTotalPrice + card.relDeckCards.card_price).toFixed(2)).toString();
+
+   this.countRarities(this.leftUserSetCollecton)
+   this.countRarities(this.rightUserSetCollection)
   }
 
   getCardBySide(deck:UserSetCollectionDTO, setCode:string):CardSetCollectionDTO {
       let card = deck.cards.filter(c => c.relDeckCards.card_set_code == setCode)[0];
       return card;
+  }
+
+  saveSets(){
+
   }
 
   cardImagem(cardId: any){
@@ -202,6 +245,11 @@ successDialog(successMessage:string){
   this.dialog.open(SuccessDialogComponent,{
     data: successMessage
   })
+}
+
+storedCardId(cardNumber:any){
+  
+  localStorage.setItem("idCard", cardNumber);
 }
 
 }

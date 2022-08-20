@@ -34,5 +34,11 @@ export class TransferService {
         )
    }
 
+   public getSetCollectionForTransfer(setId:number){
+    return this.http.get<any>(this.base_url+`/user-setcollection/set-collection-for-transfer?setId=${setId}`)
+        .pipe(
+            catchError(HandleErros.handleError)
+        )
+   }
 
 }

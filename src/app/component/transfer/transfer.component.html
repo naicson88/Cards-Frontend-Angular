@@ -2,7 +2,9 @@
     <div class="default-header">
         <span >Transfer Cards</span>
      </div>
-
+     <div style="margin-bottom: 20px; margin-left: 47%;" *ngIf="leftUserSetCollecton?.id > 0 && rightUserSetCollection?.id > 0">
+        <a href="/" (click)="saveSets()"><button class="bn33">SAVE</button></a>
+     </div>
      <div id="div-all-boxes">
         <div id="left-box" class="card-box">
 
@@ -33,6 +35,7 @@
             <div class="setImage">
                 <img [src]="leftUserSetCollecton?.image" alt="Set Image" width="85px" height="100px">
             </div>
+            
       
             <div class="setDescription">
                 <p class="nome-set">{{leftUserSetCollecton?.name}}</p>
@@ -85,7 +88,10 @@
                     matTooltipClass="example-tooltip-red"                   
                     matTooltip="Send Card" 
                     (click)="transferCardToOtherSide('L', leftSingleCard.relDeckCards.card_set_code)">keyboard_double_arrow_right</i>  
-                    <img [src]="cardImagem(leftSingleCard.number)" width="109px" height="139px" [title]="leftSingleCard.name">
+                   <!-- <img [src]="cardImagem(leftSingleCard.number)" width="109px" height="139px" [title]="leftSingleCard.name"> -->
+                    <a [routerLink]="['/card-detail/', leftSingleCard?.name]"  name="{{leftSingleCard.number}}" (click)="storedCardId(leftSingleCard.number)">
+                      <img [src]="cardImagem(leftSingleCard.number)" width="109px" height="139px" [title]="leftSingleCard.name">
+                    </a>
                   
                 </div>                                 
                 <!--Price div-->
@@ -172,14 +178,16 @@
                 <div class="single-card" *ngFor="let rightSingleCard of rightUserSetCollection?.cards">
                  
                     <div>
-                      <span class="position-absolute translate-middle badge rounded-pill bg-info" style="color: white" *ngIf="rightUserSetCollection.quantityUserHave > 1">
-                       {{rightUserSetCollection.quantityUserHave}}
+                      <span class="position-absolute translate-middle badge rounded-pill bg-info" style="color: white" *ngIf="rightSingleCard.quantityUserHave > 1">
+                       {{rightSingleCard.quantityUserHave}}
                       </span>
                       <i class="material-icons card-item-icon" style="margin-left: 37%; color: white; background-color: orange;font-size:20px; border: solid thin silver;" 
                       matTooltipClass="example-tooltip-red"                   
                       matTooltip="Send Card" 
-                      (click)="transferCardToOtherSide('R', rightSingleCard.relDeckCards.card_set_code)">keyboard_double_arrow_left</i>  
-                      <img [src]="cardImagem(rightSingleCard.number)" width="109px" height="139px" [title]="rightSingleCard.name">                   
+                      (click)="transferCardToOtherSide('R', rightSingleCard.relDeckCards.card_set_code)">keyboard_double_arrow_left</i>                       
+                      <a [routerLink]="['/card-detail/', rightSingleCard?.name]"  name="{{rightSingleCard.number}}" (click)="storedCardId(rightSingleCard.number)">
+                        <img [src]="cardImagem(rightSingleCard.number)" width="109px" height="139px" [title]="rightSingleCard.name"> 
+                      </a>                 
                       
                     </div>
                                     
