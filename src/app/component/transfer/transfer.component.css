@@ -1,13 +1,13 @@
 #main-div{
-    border: solid thin red; 
     width: 90%;
     margin: 10px 0 20px 5%;
     background-color: ghostwhite;
+    min-height: 300px;
 }
-
 #div-all-boxes{
     display: flex;
-    justify-content: space-around
+    justify-content: space-around;
+    margin-bottom: 50px;
     
 }
 

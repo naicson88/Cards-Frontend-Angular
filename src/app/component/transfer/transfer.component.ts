@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
 import { SpinnerService } from 'src/app/service/spinner.service';
@@ -19,7 +20,7 @@ import { TransferService } from './transfer.service';
 })
 export class TransferComponent implements OnInit {
 
-  constructor(private service: TransferService, private dialog: MatDialog, private spinner: SpinnerService) { }
+  constructor(private service: TransferService, private dialog: MatDialog, private spinner: SpinnerService, private toastr: ToastrService) { }
 
   topTp;
   leftTp;
@@ -152,67 +153,86 @@ export class TransferComponent implements OnInit {
  
   }
 
-  transferCardToLeft(card: CardSetCollectionDTO){
-    let qtdRight = card.quantityUserHave; 
-        this.rightUserSetCollection.cards.forEach((c,i) => {
-            if(c.relDeckCards.card_set_code == card.relDeckCards.card_set_code){
-              if(qtdRight == 1)
-                this.rightUserSetCollection.cards.splice(i, 1);
-              else
-                c.quantityUserHave --;
-            }
-        });
+  private validQtdCardsDeck(userSet: UserSetCollectionDTO, cardId:number){
+    if(userSet.setType == 'Deck'){
+      let qtd = userSet.cards.filter(c => c.cardId == cardId).length;
+      if(qtd == 3){
+        this.toastr.warning("There are already 3 of this Card in Deck");
+        return false;
+      } 
+      return true;
+    } else {
+      return true
+    }
+  }
 
-      let rightCard:CardSetCollectionDTO[] = this.leftUserSetCollecton.cards.filter(c => c.relDeckCards.card_set_code == card.relDeckCards.card_set_code);
-
-      if(rightCard != null && rightCard != undefined && rightCard.length > 0 && this.leftUserSetCollecton.setType != 'Deck'){
-        rightCard[0].quantityUserHave ++;
+  private spliceOrSubtractCard(userSet: UserSetCollectionDTO, card:CardSetCollectionDTO){
+      let qtdRight = card.quantityUserHave; 
+      if(userSet.setType == 'Deck'){
+         let index:number = userSet.cards.findIndex(c => c.relDeckCards.card_set_code == card.relDeckCards.card_set_code);
+        userSet.cards.splice(index, 1);      
       } else {
-        card.quantityUserHave = 1;
-        this.leftUserSetCollecton.cards.unshift(card);
+        userSet.cards.filter(c => c.relDeckCards.card_set_code == card.relDeckCards.card_set_code).forEach(cardFiltered => {
+          cardFiltered.quantityUserHave --;
+          if(cardFiltered.quantityUserHave == 0){
+            userSet.cards.splice(userSet.cards.findIndex(c => c.relDeckCards.card_set_code == card.relDeckCards.card_set_code), 1); 
+          }
+        })
+      
       }
 
-      
-   let leftTotalPrice = parseFloat(this.leftUserSetCollecton.totalPrice);
-   let rightTotalPrice = parseFloat(this.rightUserSetCollection.totalPrice);
-   
-   this.leftUserSetCollecton.totalPrice = ((card.relDeckCards.card_price + leftTotalPrice).toFixed(2)).toString();
-   this.rightUserSetCollection.totalPrice = ((rightTotalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
+  }
 
-   this.countRarities(this.leftUserSetCollecton)
-   this.countRarities(this.rightUserSetCollection)
+  private tranferCardAndCalculate(userSet:UserSetCollectionDTO, card: CardSetCollectionDTO){
+
+    let transferableCard:CardSetCollectionDTO[] = userSet.cards.filter(c => c.relDeckCards.card_set_code == card.relDeckCards.card_set_code);
+
+      if(transferableCard != null && transferableCard != undefined && transferableCard.length > 0 && userSet.setType != 'Deck'){
+        transferableCard[0].quantityUserHave ++;
+      } else {
+       let newCard = Object.assign({}, card);
+       newCard.angularId = Date.now()
+       newCard.quantityUserHave = 1;
+       userSet.cards.unshift(newCard);
+       //this.leftUserSetCollecton.cards.filter(c => c.angularId == )
+      }
+  }
+
+  transferCardToLeft(card: CardSetCollectionDTO){
+    if(!this.validQtdCardsDeck(this.leftUserSetCollecton, card.cardId))
+      return false;
+
+      this.spliceOrSubtractCard(this.rightUserSetCollection, card);
+      this.tranferCardAndCalculate(this.leftUserSetCollecton, card);
+   
+      let leftTotalPrice = parseFloat(this.leftUserSetCollecton.totalPrice);
+      let rightTotalPrice = parseFloat(this.rightUserSetCollection.totalPrice);
+      
+      this.leftUserSetCollecton.totalPrice = ((card.relDeckCards.card_price + leftTotalPrice).toFixed(2)).toString();
+      this.rightUserSetCollection.totalPrice = ((rightTotalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
+
+      this.countRarities(this.leftUserSetCollecton)
+      this.countRarities(this.rightUserSetCollection)
 
   }
 
   transferCardToRight(card: CardSetCollectionDTO){
-    let qtdLeft = card.quantityUserHave;
-    
 
-        this.leftUserSetCollecton.cards.forEach((c,i) => {
-            if(c.relDeckCards.card_set_code == card.relDeckCards.card_set_code){
-              if(qtdLeft == 1)
-                this.leftUserSetCollecton.cards.splice(i, 1);
-              else
-                c.quantityUserHave --;
-            }
-        });
-        let rightCard:CardSetCollectionDTO[] = this.rightUserSetCollection.cards.filter(c => c.relDeckCards.card_set_code == card.relDeckCards.card_set_code);
+    if(!this.validQtdCardsDeck(this.rightUserSetCollection, card.cardId))
+      return false;
 
-        if(rightCard != null && rightCard != undefined && rightCard.length > 0 && this.rightUserSetCollection.setType != 'Deck'){
-          rightCard[0].quantityUserHave ++;
-        } else {
-          card.quantityUserHave = 1;
-          this.rightUserSetCollection.cards.unshift(card);
-        }
+    this.spliceOrSubtractCard(this.leftUserSetCollecton, card);
+  
+    this.tranferCardAndCalculate(this.rightUserSetCollection, card);
 
     let leftTotalPrice = parseFloat(this.leftUserSetCollecton.totalPrice);
-   let rightTotalPrice = parseFloat(this.rightUserSetCollection.totalPrice);
-   
-   this.leftUserSetCollecton.totalPrice =   ((leftTotalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
-   this.rightUserSetCollection.totalPrice = ((rightTotalPrice + card.relDeckCards.card_price).toFixed(2)).toString();
+    let rightTotalPrice = parseFloat(this.rightUserSetCollection.totalPrice);
+    
+    this.leftUserSetCollecton.totalPrice =   ((leftTotalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
+    this.rightUserSetCollection.totalPrice = ((rightTotalPrice + card.relDeckCards.card_price).toFixed(2)).toString();
 
-   this.countRarities(this.leftUserSetCollecton)
-   this.countRarities(this.rightUserSetCollection)
+    this.countRarities(this.leftUserSetCollecton)
+    this.countRarities(this.rightUserSetCollection)
   }
 
   getCardBySide(deck:UserSetCollectionDTO, setCode:string):CardSetCollectionDTO {
@@ -221,7 +241,22 @@ export class TransferComponent implements OnInit {
   }
 
   saveSets(){
+      this.spinner.show();
+      let setsToBeSaved: UserSetCollectionDTO[] = new Array();
+      debugger
+      setsToBeSaved.push(this.rightUserSetCollection);
+      setsToBeSaved.push(this.leftUserSetCollecton);
 
+    this.service.saveSets(setsToBeSaved).subscribe(result => {
+      let msg = result;
+      this.spinner.hide();
+      this.successDialog(msg);
+
+    }, error => {
+      this.spinner.hide()
+      this.errorDialog("Sorry, something bad happened! Try again later");
+      console.log(error);
+    })
   }
 
   cardImagem(cardId: any){

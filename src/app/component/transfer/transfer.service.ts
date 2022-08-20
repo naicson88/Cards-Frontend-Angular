@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError } from "rxjs/operators";
+import { UserSetCollectionDTO } from "src/app/classes/UserSetCollectionDTO";
 import { HandleErros } from "src/app/Util/HandleErros";
 
 @Injectable({
@@ -40,5 +41,12 @@ export class TransferService {
             catchError(HandleErros.handleError)
         )
    }
+
+   public saveSets(setsToBeSaved: UserSetCollectionDTO[]) {
+        return this.http.post<any>(this.base_url+`/user-setcollection/save-transfer`, setsToBeSaved)
+        .pipe(
+            catchError(HandleErros.handleError)
+        )
+  }
 
 }

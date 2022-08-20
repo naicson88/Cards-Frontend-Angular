@@ -3,7 +3,7 @@
         <span >Transfer Cards</span>
      </div>
      <div style="margin-bottom: 20px; margin-left: 47%;" *ngIf="leftUserSetCollecton?.id > 0 && rightUserSetCollection?.id > 0">
-        <a href="/" (click)="saveSets()"><button class="bn33">SAVE</button></a>
+        <a href="javascript:void(0)" (click)="saveSets()"><button class="bn33">SAVE</button></a>
      </div>
      <div id="div-all-boxes">
         <div id="left-box" class="card-box">
@@ -192,7 +192,7 @@
                     </div>
                                     
                       <!--Price div-->
-                      <div id="cardDetails" *ngIf="showLeftDetails">
+                      <div id="cardDetails" *ngIf="showRightDetails">
                         <span style="float: left; color: green;"> {{rightSingleCard.relDeckCards.card_price | currency : 'USD'}}</span> 
                         <span style="float: right; ">{{rightSingleCard.relDeckCards.card_raridade}}</span>  
                         <span style="margin-left: 20%;color:#604FCD ; font-weight: 500;"> {{rightSingleCard.relDeckCards.card_set_code}}</span>                   
@@ -202,3 +202,6 @@
         </div>
      </div>
 </div>
+<div style="margin-top: 60px;">
+  <app-footer></app-footer>
+</div> 
