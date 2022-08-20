@@ -390,7 +390,7 @@ export class UserSetcollectionComponent implements OnInit {
 
     this.spinner.show();
     this.userSetCollecton.cards = [];
-    debugger
+    
     //this.userSetCollecton.cards = this.originalCollection.filter(card => card.quantityUserHave > 0);
 
     for(let i = 0; i < this.originalCollection.length; i++ ){
