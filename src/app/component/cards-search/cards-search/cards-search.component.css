@@ -15,7 +15,7 @@
 }
 
 
-#att-search ul {
+.att-search ul {
     list-style-type: none; /*to remove bullets*/
     text-align: center;
     margin: 0 auto;
@@ -33,7 +33,7 @@ h4 {
 }
 
 
-#att-search ul li {
+.att-search ul li {
 
     display:inline-block;
     padding: 5px;

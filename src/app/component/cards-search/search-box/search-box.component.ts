@@ -63,67 +63,70 @@ export class SearchBoxComponent implements OnInit {
 
   criterios =  new Array();
   atributos = [
-    {name: this.imagens.dark, img: this.imagens.dark_img},
-    {name: this.imagens.fire, img: this.imagens.fire_img},
-    {name: this.imagens.wind, img: this.imagens.wind_img},
-    {name: this.imagens.light, img: this.imagens.light_img},
-    {name: this.imagens.earth, img: this.imagens.earth_img},
-    {name: this.imagens.water, img: this.imagens.water_img},
-    {name: this.imagens.continuous, img: this.imagens.continuous_img},
-    {name: this.imagens.field, img: this.imagens.field_img},
-    {name: this.imagens.counter, img: this.imagens.counter_img},
-    {name: this.imagens.equip, img: this.imagens.equip_img}
+    { name: this.imagens.dark, img: this.imagens.dark_img, id: 4 },
+    { name: this.imagens.fire, img: this.imagens.fire_img, id: 2 },
+    { name: this.imagens.wind, img: this.imagens.wind_img, id: 5 },
+    { name: this.imagens.light, img: this.imagens.light_img, id: 8 },
+    { name: this.imagens.earth, img: this.imagens.earth_img, id: 3 },
+    { name: this.imagens.water, img: this.imagens.water_img, id: 1 },
+  ]
 
+  properties = [
+    { name: this.imagens.continuous, img: this.imagens.continuous_img },
+    { name: this.imagens.field, img: this.imagens.field_img },
+    { name: this.imagens.counter, img: this.imagens.counter_img },
+    { name: this.imagens.equip, img: this.imagens.equip_img },
+    { name: this.imagens.quick, img: this.imagens.quick_img },
+    { name: this.imagens.ritual, img: this.imagens.ritual_icon },
   ]
 
   types = [
+    { name: this.imagens.aqua, img: this.imagens.aqua_img, id: 2 },
+    { name: this.imagens.beast, img: this.imagens.beast_img, id: 3 },
+    { name: this.imagens.beast_warrior, img: this.imagens.beast_warrior_img, id: 4 },
+    { name: this.imagens.cyberse, img: this.imagens.cyberse_img, id: 6 },
+    { name: this.imagens.dinosaur, img: this.imagens.dinosaur_img, id: 7 },
+    { name: this.imagens.divine_beast, img: this.imagens.divine_beast_img, id: 8 },
+    { name: this.imagens.dragon, img: this.imagens.dragon_img, id: 9 },
+    { name: this.imagens.fairy, img: this.imagens.fairy_img, id: 10 },
+    { name: this.imagens.fiend, img: this.imagens.fiend_img, id: 11 },
+    { name: this.imagens.fish, img: this.imagens.fish_img, id: 12 },
+    { name: this.imagens.insect, img: this.imagens.insect_img, id: 13 },
+    { name: this.imagens.machine, img: this.imagens.machine_img, id: 14 },
+    { name: this.imagens.plant, img: this.imagens.plant_img, id: 15 },
+    { name: this.imagens.pyro, img: this.imagens.pyro_img, id: 17 },
 
-    {name: this.imagens.aqua, img: this.imagens.aqua_img},
-    {name: this.imagens.beast, img: this.imagens.beast_img},
-    {name: this.imagens.beast_warrior, img: this.imagens.beast_warrior_img},
-    {name: this.imagens.cyberse, img: this.imagens.cyberse_img},
-    {name: this.imagens.dinosaur, img: this.imagens.dinosaur_img},
-    {name: this.imagens.divine_beast, img: this.imagens.divine_beast_img},
-    {name: this.imagens.dragon, img: this.imagens.dragon_img},
-    {name: this.imagens.fairy, img: this.imagens.fairy_img},
-    {name: this.imagens.fiend, img: this.imagens.fiend_img},
-    {name: this.imagens.fish, img: this.imagens.fish_img},
-    {name: this.imagens.insect, img: this.imagens.insect_img},
-    {name: this.imagens.machine, img: this.imagens.machine_img},
-    {name: this.imagens.plant, img: this.imagens.plant_img},
-    {name: this.imagens.pyro, img: this.imagens.pyro_img},
-
-    {name: this.imagens.reptile, img: this.imagens.reptile_img},
-    {name: this.imagens.rock, img: this.imagens.rock_img},
-    {name: this.imagens.sea_serpent, img: this.imagens.sea_serpent_img},
-    {name: this.imagens.spellcaster, img: this.imagens.spellcaster_img},
-    {name: this.imagens.thunder, img: this.imagens.thunder_img},
-    {name: this.imagens.warrior, img: this.imagens.warrior_img},
-    {name: this.imagens.winged_beast, img: this.imagens.winged_beast_img},
-    {name: this.imagens.wyrm, img: this.imagens.wyrm_img},
-    {name: this.imagens.zombie, img: this.imagens.zombie_img},
+    { name: this.imagens.reptile, img: this.imagens.reptile_img, id: 18 },
+    { name: this.imagens.rock, img: this.imagens.rock_img, id: 19 },
+    { name: this.imagens.sea_serpent, img: this.imagens.sea_serpent_img, id: 20 },
+    { name: this.imagens.spellcaster, img: this.imagens.spellcaster_img, id: 21 },
+    { name: this.imagens.thunder, img: this.imagens.thunder_img, id: 22 },
+    { name: this.imagens.warrior, img: this.imagens.warrior_img, id: 23 },
+    { name: this.imagens.winged_beast, img: this.imagens.winged_beast_img, id: 24 },
+    { name: this.imagens.wyrm, img: this.imagens.wyrm_img, id: 25 },
+    { name: this.imagens.zombie, img: this.imagens.zombie_img, id: 26 },
 
   ]
 
-  cards =[
-    {name: this.imagens.monster, img: this.imagens.monster_img},
-    {name: this.imagens.spellc, img: this.imagens.spellc_img},
-    {name: this.imagens.trapc, img: this.imagens.trapc_img},
-    {name: this.imagens.pendulum, img: this.imagens.pendulum_img},
-    {name: this.imagens.xyz, img: this.imagens.xyz_img},
-    {name: this.imagens.synchron, img: this.imagens.synchron_img},
-    {name: this.imagens.fusion, img: this.imagens.fusion_img},
-    {name: this.imagens.link, img: this.imagens.link_img},
-    {name: this.imagens.ritual, img: this.imagens.ritual_img},
+  cards = [
+    { name: this.imagens.monster, img: this.imagens.monster_img },
+    { name: this.imagens.spellc, img: this.imagens.spellc_img },
+    { name: this.imagens.trapc, img: this.imagens.trapc_img },
+    { name: this.imagens.pendulum, img: this.imagens.pendulum_img },
+    { name: this.imagens.xyz, img: this.imagens.xyz_img },
+    { name: this.imagens.synchron, img: this.imagens.synchron_img },
+    { name: this.imagens.fusion, img: this.imagens.fusion_img },
+    { name: this.imagens.link, img: this.imagens.link_img },
+    { name: this.imagens.ritual, img: this.imagens.ritual_img },
   ]
 
   sorts: Object[] = [
-    {value: 'name', viewValue: 'Name'},
-    {value: 'atk', viewValue: 'Attack'},
-    {value: 'def', viewValue: 'Defense'},
-    {value: 'level', viewValue: 'Level'},
-    {value: 'links', viewValue: 'Links'},
-    {value: 'pend', viewValue: 'Pendulum Scale'},
+    { value: 'name', viewValue: 'Name' },
+    { value: 'atk', viewValue: 'Attack' },
+    { value: 'def', viewValue: 'Defense' },
+    { value: 'level', viewValue: 'Level' },
+    { value: 'links', viewValue: 'Links' },
+    { value: 'pend', viewValue: 'Pendulum Scale' },
   ];
 
   searchCards(){
@@ -137,6 +140,8 @@ export class SearchBoxComponent implements OnInit {
     this.attrFilters();
     
     this.typesFilters();
+
+    this.propertiesFilter();
 
     if(this.criterios != null && this.criterios.length > 0){
 
@@ -174,7 +179,25 @@ export class SearchBoxComponent implements OnInit {
     
   }
 
+  propertiesFilter(){
+    const pprts = document.querySelectorAll('.pprt');
+    const criterio = new SearchCriteria();
+    let arrPprt = new Array();
 
+    if(pprts != null && pprts.length > 0){
+      for (var i = 0; i < pprts.length; i++) {
+        if (pprts[i].className.indexOf("mat-checkbox-checked") !== -1) {
+          let txt = pprts[i].getElementsByTagName('input')[0].defaultValue;
+          arrPprt.push(txt);
+        }
+      }
+    }
+
+    if (arrPprt != null && arrPprt.length > 0) {
+      criterio.criterios('propriedade', 'IN', arrPprt);
+      this.criterios.push(criterio);
+    }
+  }
       inputFilters(){
 
         if(this.cardname != null && this.cardname != ''){

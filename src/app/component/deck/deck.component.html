@@ -2,8 +2,8 @@
 
 <div id="mainDiv" class="container" style="background-color: whitesmoke;" >
    <div class="default-header">
-      <span *ngIf="set_type == 'UD' ">User's Decks</span>
-      <span *ngIf="set_type != 'UD' ">Konami's Decks</span>
+      <span *ngIf="source == 'USER' ">Your Sets</span>
+      <span *ngIf="source == 'KONAMI' ">Konami's Sets</span>
    </div>
 
    <div id="header-main" >
@@ -56,12 +56,12 @@
    </div>
 
    <!-- Se a coleção do usuário estiver vazia-->
-   <div id="empty-collection" *ngIf="deck.length == 0">
+   <div id="empty-collection" *ngIf="deck?.length == 0">
       <h1> You haven't added any Set of that type yet!</h1>
    </div>
 
    <!-- Decks-->
-   <mat-tab-group mat-align-tabs="end" *ngIf="deck.length > 0">
+   <mat-tab-group mat-align-tabs="end" *ngIf="deck?.length > 0">
       <mat-tab >
          <ng-template mat-tab-label>
             <mat-icon>view_module</mat-icon>
@@ -134,7 +134,7 @@
                      </div> -->
 
                      <div class="image_card_bottom" *ngIf="source == 'KONAMI'">
-                        <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have: &nbsp; &nbsp;</span>
+                        <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="source == 'KONAMI'">Total you have: &nbsp; &nbsp;</span>
                         
                         <input type="text" name="input_qtde" id="inp_{{deck.id}}" disabled
                         value="{{deck.quantityUserHave == null ? 0 : deck.quantityUserHave}}" class="input_qtd_userhave">
@@ -154,7 +154,7 @@
                      <div class="row editRemove"   *ngIf="source == 'USER'">
                         <div class="col-md-6"  style="text-align: center;">
                      <!--    <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>-->
-                           <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have:</span><br>
+                           <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="source == 'KONAMI'">Total you have:</span><br>
 
                            <a *ngIf="set_type == 'DECK'" name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id)" >
                               <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
@@ -209,7 +209,7 @@
                               {{decklist.nome}}
                           </a>
                           <br>
-                        <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;">Released:</span> &nbsp; <span>2002</span>&nbsp;&nbsp;&nbsp;
+                        <!-- <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;">Released:</span> &nbsp; <span>2002</span>&nbsp;&nbsp;&nbsp; -->
 
                         <span *ngIf="set_type == 'UD'" style="float: right;">
                             <!--Opções que só aparecem se for deck de usuário-->

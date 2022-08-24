@@ -71,7 +71,7 @@ export class DeckDetailComponent implements OnInit {
     const id = localStorage.getItem("idDeckDetails");
     const source = localStorage.getItem("source");
     const set_type = localStorage.getItem("set_type");
-
+     
     this.service.getDeckDetails(id, source, set_type).subscribe(data => {
 
       this.deckDetails = data;

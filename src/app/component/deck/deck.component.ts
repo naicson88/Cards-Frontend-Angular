@@ -56,6 +56,7 @@ export class DeckComponent implements OnInit {
 
     this.route.data.subscribe(source =>{
       this.source = source.source;
+      console.log(source)
     })
 
 
@@ -272,7 +273,7 @@ export class DeckComponent implements OnInit {
   searchByName(){
 
     this.service.searchBySetName(this.setName).subscribe( data => {
-        debugger
+        
         let decksFound:any[] = [];
         const {content, totalElements} = data;
 
