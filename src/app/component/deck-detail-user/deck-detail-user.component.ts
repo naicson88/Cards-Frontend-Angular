@@ -17,6 +17,7 @@ import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog
 import { error } from 'protractor';
 import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
 
 
 
@@ -112,10 +113,18 @@ loadDeckCards(){
   
   const id = localStorage.getItem("idDeckDetails");
   
+  if(id == "0"){
+   this.infoDialog('Create your new Deck!');
+   this.deck = new Deck();
+   this.deck.id = 0;
+   this.deck.nome = "";
+   return false;
+  }
+
   this.spinner.show();
   this.deckService.editDeck(id, "User").subscribe(data => {
   this.deck = data
-  
+  console.log(data)
   this.mainDeckCards = data['cards'];
   this.countTypeCards(this.mainDeckCards, "main");
 
@@ -641,6 +650,12 @@ errorDialog(errorMessage:string){
   })
 }
 
+infoDialog(infoMessage:string){
+  this.dialog.open(InfoDialogComponent, {
+    data: infoMessage
+  })
+}
+
 warningDialog(warningMessage:string){
   this.dialog.open(WarningDialogComponent, {
     data: warningMessage
@@ -688,13 +703,17 @@ sendToMainDeck(index:number){
 relDeckCardsForSave:RelDeckCards[] = new Array();
 
 saveDeck(){
-
+debugger
   this.relDeckCardsForSave = [];
 
   let deckEdited:Deck = new Deck();
 
   deckEdited.id = this.deck.id;
   deckEdited.nome = this.deckNome.nativeElement.value.trim();
+  if(deckEdited.nome == undefined || deckEdited.nome == ""){
+    this.errorDialog("Invalid Deck Name!");
+    return false;
+  }
   deckEdited.setType = "DECK";
   
   let options = document.querySelectorAll('option:checked');
@@ -704,14 +723,8 @@ saveDeck(){
   this.insertInRelDeckCardForSave(this.sideDeckCards, (this.mainDeckCards.length + this.extraDeckCards.length), options, deckEdited.id, true);
 
   deckEdited.rel_deck_cards = this.relDeckCardsForSave;
-  
-  if(deckEdited.nome == "" || deckEdited.nome == null){
-    this.errorDialog("Deck name cannot be empty");
-    return false;
-  }
-
+  console.log(JSON.stringify(deckEdited))
   this.deckService.saveUserDeck(deckEdited).subscribe(result => {
-
     this.spinner.show();
     if(result.status == 200)
       this.successDialog("Deck was successfully saved!")
@@ -725,13 +738,11 @@ saveDeck(){
       this.errorDialog("Sorry, can't save deck now, try again later :(")
       
   })
-
-
 }
 
 errorMsg:string;
 insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Element>, deckId:number, isSideDeck:boolean){
-  
+  debugger
   for(var i = 0; i < array.length; i++){ 
     let rel:RelDeckCards = new RelDeckCards()  
     let setCode = options[i + indexSum].innerHTML
@@ -762,13 +773,10 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
 
          if(rel2.cardId == undefined || rel2.cardId == null)
             console.log("CARD ID INVALID: " + rel2)
-
           this.relDeckCardsForSave.push(rel2);
-
       }
 
-    } else {
-      
+    } else {      
       let  rel2:RelDeckCards = new RelDeckCards()
       rel2.cardNumber = array[i].numero
       rel2.isSideDeck = isSideDeck

@@ -2,7 +2,7 @@
 <div *ngIf="!isLogin && !isRegister && !isIndex ">
         
   <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
-  <div id="divBg" style="background: url('..\\..\\assets\\img\\bg.jpg') ;background-repeat:no-repeat; height: 200px; ">
+  <div id="divBg" style="background: url('..\\..\\assets\\img\\bg.jpg') ;background-repeat:no-repeat;height: 200px;">
    <!--<img src="..\..\assets\img\img.jpg" alt="" width="100%" height="150px" >--> 
     
    <div class="search" >
@@ -10,10 +10,10 @@
      <button><mat-icon>search</mat-icon></button>
    </div>
 
-   <div id="iconAccount"  >
+   <div id="iconAccount"  style="border: solid thin  blue;">
    
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <span class="material-icons" style="size: 15px;">
+        <span class="material-icons" style="size: 15px; color: darkblue;">
           account_circle
           </span>
         <mat-icon>more_vert</mat-icon>
@@ -28,9 +28,16 @@
           <span style="color: red;" (click)='logout()'><b>Logout</b> </span>
         </button>
       </mat-menu>
+      
+   </div>
 
-      <button type="button" class="btn btn-danger" style="margin-top: 20px;">New Deck!</button>
-    </div>
+   <div id="div-buttons">
+    <button type="button" class="btn" style="background: #28a745; color: white" 
+    [routerLink]="['/userdeck-details/', 'new-deck']" (click)="storeDeckId(0)">New Deck</button> &nbsp;
+
+    <button type="button" class="btn" [routerLink]="['/user-setcollection-cards/', 'new-set-collection']" (click)="storeDeckId(0)"
+    style="background: #17a2b8; color: white">New Collection</button>
+   </div>
 
   </div>
   <nav role="navigation" class="primary-navigation" >
@@ -41,8 +48,6 @@
           <li><a href="/usercollection/cards">Cards</a></li>
           <li><a href="/usercollection/decks">My Sets</a></li>
           <li><a href="/usercollection/transfer">Transfer Cards</a></li>
-          <!-- <li><a href="#">Tins Sets</a></li>
-          <li><a href="#">Boxes</a></li> -->
         </ul>
       </li>
       <li><a href="/cards-search">Search Cards</a>

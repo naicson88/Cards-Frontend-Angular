@@ -298,10 +298,36 @@ select {
 
 #tableRarity{
   width: 35%;
-  float: right;
+
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
   border-radius: 5px ; 
   border: solid thin silver
+}
+
+#mainDeck{
+  border: solid goldenrod; 
+  background-color: #FFDEAD; 
+  padding: 3px;
+  min-height: 96px;
+}
+
+#header-infos{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#deck-name-div{
+  min-width: 350px;
+}
+
+#deck-image-div{
+  width: fit-content;
+  height: fit-content;
+  padding: 2px;
+  border: solid thin blue;
+  border-radius: 5px;
+  margin-left: -8%;
 }
 
 

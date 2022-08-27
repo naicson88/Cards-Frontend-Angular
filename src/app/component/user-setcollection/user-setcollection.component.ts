@@ -10,6 +10,7 @@ import { SpinnerService } from 'src/app/service/spinner.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
+import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { UserSetCollectionService } from './user-setcollection.service';
@@ -50,6 +51,11 @@ export class UserSetcollectionComponent implements OnInit {
   getSetCollection(){
     this.spinner.show();
     const id = localStorage.getItem("idDeckDetails");
+    if(id == "0"){
+      this.infoDialog('Create your new Deck!');
+      return false;
+     }
+     
     this.service.getSetCollection(id).subscribe(data => {
       this.userSetCollecton = data;
       let arr = this.userSetCollecton.cards.slice(0);
@@ -271,6 +277,12 @@ export class UserSetcollectionComponent implements OnInit {
   warningDialog(warningMessage:string){
     this.dialog.open(WarningDialogComponent, {
       data: warningMessage
+    })
+  }
+  
+  infoDialog(infoMessage:string){
+    this.dialog.open(InfoDialogComponent, {
+      data: infoMessage
     })
   }
   

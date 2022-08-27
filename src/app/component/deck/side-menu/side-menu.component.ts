@@ -156,4 +156,12 @@ checkIfIsAdmin(userRole:string) {
           this.router.navigate(['/login'])      
   }
 
+  storeDeckId(id:any){
+    //  const id = event.target.name;
+      localStorage.setItem("idDeckDetails", '0');
+      localStorage.setItem("source", "USER");
+      localStorage.setItem("set_type", "DECK");
+    
+    }
+
 }
