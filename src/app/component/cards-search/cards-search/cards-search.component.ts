@@ -137,7 +137,7 @@ export class CardsSearchComponent implements OnInit {
   }
 
   searchCards() {
-    debugger
+      
     this.criterios = []
 
     this.inputFilters();

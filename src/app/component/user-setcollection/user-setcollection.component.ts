@@ -48,14 +48,26 @@ export class UserSetcollectionComponent implements OnInit {
     320:{slidePerView: 1.6, spaceBetween: 20}
   };
 
+  newSetCollection(){
+    this.infoDialog('Create your new Collection!');
+    this.userSetCollecton = new UserSetCollectionDTO();
+    this.userSetCollecton.cards = new Array();
+    this.userSetCollecton.id = 0;
+    this.userSetCollecton.name = "";
+    this.userSetCollecton.totalPrice = "0";
+    let arr = this.userSetCollecton.cards.slice(0);
+    this.originalCollection = arr;
+    this.spinner.hide();
+  }
   getSetCollection(){
     this.spinner.show();
     const id = localStorage.getItem("idDeckDetails");
+    
     if(id == "0"){
-      this.infoDialog('Create your new Deck!');
+      this.newSetCollection();
       return false;
      }
-     
+
     this.service.getSetCollection(id).subscribe(data => {
       this.userSetCollecton = data;
       let arr = this.userSetCollecton.cards.slice(0);
@@ -233,10 +245,10 @@ export class UserSetcollectionComponent implements OnInit {
     }
   }
   addOrRemoveCard(card: CardSetCollectionDTO, operation:string){  
-    
+    debugger
    let totalPrice = parseFloat(this.userSetCollecton.totalPrice);
-   
-    this.originalCollection.filter(c1 => c1.relDeckCards.card_set_code == card.relDeckCards.card_set_code).forEach(cardFiltered => {
+    card.angularId = Date.now();
+    this.originalCollection.filter(c1 => c1.angularId == card.angularId).forEach(cardFiltered => {
       if(operation == 'plus'){
         cardFiltered.quantityUserHave += 1;
         this.userSetCollecton.totalPrice = ((cardFiltered.relDeckCards.card_price + totalPrice).toFixed(2)).toString();
@@ -320,7 +332,7 @@ export class UserSetcollectionComponent implements OnInit {
   }
 
   addToCollection(card:Card){
-    
+      
     let newcard:CardSetCollectionDTO = new CardSetCollectionDTO();
     let rel: RelDeckCards = new RelDeckCards();
 
@@ -337,8 +349,14 @@ export class UserSetcollectionComponent implements OnInit {
     rel.card_price = 0
 
     newcard.relDeckCards = rel;
-    
-    this.originalCollection.unshift(newcard);
+    if(this.userSetCollecton.id > 0)
+      this.originalCollection.unshift(newcard);
+    else{
+      this.userSetCollecton.cards.push(newcard);
+      this.originalCollection = this.userSetCollecton.cards
+    }
+     
+
   }
 
 

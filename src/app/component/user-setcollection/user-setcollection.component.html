@@ -6,8 +6,8 @@
     <div style="margin-bottom: 20px; padding: 10px; background-color: ghostwhite;">
         <span>
             <mat-form-field appearance="outline" style="width: 35%;">
-              <mat-label>Deck name</mat-label>
-              <input matInput placeholder="Placeholder" [value]="userSetCollecton?.name" style="width: 500px;" #deckName maxlength="80">
+              <mat-label>Collection Name</mat-label>
+              <input matInput [value]="userSetCollecton?.name" style="width: 500px;" #deckName maxlength="80">
               <mat-hint>Deck Code:  <b>{{userSetCollecton?.id}}</b></mat-hint>
             </mat-form-field>
             
@@ -32,11 +32,11 @@
             </thead>
             <tbody>
               <tr style="background-color: ghostwhite;">
-                <td >{{userSetCollecton?.rarities.Common}}</td>
-                <td >{{userSetCollecton?.rarities.Rare}}</td>
-                <td >{{userSetCollecton?.rarities.Secret_Rare}}</td>
-                <td >{{userSetCollecton?.rarities.Super_Rare}}</td>
-                <td >{{userSetCollecton?.rarities.Ultra_Rare}}</td>
+                <td >{{userSetCollecton?.rarities?.Common}}</td>
+                <td >{{userSetCollecton?.rarities?.Rare}}</td>
+                <td >{{userSetCollecton?.rarities?.Secret_Rare}}</td>
+                <td >{{userSetCollecton?.rarities?.Super_Rare}}</td>
+                <td >{{userSetCollecton?.rarities?.Ultra_Rare}}</td>
               </tr>
             </tbody>
           </table>
@@ -130,7 +130,7 @@
                         Remove to all Cards <mat-icon>exposure_neg_1</mat-icon>
                       </button> -->
                       <button mat-raised-button style="background-color:#059862; color: white; margin-top: 5px;" 
-                      (click)="closeSearch();openDialogSearch()">                     
+                      (click)="closeSearch(); openDialogSearch()">                     
                         Add Cards 	
                       </button> &nbsp;
                 </div>
@@ -167,14 +167,21 @@
         </div>
 
     <!--Div All Cards-->
-    <div id="divAllCards">
+    <div id="divAllCards">  
+
+      <!--Empty Collection-->   
+      <div *ngIf="userSetCollecton?.cards == undefined " id="empty-set" class="row">
+        <p>
+          <i>This Collection is empty, choose some Cards and Add on it!!</i>
+        </p> 
+     </div>
 
         <!--Div Single Card-->       
         <div class="divSingleCard" *ngFor="let card of userSetCollecton?.cards">
           <!-- [ngClass]="card.quantityOtherCollections > 0 ? 'shadow-gold' : 'shadow-blue'" -->
             <div style="width: 95%; margin-left: 5px;" [style.display]="isVisible ? 'block' : 'none'">
             <!--Price div-->
-            <div style="color: green; font-size: small; width: fit-content; display: inline-block; float: left;">
+          <div style="color: green; font-size: small; width: fit-content; display: inline-block; float: left;">
             <span> {{card.relDeckCards.card_price | currency : 'USD'}}</span> 
           </div>
             <!--Rarity div-->

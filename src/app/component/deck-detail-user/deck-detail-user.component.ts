@@ -703,7 +703,7 @@ sendToMainDeck(index:number){
 relDeckCardsForSave:RelDeckCards[] = new Array();
 
 saveDeck(){
-debugger
+  
   this.relDeckCardsForSave = [];
 
   let deckEdited:Deck = new Deck();
@@ -742,7 +742,7 @@ debugger
 
 errorMsg:string;
 insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Element>, deckId:number, isSideDeck:boolean){
-  debugger
+    
   for(var i = 0; i < array.length; i++){ 
     let rel:RelDeckCards = new RelDeckCards()  
     let setCode = options[i + indexSum].innerHTML

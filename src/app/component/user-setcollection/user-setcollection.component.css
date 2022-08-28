@@ -58,6 +58,7 @@
     flex-wrap: wrap;
     border-top: dotted thin  green;    
     padding-top: 10px;
+    min-height: 200px;
  
   }
 
@@ -106,10 +107,24 @@
     text-align: center;
   }
 
-  .inside-cards {
+  #empty-set{
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    background-color: ghostwhite; 
+    height: 35px;
+    font-size: 30px;
+    padding: 10px;
+    color: #BEBEBE;
+    font-weight: 600;
+    height: 80%;
+    border: solid thin silver;
+    border-radius: 10px;
+    margin-top: 5px;
   }
+
+
 
   .number input {
     height: 30px;
