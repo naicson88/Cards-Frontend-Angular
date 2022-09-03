@@ -24,6 +24,7 @@ export class UserSetcollectionComponent implements OnInit {
 
   @ViewChild("IDontHave",{static: true}) elemento: MatCheckbox;
   @ViewChild("IHave",{static: true}) elementoHave: MatCheckbox;
+  @ViewChild("nameInput",{static: true}) nameInput : ElementRef;
 
   
   constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog,
@@ -38,7 +39,6 @@ export class UserSetcollectionComponent implements OnInit {
 
   isVisible: boolean = true;
   showDetail = true;
-  
 
   ngOnInit() {
     this.getSetCollection();
@@ -245,7 +245,7 @@ export class UserSetcollectionComponent implements OnInit {
     }
   }
   addOrRemoveCard(card: CardSetCollectionDTO, operation:string){  
-    debugger
+     
    let totalPrice = parseFloat(this.userSetCollecton.totalPrice);
     card.angularId = Date.now();
     this.originalCollection.filter(c1 => c1.angularId == card.angularId).forEach(cardFiltered => {
@@ -307,13 +307,12 @@ export class UserSetcollectionComponent implements OnInit {
  criterias = new Array();
  openDialogSearch() {
   const dialogRef = this.dialog.open(SearchBoxComponent);
-  
+  this.spinner.show();
   dialogRef.afterClosed().subscribe(result => {
-    this.spinner.show();
     if(result.data != null && result.data != undefined && result.data.content.length > 0){
-      console.log(result.data)
+     // console.log(result.data)
       this.cardsSearched = result.data.content;
-      console.log(this.cardsSearched)
+    //  console.log(this.cardsSearched)
       let page = 0;
     }
     else{
@@ -325,6 +324,7 @@ export class UserSetcollectionComponent implements OnInit {
     this.spinner.hide();
       this.toast.error("Sorry, something bad happened, try again later. ERROR " + error.status)
   });
+  this.spinner.hide()
 }
 
   closeSearch(){
@@ -349,8 +349,11 @@ export class UserSetcollectionComponent implements OnInit {
     rel.card_price = 0
 
     newcard.relDeckCards = rel;
-    if(this.userSetCollecton.id > 0)
+    if(this.userSetCollecton.id > 0){
       this.originalCollection.unshift(newcard);
+      console.log(this.originalCollection)
+     this.userSetCollecton.cards = this.originalCollection;
+    }
     else{
       this.userSetCollecton.cards.push(newcard);
       this.originalCollection = this.userSetCollecton.cards
@@ -413,15 +416,24 @@ export class UserSetcollectionComponent implements OnInit {
             c.quantityOtherCollections = 0
         }
     })
-    console.log(this.originalCollection);   
+    //console.log(this.originalCollection);   
   }
+
 
   saveSetCollection(){
 
+    this.closeSearch();
+
+let collectionName = this.nameInput.nativeElement.value;
+
+    if(collectionName == "" || collectionName == null){
+      this.warningDialog("Please, fill the Collection's Name!");
+      this.nameInput.nativeElement.focus();
+      return false;
+    }
+
     this.spinner.show();
     this.userSetCollecton.cards = [];
-    
-    //this.userSetCollecton.cards = this.originalCollection.filter(card => card.quantityUserHave > 0);
 
     for(let i = 0; i < this.originalCollection.length; i++ ){
       if(this.originalCollection[i].quantityUserHave > 0){
@@ -432,12 +444,17 @@ export class UserSetcollectionComponent implements OnInit {
         }         
         this.userSetCollecton.cards.push(this.originalCollection[i]);
       }
-    }
-      console.log(this.userSetCollecton.cards)
+    }   
+      
+    this.userSetCollecton.name = collectionName
+      
+     // console.log(this.userSetCollecton.cards)
       this.service.saveSetCollection(this.userSetCollecton).subscribe(data => {
         this.userSetCollecton.cards = this.originalCollection;
+        this.spinner.hide();
         this.successDialog("Set Collection was successfully saved!");
       }, error => {
+        this.spinner.hide()
         console.log(error);
         this.errorDialog("Sorry, It was not possible save Collection, try again later!");
       })

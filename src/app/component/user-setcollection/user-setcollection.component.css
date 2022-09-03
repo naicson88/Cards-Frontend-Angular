@@ -1,5 +1,4 @@
 .container {
-    border: solid thin red;
     background-color: white;
     padding: 5px;
     min-width: 900px;
@@ -52,12 +51,18 @@
   }
 
   #divAllCards{
+    background: #eeeadc;
     margin-top: 20px;
+    margin-bottom: 40px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    border-top: dotted thin  green;    
+    border-top: dotted thin  green;   
+    border-left: double silver;
+    border-right: double silver;  
+    border-bottom: double silver;  
     padding-top: 10px;
+    padding-bottom: 10px;
     min-height: 200px;
  
   }

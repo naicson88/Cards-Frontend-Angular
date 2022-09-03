@@ -25,8 +25,9 @@ export class HomeComponent implements OnInit {
 
     loadHomeInfo(){
       this.service.loadHomeInfo().subscribe(info => {
+        console.log(info)
        this.infoHome = info;
-        console.log(JSON.stringify(this.infoHome))
+ 
        this.img = this.infoHome['lastSets'].img
 
       }), error =>{
@@ -42,10 +43,13 @@ export class HomeComponent implements OnInit {
     //     });
     // }
 
-    storeDeckId(id:any){
-      //  const id = event.target.name;
-        localStorage.setItem("idDeckDetails", id);
-      
-      }
+
+     storeDeckId(id:any, setType:string, source:string){
+        //  const id = event.target.name;
+          
+          localStorage.setItem("idDeckDetails", id);
+          localStorage.setItem("source", source);
+          localStorage.setItem("set_type", setType);        
+        }
 
 }

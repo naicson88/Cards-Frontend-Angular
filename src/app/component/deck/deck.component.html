@@ -35,21 +35,22 @@
          </div>
       </div>
        
-            <!-- PAGINATION-->
+          <!-- PAGINATION-->
          <div style="width:fit-content">
             <label for="" style="color: white; font-size: small;">Quantity per page: </label>&nbsp;
-            <select class="form-select" aria-label="Default select example" (change)="handlePageSizeChange($event.target.value)">
+            <select class="form-select-ang"  (change)="handlePageSizeChange($event.target.value)">
                <option [value]="size" *ngFor="let size of pageSizes"> {{size}}</option>
             </select>
          </div>
         <!-- SET TYPE-->
          <div style="width: 30%;">
             <label for=""  style="color: white; font-size: small;">Collection: </label>&nbsp;
-            <select class="form-select" aria-label="Default select example" (change)="getSetTypeValue($event.target.value)">
+            <select class="form-select-ang" (change)="getSetTypeValue($event.target.value)">
                <option value="DECK" selected>Deck</option>
                <option value="TIN">Tin</option>
                <option value="BOX">Box</option>
                <option value="BOOSTER">Booster</option>
+               <option value="USER_NEW_COLLECTION" *ngIf="source == 'USER'">Collection</option>
              </select>
          </div>
 
@@ -108,30 +109,6 @@
                            </span> -->
                         </div>
                      </div>
-
-                     <!-- <div class="deckuct-info smart-form"  *ngIf="set_type != 'UD'" style="background-color: yellow;">
-                        <div class="row">
-                           <div class="col-md-6"  style="text-align: center;">
-                       
-                              <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have:</span>
-
-                              <div class="clearfix quantity r_corners d_inline_middle f_size_medium " style="display: inline-block; background-color: blue;">
-                                 <span *ngIf="set_type != 'UD'">
-
-                                    <input type="text" name="input_qtde" id="inp_{{deck.id}}" disabled
-                                    value="{{deck.quantityUserHave == null ? 0 : deck.quantityUserHave}}" >
-                                    
-                                    <button class="bg_tr d_block f_left" data-direction="up"  name="{{deck.id}}" title="Add to your collection"
-                                    (click)="addSetToUserCollection($event)" >+</button>
-
-                                 </span>
-
-                              </div>
-
-                           </div>
-                        </div>
-
-                     </div> -->
 
                      <div class="image_card_bottom" *ngIf="source == 'KONAMI'">
                         <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="source == 'KONAMI'">Total you have: &nbsp; &nbsp;</span>

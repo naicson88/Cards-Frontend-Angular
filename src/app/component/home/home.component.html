@@ -37,6 +37,7 @@
     </div>
 
     <div id="second_block" >
+        <!--HOT NEWS-->
         <div id="slide" class="block" style="border: solid  red;"> 
            <div id="second_block_header" class="block_header" style="background-color: red;">
                Hot News on YugiHub &nbsp;&nbsp; <i class="fas fa-fire"></i>
@@ -46,7 +47,11 @@
                   <div class="carousel-item active">
                     <img src="{{infoHome.hotNews[0].img}}" height="245px" width="200px" style="margin-left: 7%;">  
                     <div class="slide_icon_name">
-                        <a  (click)="storeDeckId(hot.id)" [routerLink]="['/deck-details/',infoHome.hotNews[0].name]">
+
+                        <a *ngIf="infoHome.hotNews[0].setType == 'DECK'" (click)="storeDeckId(infoHome.hotNews[0].id, 'DECK', 'KONAMI')" [routerLink]="['/deck-details/',infoHome.hotNews[0].name]">
+                            <h5>{{infoHome.hotNews[0].name}}</h5>
+                        </a>
+                        <a *ngIf="infoHome.hotNews[0].setType != 'DECK'" (click)="storeDeckId(infoHome.hotNews[0].id, infoHome.hotNews[0].setType,'KONAMI')" [routerLink]="['/collection-details/',infoHome.hotNews[0].name]">
                             <h5>{{infoHome.hotNews[0].name}}</h5>
                         </a>
                        
@@ -55,10 +60,13 @@
                   <div class="carousel-item " *ngFor="let hot of infoHome.hotNews | slice:1; let i = index">
                     <img src="{{hot.img}}" height="245px"  width="200px" style="margin-left: 7%;">  
                     <div class="slide_icon_name">
-                        <a  (click)="storeDeckId(hot.id)" [routerLink]="['/deck-details/', hot.name]">
+                        <a *ngIf="hot.setType == 'DECK'" (click)="storeDeckId(hot.id, 'DECK', 'KONAMI')" [routerLink]="['/deck-details/', hot.name]">
                             <h5>{{hot.name}}</h5>
                         </a>
-                       
+
+                        <a *ngIf="hot.setType != 'DECK'" (click)="storeDeckId(hot.id, hot.setType,'KONAMI')" [routerLink]="['/collection-details/',hot.name]">
+                            <h5>{{hot.name}}</h5>
+                        </a>                      
                     </div>           
                   </div> 
                 </div>
@@ -74,7 +82,7 @@
               </div>
 
         </div>
-
+        <!--LAST ADDED TO YOUR COLLECTION-->
        <div id="last_cards" class="block"> 
         <div id="second_block_header" class="block_header" style="background-color: #9002b3; ">
             Last added in your collection &nbsp;&nbsp;
@@ -84,12 +92,13 @@
                     <div class="last_img">
                        <img [src]='lasts.img' height="55" width="45"   >
                     </div>
-                    <div class="last_desc">
-                        <a  (click)="storeDeckId(lasts.id)" [routerLink]="['/userdeck-details/', lasts.name]">
+                    <div class="last_desc">                            
+                        <a *ngIf="lasts.setType == 'DECK'" (click)="storeDeckId(lasts.id, 'DECK', 'USER')" [routerLink]="['/deck-details/',lasts.name]">
                             <span class="card-name">{{lasts.name}}</span><br>
                         </a>
-                     
-
+                        <a *ngIf="lasts.setType != 'DECK'" (click)="storeDeckId(lasts.id, lasts.setType,'USER')" [routerLink]="['/collection-details/',lasts.name]">
+                            <span class="card-name">{{lasts.name}}</span><br>
+                        </a>
                       <span style="font-size: x-small; margin-left: 2%; color: #9002b3;"> <i>{{lasts.setCode}}</i> </span> &nbsp; <span style="font-size: x-small; color: seagreen;">$ {{lasts.price}}</span>
                     </div>
                 </div>
