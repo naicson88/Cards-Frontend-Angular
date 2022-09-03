@@ -17,7 +17,6 @@ export class HomeService {
 
 
   public loadHomeInfo() {
-
     return this.http.get<any>(this.base_url+`/home/info`) 
     .pipe(
       catchError(HandleErros.handleError)

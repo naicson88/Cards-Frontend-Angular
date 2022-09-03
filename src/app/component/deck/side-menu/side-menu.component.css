@@ -93,14 +93,7 @@ nav.primary-navigation {
   
    ul li ul li a { transition: all 0.5s ease; }
 
-   #iconAccount {
-   
-    width: 120px;
-    height: 120px; 
-    float: right;
-    margin-top:40px; 
-    margin-right: 20px;
-   }
+
 
    #iconAccount img {
       width: 60%;
@@ -151,5 +144,29 @@ nav.primary-navigation {
      top: 22%;
      left: 25%;
    }
-  
-  
+
+   #iconAccount {
+   
+    width: fit-content;
+    height: fit-content; 
+    float: right;
+    margin-top:40px; 
+    margin-right: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+   }
+
+   #div-buttons{
+
+    float: right;
+    margin-top: 150px;
+    font-size: small;
+   }
+
+   .btn:hover{
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+   }

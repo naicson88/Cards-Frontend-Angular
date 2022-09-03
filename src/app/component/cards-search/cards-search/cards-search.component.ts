@@ -14,14 +14,14 @@ import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 @Directive({ selector: 'img' })
 export class CardsSearchComponent implements OnInit {
 
-  constructor(private imagens: Imagens, private cardService: CardServiceService, {nativeElement}: ElementRef<HTMLImageElement>, private router :Router) {
+  constructor(private imagens: Imagens, private cardService: CardServiceService, { nativeElement }: ElementRef<HTMLImageElement>, private router: Router) {
     const supports = 'loading' in HTMLImageElement.prototype;
 
-    if(supports){
-      nativeElement.setAttribute('loading','lazy');
+    if (supports) {
+      nativeElement.setAttribute('loading', 'lazy');
     }
-   }
- 
+  }
+
   ngOnInit() {
     window.scrollTo(0, 0);
     this.loadRandomCards();
@@ -29,7 +29,7 @@ export class CardsSearchComponent implements OnInit {
 
   loading: boolean = true
   onLoad() {
-      this.loading = false;
+    this.loading = false;
 
   }
   //Tooltip image
@@ -38,428 +38,421 @@ export class CardsSearchComponent implements OnInit {
   imgTooltip: string;
   isShowTooltip: boolean = false;
   isShowTooltipDetailed: boolean = false;
-  isRandomCards : boolean = true;
+  isRandomCards: boolean = true;
   totalFound: number;
 
 
   panelOpenState = false;
-  chosen:string;
+  chosen: string;
   cardsFound: Card[] = [];
   cardsFromScroll: Card[] = [];
   relUserCard: any;
 
   //Cards input field data 
- cardname = '';
- number = '';
- level = '';
- plusatk = '';
- lessatk = '';
- plusdef = '';
- lessdef = '';
- description = '';
- links = '';
- pendulum = '';   	
+  cardname = '';
+  number = '';
+  level = '';
+  plusatk = '';
+  lessatk = '';
+  plusdef = '';
+  lessdef = '';
+  description = '';
+  links = '';
+  pendulum = '';
 
-  criterios =  new Array();
+  criterios = new Array();
   atributos = [
-    {name: this.imagens.dark, img: this.imagens.dark_img},
-    {name: this.imagens.fire, img: this.imagens.fire_img},
-    {name: this.imagens.wind, img: this.imagens.wind_img},
-    {name: this.imagens.light, img: this.imagens.light_img},
-    {name: this.imagens.earth, img: this.imagens.earth_img},
-    {name: this.imagens.water, img: this.imagens.water_img},
-    {name: this.imagens.continuous, img: this.imagens.continuous_img},
-    {name: this.imagens.field, img: this.imagens.field_img},
-    {name: this.imagens.counter, img: this.imagens.counter_img},
-    {name: this.imagens.equip, img: this.imagens.equip_img}
+    { name: this.imagens.dark, img: this.imagens.dark_img, id: 4 },
+    { name: this.imagens.fire, img: this.imagens.fire_img, id: 2 },
+    { name: this.imagens.wind, img: this.imagens.wind_img, id: 5 },
+    { name: this.imagens.light, img: this.imagens.light_img, id: 8 },
+    { name: this.imagens.earth, img: this.imagens.earth_img, id: 3 },
+    { name: this.imagens.water, img: this.imagens.water_img, id: 1 },
+  ]
 
+  properties = [
+    { name: this.imagens.continuous, img: this.imagens.continuous_img },
+    { name: this.imagens.field, img: this.imagens.field_img },
+    { name: this.imagens.counter, img: this.imagens.counter_img },
+    { name: this.imagens.equip, img: this.imagens.equip_img },
+    { name: this.imagens.quick, img: this.imagens.quick_img },
+    { name: this.imagens.ritual, img: this.imagens.ritual_icon },
   ]
 
   types = [
+    { name: this.imagens.aqua, img: this.imagens.aqua_img, id: 2 },
+    { name: this.imagens.beast, img: this.imagens.beast_img, id: 3 },
+    { name: this.imagens.beast_warrior, img: this.imagens.beast_warrior_img, id: 4 },
+    { name: this.imagens.cyberse, img: this.imagens.cyberse_img, id: 6 },
+    { name: this.imagens.dinosaur, img: this.imagens.dinosaur_img, id: 7 },
+    { name: this.imagens.divine_beast, img: this.imagens.divine_beast_img, id: 8 },
+    { name: this.imagens.dragon, img: this.imagens.dragon_img, id: 9 },
+    { name: this.imagens.fairy, img: this.imagens.fairy_img, id: 10 },
+    { name: this.imagens.fiend, img: this.imagens.fiend_img, id: 11 },
+    { name: this.imagens.fish, img: this.imagens.fish_img, id: 12 },
+    { name: this.imagens.insect, img: this.imagens.insect_img, id: 13 },
+    { name: this.imagens.machine, img: this.imagens.machine_img, id: 14 },
+    { name: this.imagens.plant, img: this.imagens.plant_img, id: 15 },
+    { name: this.imagens.pyro, img: this.imagens.pyro_img, id: 17 },
 
-    {name: this.imagens.aqua, img: this.imagens.aqua_img},
-    {name: this.imagens.beast, img: this.imagens.beast_img},
-    {name: this.imagens.beast_warrior, img: this.imagens.beast_warrior_img},
-    {name: this.imagens.cyberse, img: this.imagens.cyberse_img},
-    {name: this.imagens.dinosaur, img: this.imagens.dinosaur_img},
-    {name: this.imagens.divine_beast, img: this.imagens.divine_beast_img},
-    {name: this.imagens.dragon, img: this.imagens.dragon_img},
-    {name: this.imagens.fairy, img: this.imagens.fairy_img},
-    {name: this.imagens.fiend, img: this.imagens.fiend_img},
-    {name: this.imagens.fish, img: this.imagens.fish_img},
-    {name: this.imagens.insect, img: this.imagens.insect_img},
-    {name: this.imagens.machine, img: this.imagens.machine_img},
-    {name: this.imagens.plant, img: this.imagens.plant_img},
-    {name: this.imagens.pyro, img: this.imagens.pyro_img},
-
-    {name: this.imagens.reptile, img: this.imagens.reptile_img},
-    {name: this.imagens.rock, img: this.imagens.rock_img},
-    {name: this.imagens.sea_serpent, img: this.imagens.sea_serpent_img},
-    {name: this.imagens.spellcaster, img: this.imagens.spellcaster_img},
-    {name: this.imagens.thunder, img: this.imagens.thunder_img},
-    {name: this.imagens.warrior, img: this.imagens.warrior_img},
-    {name: this.imagens.winged_beast, img: this.imagens.winged_beast_img},
-    {name: this.imagens.wyrm, img: this.imagens.wyrm_img},
-    {name: this.imagens.zombie, img: this.imagens.zombie_img},
+    { name: this.imagens.reptile, img: this.imagens.reptile_img, id: 18 },
+    { name: this.imagens.rock, img: this.imagens.rock_img, id: 19 },
+    { name: this.imagens.sea_serpent, img: this.imagens.sea_serpent_img, id: 20 },
+    { name: this.imagens.spellcaster, img: this.imagens.spellcaster_img, id: 21 },
+    { name: this.imagens.thunder, img: this.imagens.thunder_img, id: 22 },
+    { name: this.imagens.warrior, img: this.imagens.warrior_img, id: 23 },
+    { name: this.imagens.winged_beast, img: this.imagens.winged_beast_img, id: 24 },
+    { name: this.imagens.wyrm, img: this.imagens.wyrm_img, id: 25 },
+    { name: this.imagens.zombie, img: this.imagens.zombie_img, id: 26 },
 
   ]
 
-  cards =[
-    {name: this.imagens.monster, img: this.imagens.monster_img},
-    {name: this.imagens.spellc, img: this.imagens.spellc_img},
-    {name: this.imagens.trapc, img: this.imagens.trapc_img},
-    {name: this.imagens.pendulum, img: this.imagens.pendulum_img},
-    {name: this.imagens.xyz, img: this.imagens.xyz_img},
-    {name: this.imagens.synchron, img: this.imagens.synchron_img},
-    {name: this.imagens.fusion, img: this.imagens.fusion_img},
-    {name: this.imagens.link, img: this.imagens.link_img},
-    {name: this.imagens.ritual, img: this.imagens.ritual_img},
+  cards = [
+    { name: this.imagens.monster, img: this.imagens.monster_img },
+    { name: this.imagens.spellc, img: this.imagens.spellc_img },
+    { name: this.imagens.trapc, img: this.imagens.trapc_img },
+    { name: this.imagens.pendulum, img: this.imagens.pendulum_img },
+    { name: this.imagens.xyz, img: this.imagens.xyz_img },
+    { name: this.imagens.synchron, img: this.imagens.synchron_img },
+    { name: this.imagens.fusion, img: this.imagens.fusion_img },
+    { name: this.imagens.link, img: this.imagens.link_img },
+    { name: this.imagens.ritual, img: this.imagens.ritual_img },
   ]
 
   sorts: Object[] = [
-    {value: 'name', viewValue: 'Name'},
-    {value: 'atk', viewValue: 'Attack'},
-    {value: 'def', viewValue: 'Defense'},
-    {value: 'level', viewValue: 'Level'},
-    {value: 'links', viewValue: 'Links'},
-    {value: 'pend', viewValue: 'Pendulum Scale'},
+    { value: 'name', viewValue: 'Name' },
+    { value: 'atk', viewValue: 'Attack' },
+    { value: 'def', viewValue: 'Defense' },
+    { value: 'level', viewValue: 'Level' },
+    { value: 'links', viewValue: 'Links' },
+    { value: 'pend', viewValue: 'Pendulum Scale' },
   ];
 
-  loadRandomCards(){
-      this.cardsFound = [];
+  loadRandomCards() {
+    this.cardsFound = [];
 
-      this.cardService.randomCards().subscribe(data =>{
-        this.cardsFound = data;
-      })
+    this.cardService.randomCards().subscribe(data => {
+      this.cardsFound = data;
+    })
   }
 
-  searchCards(){
-
+  searchCards() {
+      
     this.criterios = []
 
     this.inputFilters();
-    
+
     this.cardsFilters();
 
     this.attrFilters();
-    
+
     this.typesFilters();
 
-    if(this.criterios != null && this.criterios.length > 0){
+    this.propertiesFilter();
+
+    if (this.criterios != null && this.criterios.length > 0) {
 
       const params = this.getRequestParam(30, 0);
       this.cardService.searchCards(params, this.criterios).subscribe(data => {
-        
+
         this.cardsFound = data;
-   
 
-       this.relUserCard = GeneralFunctions.relUserCards(this.cardsFound, this.cardService);
 
-       this.isRandomCards = false;
-       this.totalFound = this.cardsFound[0].totalFound;
-       /* for(var i = 0; i < this.cardsFound.length; i++){
-          if(this.cardsFound[i]['numero'] != null){cardNumbers.push(this.cardsFound[i]['numero'] )}
-         }
+        this.relUserCard = GeneralFunctions.relUserCards(this.cardsFound, this.cardService);
 
-        this.cardService.relUserCards(cardNumbers).subscribe(rel =>{
-          this.relUserCard = rel;
-         
-          this.cardsFound.forEach( comp => {
-            this.relUserCard.map( e => {
-              if(e.cardNumero === comp.numero){
-                Object.assign(comp, {"qtd": e.qtd})
-              }
-            })
-          })
-        });*/
+        this.isRandomCards = false;
+        this.totalFound = this.cardsFound[0].totalFound;
 
       }, error => {
         let errorCode = error.status;
         this.router.navigate(["/error-page", errorCode]);
-      }) 
-  
+      })
+
     }
-    
+
   }
 
 
-      inputFilters(){
+  inputFilters() {
 
-        if(this.cardname != null && this.cardname != ''){
-            const criterio = new SearchCriteria();
-            criterio.criterios('nome', 'MATCH', this.cardname );
-            this.criterios.push(criterio);           
-        }
-
-          if(this.number != null && this.number != ''){
-            const criterio = new SearchCriteria();
-            criterio.criterios('numero', 'EQUAL', this.number );
-            this.criterios.push(criterio);           
-          }
-
-          if(this.plusatk != null && this.plusatk != '' && parseInt(this.plusatk) >= 0){
-              const criterio = new SearchCriteria();  
-              criterio.criterios('atk', 'GREATER_THAN_EQUAL', this.plusatk );
-              this.criterios.push(criterio);
-          }
-
-          if(this.lessatk != null && this.lessatk != '' && parseInt(this.lessatk) >= 0){
-            const criterio = new SearchCriteria();
-            criterio.criterios('atk', 'LESS_THAN_EQUAL', this.lessatk );
-            this.criterios.push(criterio);
-        }
-
-          if(this.plusdef != null && this.plusdef != '' && parseInt(this.plusdef) >= 0){
-            const criterio = new SearchCriteria();  
-            criterio.criterios('def', 'GREATER_THAN_EQUAL', this.plusdef );
-            this.criterios.push(criterio);
-        }
-
-          if(this.lessdef != null && this.lessdef != '' && parseInt(this.lessdef) >= 0){
-            const criterio = new SearchCriteria();  
-            criterio.criterios('def', 'LESS_THAN_EQUAL', this.lessdef );
-            this.criterios.push(criterio);
-        } 
-
-          if(this.description != null && this.description != ''){
-            const criterio = new SearchCriteria();  
-            criterio.criterios('descricao', 'MATCH', this.description );
-            this.criterios.push(criterio);
-        }
-
-          // Inputs que possam ter Between
-          if(this.level != null && this.level != ''){
-        
-            if(this.level.indexOf("-") !== -1){
-                this.splitString(this.level, 'nivel');
-
-            } else {
-              const criterio = new SearchCriteria();
-              criterio.criterios('nivel', 'EQUAL', this.level );
-              this.criterios.push(criterio);    
-            }
-
-          }
-
-          if(this.links != null && this.links != ''){
-          
-
-            if(this.links.indexOf("-") !== -1){
-                this.splitString(this.links, 'qtd_link');
-
-            } else {
-              const criterio = new SearchCriteria();
-              criterio.criterios('qtd_link', 'EQUAL', this.links );
-              this.criterios.push(criterio);    
-            }
-
-          }
-
-          if(this.pendulum != null && this.pendulum != ''){
-        
-            if(this.pendulum.indexOf("-") !== -1){
-                this.splitString(this.pendulum, 'escala');
-
-            } else {
-              const criterio = new SearchCriteria();
-              criterio.criterios('escala', 'EQUAL', this.pendulum );
-              this.criterios.push(criterio);    
-            }
-
-          }
-
-      }
-
-      cardsFilters(){
-
-            const cards = document.querySelectorAll('.cards');
-            const criterio = new SearchCriteria();
-            let param = new Array();
-
-            if(cards != null && cards.length > 0){
-
-              for(var i = 0; i < cards.length; i++){
-                if(cards[i].className.indexOf("mat-checkbox-checked") !== -1)
-                param.push(cards[i].getElementsByTagName('input')[0].defaultValue)
-              }
-
-              if(param != null && param.length > 0){
-                criterio.criterios('genericType', 'IN', param);
-                this.criterios.push(criterio);
-              }
-              
-            }
-
-      }
-
-      attrFilters(){
-        const attrs = document.querySelectorAll('.attr');
-        const criterio = new SearchCriteria();
-        const criterio2 = new SearchCriteria();
-        let arrAttr = new Array();
-        let arrProp = new Array();
-
-        if(attrs != null && attrs.length > 0){
-
-          for(var i = 0; i < attrs.length; i++){
-            if(attrs[i].className.indexOf("mat-checkbox-checked") !== -1){
-              let txt = attrs[i].getElementsByTagName('input')[0].defaultValue;
-
-              if(txt == 'Continuous' || txt == 'Field' || txt == 'Counter' || txt == 'Equip'){
-                  arrProp.push(txt);
-              } else {
-                arrAttr.push(txt);
-              }
-            }
-                     
-          }
-
-          if(arrProp != null && arrProp.length > 0){
-            criterio.criterios('propriedade', 'IN', arrProp);
-            this.criterios.push(criterio);
-          }
-
-          if(arrAttr != null && arrAttr.length > 0){
-            criterio2.criterios('atributo', 'IN', arrAttr);
-            this.criterios.push(criterio2);
-          }
-
-        }
- 
-      }
-
-      typesFilters(){
-
-        const types = document.querySelectorAll('.types');
-        const criterio = new SearchCriteria();
-        let param = new Array();
-
-        if(types != null && types.length > 0){
-
-          for(var i = 0; i < types.length; i++){
-            if(types[i].className.indexOf("mat-checkbox-checked") !== -1)
-            param.push(types[i].getElementsByTagName('input')[0].defaultValue)
-          }
-
-          if(param != null && param.length > 0){
-            criterio.criterios('tipos', 'IN', param);
-            this.criterios.push(criterio);
-          }
-          
-        }
-
-          console.log(this.criterios);
-      }
-      
-      splitString(txt:string, key:string){
-     
-            const criterio = new SearchCriteria();
-            const criterio2 = new SearchCriteria();
-
-            const splitted = txt.split("-",2);
-
-            criterio.criterios(key, 'GREATER_THAN_EQUAL', splitted[0] );
-            this.criterios.push(criterio);
-
-            criterio2.criterios(key, 'LESS_THAN_EQUAL', splitted[1] );
-            this.criterios.push(criterio2);
-
-      }
-
-      cardImagem(cardId: any){
-        let urlimg = GeneralFunctions.cardImagem + cardId + '.jpg';
-        return urlimg;
-      }
-
-      mostrarImgToolTip(img:string, e){
-          this.leftTp =  e.pageX + 15 + "px";
-          this.topTp = + e.pageY + 15 + "px";
-    
-          //this.imgTooltip = img;
-          this.imgTooltip = e.target.src;
-          this.isShowTooltip = true;
-      }
-   
-      esconderImgToolTip(){
-        this.isShowTooltip = false;
-      }
-
-      esconderImgToolTipDetailed(){
-        this.isShowTooltipDetailed = false;
-      }
-
-      openCardDetail(event:any){
-      
-        const cardNumber = event.target.name;
-        if(cardNumber != null && cardNumber != ""){
-          localStorage.setItem("idCard", cardNumber);
-          this.cardService.setCardNumber(cardNumber);
-        
-        } else {
-           console.log("Unable to consult this card, try again later.");
-           return false;
-        }
-        
-      }
-
-      cardImage:string;
-      card:Card;
-      mostrarDivCardsInfo(e, cardNumber:any){
-
-        this.leftTp =  e.pageX - 100 + "px";
-        this.topTp = + e.pageY + 100 + "px";
-        this.isShowTooltipDetailed = true;
-      
-        this.cardImage = GeneralFunctions.cardImagem + cardNumber + '.jpg';
-        this.cardService.findByNumero(cardNumber).subscribe(card => { this.card = card  });
-      
-      }
-
-      page: number = 0; 
-      pageSize: number = 30;
-
-      onScroll(){
-        if(this.isRandomCards)
-            return false;
-        this.page = this.page + 1;
-        const params = this.getRequestParam(this.pageSize, this.page);
-      
-        this.cardService.searchCards(params, this.criterios).subscribe(newCards => {
-          
-         
-          this.isRandomCards = false;
-          this.totalFound = this.cardsFound[0].totalFound;
-
-
-          this.cardsFromScroll = newCards;
-          this.relUserCard = GeneralFunctions.relUserCards(this.cardsFromScroll, this.cardService);
-
-          this.cardsFromScroll.forEach(card => {
-            this.cardsFound.push(card);
-          });
-  
-         
-        }, error => {
-          this.page = this.page - 1;
-        })
-      
-      }
-
-      
-   getRequestParam(pageSize, page){
-    let params = {}
-  
-    if (page) {
-      params[`page`] = page ;
+    if (this.cardname != null && this.cardname != '') {
+      const criterio = new SearchCriteria();
+      criterio.criterios('nome', 'MATCH', this.cardname);
+      this.criterios.push(criterio);
     }
-  
+
+    if (this.number != null && this.number != '') {
+      const criterio = new SearchCriteria();
+      criterio.criterios('numero', 'EQUAL', this.number);
+      this.criterios.push(criterio);
+    }
+
+    if (this.plusatk != null && this.plusatk != '' && parseInt(this.plusatk) >= 0) {
+      const criterio = new SearchCriteria();
+      criterio.criterios('atk', 'GREATER_THAN_EQUAL', this.plusatk);
+      this.criterios.push(criterio);
+    }
+
+    if (this.lessatk != null && this.lessatk != '' && parseInt(this.lessatk) >= 0) {
+      const criterio = new SearchCriteria();
+      criterio.criterios('atk', 'LESS_THAN_EQUAL', this.lessatk);
+      this.criterios.push(criterio);
+    }
+
+    if (this.plusdef != null && this.plusdef != '' && parseInt(this.plusdef) >= 0) {
+      const criterio = new SearchCriteria();
+      criterio.criterios('def', 'GREATER_THAN_EQUAL', this.plusdef);
+      this.criterios.push(criterio);
+    }
+
+    if (this.lessdef != null && this.lessdef != '' && parseInt(this.lessdef) >= 0) {
+      const criterio = new SearchCriteria();
+      criterio.criterios('def', 'LESS_THAN_EQUAL', this.lessdef);
+      this.criterios.push(criterio);
+    }
+
+    if (this.description != null && this.description != '') {
+      const criterio = new SearchCriteria();
+      criterio.criterios('descricao', 'MATCH', this.description);
+      this.criterios.push(criterio);
+    }
+
+    // Inputs que possam ter Between
+    if (this.level != null && this.level != '') {
+
+      if (this.level.indexOf("-") !== -1) {
+        this.splitString(this.level, 'nivel');
+
+      } else {
+        const criterio = new SearchCriteria();
+        criterio.criterios('nivel', 'EQUAL', this.level);
+        this.criterios.push(criterio);
+      }
+
+    }
+
+    if (this.links != null && this.links != '') {
+
+
+      if (this.links.indexOf("-") !== -1) {
+        this.splitString(this.links, 'qtd_link');
+
+      } else {
+        const criterio = new SearchCriteria();
+        criterio.criterios('qtd_link', 'EQUAL', this.links);
+        this.criterios.push(criterio);
+      }
+
+    }
+
+    if (this.pendulum != null && this.pendulum != '') {
+
+      if (this.pendulum.indexOf("-") !== -1) {
+        this.splitString(this.pendulum, 'escala');
+
+      } else {
+        const criterio = new SearchCriteria();
+        criterio.criterios('escala', 'EQUAL', this.pendulum);
+        this.criterios.push(criterio);
+      }
+
+    }
+
+  }
+
+  cardsFilters() {
+
+    const cards = document.querySelectorAll('.cards');
+    const criterio = new SearchCriteria();
+    let param = new Array();
+
+    if (cards != null && cards.length > 0) {
+
+      for (var i = 0; i < cards.length; i++) {
+        if (cards[i].className.indexOf("mat-checkbox-checked") !== -1)
+          param.push(cards[i].getElementsByTagName('input')[0].defaultValue)
+      }
+
+      if (param != null && param.length > 0) {
+        criterio.criterios('genericType', 'IN', param);
+        this.criterios.push(criterio);
+      }
+
+    }
+
+  }
+
+  attrFilters() {
+    const attrs = document.querySelectorAll('.attr');
+    const criterio2 = new SearchCriteria();
+    let arrAttr = new Array();
+
+    if (attrs != null && attrs.length > 0) {
+
+      for (var i = 0; i < attrs.length; i++) {
+        if (attrs[i].className.indexOf("mat-checkbox-checked") !== -1) {
+          let txt = attrs[i].getElementsByTagName('input')[0].defaultValue;
+          arrAttr.push(txt);
+        }
+      }
+
+      if (arrAttr != null && arrAttr.length > 0) {
+        criterio2.criterios('atributo', 'IN', arrAttr);
+        this.criterios.push(criterio2);
+      }
+    }
+  }
+
+  propertiesFilter(){
+    const pprts = document.querySelectorAll('.pprt');
+    const criterio = new SearchCriteria();
+    let arrPprt = new Array();
+
+    if(pprts != null && pprts.length > 0){
+      for (var i = 0; i < pprts.length; i++) {
+        if (pprts[i].className.indexOf("mat-checkbox-checked") !== -1) {
+          let txt = pprts[i].getElementsByTagName('input')[0].defaultValue;
+          arrPprt.push(txt);
+        }
+      }
+    }
+
+    if (arrPprt != null && arrPprt.length > 0) {
+      criterio.criterios('propriedade', 'IN', arrPprt);
+      this.criterios.push(criterio);
+    }
+  }
+
+  typesFilters() {
+
+    const types = document.querySelectorAll('.types');
+    const criterio = new SearchCriteria();
+    let param = new Array();
+
+    if (types != null && types.length > 0) {
+
+      for (var i = 0; i < types.length; i++) {
+        if (types[i].className.indexOf("mat-checkbox-checked") !== -1)
+          param.push(types[i].getElementsByTagName('input')[0].defaultValue)
+      }
+
+      if (param != null && param.length > 0) {
+        criterio.criterios('tipo', 'IN', param);
+        this.criterios.push(criterio);
+      }
+    }
+    console.log(this.criterios);
+  }
+
+  splitString(txt: string, key: string) {
+
+    const criterio = new SearchCriteria();
+    const criterio2 = new SearchCriteria();
+
+    const splitted = txt.split("-", 2);
+
+    criterio.criterios(key, 'GREATER_THAN_EQUAL', splitted[0]);
+    this.criterios.push(criterio);
+
+    criterio2.criterios(key, 'LESS_THAN_EQUAL', splitted[1]);
+    this.criterios.push(criterio2);
+
+  }
+
+  cardImagem(cardId: any) {
+    let urlimg = GeneralFunctions.cardImagem + cardId + '.jpg';
+    return urlimg;
+  }
+
+  mostrarImgToolTip(img: string, e) {
+    this.leftTp = e.pageX + 15 + "px";
+    this.topTp = + e.pageY + 15 + "px";
+
+    //this.imgTooltip = img;
+    this.imgTooltip = e.target.src;
+    this.isShowTooltip = true;
+  }
+
+  esconderImgToolTip() {
+    this.isShowTooltip = false;
+  }
+
+  esconderImgToolTipDetailed() {
+    this.isShowTooltipDetailed = false;
+  }
+
+  openCardDetail(event: any) {
+
+    const cardNumber = event.target.name;
+    if (cardNumber != null && cardNumber != "") {
+      localStorage.setItem("idCard", cardNumber);
+      this.cardService.setCardNumber(cardNumber);
+
+    } else {
+      console.log("Unable to consult this card, try again later.");
+      return false;
+    }
+
+  }
+
+  cardImage: string;
+  card: Card;
+  mostrarDivCardsInfo(e, cardNumber: any) {
+
+    this.leftTp = e.pageX - 100 + "px";
+    this.topTp = + e.pageY + 100 + "px";
+    this.isShowTooltipDetailed = true;
+
+    this.cardImage = GeneralFunctions.cardImagem + cardNumber + '.jpg';
+    this.cardService.findByNumero(cardNumber).subscribe(card => { this.card = card });
+
+  }
+
+  page: number = 0;
+  pageSize: number = 30;
+
+  onScroll() {
+    if (this.isRandomCards)
+      return false;
+    this.page = this.page + 1;
+    const params = this.getRequestParam(this.pageSize, this.page);
+
+    this.cardService.searchCards(params, this.criterios).subscribe(newCards => {
+
+
+      this.isRandomCards = false;
+      this.totalFound = this.cardsFound[0].totalFound;
+
+
+      this.cardsFromScroll = newCards;
+      this.relUserCard = GeneralFunctions.relUserCards(this.cardsFromScroll, this.cardService);
+
+      this.cardsFromScroll.forEach(card => {
+        this.cardsFound.push(card);
+      });
+
+
+    }, error => {
+      this.page = this.page - 1;
+    })
+
+  }
+
+
+  getRequestParam(pageSize, page) {
+    let params = {}
+
+    if (page) {
+      params[`page`] = page;
+    }
+
     if (pageSize) {
       params[`size`] = pageSize;
     }
-  
+
     return params;
-  
-    }
+
+  }
 
 
 }

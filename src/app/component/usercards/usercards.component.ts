@@ -155,6 +155,7 @@ export class UsercardsComponent implements OnInit {
     cardOfUserDetails(cardId:number) {            
 
         this.service.cardOfUserDetails(cardId).subscribe(data =>{
+          console.log(data)
           let qtd = 0;
           this.arrCardsDetails = data;
           console.log(data)
@@ -176,6 +177,7 @@ export class UsercardsComponent implements OnInit {
     qtdRare: number = 0;
     qtdSuperRare:number = 0;
     qtdUltraRare: number = 0;
+    qtdSecretRare: number = 0;
 
     setQtdRarity(){
        if(this.arrCardsDetails['rarity']['Common'] != null && this.arrCardsDetails['rarity']['Common'] != undefined)
@@ -189,7 +191,14 @@ export class UsercardsComponent implements OnInit {
         
           if(this.arrCardsDetails['rarity']['Super Rare'] != null && this.arrCardsDetails['rarity']['Super Rare'] != undefined)
           this.qtdSuperRare = this.arrCardsDetails['rarity']['Super Rare'];
+
+        if(this.arrCardsDetails['rarity']['Secret Rare'] != null && this.arrCardsDetails['rarity']['Secret Rare'] != undefined)
+          this.qtdUltraRare = this.arrCardsDetails['rarity']['Secret Rare'];
       
+    }
+
+    setRarityColor(rarity:string){
+      return GeneralFunctions.colorRarity(rarity);
     }
 
     searchCardsByName(){
@@ -253,7 +262,7 @@ export class UsercardsComponent implements OnInit {
       }
 
       storeDeckId(id:any, setType:string){
-        debugger
+         
          let modal = (document.getElementById('closeModalBtn') as HTMLElement);
           modal.click();
         //  const id = event.target.name;

@@ -50,6 +50,10 @@ button {
 
   }
 
+  .color-common{
+    color: rgb(121, 116, 116);
+  }
+
   .color-rare {
     color: #CC0033;
     font-weight: 500;

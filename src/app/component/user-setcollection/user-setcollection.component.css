@@ -1,5 +1,4 @@
 .container {
-    border: solid thin red;
     background-color: white;
     padding: 5px;
     min-width: 900px;
@@ -52,12 +51,19 @@
   }
 
   #divAllCards{
+    background: #eeeadc;
     margin-top: 20px;
+    margin-bottom: 40px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    border-top: dotted thin  green;    
+    border-top: dotted thin  green;   
+    border-left: double silver;
+    border-right: double silver;  
+    border-bottom: double silver;  
     padding-top: 10px;
+    padding-bottom: 10px;
+    min-height: 200px;
  
   }
 
@@ -106,10 +112,24 @@
     text-align: center;
   }
 
-  .inside-cards {
+  #empty-set{
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    background-color: ghostwhite; 
+    height: 35px;
+    font-size: 30px;
+    padding: 10px;
+    color: #BEBEBE;
+    font-weight: 600;
+    height: 80%;
+    border: solid thin silver;
+    border-radius: 10px;
+    margin-top: 5px;
   }
+
+
 
   .number input {
     height: 30px;

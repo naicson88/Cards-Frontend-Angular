@@ -56,6 +56,7 @@ export class DeckComponent implements OnInit {
 
     this.route.data.subscribe(source =>{
       this.source = source.source;
+      console.log(source)
     })
 
 
@@ -71,29 +72,24 @@ export class DeckComponent implements OnInit {
   }
  
   getDecksInfo(): void {
-    // this.imgPath =  Imagens.basic_img_path + this.set_type.toLowerCase() + "\\";
-    // console.log(this.imgPath)
-    this.spinner.show();
 
-    const params = this.getRequestParam(this.pageSize, this.page);
+      this.spinner.show();
 
-    this.service.getDecks(params, this.set_type, this.source).subscribe(data => {
-      
-     const {content, totalElements} = data;
-      //console.log(data);
-      this.deck = content;
+      const params = this.getRequestParam(this.pageSize, this.page);
   
-      this.totalItens = totalElements;
-
-      for(let i = 0; i < this.deck.length; i++){
-        //Angular apresentava como se o link da imagem fosse unsafe/perigoso
-        this.safeUrl = this.domSanitizer.bypassSecurityTrustUrl(this.deck[i].imagem);  
-
-      }
-      
-
-
-    })
+      this.service.getDecks(params, this.set_type, this.source).subscribe(data => {
+        
+       const {content, totalElements} = data;
+        //console.log(data);
+        this.deck = content;
+    
+        this.totalItens = totalElements;
+  
+        for(let i = 0; i < this.deck.length; i++){
+          //Angular apresentava como se o link da imagem fosse unsafe/perigoso
+          this.safeUrl = this.domSanitizer.bypassSecurityTrustUrl(this.deck[i].imagem);  
+        }
+      })
     
     error => {
       console.log(error);
@@ -127,7 +123,7 @@ export class DeckComponent implements OnInit {
       let setId =  event //event.target.name;
 
       if(this.set_type == 'DECK'){
-
+          
         this.service.addDeckToUsersCollection(setId).subscribe(data => {
           qtdCardManeged = data;
   
@@ -149,21 +145,14 @@ export class DeckComponent implements OnInit {
       } else {
         
         this.service.addSetToUsersCollection(setId).subscribe(data => {
-          qtdCardManeged = data;
-  
-          if(qtdCardManeged == 0){
-            return false;
-          }
-  
-          if(qtdCardManeged > 0){
-            this.toastr.success('The Set has been added to your collection! Plus ' + qtdCardManeged + ' cards of this Deck.', 'Success!');
+
+            this.toastr.success("The Set has been added to your collection! Plus all it's cards", 'Success!');
               
             this.manegeQuantity(setId, "A");
-  
-          } else {
-            this.toastr.error('Unable to add the Deck or Cards to the user.', 'Error!')
-          }
-  
+
+        }, error => {
+          console.log(error)
+          this.toastr.error('Something bad happened, try again later.', 'Error!')
         })
       }
       
@@ -191,8 +180,9 @@ export class DeckComponent implements OnInit {
           })
         } else {
           this.service.removeSetToUsersCollection(setId).subscribe(data => {
+              
             qtdCardManeged = data;    
-              this.toastr.warning('The Deck has been removed from your collection! Plus ' + qtdCardManeged + ' cards of this deck.', 'Success!');
+              this.toastr.warning('Set has been removed from your collection!', 'Warning!');
             
           }, error => {
             console.log(error)
@@ -272,7 +262,7 @@ export class DeckComponent implements OnInit {
   searchByName(){
 
     this.service.searchBySetName(this.setName).subscribe( data => {
-        debugger
+        
         let decksFound:any[] = [];
         const {content, totalElements} = data;
 

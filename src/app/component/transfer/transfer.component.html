@@ -32,12 +32,12 @@
           </div> 
 
           <div class="SetDetails" *ngIf="leftUserSetCollecton?.name != null">
-            <div class="setImage">
+            <div class="setImage col-md-3" >
                 <img [src]="leftUserSetCollecton?.image" alt="Set Image" width="85px" height="100px">
             </div>
             
       
-            <div class="setDescription">
+            <div class="setDescription col-md-9" >
                 <p class="nome-set">{{leftUserSetCollecton?.name}}</p>
                 <div class="description-bottom">
                         <table >
@@ -128,12 +128,12 @@
             </div> 
 
 
-            <div class="SetDetails" *ngIf="rightUserSetCollection?.name != null" style="background-color: #f0e6fc !important;">
-                <div class="setImage">
+            <div class="SetDetails " *ngIf="rightUserSetCollection?.name != null" style="background-color: #f0e6fc !important;">
+                <div class="setImage col-sm-3">
                     <img [src]="rightUserSetCollection?.image" alt="Set Image" width="85px" height="100px">
                 </div>
     
-                <div class="setDescription">
+                <div class="setDescription col-sm-9">
                     <p class="nome-set">{{rightUserSetCollection?.name}}</p>
                     <div class="description-bottom">
                             <table >

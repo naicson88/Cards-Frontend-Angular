@@ -1,14 +1,14 @@
 
 
-<div id="mainDiv" class="container" style="background-color: whitesmoke;" >
+<div id="mainDiv" class="container" style="background-color: whitesmoke; min-width: 683px;" >
    <div class="default-header">
-      <span *ngIf="set_type == 'UD' ">User's Decks</span>
-      <span *ngIf="set_type != 'UD' ">Konami's Decks</span>
+      <span *ngIf="source == 'USER' ">Your Sets</span>
+      <span *ngIf="source == 'KONAMI' ">Konami's Sets</span>
    </div>
 
    <div id="header-main" >
-       
-       <div class="wrap" >
+       <!--SEARCH BAR-->
+      <div>
 
          <mat-autocomplete #auto="matAutocomplete" panelWidth="500px" >
             <mat-option *ngFor="let complete of filteredAutocomplete" [value]="complete.setName" (click)="searchByName()">
@@ -35,33 +35,34 @@
          </div>
       </div>
        
-            <!-- PAGINATION-->
-         <div style="width:fit-content">
-            <label for="" style="color: white; font-size: small;">Quantity per page: </label>&nbsp;
-            <select class="form-select" aria-label="Default select example" (change)="handlePageSizeChange($event.target.value)">
-               <option [value]="size" *ngFor="let size of pageSizes"> {{size}}</option>
+      <!-- PAGINATION-->
+      <div style="width:fit-content; margin-left: 5px ;">
+         <label for="" style="color: white; font-size: small;">Quantity per page: </label>&nbsp;
+         <select class="form-select-ang"  (change)="handlePageSizeChange($event.target.value)">
+            <option [value]="size" *ngFor="let size of pageSizes"> {{size}}</option>
+         </select>
+      </div>
+      <!-- SET TYPE-->
+      <div style="width: 30%;">
+         <label for=""  style="color: white; font-size: small;">Collection: </label>&nbsp;
+         <select class="form-select-ang" (change)="getSetTypeValue($event.target.value)">
+            <option value="DECK" selected>Deck</option>
+            <option value="TIN">Tin</option>
+            <option value="BOX">Box</option>
+            <option value="BOOSTER">Booster</option>
+            <option value="USER_NEW_COLLECTION" *ngIf="source == 'USER'">Collection</option>
             </select>
-         </div>
-        <!-- SET TYPE-->
-         <div style="width: 30%;">
-            <label for=""  style="color: white; font-size: small;">Collection: </label>&nbsp;
-            <select class="form-select" aria-label="Default select example" (change)="getSetTypeValue($event.target.value)">
-               <option value="DECK" selected>Deck</option>
-               <option value="TIN">Tin</option>
-               <option value="BOX">Box</option>
-               <option value="BOOSTER">Booster</option>
-             </select>
-         </div>
+      </div>
 
    </div>
 
    <!-- Se a coleção do usuário estiver vazia-->
-   <div id="empty-collection" *ngIf="deck.length == 0">
+   <div id="empty-collection" *ngIf="deck?.length == 0">
       <h1> You haven't added any Set of that type yet!</h1>
    </div>
 
    <!-- Decks-->
-   <mat-tab-group mat-align-tabs="end" *ngIf="deck.length > 0">
+   <mat-tab-group mat-align-tabs="end" *ngIf="deck?.length > 0">
       <mat-tab >
          <ng-template mat-tab-label>
             <mat-icon>view_module</mat-icon>
@@ -109,32 +110,8 @@
                         </div>
                      </div>
 
-                     <!-- <div class="deckuct-info smart-form"  *ngIf="set_type != 'UD'" style="background-color: yellow;">
-                        <div class="row">
-                           <div class="col-md-6"  style="text-align: center;">
-                       
-                              <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have:</span>
-
-                              <div class="clearfix quantity r_corners d_inline_middle f_size_medium " style="display: inline-block; background-color: blue;">
-                                 <span *ngIf="set_type != 'UD'">
-
-                                    <input type="text" name="input_qtde" id="inp_{{deck.id}}" disabled
-                                    value="{{deck.quantityUserHave == null ? 0 : deck.quantityUserHave}}" >
-                                    
-                                    <button class="bg_tr d_block f_left" data-direction="up"  name="{{deck.id}}" title="Add to your collection"
-                                    (click)="addSetToUserCollection($event)" >+</button>
-
-                                 </span>
-
-                              </div>
-
-                           </div>
-                        </div>
-
-                     </div> -->
-
                      <div class="image_card_bottom" *ngIf="source == 'KONAMI'">
-                        <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have: &nbsp; &nbsp;</span>
+                        <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="source == 'KONAMI'">Total you have: &nbsp; &nbsp;</span>
                         
                         <input type="text" name="input_qtde" id="inp_{{deck.id}}" disabled
                         value="{{deck.quantityUserHave == null ? 0 : deck.quantityUserHave}}" class="input_qtd_userhave">
@@ -154,7 +131,7 @@
                      <div class="row editRemove"   *ngIf="source == 'USER'">
                         <div class="col-md-6"  style="text-align: center;">
                      <!--    <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>-->
-                           <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="set_type != 'UD'">Total you have:</span><br>
+                           <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="source == 'KONAMI'">Total you have:</span><br>
 
                            <a *ngIf="set_type == 'DECK'" name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id)" >
                               <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
@@ -209,7 +186,7 @@
                               {{decklist.nome}}
                           </a>
                           <br>
-                        <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;">Released:</span> &nbsp; <span>2002</span>&nbsp;&nbsp;&nbsp;
+                        <!-- <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;">Released:</span> &nbsp; <span>2002</span>&nbsp;&nbsp;&nbsp; -->
 
                         <span *ngIf="set_type == 'UD'" style="float: right;">
                             <!--Opções que só aparecem se for deck de usuário-->

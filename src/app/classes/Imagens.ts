@@ -32,6 +32,7 @@ export  class Imagens {
     public quick_img:string = "..\\..\\assets\\img\\outras\\Quick.png";
     public counter_img:string = "..\\..\\assets\\img\\outras\\Counter.png";
     public equip_img:string = "..\\..\\assets\\img\\outras\\Equip.jpg";
+    public ritual_icon:string = "..\\..\\assets\\img\\outras\\Ritual_Icon.png";
 
     public aqua: string = "Aqua";
     public beast: string = "Beast";
@@ -120,7 +121,7 @@ export  class Imagens {
         mapCardsIcons.set("Trap", '/../../assets/img/outras/trapIcon.png')
         mapCardsIcons.set("Pendulum", '/../../assets/img/outras/pendulumIcon.png')
         mapCardsIcons.set("XYZ", '/../../assets/img/outras/xyzIcon.png')
-        mapCardsIcons.set("Synchron", '/../../assets/img/outras/syncronIcon.png')
+        mapCardsIcons.set("Synchro", '/../../assets/img/outras/syncronIcon.png')
         mapCardsIcons.set("Fusion", '/../../assets/img/outras/fusionIcon.png')
         mapCardsIcons.set("Link", '/../../assets/img/outras/linkIcon.png')
         mapCardsIcons.set("Ritual", '/../../assets/img/outras/ritualIcon.png')

@@ -5,10 +5,11 @@ import { MatDialogModule} from '@angular/material';
 import { MaterialModule } from 'src/app/Util/materialModule/material/material.module';
 import { WarningDialogComponent } from './warning-dialog/warning-dialog.component';
 import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
+import { InfoDialogComponent } from './info-dialog/info-dialog/info-dialog.component';
 
 
 @NgModule({
-  declarations: [ErrorDialogComponent, WarningDialogComponent, SuccessDialogComponent],
+  declarations: [ErrorDialogComponent, WarningDialogComponent, SuccessDialogComponent, InfoDialogComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -21,7 +22,7 @@ import { SuccessDialogComponent } from './success-dialog/success-dialog.componen
   /*{ provide: MAT_DIALOG_DATA, useValue: {} },
    { provide: MatDialogRef, useValue: {} }*/
   ],
-  entryComponents:[ErrorDialogComponent, WarningDialogComponent, SuccessDialogComponent] 
+  entryComponents:[ErrorDialogComponent, WarningDialogComponent, SuccessDialogComponent, InfoDialogComponent] 
 })
 
 export class DialogModule { }

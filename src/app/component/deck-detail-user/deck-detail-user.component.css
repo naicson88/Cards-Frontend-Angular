@@ -1,3 +1,11 @@
+#main-div{
+  margin-top: 20px; 
+  border: solid thin silver; 
+  background-color: ghostwhite; 
+  padding: 10px;
+  min-width: 960px;
+}
+
 .set-header{
     background: rgb(15,117,178);
     background: linear-gradient(146deg, rgba(15,117,178,1) 59%, rgba(59,216,235,1) 78%, rgba(239,241,241,1) 97%, rgba(241,241,241,1) 100%);
@@ -298,10 +306,37 @@ select {
 
 #tableRarity{
   width: 35%;
-  float: right;
+
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
   border-radius: 5px ; 
   border: solid thin silver
+}
+
+#mainDeck{
+  border: solid goldenrod; 
+  background-color: #FFDEAD; 
+  padding: 3px;
+  min-height: 96px;
+}
+
+#header-infos{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#deck-name-div{
+  width: 25%;
+  
+}
+
+#deck-image-div{
+  width: fit-content;
+  height: fit-content;
+  padding: 2px;
+  border: solid thin blue;
+  border-radius: 5px;
+  margin-left: -8%;
 }
 
 

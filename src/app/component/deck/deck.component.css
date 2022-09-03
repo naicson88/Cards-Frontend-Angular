@@ -33,7 +33,7 @@ justify-items: center;
   margin-left: 5%;
   padding: 5px;
   background-color: #3f51b5;
-  height: 50px;
+  height: fit-content;
   display: flex;
   justify-content: space-between;
 
@@ -370,10 +370,40 @@ padding-left: 5px;
 
 }
 
-.form-select {
+/* .form-select {
   border-radius: 5px;
   padding: 5px;
  
+} */
+
+.form-select-ang{
+  appearance: none;
+  border:0;
+  outline: 0;
+  font: inherit;
+
+  
+  height: 2.5em;
+  padding: 0 4em 0 1em;
+  background:url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg) no-repeat right 0.8em center / 1.4em, linear-gradient(to left, rgba(255, 255, 255, 0.3) 3em, rgba(255, 255, 255, 0.2) 3em); 
+  color: white;
+  border-radius: 0.25em;
+  box-shadow: 0 0 1em 0 rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.form-select-ang option{
+  color: inherit;
+  background-color: #5f2150;
+  cursor: pointer;
+}
+
+.form-select-ang:focus{
+  outline: none;
+}
+
+.form-select-ang::-ms-expand {
+  display: none;
 }
 
 select option {

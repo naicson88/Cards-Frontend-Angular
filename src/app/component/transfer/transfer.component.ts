@@ -243,7 +243,7 @@ export class TransferComponent implements OnInit {
   saveSets(){
       this.spinner.show();
       let setsToBeSaved: UserSetCollectionDTO[] = new Array();
-      debugger
+       
       setsToBeSaved.push(this.rightUserSetCollection);
       setsToBeSaved.push(this.leftUserSetCollecton);
 

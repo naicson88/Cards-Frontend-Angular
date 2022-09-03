@@ -1,10 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Deck } from 'src/app/classes/Deck';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DeckService } from 'src/app/service/deck.service';
 import {Chart} from   'chart.js';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { ActivatedRoute} from '@angular/router';
-import { Imagens } from 'src/app/classes/Imagens';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { CardDetailsDTO } from 'src/app/classes/CardDetailsDTO';
 import { InsideDeck } from 'src/app/classes/InsideDeck';
@@ -71,9 +69,9 @@ export class DeckDetailComponent implements OnInit {
     const id = localStorage.getItem("idDeckDetails");
     const source = localStorage.getItem("source");
     const set_type = localStorage.getItem("set_type");
-
+     
     this.service.getDeckDetails(id, source, set_type).subscribe(data => {
-
+      console.log(data)
       this.deckDetails = data;
       this.arrInsideDecksCards = data['insideDeck']
       
@@ -88,7 +86,7 @@ export class DeckDetailComponent implements OnInit {
         this.setQuantityByAtk(data['statsAtk'])
         this.setQuantityByDef(data['statsDef'])
         
-        this.imgPath =  this.deckDetails.imgurUrl; //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
+        this.imgPath =  this.deckDetails.imgurUrl;  //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
         this.graficoAtributos();
         this.spinner.hide();
       }
@@ -100,8 +98,6 @@ export class DeckDetailComponent implements OnInit {
     })
    
   }
-
-  
 
   setQuantityByCardType(types: any) {
     if(types != null || types != undefined){
