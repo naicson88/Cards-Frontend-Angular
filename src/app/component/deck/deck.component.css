@@ -33,7 +33,7 @@ justify-items: center;
   margin-left: 5%;
   padding: 5px;
   background-color: #3f51b5;
-  height: 50px;
+  height: fit-content;
   display: flex;
   justify-content: space-between;
 

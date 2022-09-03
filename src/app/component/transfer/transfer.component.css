@@ -1,8 +1,9 @@
 #main-div{
-    width: 90%;
-    margin: 10px 0 20px 5%;
+    width: 95%;
+    margin: 10px 0 20px 2%;
     background-color: ghostwhite;
     min-height: 300px;
+    min-width: 943px;
 }
 #div-all-boxes{
     display: flex;
@@ -89,6 +90,8 @@
     display: flex;  
     justify-content: left;
     padding: 10px;
+    flex-wrap: wrap;
+
 }
 
 .setImage{

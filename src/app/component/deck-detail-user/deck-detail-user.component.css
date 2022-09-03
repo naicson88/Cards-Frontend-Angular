@@ -1,3 +1,11 @@
+#main-div{
+  margin-top: 20px; 
+  border: solid thin silver; 
+  background-color: ghostwhite; 
+  padding: 10px;
+  min-width: 960px;
+}
+
 .set-header{
     background: rgb(15,117,178);
     background: linear-gradient(146deg, rgba(15,117,178,1) 59%, rgba(59,216,235,1) 78%, rgba(239,241,241,1) 97%, rgba(241,241,241,1) 100%);
@@ -318,7 +326,8 @@ select {
 
 
 #deck-name-div{
-  min-width: 350px;
+  width: 25%;
+  
 }
 
 #deck-image-div{

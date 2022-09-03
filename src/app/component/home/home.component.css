@@ -10,6 +10,7 @@
     padding: 20px;
     background: white; 
     border: solid thin silver;
+    min-width: 960px;
 }
 .my-card
 {
@@ -64,8 +65,9 @@
 }
 
 #slide{
-    width: 22%;
+  width: 22%;
   margin-left: 0;
+  min-width: 237px;
    
 }
 

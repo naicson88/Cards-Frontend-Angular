@@ -49,10 +49,11 @@
     margin-top: 20px;
     margin-bottom: -10px;
     background-color: ghostwhite;
-    border: solid thin silver; 
+    border: double silver; 
     width: 80%; 
-    height: 120px;
+    height: fit-content;
     padding: 10px;
+    min-width: 700px;
 }
 
 h1{
