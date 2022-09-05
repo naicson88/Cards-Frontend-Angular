@@ -10,6 +10,7 @@ import { DeckDetailUserComponent } from './component/deck-detail-user/deck-detai
 import { DeckDetailComponent } from './component/deck-detail/deck-detail.component';
 import { DeckComponent } from './component/deck/deck.component';
 import { HomeComponent } from './component/home/home.component';
+import { EmailConfirmationComponent } from './component/index/emailConfirmation/email-confirmation/email-confirmation.component';
 import { IndexComponent } from './component/index/index.component';
 import { LoginComponent } from './component/index/login/login.component';
 import { RegisterComponent } from './component/index/register/register.component';
@@ -31,10 +32,15 @@ const routes: Routes = [
   { path: 'user-deck-details/:deckName', component: DeckDetailComponent, data: {source: 'USER'}},
   { path: 'user-setcollection-details/:deckName', component: DeckDetailComponent, data: {source: 'USER'}},
   { path: 'user-setcollection-cards/:setName', component: UserSetcollectionComponent},
+
   { path: 'card-detail/:cardName', component: CardDetailComponent },
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent, data: {badCredential: false}},
   { path: 'register', component: RegisterComponent},
+    // children:[
+    //   { path: 'confirm-email', component: EmailConfirmationComponent},
+    // ]},
+   { path: 'confirm-email', component: EmailConfirmationComponent},
   { path: 'archetypes', component: ArchetypeComponent},
   { path: 'archetypeDetails/:archId', component: ArchetypeDetailsComponent},
   { path: 'cards-search', component: CardsSearchComponent},
@@ -43,6 +49,7 @@ const routes: Routes = [
   { path: 'error-page/:code', component:ErrorPagesComponent},
   { path: 'admin-dashboard', component:AdminDashboardComponent, canActivate: [BaseRoleGuard]},
   { path: '', redirectTo: 'index', pathMatch: 'full' },
+  { path: '**', redirectTo: 'index', pathMatch: 'full' },
   
   
 ];

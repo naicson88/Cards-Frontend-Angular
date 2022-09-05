@@ -1,0 +1,25 @@
+<div id="main-div" style="width: 100%; background: white; min-height: 500px;">
+    <div class="container">
+       <div style="margin-top: 60px;  width: 50%;">
+            <h1>Thank You For <br> Signing Up! </h1> <br>
+            <h2>Check the confirmation email at <br> <span style="color: red; font-weight: 600;">{{confirmationEmail}}</span>  </h2> <br>
+
+            <h3>Note: If you do not receive the email in few minutes:</h3>
+            <span>• Check spam folder</span><br>
+            <span>• Verify if you typed your email correctly</span>
+  
+       </div>
+       <div style="width: 49%; ">
+            <img src="https://i.imgur.com/x0zzUgK.png" alt="">
+       </div>
+    </div>    
+    <div style="margin-left: 50%;">
+        <button mat-raised-button color="warn" (click)="return()">Return</button>
+    </div>
+
+    <div style="margin-top: 100px;">
+        <app-footer></app-footer>
+    </div>
+</div>
+
+

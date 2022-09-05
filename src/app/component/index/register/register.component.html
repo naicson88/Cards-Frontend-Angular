@@ -1,34 +1,65 @@
-<div class="signin-content">
-    <mat-card>
-        <mat-card-content>
-            <form [formGroup]="form" (ngSubmit)="onSubmit" >
-                <p>Make your registration</p>
 
-                <mat-form-field class="full-width-input">
-                    <input matInput placeholder="User" formControlName="userName" required>
-                    <mat-error *ngIf="isFieldInvalid('userName')">
-                        Please inform your user name.
-                    </mat-error>
-                </mat-form-field>
 
-                <mat-form-field class="full-width-input">
-                    <input matInput type="password" placeholder="password" formControlName="password" required>
-                    <mat-error *ngIf="isFieldInvalid('password')">
-                        Please inform your password.
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="full-width-input">
-                    <input matInput type="email"  placeholder="E-mail" formControlName="email" ngModel email=true required>
-                    <mat-error *ngIf="isFieldInvalid('email')">
-                        Please inform your email.
-                    </mat-error>
-                </mat-form-field>
-
-                <button mat-raised-button color="primary">Register</button>
-            </form>
-        </mat-card-content>
-    </mat-card>
+<div id="main-div" style="border: solid thin red;">
+    <div class="signin-content">      
+        <input type="checkbox" id="chk" aria-hidden="true">
+            <div class="singup">
+                <form [formGroup]="form" (ngSubmit)="onSubmit" >
+                    <label for="chk" aria-hidden="true">Sign up</label>
+                    <input type="text"  placeholder="User name" required formControlName="username" >
+                    <input type="email" placeholder="Email"  formControlName="email"  required>
+                    <input type="password" placeholder="Password" formControlName="password" required>
+                    <input type="password" placeholder="Confirm Password" formControlName="confirm" required>
+                    <button (click)="register()">Register</button>    
+                    <button (click)="return()" id="return">Return</button>              
+                </form>
+            </div>
+      
+          <!--  <mat-card>
+            <mat-card-content>
+                <form [formGroup]="form" (ngSubmit)="onSubmit" >
+                 <p>Make your registration</p>
+    
+                    <mat-form-field appearance="fill">
+                        <mat-label>User Name</mat-label>
+                        <input matInput placeholder="User Name" formControlName="username" required>
+                        <mat-error *ngIf="isFieldInvalid('username')">
+                            Please inform your user name.
+                        </mat-error>
+                    </mat-form-field> <br>
+    
+                    <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="Password" placeholder="password" formControlName="password" required>
+                        <mat-error *ngIf="isFieldInvalid('password')">
+                            Please inform your password.
+                        </mat-error>
+                    </mat-form-field> <br>
+    
+                    <mat-form-field appearance="fill">
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput type="password" placeholder="Confirm password" formControlName="confirm" required>
+                        <mat-error *ngIf="isFieldInvalid('password')">
+                            Confirm your password.
+                        </mat-error>
+                    </mat-form-field> <br>
+    
+                    <mat-form-field appearance="fill" style="width: 260px;">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email"  placeholder="E-mail" formControlName="email" ngModel email=true required>
+                        <mat-error *ngIf="isFieldInvalid('email')">
+                            Please inform a valid email.
+                        </mat-error>
+                    </mat-form-field><br><br>
+    
+                    <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="register()">Register</button> 
+    
+                    
+                </form>
+            </mat-card-content>
+        </mat-card>-->
+    </div>
 </div>
 
 <app-footer></app-footer>
+

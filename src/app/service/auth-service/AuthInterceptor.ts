@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     
     let url = window.location.href;
-    if ((this.jwt.getToken() === null || this.jwt.getToken() === "") && !url.includes("/login")) {
+    if ((this.jwt.getToken() === null || this.jwt.getToken() === "") && !url.includes("/login") && !url.includes("/register")) {
         this.authService.logout();
         this.router.navigate(['/index'])
     }
