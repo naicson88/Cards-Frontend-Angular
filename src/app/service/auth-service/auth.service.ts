@@ -8,6 +8,7 @@ import { LoginRequest } from 'src/app/classes/LoginRequest';
 import { tap, map, catchError, subscribeOn } from 'rxjs/operators';
 import { JwtAuthStrategy } from './jwt-auth.strategy';
 import { configg } from './config';
+import { HandleErros } from 'src/app/Util/HandleErros';
 
 
 
@@ -15,6 +16,8 @@ import { configg } from './config';
   providedIn: 'root'
 })
 export class AuthService {
+
+
   private readonly JWT_TOKEN = 'JWT_TOKEN';
 
   public readonly LOGIN_PATH ='/login';
@@ -24,7 +27,7 @@ export class AuthService {
   userRole:string
   username: any;
   user: any;
-  
+  base_url = "http://localhost:8080/yugiohAPI"
   constructor(
   
     private router: Router,
@@ -56,7 +59,8 @@ export class AuthService {
   //Logout JWT
   logout(){
     localStorage.removeItem(this.JWT_TOKEN);
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('userRole');
+    this.router.navigate(['/index'])
   }
 
   private doLogoutUser() {
@@ -99,16 +103,22 @@ export class AuthService {
       this.username = user  
     })
 
-    /*this.consultarUsuarioLogado(this.username.sub).subscribe(data =>{
-      
-      this.user = data;  
-      console.log("This user is " + this.user)  
-    });*/
-
      return  this.user = this.consultarUsuarioLogado(this.username.sub);
 
   }
 
+
+  resendPassword(email:string){
+    return this.http.get<any>(this.base_url+`/auth/resend-password?email=${email}`)
+  }
+
+  validTokenToChangePassword(token: string) {
+    return this.http.get<any>(this.base_url+`/auth/check-token-password?token=${token}`)
+  }
+
+  changePassword(user: any) {
+    return this.http.post<any>(this.base_url+'/auth/change-password?token', user);
+  }
 }
 
 

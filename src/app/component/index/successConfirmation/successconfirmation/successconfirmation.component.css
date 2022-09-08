@@ -1,0 +1,13 @@
+#main-div{
+   width: 100%; 
+   background: white; 
+   min-height: 500px;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 600px;
+   flex-direction: column;
+
+ 
+}

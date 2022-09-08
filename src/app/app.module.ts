@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { DeckComponent } from './component/deck/deck.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SideMenuComponent } from './component/deck/side-menu/side-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -45,6 +44,9 @@ import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 import { AdminDashboardModule } from './component/admin/admin-dashboard/admin-dashboard.module';
 import { UserSetcollectionComponent } from './component/user-setcollection/user-setcollection.component';
 import { TransferComponent } from './component/transfer/transfer.component';
+import { SideMenuComponent } from './component/side-menu/side-menu.component';
+import { EmailConfirmationComponent } from './component/index/emailConfirmation/email-confirmation/email-confirmation.component';
+import { SuccessconfirmationComponent } from './component/index/successConfirmation/successconfirmation/successconfirmation.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,8 @@ import { TransferComponent } from './component/transfer/transfer.component';
     AdminDashboardComponent,
     UserSetcollectionComponent,
     TransferComponent,
+    EmailConfirmationComponent,
+    SuccessconfirmationComponent,
     
   
   
