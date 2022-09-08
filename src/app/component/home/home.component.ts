@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from './home.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -9,6 +9,7 @@ import { sanitizeIdentifier } from '@angular/compiler';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
   username: any;
   user: any;

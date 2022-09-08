@@ -5,6 +5,7 @@
     padding: 20px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border: solid thin silver;
+  
 }
 #mainDivHome{
     padding: 20px;
@@ -206,3 +207,5 @@ max-height:100%;
   .mos_vw_body table tr:nth-child(even){
     background-color: #eef0f9;
   }
+
+
