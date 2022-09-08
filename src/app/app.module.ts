@@ -47,6 +47,7 @@ import { TransferComponent } from './component/transfer/transfer.component';
 import { SideMenuComponent } from './component/side-menu/side-menu.component';
 import { EmailConfirmationComponent } from './component/index/emailConfirmation/email-confirmation/email-confirmation.component';
 import { SuccessconfirmationComponent } from './component/index/successConfirmation/successconfirmation/successconfirmation.component';
+import { BackToTopComponent } from './Util/BackToTopButton/back-to-top/back-to-top.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { SuccessconfirmationComponent } from './component/index/successConfirmat
     TransferComponent,
     EmailConfirmationComponent,
     SuccessconfirmationComponent,
+    BackToTopComponent,
     
   
   
