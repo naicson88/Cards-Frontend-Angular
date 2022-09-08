@@ -3,15 +3,21 @@
         <div class="signin-content">
             <input type="checkbox" id="chk" aria-hidden="true">
                 <div class="singup">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit" *ngIf="isLogin">
                         <label for="chk" aria-hidden="true">Login</label>
                         <input type="text" placeholder="User name" formControlName="userName" required>
                         <input type="password" placeholder="Password" formControlName="password"  required>                    
                         <button (click)="onSubmit()">Enter</button> 
-                        <button (click)="return()" id="return" >Return</button>                    
-                        
+                        <button (click)="return()" id="return" >Return</button>                                           
                     </form><br>
-                    <a href=""><u>Forgot Username/Password</u> </a>           
+                    <a href="login?resend=resend" *ngIf="isLogin"><u>Forgot Username/Password</u> </a> 
+                    
+                    <form [formGroup]="formResend"  *ngIf="isResend">
+                        <label for="chk" aria-hidden="true">Resend Password</label>
+                        <input type="email" placeholder="Email"  formControlName="emailResend"  required>                  
+                        <button (click)="resendPassword()">Confirm</button> 
+                        <button (click)="return()" id="return" >Return</button>                                           
+                    </form><br>
                 </div>
           
               <!--  <mat-card>
@@ -87,6 +93,5 @@
             </form>
         </mat-card-content>
     </mat-card> -->
-
 
 <app-footer></app-footer>

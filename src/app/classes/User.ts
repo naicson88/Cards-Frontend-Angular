@@ -6,6 +6,9 @@ export class User {
     password?:string;
     roles?: Role
     username?: string;
+    verificationToken?:string
+    maxDateValidation?:Date
+    isEmailConfirmed?:boolean
   
 }
 

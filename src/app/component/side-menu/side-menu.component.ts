@@ -61,6 +61,7 @@ export class SideMenuComponent implements OnInit {
   isRegister: boolean = false;
   isConfirmation: boolean = false;
   isAdminOrModerator: boolean = false;
+  isConfirmed: boolean = false;
 
   constructor(private router: Router, private authService: AuthService, ) {
  
@@ -83,11 +84,14 @@ export class SideMenuComponent implements OnInit {
         else if(event.url.includes('/login')){
           this.isLogin = true;
         }
-        else if(event.url === '/register'){
+        else if(event.url.includes('/register')){
           this.isRegister = true
         } 
         else if(event.url.includes('/confirm-email')){
           this.isConfirmation = true;
+        }
+        else if (event.url.includes('/confirmation')){
+          this.isConfirmed = true;
         }
         else if(event.url === '/'){
           this.isIndex = true

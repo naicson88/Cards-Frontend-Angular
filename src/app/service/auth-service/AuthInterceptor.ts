@@ -18,9 +18,9 @@ export class AuthInterceptor implements HttpInterceptor {
     if (configg.auth === 'token' && this.jwt && this.jwt.getToken()) {
       request = this.addToken(request, this.jwt.getToken());
     }
-    
     let url = window.location.href;
-    if ((this.jwt.getToken() === null || this.jwt.getToken() === "") && !url.includes("/login") && !url.includes("/register")) {
+
+    if ((this.jwt.getToken() === null || this.jwt.getToken() === "") && !url.includes("/login")  && !url.includes("/register") && !url.includes("/confirmation")) {
         this.authService.logout();
         this.router.navigate(['/index'])
     }

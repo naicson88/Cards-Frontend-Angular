@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/classes/User';
 import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { ErrorDialogComponent } from '../../dialogs/error-dialog/error-dialog.component';
@@ -19,16 +20,23 @@ import { WarningDialogComponent } from '../../dialogs/warning-dialog/warning-dia
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
+  formChange: FormGroup
+  token:string = "";
+  user: User = new User();
   private formSubmitAttempt;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private activeRote: ActivatedRoute,
+    private activeRoute: ActivatedRoute,
     private dialog: MatDialog,
     private spinner: SpinnerService
     
   ) { }
+
+  isRegiter: boolean = false;
+  isChangePassword = false;
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -37,9 +45,31 @@ export class RegisterComponent implements OnInit {
       confirm: ['', Validators.required],
       email: ['', Validators.required]
     });
+
+    this.formChange = this.fb.group({
+      password: ['', Validators.required],
+      confirm: ['', Validators.required],
+    });
+
+    this.checkFormType();
   }
+
+  checkFormType(){
+    
+    let url = window.location.href;
+
+    if(url.includes("change-password"))
+      this.validTokenForChangePassword();
+    else
+      this.isRegiter = true;
+  }
+
   get f() {
     return this.form.controls
+  }
+
+  get fc(){
+    return this.formChange.controls
   }
 
   isFieldInvalid(field: string){
@@ -91,6 +121,44 @@ export class RegisterComponent implements OnInit {
     }
 
     return "";
+
+  }
+
+  validTokenForChangePassword(){
+    this.activeRoute.queryParams.subscribe(param => {
+      this.token = param.token;
+    });
+    
+    this.authService.validTokenToChangePassword(this.token).subscribe(response => {
+        this.isChangePassword = true;
+        this.user = response;
+    }, error => {
+        this.errorDialog(error.error.msg)
+    })
+  }
+
+  changePassword(){
+    debugger
+    let pass = this.fc.password.value
+    let con = this.fc.confirm.value
+
+    if(pass == "" || pass.length < 6){
+      return 'Password too short!';
+    }
+
+    if(pass != con){
+      this.errorDialog("Password dont match  confirmation!");
+      return false;
+    }
+
+    this.user.password = pass;
+
+    this.authService.changePassword(this.user).subscribe(response => {
+      this.successDialog("Password has been changed successfully!")
+      this.router.navigate(['/login'])
+    } , error => {
+         this.errorDialog(error.error.msg);
+    })
 
   }
 

@@ -14,6 +14,7 @@ import { EmailConfirmationComponent } from './component/index/emailConfirmation/
 import { IndexComponent } from './component/index/index.component';
 import { LoginComponent } from './component/index/login/login.component';
 import { RegisterComponent } from './component/index/register/register.component';
+import { SuccessconfirmationComponent } from './component/index/successConfirmation/successconfirmation/successconfirmation.component';
 import { TransferComponent } from './component/transfer/transfer.component';
 import { UserSetcollectionComponent } from './component/user-setcollection/user-setcollection.component';
 import { UsercardsComponent } from './component/usercards/usercards.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent, data: {badCredential: false}},
   { path: 'register', component: RegisterComponent},
+  { path: 'confirmation', component: SuccessconfirmationComponent},
     // children:[
     //   { path: 'confirm-email', component: EmailConfirmationComponent},
     // ]},

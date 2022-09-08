@@ -46,6 +46,7 @@ import { UserSetcollectionComponent } from './component/user-setcollection/user-
 import { TransferComponent } from './component/transfer/transfer.component';
 import { SideMenuComponent } from './component/side-menu/side-menu.component';
 import { EmailConfirmationComponent } from './component/index/emailConfirmation/email-confirmation/email-confirmation.component';
+import { SuccessconfirmationComponent } from './component/index/successConfirmation/successconfirmation/successconfirmation.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { EmailConfirmationComponent } from './component/index/emailConfirmation/
     UserSetcollectionComponent,
     TransferComponent,
     EmailConfirmationComponent,
+    SuccessconfirmationComponent,
     
   
   
