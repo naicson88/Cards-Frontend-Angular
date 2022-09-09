@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   devCardsMain: 'http://localhost:8080/yugiohAPI',
   devCardsAdmin: 'http://localhost:8081/v1/admin',
   cardsAPIGateway:'http://localhost:8082'

@@ -1,2 +1,6 @@
 # dependencies
 /node_modules
+**/dist
+**/e2e
+**/server
+**/db.json
