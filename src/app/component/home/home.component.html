@@ -45,13 +45,13 @@
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <img src="{{infoHome.hotNews[0].img}}" height="245px" width="200px" style="margin-left: 7%;">  
+                    <img src="{{infoHome?.hotNews[0].img}}" height="245px" width="200px" style="margin-left: 7%;">  
                     <div class="slide_icon_name">
 
-                        <a *ngIf="infoHome.hotNews[0].setType == 'DECK'" (click)="storeDeckId(infoHome.hotNews[0].id, 'DECK', 'KONAMI')" [routerLink]="['/deck-details/',infoHome.hotNews[0].name]">
+                        <a *ngIf="infoHome?.hotNews[0].setType == 'DECK'" (click)="storeDeckId(infoHome.hotNews[0].id, 'DECK', 'KONAMI')" [routerLink]="['/deck-details/',infoHome.hotNews[0].name]">
                             <h5>{{infoHome.hotNews[0].name}}</h5>
                         </a>
-                        <a *ngIf="infoHome.hotNews[0].setType != 'DECK'" (click)="storeDeckId(infoHome.hotNews[0].id, infoHome.hotNews[0].setType,'KONAMI')" [routerLink]="['/collection-details/',infoHome.hotNews[0].name]">
+                        <a *ngIf="infoHome?.hotNews[0].setType != 'DECK'" (click)="storeDeckId(infoHome.hotNews[0].id, infoHome.hotNews[0].setType,'KONAMI')" [routerLink]="['/collection-details/',infoHome.hotNews[0].name]">
                             <h5>{{infoHome.hotNews[0].name}}</h5>
                         </a>
                        
@@ -177,17 +177,7 @@
                 </table>
             </div>
         </div>
-
     </div>
-
-    <div id="thin_block">
-      <img src="../../../assets/img/home/banner.jpg" alt="">
-      <button (click)="topFunction()" id="myBtn" title="Go to top"><mat-icon>arrow_upward</mat-icon></button>
-    </div>
-
-   
-
-
 </div>
 <div style="margin-top: 60px;">
     <app-footer></app-footer>

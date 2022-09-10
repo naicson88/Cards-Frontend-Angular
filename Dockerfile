@@ -31,4 +31,4 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 #COLOCADO PASTA DIST NO DOCKER IGNORE, AVALIAR SE NAO É O CASO DE REMOVER
 #ng build (--prod or not) Não é preciso rodar! 
 #docker build --t cards-angular .
-#docker run -d -p 4200:80 cards-angular
+#docker run -d --name cards-angular -p 4200:80 cards-angular

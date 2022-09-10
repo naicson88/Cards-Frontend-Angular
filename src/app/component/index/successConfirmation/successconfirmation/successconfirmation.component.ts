@@ -60,7 +60,7 @@ export class SuccessconfirmationComponent implements OnInit {
   }
 
     resetPassword(){
-    console.log("reset");
+      
   }
   
   login(){

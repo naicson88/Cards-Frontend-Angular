@@ -138,10 +138,8 @@ export class SideMenuComponent implements OnInit {
   }
 
   validUser(){
-    
     this.authService.getUser().subscribe(userReturned => { 
-          
-      this.checkIfIsAdmin(userReturned.roles[0].roleName)
+      this.checkIfIsAdmin(userReturned.role.roleName)
     }, error => {
       console.log("Error when try to consult user" + error.erro);
       this.router.navigate(['/error-page', 500])
@@ -150,16 +148,13 @@ export class SideMenuComponent implements OnInit {
   
 checkIfIsAdmin(userRole:string) {   
     //  let user:string = localStorage.getItem('currentUser');
-      
         if(userRole == undefined || userRole == null)
             this.router.navigate(['/login'])
 
         if(userRole == "ROLE_ADMIN"  || userRole == "ROLE_MODERATOR")
           this.isAdminOrModerator = true;
-
         else if(userRole == "ROLE_USER")
           this.isAdminOrModerator = false; 
-
         else
           this.router.navigate(['/login'])      
   }

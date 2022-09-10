@@ -32,7 +32,7 @@ import { AuthService } from "src/app/service/auth-service/auth.service";
         
       this.authService.getUser().subscribe(userReturned => { 
           
-          let role:string = userReturned.roles[0].roleName
+          let role:string = userReturned.role.roleName
 
           if(role === "ROLE_ADMIN" || role === "ROLE_MODERATOR")
               localStorage.setItem('userRole', "ROLE_ADMIN");

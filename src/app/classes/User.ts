@@ -4,7 +4,7 @@ export class User {
     id?: number;
     email?: string;
     password?:string;
-    roles?: Role
+    role?: any
     username?: string;
     verificationToken?:string
     maxDateValidation?:Date
