@@ -153,7 +153,7 @@
 
                <div class="form-group col-md-6">
                     <label for="setCollection" >Set Collection</label>
-                    <select name="setCollection" class="form-control" id="setCollection" formControlName="setCollection" #setChoosen > 
+                    <select name="setId" class="form-control" id="setId" formControlName="setId" #setChoosen > 
                         <option *ngFor="let set of setsSearched" [value]="set.setId" selected>{{set.name}}</option>
                     </select>
                 </div>

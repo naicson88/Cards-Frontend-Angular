@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { HandleErros } from 'src/app/Util/HandleErros';
 import { Observable } from 'rxjs';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -20,7 +21,7 @@ export class CardServiceService {
 
   constructor(private http: HttpClient) {}
   
-  base_url = "http://localhost:8080/yugiohAPI"
+  base_url = environment.devCardsMain
 
   //head = new HttpHeaders().set('Authorization', `Bearer ${this.jwt.getToken()}`).set('Content-Type', 'application/json').set('Accept', 'application/json');
 

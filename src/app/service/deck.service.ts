@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { KonamiDeck } from '../classes/KonamiDeck';
 import { SetDetailsDTO } from '../classes/SetDetailsDTO';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class DeckService {
 
   constructor(private http: HttpClient, private router: Router ) {}
 
-  base_url = "http://localhost:8080/yugiohAPI"
+  base_url = environment.devCardsMain
 
     public getDecks(params, set_type:string, source:string): Observable<any>{
       if(source == "KONAMI"){ // Se for Konami set

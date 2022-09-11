@@ -118,7 +118,7 @@ export class AdminDashboardComponent implements OnInit {
       imagem: new FormControl(collectionDeck.imagem),
       isSpeedDuel: new FormControl(collectionDeck.isSpeedDuel),
       requestSource: new FormControl(collectionDeck.requestSource),
-      setCollection: new FormControl(collectionDeck.setId),
+      setId: new FormControl(collectionDeck.setId),
       filterSetCode: new FormControl(collectionDeck.filterSetCode),
     })
   }

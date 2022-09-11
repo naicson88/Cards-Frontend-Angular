@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Archetype } from 'src/app/classes/Archetype';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AchetypeService {
   
   constructor(private http: HttpClient ) {}
 
-  base_url = "http://localhost:8080/yugiohAPI"
+  base_url = environment.devCardsMain
 
 public setArchetypeId(archetypeId:number) {
     this.archetypeId = archetypeId;
