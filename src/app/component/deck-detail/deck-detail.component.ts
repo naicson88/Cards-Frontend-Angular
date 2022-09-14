@@ -71,7 +71,7 @@ export class DeckDetailComponent implements OnInit {
     const set_type = localStorage.getItem("set_type");
      
     this.service.getDeckDetails(id, source, set_type).subscribe(data => {
-      console.log(data)
+     // console.log(data)
       this.deckDetails = data;
       this.arrInsideDecksCards = data['insideDeck']
       
@@ -230,25 +230,10 @@ export class DeckDetailComponent implements OnInit {
  }
 
  atributoImagem(atributo:string){
-    let attr = atributo.toUpperCase();
+      
+    let attr = atributo != null ? atributo.toUpperCase() : "";
 
    switch(attr){
-     case 'WATER':
-     return '..\\..\\assets\\img\\outras\\WATER.png';
-     case 'EARTH':
-       return '..\\..\\assets\\img\\outras\\TERRA.png';
-     case 'FIRE':
-       return '..\\..\\assets\\img\\outras\\FIRE.png';
-     case 'LIGHT':
-       return '..\\..\\assets\\img\\outras\\LUZ.png';
-     case 'DARK':
-       return '..\\..\\assets\\img\\outras\\DARK.png';
-     case 'WIND':  
-       return '..\\..\\assets\\img\\outras\\WIND.png';
-     case 'SPELL CARD':
-       return '..\\..\\assets\\img\\outras\\MAGIA.png';
-     case 'TRAP CARD':
-       return '..\\..\\assets\\img\\outras\\ARMADILHA.png';
      case 'CONTINUOUS':
        return '..\\..\\assets\\img\\outras\\Continuous.png';
      case 'FIELD':
@@ -260,7 +245,9 @@ export class DeckDetailComponent implements OnInit {
      case 'COUNTER':
        return '..\\..\\assets\\img\\outras\\Counter.png';
      case 'EQUIP':
-       return '..\\..\\assets\\img\\outras\\Equip.jpg';  
+       return '..\\..\\assets\\img\\outras\\Equip.jpg'; 
+    default:
+      "";
    }
    
  }

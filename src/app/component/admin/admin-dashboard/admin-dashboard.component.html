@@ -1,9 +1,9 @@
 <div class="container">
 
     <div id="header-block">
-        <button type="button" class="btn btn-outline-primary btn-lg" (click)="showForm('NEW SET')">NEW SET</button>
+        <button type="button" class="btn btn-outline-primary btn-lg" (click)="showForm('NEW SET')">NEW DECK</button>
         <button type="button" class="btn btn-outline-secondary btn-lg" (click)="showForm('NEW COLLECTION')">NEW COLLECTION</button>
-        <button type="button" class="btn btn-outline-success btn-lg" >EDIT CARD</button>
+        <button type="button" class="btn btn-outline-success btn-lg" (click)="showForm('COLLECTION DECK')">COLLECTION DECK</button>
         <button type="button" class="btn btn-outline-danger btn-lg">REMOVE SET</button>
         <button type="button" class="btn btn-outline-dark btn-lg">NEW ARCHETYPE</button>
     </div>
@@ -11,103 +11,177 @@
     <div class="body-admin">
 
         <div id="divTitle" style="color: navy;  margin-left: 40%;">
-            <h3 style="font-weight: 600;">{{chosenMenu}}</h3>
+            <h2 style="font-weight: 700;">{{chosenMenu}}</h2>
         </div>
-
-        <!--NEW SET-->
-       <form *ngIf="chosenMenu == 'NEW SET'" action="" [formGroup]="formDeck" (ngSubmit)="onSubmit()" style="padding: 20px;">
-           <div class="form-group">
-                <label for="nome" style="color: blueviolet; font-weight: 600;">Set Name</label>
+        <!-- NEW DECK -->
+        <form *ngIf="chosenMenu == 'NEW SET'" action="" [formGroup]="formDeck" style="padding: 20px;">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="nome">Set Name</label>
                 <input type="text" class="form-control" name="nome" id="nome" required formControlName="nome">
-           </div>
-
-           <div class="form-group">
-                <label for="nomePortugues" style="color: green; font-weight: 600;">Set Name Portuguese</label>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="nomePortugues" >Set Name Portuguese</label>
                 <input type="text" class="form-control" name="nomePortuguese" id="nomePortugues" required formControlName="nomePortugues">
-           </div>
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="imagem" >Image Path</label>
+                    <input type="text" class="form-control" name="imagem" id="imagem" required formControlName="imagem" >
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="requestSource" >Deck Name Source</label>
+                    <input type="text" class="form-control" name="requestSource" id="requestSource" required formControlName="requestSource" >
+                </div>
+            </div>
 
-          <div class="form-group">
-            <label for="imagem" style="color: blue; font-weight: 600;">Image Path</label>
-            <input type="text" class="form-control" name="imagem" id="imagem" required formControlName="imagem"  style="width:50%">
-          </div>
+           
+            <div class="form-group">
+                <label for="setType" >Set Type</label>
 
-           <div class="form-group">
-               <label for="setType" style="color:brown; font-weight: 600;">Set Type</label>
-
-               <select name="setType" class="form-control" id="setType" style="width:30%" formControlName="setType"> 
-                   <option value="D" selected>Deck</option>
-                   <option value="T">Tin</option>
-                   <option value="B">Box</option>
-               </select>
-           </div>
-
-           <div class="form-group">
-               <label for="releaseDate" style="color:cornflowerblue; font-weight: 600;">Release Date</label><br>
-                <input matInput [matDatepicker]="picker" class="form-control" style="width:20%" name="releaseDate" formControlName="lancamento" >
+                <select name="setType" class="form-control" id="setType" style="width:30%" formControlName="setType"> 
+                    <option value="DECK" selected>Deck</option>
+                    <option value="T">Tin</option>
+                    <option value="B">Box</option>
+                </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="releaseDate">Release Date</label><br>
+                <input matInput [matDatepicker]="picker" class="form-control" style="width:30%" name="releaseDate" formControlName="lancamento" >
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-           </div>
-
-         <input type="submit" class="btn btn-primary mt-4" value="Save" style="margin-left: 45%;">
-
-       </form>
+              </div>
+              <div class="form-group ">         
+                <mat-checkbox class="example-margin"  formControlName="isSpeedDuel" id="isSpeedDuel" name="isSpeedDuel">Speed Duel</mat-checkbox>                            
+            </div>
+             </div>
+              <button mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 45%;">Save</button>
+          </form>
 
        <!--NEW COLLECTION-->
-       <form *ngIf="chosenMenu == 'NEW COLLECTION'" action="" [formGroup]="formCollection" (ngSubmit)="onSubmit()" style="padding: 20px;">
-            <div class="form-group">
+       <form *ngIf="chosenMenu == 'NEW COLLECTION'" action="" [formGroup]="formCollection" style="padding: 20px;">
+        <div class="form-row">
+            <div class="form-group col-md-6">
                 <label for="name" style="color: blueviolet;">Collection Name</label>
                 <input type="text" class="form-control" name="name" id="name" required formControlName="name">
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="portugueseName" style="color: green; ">Collection Portuguese Name</label>
                 <input type="text" class="form-control" name="portugueseName" id="portugueseName" required formControlName="portugueseName">
             </div>
-
-        <div class="form-group">
-            <label for="imgPath" style="color: blue; ">Image Path</label>
-            <input type="text" class="form-control" name="imgPath" id="imgPath" required formControlName="imgPath"  style="width:50%">
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="imgPath">Image Path</label>
+                <input type="text" class="form-control" name="imgPath" id="imgPath" required formControlName="imgPath">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="requestSource" >Request Resource</label>
+                <input type="text" class="form-control" name="requestSource" id="requestSource" required formControlName="requestSource" >
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="deckParameters" style="color:cornflowerblue; ">Deck Parameters</label><br>
-            <span style="font-size: x-small;"><i>Ex: ESS03-AN;DeckName;ABC-YA;default</i> </span>
-            <input type="text" class="form-control" name="deckParameters" id="deckParameters"  formControlName="deckParameters"  style="width:50%">
-        </div>
-
-        <div style="display: flex; justify-content: space-around; align-items: center;">
+        <div class="form-row">
             
-            <div class="form-group" style="width: fit-content;">
-                <label for="setType" style="color:brown; ">Collection Type</label>
-                <select name="setType" class="form-control" id="setType" style="width:100%" formControlName="setType"> 
-                    <option value="BST" selected>Booster</option>
-                    <option value="B">Box</option>
-                    <option value="T">Tin</option>                   
+            <div class="form-group col-md-3" >
+                <label for="setType">Collection Type</label>
+                <select name="setType" class="form-control" id="setType" formControlName="setType"> 
+                    <option value="BOOSTER" selected>Booster</option>
+                    <option value="BOX">Box</option>
+                    <option value="TIN">Tin</option>                   
                 </select>
             </div>
 
-            <div class="form-group" style="width: fit-content;">
-                <label for="releaseDate" style="color:cornflowerblue;">Release Date</label><br>             
-                <input matInput  [matDatepicker]="picker" style="width:50%" name="releaseDate" formControlName="releaseDate" >
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-               
-            </div>
-
-            <div class="form-group">             
-                <mat-checkbox class="example-margin"  formControlName="onlyDefaultDeck" id="onlyDefaultDeck" name="onlyDefaultDeck">Only Default Deck</mat-checkbox>                            
-            </div>
-
-            <div class="form-group">             
-                <mat-checkbox class="example-margin"  formControlName="isSpeedDuel" id="isSpeedDuel" name="isSpeedDuel">Speed Duel</mat-checkbox>                            
+            <div class="form-group col-md-3">    
+                <label for="isSpeedDuel">Speed Duel</label>
+                <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel"> 
+                    <option value="false" selected >No</option>
+                    <option value="true">Yes</option>
+                </select>                        
             </div>
         </div>
-     
-        <input type="button" (click)="onSubmitSetCollection()" class="btn btn-primary mt-4" value="Save" style="margin-left: 45%;">
 
-    </form>
+        <div class="form-row">
+            <div class="form-group col-md-3" >
+                <label for="releaseDate" >Release Date</label><br>             
+                <input matInput  [matDatepicker]="picker" name="releaseDate" formControlName="releaseDate" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>              
+            </div>
+        </div>
 
+        <button mat-raised-button color="primary" (click)="onSubmitSetCollection()"  style="margin-left: 45%;">Save</button>
+       </form>
 
+        <!--DECK COLLECTION-->
+        <form *ngIf="chosenMenu == 'COLLECTION DECK'" action="" [formGroup]="formDeckCollection" style="padding: 20px;">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="nome">Set Name</label>
+                <input type="text" class="form-control" name="nome" id="nome" required formControlName="nome">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="nomePortugues" >Set Name Portuguese</label>
+                <input type="text" class="form-control" name="nomePortuguese" id="nomePortugues" required formControlName="nomePortugues">
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="imagem" >Image Path</label>
+                    <input type="text" class="form-control" name="imagem" id="imagem" required formControlName="imagem" >
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="requestSource" >Deck Name Source</label>
+                    <input type="text" class="form-control" name="requestSource" id="requestSource" required formControlName="requestSource" >
+                </div>
+            </div>
+   
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="setType" >Set Type</label>
+                   <select name="setType" class="form-control" id="setType" formControlName="setType" #setType  (change)="searchSets(setType.value)"> 
+                       <option value="DECK" >Deck</option>
+                       <option value="TIN">Tin</option>
+                       <option value="BOX">Box</option>
+                       <option value="BOOSTER">Booster</option>
+                   </select>
+               </div>
 
+               <div class="form-group col-md-6">
+                    <label for="setCollection" >Set Collection</label>
+                    <select name="setId" class="form-control" id="setId" formControlName="setId" #setChoosen > 
+                        <option *ngFor="let set of setsSearched" [value]="set.setId" selected>{{set.name}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="filterSetCode" >Filter Set Code</label>
+                    <input type="text" class="form-control" name="filterSetCode" id="filterSetCode" formControlName="filterSetCode" >
+                </div>
+
+             </div>
+             <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="lancamento">Release Date</label><br>
+                    <input matInput [matDatepicker]="picker" class="form-control" name="lancamento" formControlName="lancamento" >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+                <div class="form-group col-md-2">    
+                    <label for="isSpeedDuel">Speed Duel</label>
+                    <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel"> 
+                        <option value="false" selected >No</option>
+                        <option value="true">Yes</option>
+                    </select>                        
+                </div>
+             </div>
+              <button mat-raised-button color="primary" (click)="onSubmitCollectionDeck()" style="margin-left: 45%;">Save</button>
+          </form>
     </div>
 </div>
+
+<app-footer></app-footer>

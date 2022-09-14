@@ -138,7 +138,7 @@ export class RegisterComponent implements OnInit {
   }
 
   changePassword(){
-    debugger
+    
     let pass = this.fc.password.value
     let con = this.fc.confirm.value
 
@@ -157,7 +157,7 @@ export class RegisterComponent implements OnInit {
       this.successDialog("Password has been changed successfully!")
       this.router.navigate(['/login'])
     } , error => {
-         this.errorDialog(error.error.msg);
+        this.errorDialog(error.error.msg);
     })
 
   }

@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { catchError } from "rxjs/operators";
 import { UserSetCollectionDTO } from "src/app/classes/UserSetCollectionDTO";
 import { HandleErros } from "src/app/Util/HandleErros";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class TransferService {
     
     constructor(private http: HttpClient, private router: Router ) {}
   
-    base_url = "http://localhost:8080/yugiohAPI"
+    base_url = environment.devCardsMain
 
     public getSetCollectionNames(setType:string) {
         return this.http.get<any>(this.base_url+`/user-setcollection/setsname-by-settype/${setType}`) 

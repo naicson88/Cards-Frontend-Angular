@@ -14,11 +14,11 @@
 
       <div class="row" style="border-bottom: solid thin #ccc; height: 40px;">
         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 hide-sm">
-          <p class="nome-cabecalho">{{deckDetails.nome}}</p>
+          <p class="nome-cabecalho">{{deckDetails?.nome}}</p>
         </div>
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4">
           <p class="dt_lancamento" style=" color:#555;
-                    font-weight: 700;"> <i> {{deckDetails.lancamento}}</i></p>
+                    font-weight: 700;"> <i> {{deckDetails?.lancamento}}</i></p>
         </div>
       </div>
 
@@ -206,9 +206,9 @@
               <!--Descricao Pèndulum-->
               <div class="row"
                 style="padding: 3px; border-bottom: solid thin #ccc;; height: fit-content;margin-bottom: -5px; "
-                *ngIf="cardsInfo.categoria == 'Pendulum Effect Monster'">
+                *ngIf="cardsInfo.escala  != null ">
                 <div class="col-md-2" style=" position: relative;border-right:solid thin #ccc;">
-                  <p class="nome-card" style=" top: 25%; position: absolute; text-align: center
+                  <p class="nome-card" style=" top: 25%; text-align: center
                     ;">
                     <img src="..\..\assets\img\outras\EscalaAzul.png" alt="Blue Scale"> &nbsp;
                     <span>{{cardsInfo.escala}}</span> &nbsp;
@@ -229,7 +229,7 @@
                          font-family:'Open Sans', Arial, sans-serif;">
                     {{cardsInfo.descricao}}
                   </p> <br>
-                  <p style="margin-bottom: 0;" *ngIf="cardsInfo.archetype.arcName"> <i> <b>Archetype</b> :
+                  <p style="margin-bottom: 0;" *ngIf="cardsInfo.archetype?.arcName"> <i> <b>Archetype</b> :
                       {{cardsInfo.archetype.arcName}} </i> </p><br>
                   <p style="margin-bottom: 0;">
                     <i style="font-size: small; color: rgb(110, 109, 109);">Set code: </i>
@@ -269,7 +269,7 @@
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 hide-sm"
                   style="max-width: 14%; padding-right: 1px; padding-left: 1px;">
-                  <img [src]='cardsInfo.atributo.atributoImgPath' alt="" width="30px" height="30px"
+                  <img [src]='cardsInfo.atributo.atributoImgPath' alt="Attribute Image" width="30px" height="30px"
                     style="display: inline-block;">
                   <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">
                     <span *ngIf="cardsInfo.categoria == 'Spell Card'">Magic</span>
@@ -279,7 +279,7 @@
 
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-sm"
                   style="max-width: 16%; padding-right: 1px; padding-left: 1px;"
-                  *ngIf="cardsInfo.propriedade != 'Normal' ">
+                  *ngIf="cardsInfo.propriedade != 'Normal' &&  cardsInfo.propriedade != null">
                   <img [src]='atributoImagem(cardsInfo.propriedade)' alt="" width="30px" height="30px"
                     style="display: inline-block;">
                   <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">

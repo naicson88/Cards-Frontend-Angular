@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { catchError } from "rxjs/operators";
 import { UserSetCollectionDTO } from "src/app/classes/UserSetCollectionDTO";
 import { HandleErros } from "src/app/Util/HandleErros";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ import { HandleErros } from "src/app/Util/HandleErros";
 
     constructor(private http: HttpClient, private router: Router ) {}
   
-    base_url = "http://localhost:8080/yugiohAPI"
+    base_url = environment.devCardsMain
 
     public getSetCollection(setId:any) {
 

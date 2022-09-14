@@ -6,4 +6,6 @@ export class KonamiDeck {
     nomePortugues:string;
     lancamento: Date;
     setType:string;
+    isSpeedDuel: any;
+    requestSource:string;
 }
