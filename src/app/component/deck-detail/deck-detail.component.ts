@@ -74,8 +74,9 @@ export class DeckDetailComponent implements OnInit {
      console.log(data)
       this.deckDetails = data;
       this.arrInsideDecksCards = data['insideDeck']
+      this.imgPath =  this.deckDetails.imgurUrl;
       
-      if(this.arrInsideDecksCards.length > 0) {
+      if(this.arrInsideDecksCards[0].cards.length > 0) {
         this.isVisible = true;
         this.countsGeneric_type = data['statsQuantityByGenericType'];
         this.quantidadePorAtributo = data['statsQuantityByAttribute'];
@@ -84,12 +85,11 @@ export class DeckDetailComponent implements OnInit {
         this.setQuantityByCardProperty(data['statsQuantityByProperty'])
         this.setQuantityByStars(data['statsQuantityByLevel'])
         this.setQuantityByAtk(data['statsAtk'])
-        this.setQuantityByDef(data['statsDef'])
-        
-        this.imgPath =  this.deckDetails.imgurUrl;  //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
+        this.setQuantityByDef(data['statsDef'])       
+          //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
         this.graficoAtributos();
         this.spinner.hide();
-      }
+      } 
 
      
     }, error => {
@@ -236,6 +236,15 @@ export class DeckDetailComponent implements OnInit {
       return false;
    }
  }
+
+ storeDeckId(id:any){
+  //  const id = event.target.name;
+    localStorage.setItem("idDeckDetails", id);
+    localStorage.setItem("source", this.source);
+    localStorage.setItem("set_type", this.set_type);
+  
+  }
+
 
  atributoImagem(atributo:string){
       

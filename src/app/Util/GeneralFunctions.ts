@@ -79,6 +79,7 @@ export abstract class GeneralFunctions  {
         return "color-ultra-rare";
       else if(raridade == 'Secret Rare')
         return "color-secret-rare";
+        
       else{
           return "color-common"
       }          
@@ -100,6 +101,10 @@ export abstract class GeneralFunctions  {
           return 'water-color';
         case 'LIGHT': 
           return 'light-color';
+        case 'SPELL': 
+          return 'magic-color';
+        case 'TRAP': 
+          return 'trap-color';
 
         default: 
           return 'att-common';     

@@ -174,14 +174,17 @@
     <!--Div Single Card-->
     <div class="divSingleCard" *ngFor="let card of userSetCollecton?.cards">
       <!-- [ngClass]="card.quantityOtherCollections > 0 ? 'shadow-gold' : 'shadow-blue'" -->
-      <div style="width: 95%; margin-left: 5px;" [style.display]="isVisible ? 'block' : 'none'">
+      <div class="div-price-rarity" [style.display]="isVisible ? 'flex' : 'none'">
         <!--Price div-->
         <div style="color: green; font-size: small; width: fit-content; display: inline-block; float: left;">
           <span> {{card.relDeckCards.card_price | currency : 'USD'}}</span>
         </div>
         <!--Rarity div-->
-        <div style="color: silver; font-size: small; width: fit-content; display: inline-block; float: right; ">
-          <span [ngClass]="setRarityColor(card.relDeckCards.card_raridade)"><i>{{card.relDeckCards.card_raridade }}</i>
+        <div class="div-rarity" [title]="card.relDeckCards.rarityDetails">
+          <span [ngClass]="setRarityColor(card.relDeckCards.card_raridade)">
+              <i>
+              {{card.relDeckCards.card_raridade }} {{card.relDeckCards.setRarityCode}}           
+            </i>
           </span>
         </div>
       </div>

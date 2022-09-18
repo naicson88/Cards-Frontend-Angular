@@ -51,11 +51,12 @@ button {
   }
 
   .color-common{
-    color: brown
+    color: brown;
+    font-weight: 500;
   }
 
   .color-rare {
-    color: #CC0033;
+    color: #3CB371;
     font-weight: 500;
   }
 
@@ -118,6 +119,16 @@ button {
 
   .water-color{
     color:#3399ff;
+    font-weight: 500;
+  }
+
+  .magic-color{
+    color: #2E8B57;
+    font-weight: 500;
+  }
+
+  .trap-color{
+    color: #FF4500;
     font-weight: 500;
   }
 

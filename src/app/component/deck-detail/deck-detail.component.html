@@ -23,21 +23,28 @@
       </div>
 
       <!--Empty Collection-->   
-        <div *ngIf="!arrInsideDecksCards" id="empty-set" class="row">
+        <div *ngIf="arrInsideDecksCards[0]?.cards.length == 0" id="empty-set" class="row">
             <p>
               <i>This Set is empty, edit it and include some cards!</i>
             </p> 
           
            <div>
-            <a  name="teste" [routerLink]="['/userdeck-details/', 'name']" (click)="storeDeckId('teste')" >
+            <a  name="teste" [routerLink]="['/userdeck-details/', 'name']" *ngIf="deckDetails.setType == 'DECK'"
+               (click)="storeDeckId(deckDetails?.id)" >
               <button type="button" class="btn btn-outline-warning btn-lg"> Edit  </button>
-              </a> &nbsp;
+            </a> 
+
+            <a  name="teste" [routerLink]="['/user-setcollection-cards/', 'name']" *ngIf="deckDetails.setType != 'DECK'"
+            (click)="storeDeckId(deckDetails?.id)" >
+           <button type="button" class="btn btn-outline-warning btn-lg"> Edit  </button>
+            </a> 
+
            </div>
         </div>
       
 
       <!--Raridade-->
-      <div class="row" style="border: gold solid thin;" *ngIf="arrInsideDecksCards">
+      <div class="row" style="border: gold solid thin;" *ngIf="arrInsideDecksCards[0]?.cards.length > 0">
 
         <div id="rarity" style="width: 100%; background-color: rgb(164, 154, 231); height: 35px;">
 
@@ -134,7 +141,7 @@
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4"
                   style="text-align: right; margin-top: -3px; margin-right: -10px;">
-                  <h6><strong>{{cardsInfo.listCardRarity[0].cardSetCode}}</strong></h6>
+                  <h6 style="color: #9370DB"><strong>{{cardsInfo.listCardRarity[0].cardSetCode}}</strong></h6>
                 </div>
               </div>
               <!--Informacoes da carta caso seja MONSTRO-->
@@ -233,9 +240,12 @@
           
                      <span *ngFor="let card of cardsInfo.listCardRarity">
 
-                        <i style="font-size: small; color: rgb(110, 109, 109);">Rarity: </i>&nbsp;
-                        <span [ngClass]="setRarityColor(card.card_raridade)"
-                         style="font-size: 14px;">{{card.rarityDetails}}</span> &nbsp;
+                        <i style="font-size: small; color: rgb(110, 109, 109);">Rarity: </i>&nbsp;                       
+                        <span [ngClass]="setRarityColor(card.card_raridade)" *ngIf="card.rarityDetails != null"
+                         style="font-size: 14px;">{{card.rarityDetails}} &nbsp;&nbsp; </span>
+
+                         <span [ngClass]="setRarityColor(card.card_raridade)" *ngIf="card.rarityDetails == null"
+                         style="font-size: 14px;">{{card.card_raridade}} &nbsp;&nbsp; </span> 
 
                         <i style="font-size: small; color: rgb(110, 109, 109);">Price: </i>&nbsp;
                         <span style="color: green;font-size: 14px; font-weight: bold;">
@@ -276,10 +286,10 @@
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 hide-sm"
                   style="max-width: 14%; padding-right: 1px; padding-left: 1px;">
                   <img [src]='cardsInfo.atributo.atributoImgPath' alt="Attribute Image" width="30px" height="30px"
-                    style="display: inline-block;">
+                    style="display: inline-block;">&nbsp;
                   <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">
-                    <span *ngIf="cardsInfo.categoria == 'Spell Card'">Magic</span>
-                    <span *ngIf="cardsInfo.categoria == 'Trap Card'">Trap</span>
+                    <span *ngIf="cardsInfo.categoria == 'Spell Card'" [ngClass]="setAttColor('SPELL')">SPELL</span>
+                    <span *ngIf="cardsInfo.categoria == 'Trap Card'" [ngClass]="setAttColor('TRAP')">TRAP</span>
                   </p>
                 </div>
 
@@ -304,13 +314,21 @@
                   </p> <br>
                   <p style="margin-bottom: 0;" *ngIf="cardsInfo.arquetipo"> <i> <b>Archetype</b> :
                       {{cardsInfo.arquetipo}} </i> </p><br>
-                  <p style="margin-bottom: 0;">
-                    <i style="font-size: small; color: rgb(110, 109, 109);">Set code: </i>
-                    <span style="color:brown; font-size: 14px;">{{cardsInfo.cardSetCode}}</span> &nbsp;&nbsp;
-                    <i style="font-size: small; color: rgb(110, 109, 109);">Price: </i>
-                    <span style="color: green;font-size: 14px; font-weight: bold;">
-                      {{cardsInfo.card_price | currency}}</span>
-                  </p>
+                      <span *ngFor="let card of cardsInfo.listCardRarity">
+
+                        <i style="font-size: small; color: rgb(110, 109, 109);">Rarity: </i>&nbsp;                       
+                        <span [ngClass]="setRarityColor(card.card_raridade)" *ngIf="card.rarityDetails != null"
+                         style="font-size: 14px;">{{card.rarityDetails}} &nbsp;&nbsp; </span>
+
+                         <span [ngClass]="setRarityColor(card.card_raridade)" *ngIf="card.rarityDetails == null"
+                         style="font-size: 14px;">{{card.card_raridade}} &nbsp;&nbsp; </span> 
+
+                        <i style="font-size: small; color: rgb(110, 109, 109);">Price: </i>&nbsp;
+                        <span style="color: green;font-size: 14px; font-weight: bold;">
+                          {{card.card_price | currency}}
+                        </span>&nbsp;&nbsp;
+                        <b *ngIf="cardsInfo.listCardRarity.length >= 2"> / </b>
+                     </span> 
 
                 </div>
               </div>
