@@ -84,6 +84,28 @@ export abstract class GeneralFunctions  {
       }          
   }
 
+ public static colorAttribute(att:string){
+    if(att == null || att == undefined)
+       return 'att-common';
+       switch(att){
+        case 'DARK': 
+          return 'dark-color';
+        case 'WIND': 
+          return 'wind-color';
+        case 'FIRE': 
+          return 'fire-color';
+        case 'EARTH': 
+          return 'earth-color';
+        case 'WATER': 
+          return 'water-color';
+        case 'LIGHT': 
+          return 'light-color';
+
+        default: 
+          return 'att-common';     
+       }        
+  }
+
   public static validateEmail(email)  {
     return String(email)
       .toLowerCase()

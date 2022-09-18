@@ -134,8 +134,7 @@
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4"
                   style="text-align: right; margin-top: -3px; margin-right: -10px;">
-                  <img *ngIf="returnCardRarityImage(cardsInfo.numero) != null"
-                    [src]="returnCardRarityImage(cardsInfo.numero)" title>
+                  <h6><strong>{{cardsInfo.listCardRarity[0].cardSetCode}}</strong></h6>
                 </div>
               </div>
               <!--Informacoes da carta caso seja MONSTRO-->
@@ -145,8 +144,8 @@
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 hide-sm"
                   style="max-width: 13%; padding-right: 1px; padding-left: 1px;">
                   <img [src]='cardsInfo.atributo.atributoImgPath' alt="" width="30px" height="30px"
-                    style="display: inline-block;">
-                  <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">
+                    style="display: inline-block;"> &nbsp;
+                  <p class="atributo-card" style="display: inline-block; margin: 0 2px 0 2px;" [ngClass]="setAttColor(cardsInfo.atributo.name)">
                     {{cardsInfo.atributo.name}}
                   </p>
                 </div>
@@ -155,12 +154,12 @@
                   style="max-width: 13%; padding-right: 1px; padding-left: 1px;margin-top: 1px;"
                   *ngIf="cardsInfo.categoria !='Link Monster' ">
                   <img src="..\..\assets\img\outras\Nivel.png" alt="" width="25px" height="25px"
-                    style="display: inline-block;">
+                    style="display: inline-block;">&nbsp;
                   <p class="nivel" style=" display: inline-block; margin-left: 2px; "> Level {{cardsInfo.nivel}} </p>
                 </div>
                 <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5" style="padding-right: 1px; padding-left: 1px;">
                   <img [src]='cardsInfo.tipo.tipoCardImgPath' alt="" height="30px" width="30px"
-                    style="display: inline-block; ">
+                    style="display: inline-block; ">&nbsp;
                   <p class="tipos" style="display: inline-block; margin-left: 2px;">[
                     <span>{{cardsInfo.tipo.name}} </span>
 
@@ -174,7 +173,6 @@
                     <span *ngIf="cardsInfo.categoria == 'Flip Effect Monster'">/ Flip </span>
                     <span *ngIf="cardsInfo.categoria == 'Tuner Monster'">/ Turner </span>
                     <span *ngIf="cardsInfo.categoria == 'Pendulum Effect Monster'">/ Pendulum </span>
-
                     ]
                   </p>
                 </div>
@@ -231,13 +229,22 @@
                   </p> <br>
                   <p style="margin-bottom: 0;" *ngIf="cardsInfo.archetype?.arcName"> <i> <b>Archetype</b> :
                       {{cardsInfo.archetype.arcName}} </i> </p><br>
-                  <p style="margin-bottom: 0;">
-                    <i style="font-size: small; color: rgb(110, 109, 109);">Set code: </i>
-                    <span style="color:brown; font-size: 14px;">{{cardsInfo.cardSetCode}}</span> &nbsp;&nbsp;
-                    <i style="font-size: small; color: rgb(110, 109, 109);">Price: </i>
-                    <span style="color: green;font-size: 14px; font-weight: bold;">
-                      {{cardsInfo.card_price | currency}}</span>
-                  </p>
+                  <div style="margin-bottom: 0;">
+          
+                     <span *ngFor="let card of cardsInfo.listCardRarity">
+
+                        <i style="font-size: small; color: rgb(110, 109, 109);">Rarity: </i>&nbsp;
+                        <span [ngClass]="setRarityColor(card.card_raridade)"
+                         style="font-size: 14px;">{{card.rarityDetails}}</span> &nbsp;
+
+                        <i style="font-size: small; color: rgb(110, 109, 109);">Price: </i>&nbsp;
+                        <span style="color: green;font-size: 14px; font-weight: bold;">
+                          {{card.card_price | currency}}
+                        </span>&nbsp;&nbsp;
+                        <b *ngIf="cardsInfo.listCardRarity.length >= 2"> / </b>
+                     </span>  
+                  
+                    </div>
 
                 </div>
               </div>
@@ -259,8 +266,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4"
                   style="text-align: right; margin-top: -3px; margin-right: -10px;">
                   <span></span>
-                  <img *ngIf="returnCardRarityImage(cardsInfo.numero) != null"
-                    [src]="returnCardRarityImage(cardsInfo.numero)">
+                  <h5>{{cardsInfo.listCardRarity[0].cardSetCode}}</h5>
 
                 </div>
               </div>
