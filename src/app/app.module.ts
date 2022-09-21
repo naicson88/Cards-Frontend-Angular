@@ -48,6 +48,7 @@ import { SideMenuComponent } from './component/side-menu/side-menu.component';
 import { EmailConfirmationComponent } from './component/index/emailConfirmation/email-confirmation/email-confirmation.component';
 import { SuccessconfirmationComponent } from './component/index/successConfirmation/successconfirmation/successconfirmation.component';
 import { BackToTopComponent } from './Util/BackToTopButton/back-to-top/back-to-top.component';
+import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence/maintenence.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { BackToTopComponent } from './Util/BackToTopButton/back-to-top/back-to-t
     EmailConfirmationComponent,
     SuccessconfirmationComponent,
     BackToTopComponent,
+    MaintenenceComponent,
     
   
   

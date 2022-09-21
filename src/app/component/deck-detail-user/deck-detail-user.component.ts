@@ -733,11 +733,12 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
     let setCode = options[i + indexSum].innerHTML
 
     if(!setCode.includes("SET CODE") && !setCode.includes("Not Defined") && setCode != ""){
-        debugger
+        
           for(var j = 0; j < array[i].relDeckCards.length; j++){
             if(array[i].relDeckCards[j].card_set_code == setCode.trim()){
               rel = array[i].relDeckCards[j]
               rel.cardId = array[i].id
+              break;
             }
           }
 

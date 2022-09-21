@@ -191,7 +191,7 @@ export class TransferComponent implements OnInit {
         transferableCard[0].quantityUserHave ++;
       } else {
        let newCard = Object.assign({}, card);
-       newCard.angularId = Date.now()
+       newCard.angularId = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
        newCard.quantityUserHave = 1;
        userSet.cards.unshift(newCard);
        //this.leftUserSetCollecton.cards.filter(c => c.angularId == )

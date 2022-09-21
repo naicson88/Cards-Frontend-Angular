@@ -2,7 +2,7 @@ import { RelDeckCards } from "./Rel_Deck_Cards";
 
 
 export class CardSetCollectionDTO {
-    angularId: number
+    angularId: string
     cardId:number;
     number:number;
     name:string;

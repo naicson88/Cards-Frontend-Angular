@@ -19,6 +19,7 @@ import { TransferComponent } from './component/transfer/transfer.component';
 import { UserSetcollectionComponent } from './component/user-setcollection/user-setcollection.component';
 import { UsercardsComponent } from './component/usercards/usercards.component';
 import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.component';
+import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence/maintenence.component';
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 
 const routes: Routes = [
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'userdeck-details/:deckName', component: DeckDetailUserComponent },
   { path: 'search-box', component: SearchBoxComponent},
   { path: 'error-page/:code', component:ErrorPagesComponent},
+  { path: 'maintenence', component:MaintenenceComponent},
   { path: 'admin-dashboard', component:AdminDashboardComponent, canActivate: [BaseRoleGuard]},
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: '**', redirectTo: 'index', pathMatch: 'full' },

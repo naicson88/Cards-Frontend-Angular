@@ -1,0 +1,10 @@
+#main-div{
+    width: 100%; 
+    background: white; 
+    height: fit-content;
+ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+ }

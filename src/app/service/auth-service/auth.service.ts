@@ -119,6 +119,10 @@ export class AuthService {
   changePassword(user: any) {
     return this.http.post<any>(this.base_url+'/auth/change-password?token', user);
   }
+
+  checkServerStatus(){
+    return this.http.get<any>(this.base_url+"actuator/health")
+  }
 }
 
 
