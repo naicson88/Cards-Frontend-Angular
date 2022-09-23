@@ -14,6 +14,7 @@ import { environment } from "src/environments/environment";
 
   export class AdminDashboardService {
 
+
       
     constructor(private http: HttpClient, private router: Router ) {}
 
@@ -50,8 +51,15 @@ import { environment } from "src/environments/environment";
     )       
   }
 
-  public getDecksNames() {
-    return this.http.get<any>(this.base_url_main+`/decks/get-all-decksname`) 
+  public getDecksNames(collectionDecks: boolean) {
+    return this.http.get<any>(this.base_url_main+`/decks/get-all-decksname?collectionDeck=`+collectionDecks) 
+    .pipe(
+      catchError(HandleErros.handleError)
+    )       
+  }
+
+  public addNewCardToDeck(cardToBeAdd:any) {
+    return this.http.post<any>(this.base_url+"/card/add-new-card-to-deck", cardToBeAdd) 
     .pipe(
       catchError(HandleErros.handleError)
     )       

@@ -49,6 +49,7 @@ import { EmailConfirmationComponent } from './component/index/emailConfirmation/
 import { SuccessconfirmationComponent } from './component/index/successConfirmation/successconfirmation/successconfirmation.component';
 import { BackToTopComponent } from './Util/BackToTopButton/back-to-top/back-to-top.component';
 import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence/maintenence.component';
+import { AdminAddCardDeckComponent } from './component/admin/admin-add-card-deck/admin-add-card-deck/admin-add-card-deck.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence
     SuccessconfirmationComponent,
     BackToTopComponent,
     MaintenenceComponent,
+    AdminAddCardDeckComponent,
     
   
   

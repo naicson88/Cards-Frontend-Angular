@@ -1,0 +1,43 @@
+<div class="divTitle" style="color: white; background-color: rgb(235, 65, 65);">
+    <h2 style="font-weight: 700;">ADD NEW CARD TO DECK</h2>
+</div>
+<form  action="" [formGroup]="formAddCard" style="padding: 20px;">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" name="name" id="name" required formControlName="name">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="number" >Number</label>
+        <input type="text" class="form-control" name="number" id="number" required formControlName="number">
+      </div>
+      <div class="form-group col-md-5">
+        <label for="deckId" >Deck</label>
+        <select name="deckId" class="form-control" id="deckId" formControlName="deckId" #setChoosen > 
+            <option *ngFor="let deck of listAllDecks" [value]="deck.setId" selected>{{deck.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="imagem" >Rarity</label>
+            <input type="text" class="form-control" name="rarity" id="rarity" required formControlName="rarity" >
+        </div>
+        <div class="form-group col-md-4">
+            <label for="rarityCode" >Rarity Code</label>
+            <input type="text" class="form-control" name="rarityCode" id="rarityCode" required formControlName="rarityCode" >
+        </div>
+        <div class="form-group col-md-4">
+            <label for="rarityDetails" >Rarity Details</label>
+            <input type="text" class="form-control" name="rarityDetails" id="rarityDetails" required formControlName="rarityDetails" >
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="price" >Price</label>
+            <input type="text" class="form-control" name="price" id="price" required formControlName="price" >
+        </div>
+    </div>
+      <button mat-raised-button color="primary" (click)="onSubmitAddNewCardToDeck()" style="margin-left: 45%;">Save</button>
+  </form>
