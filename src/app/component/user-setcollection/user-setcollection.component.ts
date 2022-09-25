@@ -181,12 +181,14 @@ export class UserSetcollectionComponent implements OnInit {
 
     if(filter == 1)
       this.filterByAZ();
-    if(filter == 2)
-      this.filterByMostAdded();
-    if(filter == 3)
-      this.filterByPrice();
-    if(filter == 4)
-      this.filterByRarity();  
+    else if(filter == 2)
+        this.filterByMostAdded();
+    else if(filter == 3)
+        this.filterByPrice();
+    else if(filter == 4)
+        this.filterByRarity();  
+   else if( filter == 5)
+        this.filterByAZSetCode(); 
      
   }
 
@@ -229,6 +231,24 @@ export class UserSetcollectionComponent implements OnInit {
 
     this.userSetCollecton.cards = [];
     this.userSetCollecton.cards = sortedArray;
+  }
+
+  filterByAZSetCode(){
+    var sortedArray: CardSetCollectionDTO[] = this.userSetCollecton.cards.slice(0);
+    sortedArray.sort((n1,n2) => {
+      if (n1.relDeckCards.card_set_code > n2.relDeckCards.card_set_code) {
+          return 1;
+      }
+  
+      if (n1.relDeckCards.card_set_code < n2.relDeckCards.card_set_code) {
+          return -1;
+      }
+  
+      return 0;
+  })
+
+  this.userSetCollecton.cards = [];
+  this.userSetCollecton.cards = sortedArray;
   }
 
 
