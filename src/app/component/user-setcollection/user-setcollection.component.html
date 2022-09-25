@@ -213,7 +213,7 @@
         </div>
       </div>
       <div style="margin: 3px;" [style.display]="isVisible ? 'block' : 'none'">
-        <select class="form-select" style="background-color:ghostwhite !important; color: #04AA6D !important" #set
+        <select  style="background-color:ghostwhite !important; color: #04AA6D !important" #set
           [ngClass]="{'hasCard' : card.quantityUserHave > 0}" aria-label="Default select example"
           (click)="consultCardSetCode(card)" (change)="setRelInfo(card, set.value)">
           <option *ngFor="let setCode of card.listSetCode" selected [value]="setCode">{{setCode}}</option>

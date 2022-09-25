@@ -128,7 +128,7 @@
             </div>
             <!--MONSTROS-->
             <div class="row-infomacoes-card"
-              *ngIf="cardsInfo.categoria != 'Spell Card' && cardsInfo.categoria != 'Trap Card' ">
+              *ngIf="cardsInfo.categoria != 'Spell Card' && cardsInfo.categoria != 'Trap Card' && cardsInfo.categoria != 'Skill Card'">
               <!--Nome e raridade-->
               <div class="row" style="padding: 3px; border-bottom: solid thin #ccc; height: 30px; margin: 1px">
                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 hide-sm">
@@ -262,7 +262,7 @@
 
             <!--MAGICAS ARMADILHAS-->
             <div class="row-infomacoes-card"
-              *ngIf="cardsInfo.categoria == 'Spell Card' || cardsInfo.categoria == 'Trap Card' ">
+              *ngIf="cardsInfo.categoria == 'Spell Card' || cardsInfo.categoria == 'Trap Card' || cardsInfo.categoria == 'Skill Card'">
               <!--Nome e raridade-->
               <div class="row" style="padding: 3px; border-bottom: solid thin #ccc; height: 30px;">
                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 hide-sm">
