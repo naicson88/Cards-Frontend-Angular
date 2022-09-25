@@ -27,6 +27,10 @@ export class AuthInterceptor implements HttpInterceptor {
         this.router.navigate(['/index'])
     }
 
+    if(url.includes("/index") && this.jwt.getToken() != null  && this.jwt.getToken() != ""){
+      this.router.navigate(['/home'])
+    }
+
     return next.handle(request).pipe(catchError(error => {
 
       if(error.error.msg == 'Bad credentials'){
@@ -42,6 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
       }
 
       else if (error.statusText == "Unknown Error") {
+        
         this.router.navigate(["/maintenence"])
       }
 

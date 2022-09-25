@@ -58,12 +58,10 @@ import { environment } from "src/environments/environment";
     )       
   }
 
-  public addNewCardToDeck(cardToBeAdd:any) {
-    return this.http.post<any>(this.base_url+"/card/add-new-card-to-deck", cardToBeAdd) 
-    .pipe(
-      catchError(HandleErros.handleError)
-    )       
-  }
-
-  
+    public addNewCardToDeck(cardToBeAdd:any) {
+      return this.http.post<any>(this.base_url+"/card/add-new-card-to-deck", cardToBeAdd) 
+      .pipe(
+        catchError(HandleErros.handleError)
+      )       
+    }
   }

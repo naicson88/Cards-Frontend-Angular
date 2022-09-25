@@ -41,9 +41,8 @@ export class CardDetailComponent implements OnInit {
     let idd =  Number(localStorage.getItem("idCard"));
 
     this.spinner.show();
-
       this.service.getCardDetails(idd).subscribe(data => { 
-       
+        console.log(data)
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
         // console.log("CARD: " + JSON.stringify(this.card))
@@ -188,6 +187,11 @@ export class CardDetailComponent implements OnInit {
       return "ultra-raro";
     }
 
+    if(raridade == 'Secret Rare'){
+      this.raridade = "ScR";
+      return "secret-rare";
+    }
+
   }
 
   
@@ -283,4 +287,9 @@ export class CardDetailComponent implements OnInit {
   
    }
 
+}
+
+class SetPriceRarity{
+  price: number;
+  rarity: string;
 }

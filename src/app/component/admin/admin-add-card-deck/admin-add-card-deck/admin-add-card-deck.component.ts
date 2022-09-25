@@ -34,20 +34,22 @@ export class AdminAddCardDeckComponent implements OnInit {
       rarity: new FormControl(newCardToDeck.rarity),
       rarityCode: new FormControl(newCardToDeck.rarityCode),
       rarityDetails: new FormControl(newCardToDeck.rarityDetails),
-      price: new FormControl(newCardToDeck.price)
+      price: new FormControl(newCardToDeck.price),
+      cardSetCode: new FormControl(newCardToDeck.cardSetCode),
+      isSpeedDuel: new FormControl(newCardToDeck.isSpeedDuel),
     })
   } 
 
   onSubmitAddNewCardToDeck(){  
     
     console.log(this.formAddCard.value)
-    // this.adminService.addNewCardToDeck(this.formAddCard.value).subscribe(result => {
-    //   console.warn(result);
-    //   this.toastr.success("Deck information sent to Queue");
-    //   this.formAddCard.reset();
-    // }, error =>{
-    //   console.log(error.msg)
-    // })
+    this.adminService.addNewCardToDeck(this.formAddCard.value).subscribe(result => {
+      console.warn(result);
+      this.toastr.success("Deck information sent to Queue");
+      this.formAddCard.reset();
+    }, error =>{
+      console.log(error.msg)
+    })
     
   }
 
@@ -73,4 +75,7 @@ class AddNewCardToDeck {
       rarityCode:string;
       rarityDetails: string;
       price: number;
+      cardSetCode:string;
+      isSpeedDuel:boolean;
+
 }

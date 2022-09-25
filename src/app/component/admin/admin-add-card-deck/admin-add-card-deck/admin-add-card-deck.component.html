@@ -36,8 +36,22 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             <label for="price" >Price</label>
-            <input type="text" class="form-control" name="price" id="price" required formControlName="price" >
+            <input type="text" class="form-control" name="price" id="price" required formControlName="price" >         
         </div>
+
+        <div class="form-group col-md-4">
+          <label for="cardSetCode" >Card Set Code</label>
+          <input type="text" class="form-control" name="cardSetCode" id="cardSetCode" required formControlName="cardSetCode" > 
+        </div>
+        
+        <div class="form-group col-md-4">    
+          <label for="isSpeedDuel">Speed Duel</label>
+          <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel"> 
+              <option value="false" selected >No</option>
+              <option value="true">Yes</option>
+          </select>                        
+        </div>
+
     </div>
       <button mat-raised-button color="primary" (click)="onSubmitAddNewCardToDeck()" style="margin-left: 45%;">Save</button>
   </form>
