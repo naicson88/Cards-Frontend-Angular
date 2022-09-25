@@ -18,15 +18,21 @@ export class AuthInterceptor implements HttpInterceptor {
     if (configg.auth === 'token' && this.jwt && this.jwt.getToken()) {
       request = this.addToken(request, this.jwt.getToken());
     }
+
     let url = window.location.href;
 
-    if ((this.jwt.getToken() === null || this.jwt.getToken() === "") && !url.includes("/login")  && !url.includes("/register") && !url.includes("/confirmation")) {
+    if ((this.jwt.getToken() === null || this.jwt.getToken() === "") && !url.includes("/login")  
+        && !url.includes("/register") && !url.includes("/confirmation")) {
         this.authService.logout();
         this.router.navigate(['/index'])
     }
 
+    if(url.includes("/index") && this.jwt.getToken() != null  && this.jwt.getToken() != ""){
+      this.router.navigate(['/home'])
+    }
+
     return next.handle(request).pipe(catchError(error => {
-      
+
       if(error.error.msg == 'Bad credentials'){
         this.router.navigate(["/login", {data: true}])
       }
@@ -35,8 +41,13 @@ export class AuthInterceptor implements HttpInterceptor {
         this.authService.doLogoutAndRedirectToLogin();
       }
 
-      else if (error.status === 500) {
+      else if (error.status === 500 && error.statusText != "Unknown Error") {
         this.router.navigate(["/error-page", 500])
+      }
+
+      else if (error.statusText == "Unknown Error") {
+        
+        this.router.navigate(["/maintenence"])
       }
 
       else if (error.status === 404) {

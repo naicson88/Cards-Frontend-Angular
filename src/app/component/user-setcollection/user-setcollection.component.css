@@ -67,6 +67,21 @@
  
   }
 
+  .div-raridade{
+    color: silver; 
+    font-size: small; 
+    width: fit-content; 
+    display: inline-block; 
+    cursor: pointer;
+  }
+
+  .div-price-rarity {
+    width: 95%; 
+    margin-left: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+
   #divOptions{
     border: solid thin silver; 
     padding: 10px; 

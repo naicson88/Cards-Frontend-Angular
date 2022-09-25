@@ -81,6 +81,12 @@ export class UserSetcollectionComponent implements OnInit {
     })
   }
 
+  putAngularId(arr:CardSetCollectionDTO[]){
+    for(let i = 0; i < this.originalCollection.length; i++){
+      arr[i].angularId = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    }
+  }
+
   keyPressQuantityCard(event){
     var charCode =  event.keyCode;
 
@@ -237,6 +243,8 @@ export class UserSetcollectionComponent implements OnInit {
       this.originalCollection.forEach(card => {     
         if(card.name.toLowerCase().includes(value)){
           this.userSetCollecton.cards.push(card);
+        } else if (card.relDeckCards.card_set_code.toLowerCase().includes(value)){
+          this.userSetCollecton.cards.push(card)
         }
       })
     } else {
@@ -247,7 +255,7 @@ export class UserSetcollectionComponent implements OnInit {
   addOrRemoveCard(card: CardSetCollectionDTO, operation:string){  
      
    let totalPrice = parseFloat(this.userSetCollecton.totalPrice);
-    card.angularId = Date.now();
+    card.angularId = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     this.originalCollection.filter(c1 => c1.angularId == card.angularId).forEach(cardFiltered => {
       if(operation == 'plus'){
         cardFiltered.quantityUserHave += 1;
@@ -336,7 +344,7 @@ export class UserSetcollectionComponent implements OnInit {
     let newcard:CardSetCollectionDTO = new CardSetCollectionDTO();
     let rel: RelDeckCards = new RelDeckCards();
 
-    newcard.angularId = Date.now();
+    newcard.angularId = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     newcard.cardId = card.id;
     newcard.name = card.nome
     newcard.number = card.numero
@@ -399,7 +407,7 @@ export class UserSetcollectionComponent implements OnInit {
   }
 
   setRelInfo(card:CardSetCollectionDTO, setCode: string){
-    card.angularId = Date.now();
+    card.angularId = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 
     this.originalCollection.filter(c => c.angularId == card.angularId).forEach(c => {
         let rel:RelDeckCards = c.searchedRelDeckCards.filter(r => r.card_set_code === setCode)[0];
@@ -424,7 +432,7 @@ export class UserSetcollectionComponent implements OnInit {
 
     this.closeSearch();
 
-let collectionName = this.nameInput.nativeElement.value;
+    let collectionName = this.nameInput.nativeElement.value;
 
     if(collectionName == "" || collectionName == null){
       this.warningDialog("Please, fill the Collection's Name!");
@@ -434,21 +442,11 @@ let collectionName = this.nameInput.nativeElement.value;
 
     this.spinner.show();
     this.userSetCollecton.cards = [];
-
-    for(let i = 0; i < this.originalCollection.length; i++ ){
-      if(this.originalCollection[i].quantityUserHave > 0){
-        const allSelectsCards = (<HTMLElement>this.ElByClassName.nativeElement).querySelectorAll('.form-select option:checked')[i].innerHTML;
-        if(this.originalCollection[i].relDeckCards.card_set_code != allSelectsCards){
-          let setCode = allSelectsCards == "Set Code..." ? "Not Defined" : allSelectsCards;
-          this.originalCollection[i].relDeckCards.card_set_code = setCode;
-        }         
-        this.userSetCollecton.cards.push(this.originalCollection[i]);
-      }
-    }   
+ 
+    this.setCardsToBeSaved()
       
     this.userSetCollecton.name = collectionName
       
-     // console.log(this.userSetCollecton.cards)
       this.service.saveSetCollection(this.userSetCollecton).subscribe(data => {
         this.userSetCollecton.cards = this.originalCollection;
         this.spinner.hide();
@@ -463,4 +461,26 @@ let collectionName = this.nameInput.nativeElement.value;
   setRarityColor(rarity:string){
     return GeneralFunctions.colorRarity(rarity);
   }
+
+  setCardsToBeSaved(){
+      this.originalCollection.filter(coll => coll.quantityUserHave > 0).forEach(coll => {
+          if(coll.relDeckCards.card_set_code.includes("Set Code"))
+              coll.relDeckCards.card_set_code = "Not Defined"
+          
+           this.userSetCollecton.cards.push(coll);
+      }) 
+  }
+
+  // setCardsToBeSaved(){
+  //   for(let i = 0; i < this.originalCollection.length; i++ ){      
+  //     if(this.originalCollection[i].quantityUserHave > 0){      
+  //       const allSelectsCards = (<HTMLElement>this.ElByClassName.nativeElement).querySelectorAll('.hasCard')[i].innerHTML;
+  //       if(this.originalCollection[i].relDeckCards.card_set_code != allSelectsCards){
+  //         let setCode = allSelectsCards == "Set Code..." ? "Not Defined" : allSelectsCards;
+  //         this.originalCollection[i].relDeckCards.card_set_code = setCode;
+  //       }         
+  //       this.userSetCollecton.cards.push(this.originalCollection[i]);
+  //     }
+  //   }  
+  // }
 }

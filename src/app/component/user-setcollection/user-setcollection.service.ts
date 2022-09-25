@@ -25,8 +25,7 @@ import { environment } from "src/environments/environment";
         )
          
       }
-
-          
+   
     public saveSetCollection(userCollection: UserSetCollectionDTO) {
       return this.http.post<any>(this.base_url+`/user-setcollection/save-set-collection`, userCollection) 
       .pipe(

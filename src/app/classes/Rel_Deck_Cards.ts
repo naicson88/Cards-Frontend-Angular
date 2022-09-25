@@ -17,4 +17,6 @@ export class RelDeckCards {
     ultaRare: number
     numero: number;
     qtd:number;
+    setRarityCode:string;
+    rarityDetails:string;
 }

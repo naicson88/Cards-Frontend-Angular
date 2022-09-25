@@ -79,9 +79,36 @@ export abstract class GeneralFunctions  {
         return "color-ultra-rare";
       else if(raridade == 'Secret Rare')
         return "color-secret-rare";
+        
       else{
           return "color-common"
       }          
+  }
+
+ public static colorAttribute(att:string){
+    if(att == null || att == undefined)
+       return 'att-common';
+       switch(att){
+        case 'DARK': 
+          return 'dark-color';
+        case 'WIND': 
+          return 'wind-color';
+        case 'FIRE': 
+          return 'fire-color';
+        case 'EARTH': 
+          return 'earth-color';
+        case 'WATER': 
+          return 'water-color';
+        case 'LIGHT': 
+          return 'light-color';
+        case 'SPELL': 
+          return 'magic-color';
+        case 'TRAP': 
+          return 'trap-color';
+
+        default: 
+          return 'att-common';     
+       }        
   }
 
   public static validateEmail(email)  {

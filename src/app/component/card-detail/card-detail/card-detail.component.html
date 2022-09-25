@@ -61,7 +61,7 @@
                         <tr>
                             <td class="td1" width="60px">ATK:</td>
                             <td class="td2" style="text-align: left;"> <img src="..\..\assets\img\tiposMonstros\atk.JPG"
-                                 alt="" width="32px" height="32px"> {{card.atk}}</td>
+                                 alt="" width="32px" height="32px"> {{card?.atk}}</td>
                         </tr>
                         <tr *ngIf="!isLINKCard">
                             <td class="td1">DEF: </td>
@@ -240,16 +240,16 @@
                         <td style="text-align: center ;">
                             {{sets.cardSetCode}}
                         </td>
-                        <td style="text-align: center !important; cursor: pointer;">
-                            <p  [title]='sets.rarity'
-                            [ngClass]="['raridade', corRaridade(sets.rarity)]"
+                        <td class="td-raridade">
+                            <p  [title]='rarities' *ngFor="let rarities of sets.rarity"
+                            [ngClass]="['raridade', corRaridade(rarities)]"
                             style="margin-left: 15px;">
                             {{raridade}}
                         </p>
                         </td>
                         <td style="text-align: center !important;">
-                            <p class="card-text" style="color: #1c9eff !important;
-                            font-weight: bold; font-size: 1.3em !important;"> {{sets.price}}</p>
+                            <p *ngFor="let prices of sets.price" class="card-text" 
+                            style="color: #1c9eff !important; font-weight: bold; font-size: 1.3em !important;">{{prices}}</p>
                         </td>
                     </tr>
                 </table>

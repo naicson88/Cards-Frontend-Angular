@@ -71,11 +71,12 @@ export class DeckDetailComponent implements OnInit {
     const set_type = localStorage.getItem("set_type");
      
     this.service.getDeckDetails(id, source, set_type).subscribe(data => {
-     // console.log(data)
+     console.log(data)
       this.deckDetails = data;
       this.arrInsideDecksCards = data['insideDeck']
+      this.imgPath =  this.deckDetails.imgurUrl;
       
-      if(this.arrInsideDecksCards.length > 0) {
+      if(this.arrInsideDecksCards[0].cards.length > 0) {
         this.isVisible = true;
         this.countsGeneric_type = data['statsQuantityByGenericType'];
         this.quantidadePorAtributo = data['statsQuantityByAttribute'];
@@ -84,12 +85,11 @@ export class DeckDetailComponent implements OnInit {
         this.setQuantityByCardProperty(data['statsQuantityByProperty'])
         this.setQuantityByStars(data['statsQuantityByLevel'])
         this.setQuantityByAtk(data['statsAtk'])
-        this.setQuantityByDef(data['statsDef'])
-        
-        this.imgPath =  this.deckDetails.imgurUrl;  //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
+        this.setQuantityByDef(data['statsDef'])       
+          //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
         this.graficoAtributos();
         this.spinner.hide();
-      }
+      } 
 
      
     }, error => {
@@ -180,20 +180,28 @@ export class DeckDetailComponent implements OnInit {
       return 'firebrick'
     }
   
-    returnCardRarityImage(cardNumber:any){
+    // returnCardRarityImage(cardNumber:any){
       
-      let card:CardDetailsDTO = this.deckDetails.insideDeck[0].cards.find(card => card.numero == cardNumber);
+    //   let card:CardDetailsDTO = this.deckDetails.insideDeck[0].cards.find(card => card.numero == cardNumber);
   
-      if(card != null && card != undefined){
-        if(card.card_raridade == "Ultra Rare")
-           return ' ..\\..\\assets\\img\\tiposMonstros\\UR.JPG';
-        else if(card.card_raridade == "Rare")
-            return ' ..\\..\\assets\\img\\tiposMonstros\\r.JPG';
-        else if(card.card_raridade == "Super Rare")
-            return ' ..\\..\\assets\\img\\tiposMonstros\\sr.JPG';
-        else (card.card_raridade == "Common")
-            return null
-      }
+    //   if(card != null && card != undefined){
+    //     if(card.card_raridade == "Ultra Rare")
+    //        return ' ..\\..\\assets\\img\\tiposMonstros\\UR.JPG';
+    //     else if(card.card_raridade == "Rare")
+    //         return ' ..\\..\\assets\\img\\tiposMonstros\\r.JPG';
+    //     else if(card.card_raridade == "Super Rare")
+    //         return ' ..\\..\\assets\\img\\tiposMonstros\\sr.JPG';
+    //     else (card.card_raridade == "Common")
+    //         return null
+    //   }
+    // }
+
+    setRarityColor(rarity:string){
+      return GeneralFunctions.colorRarity(rarity);
+    }
+
+    setAttColor(att:string){
+      return GeneralFunctions.colorAttribute(att);
     }
   
     hasProp(obj:Object, name:string){
@@ -228,6 +236,15 @@ export class DeckDetailComponent implements OnInit {
       return false;
    }
  }
+
+ storeDeckId(id:any){
+  //  const id = event.target.name;
+    localStorage.setItem("idDeckDetails", id);
+    localStorage.setItem("source", this.source);
+    localStorage.setItem("set_type", this.set_type);
+  
+  }
+
 
  atributoImagem(atributo:string){
       

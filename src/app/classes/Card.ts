@@ -2,6 +2,7 @@ import { Deck } from "./Deck";
 
 
 export class Card {
+	angularId:string;
     id:number;
 	numero: number;
 	categoria: string;

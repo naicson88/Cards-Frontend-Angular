@@ -89,6 +89,13 @@
     background: linear-gradient(318deg, rgba(79,148,205,1) 24%, rgba(0,255,255,1) 66%, rgba(255,215,0,1) 82%);
     color: yellow  !important;
 }
+
+.secret-rare{
+    background: rgb(79,148,205);
+    background: linear-gradient(318deg, rgb(39, 151, 243) 24%, rgb(4, 156, 156) 66%, rgb(145, 125, 12) 82%);
+    color: white  !important;
+}
+
 .nome-cabecalho {
     color: #21c2f8;
     font-family: Lato, sans-serif;
@@ -298,4 +305,9 @@
     
 }
 
+.td-raridade{
+
+    text-align: center !important; 
+    cursor: pointer;
+}
 

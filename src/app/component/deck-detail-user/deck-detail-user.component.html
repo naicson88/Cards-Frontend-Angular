@@ -98,7 +98,7 @@
                         <div>
                             <a [routerLink]="['/card-detail/', card?.nome]" name="{{card.numero}}"
                                 (click)="storedCardId(card.numero)">
-                                <img [src]='cardImagem(card.numero)' alt="" width="105px" height="136px">
+                                <img [src]='cardImagem(card.numero)' alt="{{card.nome}}" title="{{card.nome}}" width="105px" height="136px">
                             </a>
 
                             <input type="hidden" id="main_hidden_{{i}}">
@@ -117,8 +117,7 @@
                                         style="color: red; font-weight: 700; top: 0;" id="main_{{i}}">
                                         $ 0.00</span>
                                     <span id="main_r_{{i}}" style="font-size: x-small; float: right;"
-                                        *ngIf="card.relDeckCards.length == 1 ">
-                                        {{card.relDeckCards[0].card_raridade}}
+                                        *ngIf="card.relDeckCards.length == 1 ">{{card.relDeckCards[0].card_raridade}}
                                     </span>
                                     <span id="main_r_{{i}}" style="font-size: x-small; float: right;"
                                         *ngIf="card.relDeckCards.length == 0 || card.relDeckCards.length > 1 ">
@@ -172,7 +171,10 @@
                     <div class="example-box" *ngFor="let card of extraDeckCards; let i = index"
                         style="background-color: transparent;">
                         <div>
-                            <img [src]='cardImagem(card.numero)' alt="" width="105px" height="136px">
+                            <a [routerLink]="['/card-detail/', card?.nome]" name="{{card.numero}}" (click)="storedCardId(card.numero)">                        
+                              <img [src]='cardImagem(card.numero)' alt="" title="{{card.nome}}" width="105px" height="136px">
+                            </a>
+                          
                             <input type="hidden" id="extra_hidden_{{i}}">
                             <input type="hidden" id="extra_hidden_price_{{i}}" class="price" />
                         </div>
@@ -237,7 +239,10 @@
                     <div class="example-box" *ngFor="let card of sideDeckCards; let i = index"
                         style="background-color: transparent;">
                         <div>
-                            <img [src]='cardImagem(card.numero)' alt="" width="105px" height="136px">
+                            <a [routerLink]="['/card-detail/', card?.nome]" name="{{card.numero}}" (click)="storedCardId(card.numero)">                        
+                                <img [src]='cardImagem(card.numero)' alt="" width="105px" title="{{card.nome}}" height="136px">
+                              </a>
+                          
                             <input type="hidden" id="side_hidden_{{i}}">
                             <input type="hidden" id="side_hidden_price_{{i}}" class="price" />
                         </div>
@@ -347,31 +352,6 @@
 
                     </div>
                 </div>
-
-                <!--<div class="cardItemSearch" *ngFor="let item of arrayCards">
-                
-                    <div class="row">                  
-                        <div class="col-md-3">
-                            <img [src]="item.image" alt="" width="67px" height="92px">
-                        </div>                  
-                    <div class="col-md-9">
-                        <span class="cardNameSpan">
-                            <a href="#" style="text-decoration: none">
-                            {{item.name}}
-                            </a>
-                            </span> <br>
-                        <span class="atkDefSpan">Atk: 100 / Def: 200</span><br>
-                        <span>{{item.type}}</span><br>
-                        <span class="collectSpan">Collection: <select name="col" id="">
-                            <option value="Teste1">Teste1</option>
-                            <option value="Teste2">Teste2</option>
-                        </select>  
-                        </span>
-                        </div>
-                    </div>
-                </div>-->
-
-
 
             </div>
 

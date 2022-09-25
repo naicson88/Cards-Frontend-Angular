@@ -1,3 +1,5 @@
+import { CardRarityDTO } from "./CardRarityDTO";
+
 export class CardDetailsDTO {
     id: number;
     numero: number;
@@ -26,4 +28,5 @@ export class CardDetailsDTO {
     card_raridade: string;
     isSideDeck: boolean;
     isSpeedDuel: boolean;
+    listCardRarity: CardRarityDTO[];
 }

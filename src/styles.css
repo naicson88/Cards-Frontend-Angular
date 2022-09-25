@@ -51,11 +51,12 @@ button {
   }
 
   .color-common{
-    color: rgb(121, 116, 116);
+    color: brown;
+    font-weight: 500;
   }
 
   .color-rare {
-    color: #CC0033;
+    color: #3CB371;
     font-weight: 500;
   }
 
@@ -73,7 +74,6 @@ button {
     background-image: linear-gradient(to left, violet, indigo, blue, green, goldenrod, orange, red);   -webkit-background-clip: text;
     color: transparent;
     font-weight: 500;
-
   }
 
   .bn33 {
@@ -91,3 +91,44 @@ button {
     transition: box-shadow 0.25s;
     color: white;
   }
+
+  .dark-color{
+    color: #9900cc;
+    font-weight: 500;
+  }
+
+  .wind-color{
+    color: #339966;
+    font-weight: 500;
+  }
+  
+  .light-color{
+    color: #cc9900;
+    font-weight: 500;
+  }
+
+  .earth-color{
+    color: #666633;
+    font-weight: 500;
+  }
+
+  .fire-color{
+    color: #ff3300;
+    font-weight: 500;
+  }
+
+  .water-color{
+    color:#3399ff;
+    font-weight: 500;
+  }
+
+  .magic-color{
+    color: #2E8B57;
+    font-weight: 500;
+  }
+
+  .trap-color{
+    color: #FF4500;
+    font-weight: 500;
+  }
+

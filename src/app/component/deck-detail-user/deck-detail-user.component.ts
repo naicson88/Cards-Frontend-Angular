@@ -136,7 +136,6 @@ loadDeckCards(){
   this.calculateDeckPrice(this.relDeckCards);
   this.setRelDeckCards();
   this.spinner.hide();
-  //this.calculateQtdRarity();
 
   },
   error =>{
@@ -252,7 +251,7 @@ setRelDeckCards(){
 setRelDeckCardsTypeDeck(card:Card){
 
   try {
-
+    card.angularId = (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     let rel = this.relDeckCards.find(rel => rel.cardId === card.id);
     let relIndex = this.relDeckCards.findIndex(rel => rel.cardId === card.id);
     if(rel == undefined || rel == null){
@@ -323,20 +322,6 @@ addCardExtraDeck(index:any){
  }
 
  this.validAndAddCardRespectiveDeck(index, this.extraDeckCards, "Card added in Extra Deck", 'extra');
-/*
- let isLimitOver:boolean = this.isCardLimitOver(this.arrayCards[index], this.extraDeckCards)
-
-  if(!isLimitOver){
-    let card:Card = this.arrayCards[index]
-    card.relDeckCards = [];
-
-    this.extraDeckCards.unshift(card);
-    this.toastr.success("Card added in Extra Deck");
-    this.countTypeCards(this.extraDeckCards, 'extra');
-  } else{
-    this.toastr.warning("There are already three copies of this card")
-  }
- */
 }
 
 addCardMainDeck(index:any){
@@ -742,41 +727,25 @@ saveDeck(){
 
 errorMsg:string;
 insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Element>, deckId:number, isSideDeck:boolean){
-    
+
   for(var i = 0; i < array.length; i++){ 
     let rel:RelDeckCards = new RelDeckCards()  
     let setCode = options[i + indexSum].innerHTML
 
-    if(setCode != "SET CODE..." && setCode != ""){
-  
-     // rel = array[i].relDeckCards.find(rel => rel.card_set_code = setCode);
-      
-      for(var j = 0; j < array[i].relDeckCards.length; j++){
-        if(array[i].relDeckCards[j].card_set_code == setCode){
-          rel = array[i].relDeckCards[j]
-          rel.cardId = array[i].id
-        }
-      }
-      
-      //Need instantiate another object becaue typescript was replacing objects inside array
-      if(rel != undefined && rel != null){
-         let  rel2:RelDeckCards = new RelDeckCards()
-         rel2.card_raridade = rel.card_raridade
-         rel2.card_set_code = rel.card_set_code
-         rel2.cardNumber = rel.cardNumber
-         rel2.isSideDeck = isSideDeck
-         rel2.id = rel.id
-         rel2.card_price = rel.card_price
-         rel2.deckId = deckId
-         rel2.cardId = rel.cardId
-         rel2.isSpeedDuel = rel.isSpeedDuel
+    if(!setCode.includes("SET CODE") && !setCode.includes("Not Defined") && setCode != ""){
+        
+          for(var j = 0; j < array[i].relDeckCards.length; j++){
+            if(array[i].relDeckCards[j].card_set_code == setCode.trim()){
+              rel = array[i].relDeckCards[j]
+              rel.cardId = array[i].id
+              break;
+            }
+          }
 
-         if(rel2.cardId == undefined || rel2.cardId == null)
-            console.log("CARD ID INVALID: " + rel2)
-          this.relDeckCardsForSave.push(rel2);
-      }
+        this.relDeckCardsForSave.push(rel);
 
-    } else {      
+    } else {    
+        
       let  rel2:RelDeckCards = new RelDeckCards()
       rel2.cardNumber = array[i].numero
       rel2.isSideDeck = isSideDeck
@@ -784,7 +753,8 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
       rel2.cardId = array[i].id
       rel2.isSpeedDuel = rel.isSpeedDuel == undefined ? false : rel.isSpeedDuel;
       this.relDeckCardsForSave.push(rel2);
-    }   
+      }   
+    
   }
 }
 

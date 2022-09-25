@@ -126,7 +126,7 @@ export class AdminDashboardComponent implements OnInit {
   searchSets(setType:string){
     this.spinner.show()
     if(setType == 'DECK'){
-      this.adminService.getDecksNames().subscribe(names => {
+      this.adminService.getDecksNames(false).subscribe(names => {
           this.setsSearched = names;     
           this.spinner.hide();
       }, error => {  

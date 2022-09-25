@@ -51,7 +51,7 @@
         <legend>Options</legend>
         <div id="fieldsetInputs">
           <mat-form-field appearance="fill" class="fld">
-            <mat-label>Search Cards</mat-label>
+            <mat-label>Search Cards (name or setcode)</mat-label>
             <input (keyup)="searchCard($event)" [(ngModel)]="searchInput" matInput placeholder="Card name..."
               class="inp">
             <mat-icon matSuffix class="my-icon" style="cursor: pointer">search</mat-icon>
@@ -174,14 +174,17 @@
     <!--Div Single Card-->
     <div class="divSingleCard" *ngFor="let card of userSetCollecton?.cards">
       <!-- [ngClass]="card.quantityOtherCollections > 0 ? 'shadow-gold' : 'shadow-blue'" -->
-      <div style="width: 95%; margin-left: 5px;" [style.display]="isVisible ? 'block' : 'none'">
+      <div class="div-price-rarity" [style.display]="isVisible ? 'flex' : 'none'">
         <!--Price div-->
         <div style="color: green; font-size: small; width: fit-content; display: inline-block; float: left;">
           <span> {{card.relDeckCards.card_price | currency : 'USD'}}</span>
         </div>
         <!--Rarity div-->
-        <div style="color: silver; font-size: small; width: fit-content; display: inline-block; float: right; ">
-          <span [ngClass]="setRarityColor(card.relDeckCards.card_raridade)"><i>{{card.relDeckCards.card_raridade }}</i>
+        <div class="div-rarity" [title]="card.relDeckCards.rarityDetails">
+          <span [ngClass]="setRarityColor(card.relDeckCards.card_raridade)">
+              <i>
+              {{card.relDeckCards.card_raridade }} {{card.relDeckCards.setRarityCode}}           
+            </i>
           </span>
         </div>
       </div>
@@ -210,7 +213,7 @@
         </div>
       </div>
       <div style="margin: 3px;" [style.display]="isVisible ? 'block' : 'none'">
-        <select class="form-select" style="background-color:ghostwhite !important; color: #04AA6D !important" #set
+        <select  style="background-color:ghostwhite !important; color: #04AA6D !important" #set
           [ngClass]="{'hasCard' : card.quantityUserHave > 0}" aria-label="Default select example"
           (click)="consultCardSetCode(card)" (change)="setRelInfo(card, set.value)">
           <option *ngFor="let setCode of card.listSetCode" selected [value]="setCode">{{setCode}}</option>
