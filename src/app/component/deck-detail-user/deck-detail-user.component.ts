@@ -123,8 +123,9 @@ loadDeckCards(){
 
   this.spinner.show();
   this.deckService.editDeck(id, "User").subscribe(data => {
+    console.log(data)
   this.deck = data
-  console.log(data)
+ 
   this.mainDeckCards = data['cards'];
   this.countTypeCards(this.mainDeckCards, "main");
 
@@ -174,9 +175,8 @@ validTypeDeckCard(cards:any){
 
         if(isExtraDeckCard)
           card.isExtraDeck = true;
-
         else {
-            card.isExtraDeck = false
+          card.isExtraDeck = false
         }
 
         this.arrayCards.push(card);

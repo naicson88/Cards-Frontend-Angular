@@ -1,5 +1,5 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatCheckbox, MatDialog, MatSelect } from '@angular/material';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatCheckbox, MatDialog, MatDialogRef, MatSelect } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import { Card } from 'src/app/classes/Card';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
@@ -25,10 +25,12 @@ export class UserSetcollectionComponent implements OnInit {
   @ViewChild("IDontHave",{static: true}) elemento: MatCheckbox;
   @ViewChild("IHave",{static: true}) elementoHave: MatCheckbox;
   @ViewChild("nameInput",{static: true}) nameInput : ElementRef;
+  @ViewChild('callAPIDialog',{static: true}) callAPIDialog: TemplateRef<any>;
+  private dialogRef: MatDialogRef<TemplateRef<any>>;
 
   
   constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog,
-     private toast: ToastrService, private cardService: CardServiceService, private ElByClassName: ElementRef ) {}
+     private toast: ToastrService, private cardService: CardServiceService ) {}
 
   userSetCollecton: UserSetCollectionDTO; 
   originalCollection: Array<CardSetCollectionDTO> = []
@@ -490,6 +492,15 @@ export class UserSetcollectionComponent implements OnInit {
            this.userSetCollecton.cards.push(coll);
       }) 
   }
+
+  openDialog(){
+    this.dialogRef = this.dialog.open(this.callAPIDialog);
+  }
+
+  closeDialog(){
+    this.dialogRef.close();
+  }
+  
 
   // setCardsToBeSaved(){
   //   for(let i = 0; i < this.originalCollection.length; i++ ){      

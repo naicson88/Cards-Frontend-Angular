@@ -128,8 +128,12 @@
         </div>
       </fieldset>
     </div>
-    <div>
-      <img [src]="userSetCollecton?.image" alt="Set Collection image" height="280px">
+    <div style="display: flex; flex-direction: column; align-items: center;  ">
+      <img [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="200px">
+      <button type="button" class="btn btn-info btn-sm" style="background-color: #096e7e !important; margin-top: 5px"
+        (click)="openDialog()">
+      Based Deck
+    </button>
     </div>
   </div>
 
@@ -226,6 +230,39 @@
     </div>
   </div>
 </div>
+<ng-template #callAPIDialog>
+    <h1 mat-dialog-title>Create a based Deck</h1>
+  <div mat-dialog-content>You can create a Deck based on predefined decks of this collection.</div> <br>
+  <div mat-dialog-content style="font-size: small !important">Cards will be added in the same quantity as registered in the based Deck, 
+    if you added more cards, they will remain in this collection.</div> <br>
+
+    <div class="dialog-body" style="display: flex; flex-direction: column; width: 80%;">
+        <mat-form-field appearance="fill">
+          <mat-label>Based Decks:</mat-label>
+          <select matNativeControl required>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </select>
+        </mat-form-field>
+      
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Deck Name</mat-label>
+            <input matInput #deckName maxlength="59" placeholder="Insert the Deck Name">
+          </mat-form-field>
+    </div>
+
+  <br>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="closeDialog()" style="color: red">Close</button>&nbsp;&nbsp;
+    <button mat-raised-button style="background-color:#059862; color: white; margin-top: 5px;"
+    (click)="closeSearch(); openDialogSearch()">
+    Confirm
+  </button> 
+  </div> 
+  
+</ng-template>
 <div style="margin-top: 60px;">
   <app-footer></app-footer>
 </div>
