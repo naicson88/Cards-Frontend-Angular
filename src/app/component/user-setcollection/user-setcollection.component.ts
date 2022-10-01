@@ -1,5 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatCheckbox, MatDialog, MatDialogRef, MatSelect } from '@angular/material';
+import { Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Card } from 'src/app/classes/Card';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
@@ -30,12 +31,13 @@ export class UserSetcollectionComponent implements OnInit {
 
   
   constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog,
-     private toast: ToastrService, private cardService: CardServiceService ) {}
+     private toast: ToastrService, private cardService: CardServiceService, private route: Router ) {}
 
   userSetCollecton: UserSetCollectionDTO; 
   originalCollection: Array<CardSetCollectionDTO> = []
   onlyUserHaveCollection: CardSetCollectionDTO[];
   filteredCollection: CardSetCollectionDTO[] = [];
+  basedDecks: any[] = [];
 
   cardsSearched: Card[] = [];
 
@@ -72,6 +74,7 @@ export class UserSetcollectionComponent implements OnInit {
 
     this.service.getSetCollection(id).subscribe(data => {
       this.userSetCollecton = data;
+      this.setBasedDeck(data['basedDeck'])
       let arr = this.userSetCollecton.cards.slice(0);
       this.originalCollection = arr;
       console.log(this.userSetCollecton)
@@ -501,17 +504,36 @@ export class UserSetcollectionComponent implements OnInit {
     this.dialogRef.close();
   }
   
+  setBasedDeck(basedDecks: any) {
+    if(basedDecks != null || basedDecks != undefined){
+      Object.entries(basedDecks).forEach(item => {
+        this.basedDecks.push({
+          "deckId": item[0],
+          "deckName": item[1]
+        });
+      })
 
-  // setCardsToBeSaved(){
-  //   for(let i = 0; i < this.originalCollection.length; i++ ){      
-  //     if(this.originalCollection[i].quantityUserHave > 0){      
-  //       const allSelectsCards = (<HTMLElement>this.ElByClassName.nativeElement).querySelectorAll('.hasCard')[i].innerHTML;
-  //       if(this.originalCollection[i].relDeckCards.card_set_code != allSelectsCards){
-  //         let setCode = allSelectsCards == "Set Code..." ? "Not Defined" : allSelectsCards;
-  //         this.originalCollection[i].relDeckCards.card_set_code = setCode;
-  //       }         
-  //       this.userSetCollecton.cards.push(this.originalCollection[i]);
-  //     }
-  //   }  
-  // }
+      console.log(this.basedDecks)
+    }  
+  }
+
+  createBasedDeck(deckId:any){
+    if(!deckId)
+      return null
+
+    this.service.createBasedDeck(Number(deckId)).subscribe(result => {
+      this.closeDialog();
+      localStorage.setItem("idDeckDetails", result);
+      localStorage.setItem("source", "KONAMI");
+      localStorage.setItem("set_type", "DECK");
+      this.route.navigate(['/userdeck-details/', '']);
+
+    }, error => {
+      console.log(error);
+    })
+
+  }
+
+  
+
 }

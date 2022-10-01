@@ -32,4 +32,12 @@ import { environment } from "src/environments/environment";
         catchError(HandleErros.handleError)
       )
     }
+
+       
+    public createBasedDeck(deckId:any) {
+      return this.http.post<any>(this.base_url+`/userDeck/create-based-deck`, deckId) 
+      .pipe(
+        catchError(HandleErros.handleError)
+      )
+    }
   }

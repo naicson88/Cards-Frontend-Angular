@@ -9,5 +9,6 @@ export class UserSetCollectionDTO {
     rarities:any;
     setCodes:string[];
     setType:string
+    basedDeck:any;
     cards:CardSetCollectionDTO[];
 }
