@@ -523,6 +523,7 @@ export class UserSetcollectionComponent implements OnInit {
 
     this.service.createBasedDeck(Number(deckId)).subscribe(result => {
       this.closeDialog();
+      this.successDialog("A Based Deck has been created!")
       localStorage.setItem("idDeckDetails", result);
       localStorage.setItem("source", "KONAMI");
       localStorage.setItem("set_type", "DECK");
@@ -533,7 +534,6 @@ export class UserSetcollectionComponent implements OnInit {
     })
 
   }
-
   
 
 }

@@ -240,13 +240,11 @@
         <mat-form-field appearance="fill">
           <mat-label>Based Decks:</mat-label>
           <mat-select #basedDeck>
-            <mat-option *ngFor="let deck of baseDecks" [value]="deck.deckId">
+            <mat-option *ngFor="let deck of basedDecks" [value]="deck.deckId">
               {{deck.deckName}}
             </mat-option>
           </mat-select>
-        </mat-form-field>
-      
-   
+        </mat-form-field>   
     </div>
 
   <br>
