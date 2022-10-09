@@ -95,11 +95,11 @@ export class AdminDashboardComponent implements OnInit {
   } 
 
   onSubmitCollectionDeck(){
-    debugger
+    
     this.formDeckCollection.value.lancamento = formatDate(this.formDeckCollection.value.lancamento, 'dd-MM-yyyy', 'en-US')
     console.log(this.formDeckCollection.value);
     this.adminService.createNewDeckCollection(this.formDeckCollection.value).subscribe(result => {
-      
+      console.log(result)
       this.toastr.success("Deck Collection sent to Queue")
       this.formCollection.reset();
 
@@ -120,6 +120,7 @@ export class AdminDashboardComponent implements OnInit {
       requestSource: new FormControl(collectionDeck.requestSource),
       setId: new FormControl(collectionDeck.setId),
       filterSetCode: new FormControl(collectionDeck.filterSetCode),
+      isBasedDeck: new FormControl(collectionDeck.isBasedDeck)
     })
   }
 

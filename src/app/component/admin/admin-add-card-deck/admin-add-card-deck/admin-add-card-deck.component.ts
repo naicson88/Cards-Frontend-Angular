@@ -77,5 +77,6 @@ class AddNewCardToDeck {
       price: number;
       cardSetCode:string;
       isSpeedDuel:boolean;
+      isBasedDeck:boolean;
 
 }

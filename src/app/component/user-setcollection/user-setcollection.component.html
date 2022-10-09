@@ -76,7 +76,10 @@
                 No filter...
               </mat-option>
               <mat-option [value]="1">
-                a-Z
+                a-Z - Name
+              </mat-option>
+              <mat-option [value]="5">
+                a-Z - Set Code
               </mat-option>
               <mat-option [value]="3">
                 Price
@@ -111,11 +114,11 @@
         </div>
         <br>
         <div id="fieldsetButtons">
-          <!-- <button mat-raised-button style="background-color:#1E90FF; color: white; margin-top: 5px;" (click)="addPlusOneForall()" title="Only on cards on display">
+          <button mat-raised-button style="background-color:#1E90FF; color: white; margin-top: 5px;" (click)="addPlusOneForall()" title="Only on cards on display">
                     Add to all Cards 	<mat-icon>exposure_plus_1</mat-icon>
                   </button> &nbsp;
 
-                  <button mat-raised-button style="background-color:#f44336; color: white; margin-top: 5px;" (click)="saveDeck()"  title="Only on cards on display">
+                  <!-- <button mat-raised-button style="background-color:#f44336; color: white; margin-top: 5px;" (click)="saveDeck()"  title="Only on cards on display">
                     Remove to all Cards <mat-icon>exposure_neg_1</mat-icon>
                   </button> -->
           <button mat-raised-button style="background-color:#059862; color: white; margin-top: 5px;"
@@ -125,8 +128,12 @@
         </div>
       </fieldset>
     </div>
-    <div>
-      <img [src]="userSetCollecton?.image" alt="Set Collection image" height="280px">
+    <div style="display: flex; flex-direction: column; align-items: center;  ">
+      <img [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="200px">
+      <button type="button" class="btn btn-info btn-sm" style="background-color: #096e7e !important; margin-top: 5px" *ngIf="basedDecks.length > 0"
+        (click)="openDialog()">
+      Based Deck
+    </button>
     </div>
   </div>
 
@@ -223,6 +230,33 @@
     </div>
   </div>
 </div>
+<ng-template #callAPIDialog>
+    <h1 mat-dialog-title>Create a based Deck</h1>
+  <div mat-dialog-content>You can create a Deck based on predefined decks of this collection.</div> <br>
+  <div mat-dialog-content style="font-size: small !important">Cards will be added in the same quantity as registered in the based Deck, 
+    if you added more cards, they will remain in this collection.</div> <br>
+
+    <div class="dialog-body" style="display: flex; flex-direction: column; width: 80%;">
+        <mat-form-field appearance="fill">
+          <mat-label>Based Decks:</mat-label>
+          <mat-select #basedDeck>
+            <mat-option *ngFor="let deck of basedDecks" [value]="deck.deckId">
+              {{deck.deckName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>   
+    </div>
+
+  <br>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="closeDialog()" style="color: red">Close</button>&nbsp;&nbsp;
+    <button mat-raised-button style="background-color:#059862; color: white; margin-top: 5px;"
+    (click)="createBasedDeck(basedDeck.value)">
+    Confirm
+  </button> 
+  </div> 
+  
+</ng-template>
 <div style="margin-top: 60px;">
   <app-footer></app-footer>
 </div>
