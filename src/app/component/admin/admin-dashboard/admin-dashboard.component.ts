@@ -95,7 +95,7 @@ export class AdminDashboardComponent implements OnInit {
   } 
 
   onSubmitCollectionDeck(){
-    debugger
+    
     this.formDeckCollection.value.lancamento = formatDate(this.formDeckCollection.value.lancamento, 'dd-MM-yyyy', 'en-US')
     console.log(this.formDeckCollection.value);
     this.adminService.createNewDeckCollection(this.formDeckCollection.value).subscribe(result => {
