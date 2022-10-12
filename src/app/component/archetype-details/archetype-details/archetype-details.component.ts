@@ -35,10 +35,10 @@ export class ArchetypeDetailsComponent  implements OnInit  {
   loadArchetypeDetails(){
     const id = localStorage.getItem("idArchetype");
    // const id = this.archService.getArchetypeId();
-    this.archService.getArchetype(id).subscribe(data =>{
-
+    this.archService.getArchetype(id).subscribe(data =>{    
+      console.info(data)
      this.archetype = data;
-     
+    
     })
   }
   
