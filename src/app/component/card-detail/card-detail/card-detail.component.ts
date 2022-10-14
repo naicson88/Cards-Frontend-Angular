@@ -35,6 +35,7 @@ export class CardDetailComponent implements OnInit {
   totalViews:number;
   isLINKCard: boolean = false;
   cardTypes:string = "";
+  cardAlternativeNumber:[] = [];
 
   loadCardDetail(){
    // const id = localStorage.getItem("idCard");
@@ -42,9 +43,11 @@ export class CardDetailComponent implements OnInit {
 
     this.spinner.show();
       this.service.getCardDetails(idd).subscribe(data => { 
+        
         console.log(data)
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
+        this.cardAlternativeNumber = data['card']['alternativeCardNumber']
         // console.log("CARD: " + JSON.stringify(this.card))
         this.qtdUserHaveByKonamiCollection(data);
         this.qtdUserHaveByUserCollection(data);

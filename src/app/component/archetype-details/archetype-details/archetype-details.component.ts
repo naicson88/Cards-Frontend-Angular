@@ -13,6 +13,7 @@ import { CardServiceService } from 'src/app/service/card-service/card-service.se
 })
 export class ArchetypeDetailsComponent  implements OnInit  {
   archetype: Archetype[] = [];
+  total : number = 0;
 
   constructor(private archService: AchetypeService, private cardService: CardServiceService) {
    
@@ -38,6 +39,7 @@ export class ArchetypeDetailsComponent  implements OnInit  {
     this.archService.getArchetype(id).subscribe(data =>{    
       console.info(data)
      this.archetype = data;
+     this.total = this.archetype['arrayCards'].length
     
     })
   }

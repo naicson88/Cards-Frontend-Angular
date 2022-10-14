@@ -43,18 +43,17 @@
 }
 
 #cardImagem{
-    border: 1px solid #ceefff;
-    margin-top: 5px;
-    margin-bottom: 5px; 
-    margin-left: 1%;
-    background: #fff;
-    padding: 6px;
-    box-shadow: 0 1px 4px 0 rgba(21,180,255,0.5);
     width: 200px;
     height: 270px;
     float: left;
-    object-fit: cover       ;
-  
+    object-fit: cover ; 
+}
+
+#carouselExampleControls {
+
+    border: 1px solid #ceefff;
+    background: #fff;
+    box-shadow: 0 1px 4px 0 rgba(21,180,255,0.5);
 }
 
 .raridade {
