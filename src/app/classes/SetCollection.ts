@@ -8,6 +8,7 @@ export class SetCollection {
     onlyDefaultDeck:boolean
     isSpeedDuel:boolean;
     requestSource:string;
+    setCode:string
 
 
 }

@@ -41,8 +41,6 @@ export class AdminAddCardDeckComponent implements OnInit {
   } 
 
   onSubmitAddNewCardToDeck(){  
-    
-    console.log(this.formAddCard.value)
     this.adminService.addNewCardToDeck(this.formAddCard.value).subscribe(result => {
       console.warn(result);
       this.toastr.success("Deck information sent to Queue");

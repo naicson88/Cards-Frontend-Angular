@@ -22,40 +22,42 @@
                     <input type="text" class="form-control" name="nome" id="nome" required formControlName="nome">
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="nomePortugues" >Set Name Portuguese</label>
-                    <input type="text" class="form-control" name="nomePortuguese" id="nomePortugues" required formControlName="nomePortugues">
-                  </div>
+                    <label for="imagem" >Image Path</label>
+                    <input type="text" class="form-control" name="imagem" id="imagem" required formControlName="imagem" >
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="imagem" >Image Path</label>
-                        <input type="text" class="form-control" name="imagem" id="imagem" required formControlName="imagem" >
-                    </div>
+                </div>
+                <div class="form-row">                 
                     <div class="form-group col-md-6">
                         <label for="requestSource" >Deck Name Source</label>
                         <input type="text" class="form-control" name="requestSource" id="requestSource" required formControlName="requestSource" >
                     </div>
-                </div>
-    
+                </div>         
                
-                <div class="form-group">
-                    <label for="setType" >Set Type</label>
-    
-                    <select name="setType" class="form-control" id="setType" style="width:30%" formControlName="setType"> 
-                        <option value="DECK" selected>Deck</option>
-                        <option value="T">Tin</option>
-                        <option value="B">Box</option>
-                    </select>
-                </div>
                 <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="releaseDate">Release Date</label><br>
-                    <input matInput [matDatepicker]="picker" class="form-control" style="width:30%" name="releaseDate" formControlName="lancamento" >
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </div>
-                    <div class="form-group ">         
-                     <mat-checkbox class="example-margin"  formControlName="isSpeedDuel" id="isSpeedDuel" name="isSpeedDuel">Speed Duel</mat-checkbox>                            
+                    <div class="form-group col-md-3">
+                        <label for="setType" >Set Type</label>
+                        <select name="setType" class="form-control" id="setType"  formControlName="setType"> 
+                            <option value="DECK" selected>Deck</option>
+                            <option value="T">Tin</option>
+                            <option value="B">Box</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="releaseDate">Release Date</label><br>
+                        <input matInput [matDatepicker]="picker" class="form-control" name="releaseDate" formControlName="lancamento" >
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </div>
+                    <div class="form-group col-md-3">    
+                        <label for="isSpeedDuel">Speed Duel</label>
+                        <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel"> 
+                            <option value="false" selected >No</option>
+                            <option value="true">Yes</option>
+                        </select>                        
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="setCode" >Set Code</label>
+                        <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode" >
                     </div>
                  </div>
                   <button mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 45%;">Save</button>
@@ -72,26 +74,20 @@
                         <label for="name" style="color: blueviolet;">Collection Name</label>
                         <input type="text" class="form-control" name="name" id="name" required formControlName="name">
                     </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="portugueseName" style="color: green; ">Collection Portuguese Name</label>
-                        <input type="text" class="form-control" name="portugueseName" id="portugueseName" required formControlName="portugueseName">
-                    </div>
-                </div>
-                
-                <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="imgPath">Image Path</label>
                         <input type="text" class="form-control" name="imgPath" id="imgPath" required formControlName="imgPath">
                     </div>
+                </div>
+                
+                <div class="form-row">                 
                     <div class="form-group col-md-6">
                         <label for="requestSource" >Request Resource</label>
                         <input type="text" class="form-control" name="requestSource" id="requestSource" required formControlName="requestSource" >
                     </div>
                 </div>
 
-                <div class="form-row">
-                    
+                <div class="form-row">                
                     <div class="form-group col-md-3" >
                         <label for="setType">Collection Type</label>
                         <select name="setType" class="form-control" id="setType" formControlName="setType"> 
@@ -108,15 +104,23 @@
                             <option value="true">Yes</option>
                         </select>                        
                     </div>
-                </div>
 
-                <div class="form-row">
                     <div class="form-group col-md-3" >
                         <label for="releaseDate" >Release Date</label><br>             
-                        <input matInput  [matDatepicker]="picker" name="releaseDate" formControlName="releaseDate" >
+                        <input matInput  [matDatepicker]="picker" class="form-control"  name="releaseDate" formControlName="releaseDate" >
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>              
                     </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="setCode" >Set Code</label>
+                        <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode" >
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                  
                 </div>
 
                 <button mat-raised-button color="primary" (click)="onSubmitSetCollection()"  style="margin-left: 45%;">Save</button>
