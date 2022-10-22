@@ -101,13 +101,11 @@ export class CardDetailComponent implements OnInit {
       return urlimg;
   }
 
-  storeDeckId(id:any, set_type:string){
-    //  const id = event.target.name;
-      localStorage.setItem("idDeckDetails", id);
-      localStorage.setItem("source",'konami');
-      localStorage.setItem("set_type", set_type);
-    
-    }
+   storeDeckId(id:any, set_type:string){
+    GeneralFunctions.storeInformation("idDeckDetails", id, 'konami', set_type)
+  }
+
+
 
   atributoImagem(atributo:string){
     switch(atributo){

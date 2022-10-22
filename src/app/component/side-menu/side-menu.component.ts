@@ -73,7 +73,7 @@ export class SideMenuComponent implements OnInit {
   dataCtrl = new FormControl('');
   filteredData: Observable<any[]>;
 
-  constructor(private router: Router, private authService: AuthService, ) {
+  constructor(private router: Router, private authService: AuthService, private route: Router  ) {
     this.filteredData = this.dataCtrl.valueChanges.pipe(
       startWith('Dark'),
       map(data => (data.length > 2 ? this._filterStates(data) : [])),
@@ -88,11 +88,10 @@ export class SideMenuComponent implements OnInit {
     return arr
   }
   
-  ngOnInit() {
-   
+  ngOnInit() { 
     this.checkRouter();
     this.validUser();
-    this.generalSearch();
+   
   }
 
   checkRouter(){
@@ -205,5 +204,25 @@ checkIfIsAdmin(userRole:string) {
          let urlimg = GeneralFunctions.cardImagem + cardId + '.jpg';
          return urlimg;
      }
+
+     redirectToPage(data:GeneralSearchDTO){
+ 
+      this.storeInformations(data.id, data.entityType, data.name)
+     }
+
+     storeInformations(id:any, setType:string, name:string){
+      
+      let arg = setType != 'CARD' ? 'idDeckDetails' : 'idCard'
+      GeneralFunctions.storeInformation(arg, id, 'konami', setType)
+
+      if(setType == 'DECK')
+       this.route.navigate(['/deck-details/', name]);
+      else if(setType == 'CARD')
+       this.route.navigate(['/card-detail/', name]);
+      else if(setType == 'COLLECTION')
+       this.route.navigate(['/collection-details/', name]);
+      else
+        console.log('ERROR: It was not possible redirect in General Search')
+    }
 
 }
