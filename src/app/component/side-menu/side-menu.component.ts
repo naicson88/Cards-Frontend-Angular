@@ -1,7 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnChanges, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { GeneralSearchDTO } from 'src/app/classes/GeneralSearchDTO';
 import { AuthService } from 'src/app/service/auth-service/auth.service';
+import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 
 @Component({
   selector: 'app-side-menu',
@@ -64,14 +69,29 @@ export class SideMenuComponent implements OnInit {
   isConfirmed: boolean = false;
   isMaintenence: boolean = false
 
-  constructor(private router: Router, private authService: AuthService, ) {
- 
-   }
+  generalSearchArr:GeneralSearchDTO[] = []
+  dataCtrl = new FormControl('');
+  filteredData: Observable<any[]>;
 
-  ngOnInit() {
-   
+  constructor(private router: Router, private authService: AuthService, private route: Router  ) {
+    this.filteredData = this.dataCtrl.valueChanges.pipe(
+      startWith('Dark'),
+      map(data => (data.length > 2 ? this._filterStates(data) : [])),
+    );   
+   }  
+
+   private _filterStates(value: string): any[] {
+    const filterValue = value.toLowerCase();
+    let arr : GeneralSearchDTO[] = [];
+    arr = this.generalSearchArr.filter(data => (data.name.toLowerCase().includes(filterValue)) || (data.setCode != null ? data.setCode.toLowerCase().includes(filterValue) : null));
+    console.log(arr)
+    return arr
+  }
+  
+  ngOnInit() { 
     this.checkRouter();
     this.validUser();
+   
   }
 
   checkRouter(){
@@ -170,6 +190,39 @@ checkIfIsAdmin(userRole:string) {
       localStorage.setItem("source", "USER");
       localStorage.setItem("set_type", "DECK");
     
+    }
+
+    generalSearch(){
+      this.authService.generalSerach().subscribe(data => {
+        this.generalSearchArr = data;
+        console.log(this.generalSearchArr)
+      })
+    }
+
+    cardImagem(cardId: any){
+         debugger
+         let urlimg = GeneralFunctions.cardImagem + cardId + '.jpg';
+         return urlimg;
+     }
+
+     redirectToPage(data:GeneralSearchDTO){
+ 
+      this.storeInformations(data.id, data.entityType, data.name)
+     }
+
+     storeInformations(id:any, setType:string, name:string){
+      
+      let arg = setType != 'CARD' ? 'idDeckDetails' : 'idCard'
+      GeneralFunctions.storeInformation(arg, id, 'konami', setType)
+
+      if(setType == 'DECK')
+       this.route.navigate(['/deck-details/', name]);
+      else if(setType == 'CARD')
+       this.route.navigate(['/card-detail/', name]);
+      else if(setType == 'COLLECTION')
+       this.route.navigate(['/collection-details/', name]);
+      else
+        console.log('ERROR: It was not possible redirect in General Search')
     }
 
 }

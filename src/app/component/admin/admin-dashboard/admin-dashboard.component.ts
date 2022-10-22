@@ -56,12 +56,12 @@ export class AdminDashboardComponent implements OnInit {
   createFormDeck(konamiDeck:KonamiDeck){
     this.formDeck = new FormGroup({
       nome: new FormControl(konamiDeck.nome),
-      nomePortugues: new FormControl(konamiDeck.nomePortugues),
       setType: new FormControl(konamiDeck.setType),
       lancamento: new FormControl(konamiDeck.lancamento),
       imagem: new FormControl(konamiDeck.imagem),
       isSpeedDuel: new FormControl(konamiDeck.isSpeedDuel),
-      requestSource: new FormControl(konamiDeck.requestSource)
+      requestSource: new FormControl(konamiDeck.requestSource),
+      setCode: new FormControl(konamiDeck.setCode)
     })
   }
 
@@ -82,14 +82,14 @@ export class AdminDashboardComponent implements OnInit {
   createFormSetCollection(setCollection: SetCollection){
     this.formCollection = new FormGroup({
       name: new FormControl(setCollection.name),
-      portugueseName: new FormControl(setCollection.portugueseName),
       imgPath: new FormControl(setCollection.imgPath),
       deckParameters: new FormControl(setCollection.deckParameters),
       setType: new FormControl(setCollection.setType),
       releaseDate: new FormControl(setCollection.releaseDate),
       onlyDefaultDeck: new FormControl(setCollection.onlyDefaultDeck),
       isSpeedDuel: new FormControl(setCollection.isSpeedDuel),
-      requestSource : new FormControl(setCollection.requestSource)
+      requestSource : new FormControl(setCollection.requestSource),
+      setCode: new FormControl(setCollection.setCode)
     })
    
   } 

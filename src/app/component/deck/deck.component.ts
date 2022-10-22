@@ -11,6 +11,7 @@ import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
 import { Observable } from 'rxjs';
 import {startWith, map} from 'rxjs/operators';
+import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 
 
 
@@ -132,7 +133,7 @@ export class DeckComponent implements OnInit {
           }
   
           if(qtdCardManeged > 0){
-            this.toastr.success('The Set has been added to your collection! Plus ' + qtdCardManeged + ' cards of this Deck.', 'Success!');
+            this.toastr.success('The Set has been added to your collection! Plus', 'Success!');
               
             this.manegeQuantity(setId, "A");
   
@@ -244,13 +245,9 @@ export class DeckComponent implements OnInit {
   }
 
   storeDeckId(id:any){
-  //  const id = event.target.name;
-    localStorage.setItem("idDeckDetails", id);
-    localStorage.setItem("source", this.source);
-    localStorage.setItem("set_type", this.set_type);
-  
+    GeneralFunctions.storeInformation("idDeckDetails", id, this.source, this.set_type)
   }
-
+  
   addDeckToCollection(e){
     const deckId = e.target.name;
     

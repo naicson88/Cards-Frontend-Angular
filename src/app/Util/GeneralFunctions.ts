@@ -119,5 +119,10 @@ export abstract class GeneralFunctions  {
       );
   };
 
-
+  public static storeInformation(arg1:string, id: any, source:string, setType: string){
+    localStorage.setItem(arg1, id);
+    localStorage.setItem("source", source);
+    localStorage.setItem("set_type", setType);
+  }
+  
 }

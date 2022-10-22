@@ -5,10 +5,37 @@
     <div id="cabecalho" class="row">
         <div id="cardImagem" >
             <!--<img [src]="card.imagem" alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;">-->
-            <img [src]="cardImagem(card.numero)" alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;"
+            <!-- <img [src]="cardImagem(card.numero)" alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;"
             (mouseover)="mostrarImgToolTip($event)"
             (mousemove)="mostrarImgToolTip($event)"
-            (mouseout)="esconderImgToolTip()"> 
+            (mouseout)="esconderImgToolTip()">  -->
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+
+                  <div class="carousel-item active">
+                    <img class="d-block w-100" [src]="cardImagem(cardAlternativeNumber[0].cardAlternativeNumber)" alt="First slide" width="193" height="265"
+                    (mouseover)="mostrarImgToolTip($event)"
+                    (mousemove)="mostrarImgToolTip($event)"
+                    (mouseout)="esconderImgToolTip()">
+                  </div>
+
+                  <div class="carousel-item" *ngFor="let card of cardAlternativeNumber | slice:1;">
+                    <img class="d-block w-100" [src]="cardImagem(card.cardAlternativeNumber)" alt="First slide" width="193" height="265"
+                    (mouseover)="mostrarImgToolTip($event)"
+                    (mousemove)="mostrarImgToolTip($event)"
+                    (mouseout)="esconderImgToolTip()">
+                  </div>
+                </div>
+
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" *ngIf="cardAlternativeNumber.length > 1">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" *ngIf="cardAlternativeNumber.length > 1">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
             
             <div id="total-card-views">
                 Total Views:  <b>{{totalViews}}</b> 
@@ -28,8 +55,8 @@
                     <p class="nome-cabecalho">{{card.nome}}</p>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-sm">
-                    <td class="td2">  <img [src]='card.atributo.atributoImgPath' alt="" width="40px" 
-                        height="40px" style="display: inline-block; margin-top: -5px;"/> {{card.atributo.name}} </td>
+                    <td class="td2">  <img [src]='card.atributo?.atributoImgPath' alt="" width="40px" 
+                        height="40px" style="display: inline-block; margin-top: -5px;"/> {{card.atributo?.name}} </td>
                 </div>
 
             </div>
@@ -47,7 +74,7 @@
                         </tr>
                         <tr>
                             <td class="td1">Types: </td>
-                            <td class="td2"> <img  [src]='card.tipo.tipoCardImgPath' alt=""
+                            <td class="td2"> <img  [src]='card.tipo?.tipoCardImgPath' alt=""
                                  height="28px" width="28px" style="display: inline-block; margin-right: 3px;"> 
                                 <span>{{cardTypes}} </span> 
                       
@@ -76,8 +103,8 @@
                         <tr>        
                             <td class="td1">Archetype: </td>
                             <td class="td2 archetype"  > 
-                                <li  [routerLink]="['/archetypeDetails/', card.archetype.id]" 
-                                id='{{card.archetype.id}}' (click)="storedArchetype($event)" style=" list-style-type: none;">
+                                <li  [routerLink]="['/archetypeDetails/', card.archetype?.id]" 
+                                id='{{card.archetype?.id}}' (click)="storedArchetype($event)" style=" list-style-type: none;">
                                     {{card.archetype.arcName}} 
                                 </li>                            
                             </td>
@@ -124,8 +151,8 @@
                     <p class="nome-cabecalho">{{card.nome}}</p>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-sm" *ngIf="expression">
-                    <td class="td2">  <img [src]='card.atributo.atributoImgPath' alt="" width="40px" 
-                        height="40px" style="display: inline-block; margin-top: -5px;"/> {{card.atributo.name}} </td>
+                    <td class="td2">  <img [src]='card.atributo?.atributoImgPath' alt="" width="40px" 
+                        height="40px" style="display: inline-block; margin-top: -5px;"/> {{card.atributo?.name}} </td>
                 </div>
 
             </div>
@@ -142,13 +169,13 @@
                                 <img [src]='atributoImagem(card.propriedade)' alt="" *ngIf="card.propriedade !== 'Normal' " width="40px"/>
                             </td>
                         </tr>
-                        <tr *ngIf="card.archetype.name != null">        
+                        <tr *ngIf="card.archetype?.name != null">        
                             <td class="td1">Archetype: </td>
                             
-                            <td class="td2"  attr.data-name="{{card.archetype.id}" (click)="storedArchetype($event)"> 
-                                <li  [routerLink]="['/archetypeDetails/', card.archetype.id]" 
+                            <td class="td2"  attr.data-name="{{card.archetype?.id}" (click)="storedArchetype($event)"> 
+                                <li  [routerLink]="['/archetypeDetails/', card.archetype?.id]" 
                                 id='{{card.codArchetype}}' (click)="storedArchetype($event)">
-                                    {{card.archetype.name}} 
+                                    {{card.archetype?.name}} 
                                 </li>                             
                             </td>
                         </tr>
@@ -235,7 +262,7 @@
                             <img [src]='sets.image' alt="Image of the set" width="80px" height="110px" >
                         </td>
                         <td>
-                        <a [routerLink]="['/deck-details/', sets.name]" name="sets.id" (click)="storeDeckId(sets.id, sets.setType)">{{sets.name}}</a> 
+                        <a [routerLink]="['/deck-details/', sets.name]" name="sets?.id" (click)="storeDeckId(sets?.id, sets.setType)">{{sets.name}}</a> 
                         </td>
                         <td style="text-align: center ;">
                             {{sets.cardSetCode}}
