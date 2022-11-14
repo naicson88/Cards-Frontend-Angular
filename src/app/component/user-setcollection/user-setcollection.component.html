@@ -203,8 +203,8 @@
       </div>
       <div class="singleCardName">
         <p class="card-name">
-          <a [routerLink]="['/card-detail/', card.name]" name="{{card.number}}" (click)="storedCardId(card.number)">
-            <span *ngIf="card.quantityOtherCollections > 0 && card.listSetCode[0] != 'Not Defined'"
+          <a [routerLink]="['/card-detail/', card.name]" name="{{card.number}}" (click)="storedCardId(card.number)" target="_blank">
+            <span *ngIf="card.quantityOtherCollections > 0 && card.listSetCode[0] != 'Not Defined'" 
               title="Quantity of this Card-Set Code in your other Sets">(<span
                 style="color: orange;">{{card.quantityOtherCollections}}</span>)</span>
             {{card.name}}

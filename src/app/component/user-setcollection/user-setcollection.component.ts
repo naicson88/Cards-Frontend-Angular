@@ -277,6 +277,7 @@ export class UserSetcollectionComponent implements OnInit {
           this.userSetCollecton.cards = this.originalCollection;
     }
   }
+  
   addOrRemoveCard(card: CardSetCollectionDTO, operation:string){  
      
    let totalPrice = parseFloat(this.userSetCollecton.totalPrice);

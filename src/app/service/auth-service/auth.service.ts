@@ -9,6 +9,7 @@ import { tap, map, catchError, subscribeOn } from 'rxjs/operators';
 import { JwtAuthStrategy } from './jwt-auth.strategy';
 import { configg } from './config';
 import { HandleErros } from 'src/app/Util/HandleErros';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -27,7 +28,7 @@ export class AuthService {
   userRole:string
   username: any;
   user: any;
-  base_url = "http://localhost:8080/yugiohAPI"
+  base_url = environment.devCardsMain
   constructor(
   
     private router: Router,
@@ -36,7 +37,7 @@ export class AuthService {
   ) { }
 
   signup(user: User): Observable<void> {
-    return this.http.post<any>(`http://localhost:8080/yugiohAPI/auth/signup`, user);
+    return this.http.post<any>(this.base_url+`auth/signup`, user);
   }
 
   login(loginRequest: LoginRequest): Observable<User> {

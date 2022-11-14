@@ -262,7 +262,7 @@ export class UsercardsComponent implements OnInit {
       }
 
       storeDeckId(id:any, setType:string){
-         debugger
+         
          let modal = (document.getElementById('closeModalBtn') as HTMLElement);
           modal.click();
         //  const id = event.target.name;

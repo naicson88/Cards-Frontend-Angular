@@ -137,20 +137,34 @@
                     <label for="nome">Set Name</label>
                     <input type="text" class="form-control" name="nome" id="nome" required formControlName="nome">
                   </div>
-                  <div class="form-group col-md-6">
+                  <!-- <div class="form-group col-md-6">
                     <label for="nomePortugues" >Set Name Portuguese</label>
                     <input type="text" class="form-control" name="nomePortuguese" id="nomePortugues" required formControlName="nomePortugues">
-                  </div>
+                  </div> -->
+                  <div class="form-group col-md-6">
+                    <label for="imagem" >Image Path</label>
+                    <input type="text" class="form-control" name="imagem" id="imagem" required formControlName="imagem" >
+                </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="imagem" >Image Path</label>
-                        <input type="text" class="form-control" name="imagem" id="imagem" required formControlName="imagem" >
-                    </div>
+                  
                     <div class="form-group col-md-6">
                         <label for="requestSource" >Deck Name Source</label>
                         <input type="text" class="form-control" name="requestSource" id="requestSource" required formControlName="requestSource" >
                     </div>
+
+                    <div class="form-group col-md-2">    
+                        <label for="isBasedDeck">Based Deck</label>
+                        <select name="isBasedDeck" class="form-control" id="isBasedDeck" formControlName="isBasedDeck"> 
+                            <option value="false" selected >No</option>
+                            <option value="true">Yes</option>
+                        </select>                        
+                    </div>
+                        
+                    <div class="form-group col-md-4">
+                        <label for="filterSetCode" >Filter Set Code</label>
+                        <input type="text" class="form-control" name="filterSetCode" id="filterSetCode" formControlName="filterSetCode" >
+                    </div>    
                 </div>
        
                 <div class="form-row">
@@ -171,13 +185,8 @@
                         </select>
                     </div>
     
-                    <div class="form-group col-md-4">
-                        <label for="filterSetCode" >Filter Set Code</label>
-                        <input type="text" class="form-control" name="filterSetCode" id="filterSetCode" formControlName="filterSetCode" >
-                    </div>
-    
                  </div>
-                 <div class="form-row">
+                 <!-- <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="lancamento">Release Date</label><br>
                         <input matInput [matDatepicker]="picker" class="form-control" name="lancamento" formControlName="lancamento" >
@@ -191,14 +200,8 @@
                             <option value="true">Yes</option>
                         </select>                        
                     </div>
-                    <div class="form-group col-md-2">    
-                        <label for="isBasedDeck">Based Deck</label>
-                        <select name="isBasedDeck" class="form-control" id="isBasedDeck" formControlName="isBasedDeck"> 
-                            <option value="false" selected >No</option>
-                            <option value="true">Yes</option>
-                        </select>                        
-                    </div>
-                 </div>
+                   
+                 </div> -->
                   <button mat-raised-button color="primary" (click)="onSubmitCollectionDeck()" style="margin-left: 45%;">Save</button>
             </form>
         </div>

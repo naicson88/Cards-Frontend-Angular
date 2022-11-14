@@ -27,8 +27,8 @@ import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 
 export class DeckComponent implements OnInit {
  page: number = 1; 
- pageSize: number = 12
- pageSizes = [12,24,48,100];
+ pageSize: number = 25
+ pageSizes = [25,50,75,100];
  totalItens = 0;
 
  set_type: string;
