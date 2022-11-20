@@ -50,6 +50,7 @@ import { SuccessconfirmationComponent } from './component/index/successConfirmat
 import { BackToTopComponent } from './Util/BackToTopButton/back-to-top/back-to-top.component';
 import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence/maintenence.component';
 import { AdminAddCardDeckComponent } from './component/admin/admin-add-card-deck/admin-add-card-deck/admin-add-card-deck.component';
+import { SearchBardComponent } from './component/shared/search-bard/search-bard.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { AdminAddCardDeckComponent } from './component/admin/admin-add-card-deck
     BackToTopComponent,
     MaintenenceComponent,
     AdminAddCardDeckComponent,
+    SearchBardComponent,
     
   
   

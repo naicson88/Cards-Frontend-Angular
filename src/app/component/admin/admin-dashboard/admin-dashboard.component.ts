@@ -95,10 +95,9 @@ export class AdminDashboardComponent implements OnInit {
    
   } 
 
-  onSubmitCollectionDeck(){
-    
+  onSubmitCollectionDeck(){ 
    // this.formDeckCollection.value.lancamento = formatDate(this.formDeckCollection.value.lancamento, 'dd-MM-yyyy', 'en-US')
-    this.adminService.createNewDeckCollection(this.formDeckCollection.value).subscribe(result => {
+      this.adminService.createNewDeckCollection(this.formDeckCollection.value).subscribe(result => {
       this.toastr.success("Deck Collection sent to Queue")
       this.formCollection.reset();
 
