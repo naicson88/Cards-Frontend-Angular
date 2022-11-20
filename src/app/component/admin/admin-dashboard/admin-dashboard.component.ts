@@ -40,9 +40,9 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onSubmit(){  
-    console.log(this.formDeck.value.lancamento)
+   
     this.formDeck.value.lancamento = formatDate(this.formDeck.value.lancamento, 'dd-MM-yyyy', 'en-US')
-    
+    console.log(this.formDeck)
     this.adminService.createNewKonamiDeck(this.formDeck.value).subscribe(result => {
       console.warn(result);
       this.toastr.success("Deck information sent to Queue");
@@ -61,7 +61,8 @@ export class AdminDashboardComponent implements OnInit {
       imagem: new FormControl(konamiDeck.imagem),
       isSpeedDuel: new FormControl(konamiDeck.isSpeedDuel),
       requestSource: new FormControl(konamiDeck.requestSource),
-      setCode: new FormControl(konamiDeck.setCode)
+      setCode: new FormControl(konamiDeck.setCode),
+      isBasedDeck: new FormControl(false)
     })
   }
 
@@ -94,12 +95,9 @@ export class AdminDashboardComponent implements OnInit {
    
   } 
 
-  onSubmitCollectionDeck(){
-    
-    this.formDeckCollection.value.lancamento = formatDate(this.formDeckCollection.value.lancamento, 'dd-MM-yyyy', 'en-US')
-    console.log(this.formDeckCollection.value);
-    this.adminService.createNewDeckCollection(this.formDeckCollection.value).subscribe(result => {
-      console.log(result)
+  onSubmitCollectionDeck(){ 
+   // this.formDeckCollection.value.lancamento = formatDate(this.formDeckCollection.value.lancamento, 'dd-MM-yyyy', 'en-US')
+      this.adminService.createNewDeckCollection(this.formDeckCollection.value).subscribe(result => {
       this.toastr.success("Deck Collection sent to Queue")
       this.formCollection.reset();
 
@@ -112,11 +110,11 @@ export class AdminDashboardComponent implements OnInit {
   createCollectionDeck(collectionDeck: DeckCollection){
     this.formDeckCollection = new FormGroup({
       nome: new FormControl(collectionDeck.nome),
-      nomePortugues: new FormControl(collectionDeck.nomePortugues),
+      //nomePortugues: new FormControl(collectionDeck.nomePortugues),
       setType: new FormControl(collectionDeck.setType),
-      lancamento: new FormControl(collectionDeck.lancamento),
+      //lancamento: new FormControl(collectionDeck.lancamento),
       imagem: new FormControl(collectionDeck.imagem),
-      isSpeedDuel: new FormControl(collectionDeck.isSpeedDuel),
+      //isSpeedDuel: new FormControl(collectionDeck.isSpeedDuel),
       requestSource: new FormControl(collectionDeck.requestSource),
       setId: new FormControl(collectionDeck.setId),
       filterSetCode: new FormControl(collectionDeck.filterSetCode),

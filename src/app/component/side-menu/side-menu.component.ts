@@ -200,7 +200,7 @@ checkIfIsAdmin(userRole:string) {
     }
 
     cardImagem(cardId: any){
-         debugger
+         
          let urlimg = GeneralFunctions.cardImagem + cardId + '.jpg';
          return urlimg;
      }
