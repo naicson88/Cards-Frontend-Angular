@@ -8,7 +8,7 @@
                 <div class="carousel-inner">
 
                   <div class="carousel-item active">
-                    <img class="d-block w-100" [src]="cardImagem(cardAlternativeNumber[0].cardAlternativeNumber)" alt="First slide" width="193" height="265"
+                    <img class="d-block w-100" [src]="cardImagem(cardAlternativeNumber[0]?.cardAlternativeNumber)" alt="First slide" width="193" height="265"
                     (mouseover)="mostrarImgToolTip($event)"
                     (mousemove)="mostrarImgToolTip($event)"
                     (mouseout)="esconderImgToolTip()">
@@ -100,7 +100,7 @@
                             <td class="td2 archetype"  > 
                                 <li  [routerLink]="['/archetypeDetails/', card.archetype?.id]" 
                                 id='{{card.archetype?.id}}' (click)="storedArchetype($event)" style=" list-style-type: none;">
-                                    {{card.archetype.arcName}} 
+                                    {{card.archetype?.arcName}} 
                                 </li>                            
                             </td>
                         </tr>
@@ -197,10 +197,7 @@
 
     <!--Div Decks que tem esse card-->
     <div style=" width: 100%; margin-top: 30px; " class="container" id="subMainDiv">
-       <!-- <div id="setsTitle">
-            <h3> Sets that contains this card</h3>
-        </div>
-        <div class="card mb-3" style="max-width: 540px;" *ngFor="let setsInfo of card.set_decks">
+        <!--<div class="card mb-3" style="max-width: 540px;" *ngFor="let setsInfo of card.set_decks">
             <div class="row g-0">
               <div class="col-md-4" style="max-width: 28.33%;">
                 <img [src]='setsInfo.imagem' alt="..." width="130px" height="180px" >
@@ -237,8 +234,11 @@
                 </mat-expansion-panel>
               </mat-accordion>
           </div>
+          <div id="setsTitle">
+            <h3> Sets that contains this card</h3>
+          </div>
           <div id="card-table-and-collections" style="display: flex; justify-content: space-around;">
-    
+   
           <div id="sets-details" >
              <div class="single-set" *ngFor="let sets of konamiSets">
                  <div class="set-img" >
@@ -257,7 +257,18 @@
                         <li><span>Price: </span> 
                             <span class="price-span" *ngFor="let prices of sets.price">{{prices | currency}}</span>                      
                         </li>
-                        <li><span>Release: </span> {{sets.releaseDate}}</li>
+                        <li>
+                            <span>Release: </span> {{sets.releaseDate}}
+                            <span *ngIf="checkIfKeyExist(sets.cardSetCode)"
+                                  class="checkmark" 
+                                  (click)="filterMapSetCode(sets.cardSetCode)" 
+                                  data-toggle="modal" 
+                                  data-target="#modalCards" 
+                                  matTooltip="You have this Card's collection. Click to see!"
+                                 > 
+                                <mat-icon>check_circle</mat-icon>
+                            </span>
+                        </li>
                     </ul>
                  </div>
              </div>
@@ -300,7 +311,7 @@
                 </div>
           </div> -->
                     <!--Your card collections-->
-            <div id="div-card-collections" >
+            <!-- <div id="div-card-collections" >
                 
                     <div class="collection-description" style="border: solid 1px #faeec2;">
                         <div class="collection-description-header" style="background-color: #FBF3D5; border: solid thin #fde899;">
@@ -319,9 +330,29 @@
                              <p *ngFor="let mapUserCol of userHaveByUserCollection | keyvalue">• {{mapUserCol.key}}:<b style="color: red;">{{mapUserCol.value}}</b> </p>                        
                         </div>
                     </div>
-            </div>
+            </div> -->
           </div>
         </div> 
+
+        <!-- Modal -->
+<div class="modal fade" id="modalCards" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Your Collections with this Set Code</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p *ngFor="let mapUserCol of userHaveByUserCollectionFiltered | keyvalue " style="color: navy;">•  {{mapUserCol.value}} </p>                                             
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
            
     </div>
     

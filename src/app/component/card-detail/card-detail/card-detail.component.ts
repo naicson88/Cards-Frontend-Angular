@@ -19,23 +19,26 @@ export class CardDetailComponent implements OnInit {
   
 
   constructor(private router: Router, private service: CardServiceService, private archService: AchetypeService, private  spinner: SpinnerService) { }
+  
 
 
   ngOnInit() {
     this.loadCardDetail();
     this.cardPriceGrafic();
     window.scrollTo(0, 0); 
-
   }
 
   card: Card[]=[];
   userKonamiCollectionMap: Map<any,any>
-  userHaveByUserCollection: Map<any,any>;
+  userHaveByUserCollection: Map<any, any>;
+  userHaveByUserCollectionFiltered: string[]
   konamiSets:[] = [];
   totalViews:number;
   isLINKCard: boolean = false;
   cardTypes:string = "";
   cardAlternativeNumber:[] = [];
+
+  keyIsFound:boolean;
 
   loadCardDetail(){
    // const id = localStorage.getItem("idCard");
@@ -43,12 +46,12 @@ export class CardDetailComponent implements OnInit {
 
     this.spinner.show();
       this.service.getCardDetails(idd).subscribe(data => { 
-        console.log(data)
+        //console.log(data)
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
         this.cardAlternativeNumber = data['card']['alternativeCardNumber']
         // console.log("CARD: " + JSON.stringify(this.card))
-        this.qtdUserHaveByKonamiCollection(data);
+       // this.qtdUserHaveByKonamiCollection(data);
         this.qtdUserHaveByUserCollection(data);
         this.totalViews = data['views']['totalQtdViews'];
         this.verifyIfIsLinkCard(data);
@@ -94,7 +97,6 @@ export class CardDetailComponent implements OnInit {
       let card = data['card'];
       if(card.genericType == 'LINK')
         this.isLINKCard = true;
-        console.log("is link: " + this.isLINKCard)
   }
 
   cardImagem(cardId: any){
@@ -218,10 +220,8 @@ export class CardDetailComponent implements OnInit {
   }
 
   storedArchetype(event){
-    //const id = event.target.id;
-    const archId = event.target.id;
+   const archId = event.target.id;
    localStorage.setItem("idArchetype", archId);
-   // console.log(id);s
    if(archId != null && archId != ""){  
    
      this.archService.setArchetypeId(archId);
@@ -277,22 +277,28 @@ export class CardDetailComponent implements OnInit {
     });
   }
 
-   qtdUserHaveByKonamiCollection(data:any) {
-     // console.log(JSON.stringify(data['qtdUserHaveByKonamiCollection']));
-    let  result = Object.entries(data['qtdUserHaveByKonamiCollection']);
-    this.userKonamiCollectionMap = new Map(result);
-   // console.log(this.userKonamiCollectionMap);
+  //  qtdUserHaveByKonamiCollection(data:any) {
+  //    // console.log(JSON.stringify(data['qtdUserHaveByKonamiCollection']));
+  //   let  result = Object.entries(data['qtdUserHaveByKonamiCollection']);
+  //   this.userKonamiCollectionMap = new Map(result);
+  //  // console.log(this.userKonamiCollectionMap);
+  //  }
+
+     qtdUserHaveByUserCollection(data:any){
+     let result = Object.entries(data['qtdUserHaveByUserCollection']);  
+     this.userHaveByUserCollection = new Map(result); 
    }
 
-   qtdUserHaveByUserCollection(data:any){
-     let result = Object.entries(data['qtdUserHaveByUserCollection']);
-     this.userHaveByUserCollection = new Map(result);
-  
+   filterMapSetCode(setCode:string){
+    this.userHaveByUserCollectionFiltered  = [];
+    this.userHaveByUserCollectionFiltered = this.userHaveByUserCollection.get(setCode)
    }
 
+   checkIfKeyExist(key:string): boolean{
+      if(this.userHaveByUserCollection.get(key))
+          return true;
+      else
+          return false;
+   }
 }
 
-class SetPriceRarity{
-  price: number;
-  rarity: string;
-}
