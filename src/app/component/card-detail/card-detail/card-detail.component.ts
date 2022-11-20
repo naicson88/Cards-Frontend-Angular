@@ -43,7 +43,6 @@ export class CardDetailComponent implements OnInit {
 
     this.spinner.show();
       this.service.getCardDetails(idd).subscribe(data => { 
-        
         console.log(data)
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
@@ -61,7 +60,11 @@ export class CardDetailComponent implements OnInit {
       })  
     
   }
-  
+
+  setRarityColor(rarity:string){
+    return GeneralFunctions.colorRarity(rarity);
+  }
+
   setCardTypes(data:any){
     let card = data['card'];
     this.cardTypes += card.tipo.name;
@@ -75,8 +78,7 @@ export class CardDetailComponent implements OnInit {
     else if(card.genericType == 'SYNCHRO' )
       this.cardTypes += " / Synchro"; 
     else if(card.genericType == 'PENDULUM' )
-      this.cardTypes += " / Pendulum"; 
-    
+      this.cardTypes += " / Pendulum";   
     if(card.categoria.includes('Toon'))
       this.cardTypes += " / Toon"; 
     if(card.categoria.includes('Effect'))

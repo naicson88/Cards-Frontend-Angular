@@ -310,3 +310,68 @@
     cursor: pointer;
 }
 
+#sets-details{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.single-set{
+    width: 48%;
+    height: 121px;
+    display: flex;
+    justify-content: left;
+    border: solid thin #0f75b2;
+    border-radius: 5px;
+    padding-left: 3px;
+    min-width: 287px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin: 0;
+
+}
+
+.single-set .set-img {
+    margin-top: 3px;
+    width: fit-content;
+}
+
+.set-description{
+    width: 100%;
+    font-size: 13px;
+    padding: .4em .8em;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    line-height: 160%;
+}
+
+.set-description ul li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.set-description span {
+    font-family:  -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;  
+    text-decoration: none solid rgb(82, 89, 96)  
+}
+.price-span {
+    color: green;
+    font-weight: bold; 
+    font-size: 1.3em
+}
+
+.a-name{
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow:    ellipsis;
+
+}

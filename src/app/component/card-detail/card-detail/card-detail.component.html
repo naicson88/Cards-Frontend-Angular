@@ -4,11 +4,6 @@
        </div>
     <div id="cabecalho" class="row">
         <div id="cardImagem" >
-            <!--<img [src]="card.imagem" alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;">-->
-            <!-- <img [src]="cardImagem(card.numero)" alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;"
-            (mouseover)="mostrarImgToolTip($event)"
-            (mousemove)="mostrarImgToolTip($event)"
-            (mouseout)="esconderImgToolTip()">  -->
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
 
@@ -243,9 +238,31 @@
               </mat-accordion>
           </div>
           <div id="card-table-and-collections" style="display: flex; justify-content: space-around;">
-
-          <div id="table-description">
-           
+    
+          <div id="sets-details" >
+             <div class="single-set" *ngFor="let sets of konamiSets">
+                 <div class="set-img" >
+                    <img *ngIf="sets.setType == 'BOX'; else deckimg"  [src]='sets.image' alt="Set Image" width="110px" height="110px" >
+                    <ng-template #deckimg> <img [src]='sets.image' alt="Set Image" width="80px" height="110px" > </ng-template>
+                 </div>
+                 <div class="set-description">
+                    <ul>
+                        <li ><span>Name: </span> 
+                           <span> <a [routerLink]="['/deck-details/', sets.name]" name="sets?.id" (click)="storeDeckId(sets?.id, sets.setType)">{{sets.name}}</a> </span>                  
+                        </li>
+                        <li><span>Set Code: </span> {{sets.cardSetCode}} </li>
+                        <li><span>Rarity: </span>
+                             <span [ngClass]="setRarityColor(rarities)" *ngFor="let rarities of sets.rarity"> {{rarities}} </span>                       
+                        </li>
+                        <li><span>Price: </span> 
+                            <span class="price-span" *ngFor="let prices of sets.price">{{prices | currency}}</span>                      
+                        </li>
+                        <li><span>Release: </span> {{sets.releaseDate}}</li>
+                    </ul>
+                 </div>
+             </div>
+          </div>  
+          <!-- <div id="table-description">          
                 <div class="table-users">
                 <i><span id="table-caption">Konami sets that contains this card</span></i>
                 <table cellspacing="0" >
@@ -281,9 +298,10 @@
                     </tr>
                 </table>
                 </div>
-          </div>
+          </div> -->
                     <!--Your card collections-->
             <div id="div-card-collections" >
+                
                     <div class="collection-description" style="border: solid 1px #faeec2;">
                         <div class="collection-description-header" style="background-color: #FBF3D5; border: solid thin #fde899;">
                             Your Konami Collections
