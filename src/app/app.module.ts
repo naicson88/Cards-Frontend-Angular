@@ -1,6 +1,6 @@
 import { UsercardsModule } from './component/usercards/usercards.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { Injector, LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { DeckComponent } from './component/deck/deck.component';
@@ -50,7 +50,7 @@ import { SuccessconfirmationComponent } from './component/index/successConfirmat
 import { BackToTopComponent } from './Util/BackToTopButton/back-to-top/back-to-top.component';
 import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence/maintenence.component';
 import { AdminAddCardDeckComponent } from './component/admin/admin-add-card-deck/admin-add-card-deck/admin-add-card-deck.component';
-import { SearchBardComponent } from './component/shared/search-bard/search-bard.component';
+import { SharedModulesModule } from './component/shared/shared-modules/shared-modules.module';
 
 @NgModule({
   declarations: [
@@ -84,7 +84,6 @@ import { SearchBardComponent } from './component/shared/search-bard/search-bard.
     BackToTopComponent,
     MaintenenceComponent,
     AdminAddCardDeckComponent,
-    SearchBardComponent,
     
   
   
@@ -105,6 +104,7 @@ import { SearchBardComponent } from './component/shared/search-bard/search-bard.
     DeckDetailUserModule,
     DialogModule,
     AdminDashboardModule,
+    SharedModulesModule,
     
     ToastrModule.forRoot()
 

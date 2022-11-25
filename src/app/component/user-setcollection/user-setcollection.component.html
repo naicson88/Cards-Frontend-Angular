@@ -3,50 +3,29 @@
     Set Collection Cards
   </div>
   <!--Cabeçalho com informações do Set-->
-  <div style="margin-bottom: 20px; padding: 10px; background-color: ghostwhite;">
-    <span>
-      <mat-form-field appearance="outline" style="width: 35%;">
+  <div id="set-info-header">
+    <div style="width: 35%">
+      <mat-form-field appearance="outline" style="width: 100%;">
         <mat-label>Collection Name</mat-label>
-        <input matInput [value]="userSetCollecton?.name" style="width: 500px;" maxlength="80" #nameInput>
+        <input matInput [value]="userSetCollecton?.name"  maxlength="80" #nameInput>
         <mat-hint>Deck Code: <b>{{userSetCollecton?.id}}</b></mat-hint>
       </mat-form-field>
 
-    </span>
+    </div>
 
-    <span style="color: green; margin-left: 10%;">
+    <div style="color: green;">
       <span class="material-icons" title="Deck total value" style="cursor: pointer;"> paid </span> <span
         style="font-size:xx-large">{{userSetCollecton?.totalPrice}}</span>
-    </span>
-
-    <div id="tableRarity">
-
-      <table
-        style="border-collapse: separate; border-spacing: 3px 0; font-weight: 400; text-align: center; padding: 5px; width: 100%;">
-        <thead>
-          <tr>
-            <th class="table-primary" width="20%">Common</th>
-            <th class="table-info" width="20%">Rare</th>
-            <th class="table-success" width="20%">Super Rare</th>
-            <th class="table-warning" width="20%">Ultra Rare</th>
-            <th class="table-primary" width="20%">Secret Rare</th>
-          </tr>
-
-        </thead>
-        <tbody>
-          <tr style="background-color: ghostwhite;">
-            <td>{{userSetCollecton?.rarities?.Common}}</td>
-            <td>{{userSetCollecton?.rarities?.Rare}}</td>
-            <td>{{userSetCollecton?.rarities?.Secret_Rare}}</td>
-            <td>{{userSetCollecton?.rarities?.Super_Rare}}</td>
-            <td>{{userSetCollecton?.rarities?.Ultra_Rare}}</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
+    <!--Table quantity rarities-->
+    <div style="width: 35%;">
+      <app-quantity-rarities [rarities]="rarities" style="width: 35% !important;"> </app-quantity-rarities>
+    </div>
+    
   </div>
-  <div id="div-options-img" style="display: flex; justify-content: space-around;">
+  <div id="div-options-img" >
     <!--Div opções-->
-    <div id="divOptions">
+    <div id="div-options">
       <fieldset>
         <legend>Options</legend>
         <div id="fieldsetInputs">
@@ -128,12 +107,14 @@
         </div>
       </fieldset>
     </div>
-    <div style="display: flex; flex-direction: column; align-items: center;  ">
-      <img [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="200px">
-      <button type="button" class="btn btn-info btn-sm" style="background-color: #096e7e !important; margin-top: 5px" *ngIf="basedDecks.length > 0"
+    <div id="div-set-img">
+      <img *ngIf="userSetCollecton?.setType != 'BOX'" [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="200px">
+      <img *ngIf="userSetCollecton?.setType == 'BOX'" [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="290px"> 
+      <br>
+      <button type="button" class="btn btn-info btn-sm" id="button-based" *ngIf="basedDecks.length > 0"
         (click)="openDialog()">
       Based Deck
-    </button>
+     </button>
     </div>
   </div>
 
@@ -162,10 +143,7 @@
     <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="saveSetCollection()">
       Save <mat-icon>save</mat-icon>
     </button>
-    <!-- <span style=" margin-left: 50%; color: goldenrod;">
-              <mat-icon style="size: 5cm;">info</mat-icon>
-            </span>
-         -->
+
   </div>
 
   <!--Div All Cards-->

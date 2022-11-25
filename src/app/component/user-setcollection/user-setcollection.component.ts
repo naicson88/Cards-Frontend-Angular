@@ -44,6 +44,8 @@ export class UserSetcollectionComponent implements OnInit {
   isVisible: boolean = true;
   showDetail = true;
 
+  rarities: {}
+
   ngOnInit() {
     this.getSetCollection();
   }
@@ -75,6 +77,7 @@ export class UserSetcollectionComponent implements OnInit {
     this.service.getSetCollection(id).subscribe(data => {
       this.userSetCollecton = data;
       this.setBasedDeck(data['basedDeck'])
+      this.rarities = data['rarities']
       let arr = this.userSetCollecton.cards.slice(0);
       this.originalCollection = arr;
       console.log(this.userSetCollecton)

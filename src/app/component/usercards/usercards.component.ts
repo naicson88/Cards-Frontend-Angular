@@ -45,6 +45,8 @@ export class UsercardsComponent implements OnInit {
   cardImage:string;
   card:Card;
 
+  rarities: {}
+
   ngOnInit() {
     this.map();
     this.cardsByGenericType(this.genericTypeAtual);
@@ -153,9 +155,9 @@ export class UsercardsComponent implements OnInit {
     qtdTotal:number = 0;
     
     cardOfUserDetails(cardId:number) {            
+      this.spinner.show()
 
         this.service.cardOfUserDetails(cardId).subscribe(data =>{
-          console.log(data)
           let qtd = 0;
           this.arrCardsDetails = data;
           console.log(data)
@@ -163,39 +165,42 @@ export class UsercardsComponent implements OnInit {
             qtd += element.quantity 
           });
 
-          this.setQtdRarity();
-
+          this.rarities = this.arrCardsDetails['rarity']
           this.qtdTotal = qtd;
-  
-        
+
+          this.spinner.hide()
+
+        }, error => {
+          console.log(error)
+          this.spinner.hide();
         });
 
        
     }
 
-    qtdCommon: number = 0;
-    qtdRare: number = 0;
-    qtdSuperRare:number = 0;
-    qtdUltraRare: number = 0;
-    qtdSecretRare: number = 0;
+    // qtdCommon: number = 0;
+    // qtdRare: number = 0;
+    // qtdSuperRare:number = 0;
+    // qtdUltraRare: number = 0;
+    // qtdSecretRare: number = 0;
 
-    setQtdRarity(){
-       if(this.arrCardsDetails['rarity']['Common'] != null && this.arrCardsDetails['rarity']['Common'] != undefined)
-           this.qtdCommon = this.arrCardsDetails['rarity']['Common'];
+    // setQtdRarity(){
+    //    if(this.arrCardsDetails['rarity']['Common'] != null && this.arrCardsDetails['rarity']['Common'] != undefined)
+    //        this.qtdCommon = this.arrCardsDetails['rarity']['Common'];
 
-       if(this.arrCardsDetails['rarity']['Rare'] != null && this.arrCardsDetails['rarity']['Rare'] != undefined)
-          this.qtdRare = this.arrCardsDetails['rarity']['Rare'];
+    //    if(this.arrCardsDetails['rarity']['Rare'] != null && this.arrCardsDetails['rarity']['Rare'] != undefined)
+    //       this.qtdRare = this.arrCardsDetails['rarity']['Rare'];
 
-        if(this.arrCardsDetails['rarity']['Ultra Rare'] != null && this.arrCardsDetails['rarity']['Ultra Rare'] != undefined)
-          this.qtdUltraRare = this.arrCardsDetails['rarity']['Ultra Rare'];
+    //     if(this.arrCardsDetails['rarity']['Ultra Rare'] != null && this.arrCardsDetails['rarity']['Ultra Rare'] != undefined)
+    //       this.qtdUltraRare = this.arrCardsDetails['rarity']['Ultra Rare'];
         
-          if(this.arrCardsDetails['rarity']['Super Rare'] != null && this.arrCardsDetails['rarity']['Super Rare'] != undefined)
-          this.qtdSuperRare = this.arrCardsDetails['rarity']['Super Rare'];
+    //       if(this.arrCardsDetails['rarity']['Super Rare'] != null && this.arrCardsDetails['rarity']['Super Rare'] != undefined)
+    //       this.qtdSuperRare = this.arrCardsDetails['rarity']['Super Rare'];
 
-        if(this.arrCardsDetails['rarity']['Secret Rare'] != null && this.arrCardsDetails['rarity']['Secret Rare'] != undefined)
-          this.qtdUltraRare = this.arrCardsDetails['rarity']['Secret Rare'];
+    //     if(this.arrCardsDetails['rarity']['Secret Rare'] != null && this.arrCardsDetails['rarity']['Secret Rare'] != undefined)
+    //       this.qtdUltraRare = this.arrCardsDetails['rarity']['Secret Rare'];
       
-    }
+    // }
 
     setRarityColor(rarity:string){
       return GeneralFunctions.colorRarity(rarity);

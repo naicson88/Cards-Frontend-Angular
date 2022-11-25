@@ -1,0 +1,16 @@
+#tableRarity{
+    width: 90%;
+    float: right;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+    border-radius: 5px ; 
+    border: solid thin silver
+  }
+
+  #table-quantity{
+      border-collapse: separate; 
+      border-spacing: 3px 0; 
+      font-weight: 400; 
+      text-align: center; 
+      padding: 5px; 
+      width: 100%;
+  }

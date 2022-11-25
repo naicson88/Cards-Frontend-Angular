@@ -248,7 +248,8 @@
                  <div class="set-description">
                     <ul>
                         <li ><span>Name: </span> 
-                           <span> <a [routerLink]="['/deck-details/', sets.name]" name="sets?.id" (click)="storeDeckId(sets?.id, sets.setType)">{{sets.name}}</a> </span>                  
+                           <span> <a [routerLink]="['/deck-details/', sets.name]" [title]="sets.name"
+                                    name="sets?.id" (click)="storeDeckId(sets?.id, sets.setType)">{{sets.name}}</a> </span>                  
                         </li>
                         <li><span>Set Code: </span> {{sets.cardSetCode}} </li>
                         <li><span>Rarity: </span>
