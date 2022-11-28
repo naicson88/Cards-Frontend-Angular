@@ -1,9 +1,8 @@
 #tableRarity{
-    width: 90%;
+    width: 100%;
     float: right;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
     border-radius: 5px ; 
-    border: solid thin silver
   }
 
   #table-quantity{
@@ -13,4 +12,5 @@
       text-align: center; 
       padding: 5px; 
       width: 100%;
+      table-layout: fixed;
   }

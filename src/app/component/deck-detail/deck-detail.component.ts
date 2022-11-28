@@ -34,6 +34,7 @@ export class DeckDetailComponent implements OnInit {
   categoriaCards =[];
   countsGeneric_type: any;
 
+  rarities : {}
 
   topTp;
   leftTp;
@@ -80,6 +81,8 @@ export class DeckDetailComponent implements OnInit {
         this.isVisible = true;
         this.countsGeneric_type = data['statsQuantityByGenericType'];
         this.quantidadePorAtributo = data['statsQuantityByAttribute'];
+
+        this,this.rarities = data['quantity']
 
         this.setQuantityByCardType(data['statsQuantityByType'])
         this.setQuantityByCardProperty(data['statsQuantityByProperty'])

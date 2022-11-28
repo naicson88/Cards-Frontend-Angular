@@ -18,6 +18,8 @@ import { error } from 'protractor';
 import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
+import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -77,6 +79,8 @@ mapSetCodes: Map<number, RelDeckCards[]> = new Map();
 
 cardsSearched = []; // Guarda o numero dos cards que ja tiveram Setcode consultados
 
+rarities ={};
+
   ngOnInit() {
     this.spinner.show();
 
@@ -87,11 +91,12 @@ cardsSearched = []; // Guarda o numero dos cards que ja tiveram Setcode consulta
   }
 
   ngAfterViewInit (){
-    this.setRarityClassAndPriceTitle()
+    //this.setRarityClassAndPriceTitle()
+
   }
 
   ngAfterViewChecked() {
-    
+    this.setRarityClassAndPriceTitle()
   }
 
 
@@ -413,11 +418,16 @@ calculateDeckPrice(relDeckCards:any[]){
 }
 
  calculateQtdRarity(){
- 
-  this.deck.qtdCommon = document.getElementsByClassName('common').length  //this.deck['cards'].filter(rel => rel.raridade == 'Common').length;
-  this.deck.qtdRare =  document.getElementsByClassName('rare').length //this.deck['cards'].filter(rel => rel.raridade == 'Rare').length;
-  this.deck.qtdSuperRare = document.getElementsByClassName('super_rare').length// this.deck['cards'].filter(rel => rel.raridade == 'Super Rare').length;
-  this.deck.qtdUltraRare = document.getElementsByClassName('ultra_rare').length
+  this.rarities = {
+    "Common": document.getElementsByClassName('Common').length,
+    "Rare" : document.getElementsByClassName('Rare').length,
+    "Super Rare": document.getElementsByClassName('Super Rare').length,
+    "Ultra Rare" : document.getElementsByClassName('Ultra Rare').length
+  }
+  // this.deck.qtdCommon = document.getElementsByClassName('common').length  //this.deck['cards'].filter(rel => rel.raridade == 'Common').length;
+  // this.deck.qtdRare =  document.getElementsByClassName('rare').length //this.deck['cards'].filter(rel => rel.raridade == 'Rare').length;
+  // this.deck.qtdSuperRare = document.getElementsByClassName('super_rare').length// this.deck['cards'].filter(rel => rel.raridade == 'Super Rare').length;
+  // this.deck.qtdUltraRare = document.getElementsByClassName('ultra_rare').length
 
   this.recalculateDeckPrice();
  } 
@@ -732,7 +742,7 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
     let rel:RelDeckCards = new RelDeckCards()  
     let setCode = options[i + indexSum].innerHTML
 
-    if(!setCode.includes("SET CODE") && !setCode.includes("Not Defined") && setCode != ""){
+    if(!setCode.includes("SET CODE") && !setCode.includes(ECardRarities.NOT_DEFINED) && setCode != "") {
         
           for(var j = 0; j < array[i].relDeckCards.length; j++){
             if(array[i].relDeckCards[j].card_set_code == setCode.trim()){

@@ -45,7 +45,8 @@ export class UsercardsComponent implements OnInit {
   cardImage:string;
   card:Card;
 
-  rarities: {}
+  rarities: {} = {"teste": 0};
+  konamiRarities: {} 
 
   ngOnInit() {
     this.map();

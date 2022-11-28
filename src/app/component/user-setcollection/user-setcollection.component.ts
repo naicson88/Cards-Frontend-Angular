@@ -4,6 +4,7 @@ import { Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Card } from 'src/app/classes/Card';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
+import { RaritiesDTO } from 'src/app/classes/DTO/RaritiesDTO';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
@@ -45,6 +46,7 @@ export class UserSetcollectionComponent implements OnInit {
   showDetail = true;
 
   rarities: {}
+  konamiRarities: {}
 
   ngOnInit() {
     this.getSetCollection();
@@ -77,12 +79,12 @@ export class UserSetcollectionComponent implements OnInit {
     this.service.getSetCollection(id).subscribe(data => {
       this.userSetCollecton = data;
       this.setBasedDeck(data['basedDeck'])
-      this.rarities = data['rarities']
+      this.rarities = data['konamiRarities']
       let arr = this.userSetCollecton.cards.slice(0);
       this.originalCollection = arr;
       console.log(this.userSetCollecton)
 
-    }, error => {
+      }, error => {
       this.spinner.hide();
       console.log(error);
       this.errorDialog("It was not possible load this Set Collection, try again later!")
