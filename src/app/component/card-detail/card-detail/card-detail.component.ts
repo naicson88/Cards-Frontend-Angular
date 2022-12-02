@@ -46,7 +46,7 @@ export class CardDetailComponent implements OnInit {
 
     this.spinner.show();
       this.service.getCardDetails(idd).subscribe(data => { 
-        //console.log(data)
+        console.log(data)
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
         this.cardAlternativeNumber = data['card']['alternativeCardNumber']
@@ -139,40 +139,11 @@ export class CardDetailComponent implements OnInit {
           return '..\\..\\assets\\img\\outras\\Counter.png';
         case 'Equip':
           return '..\\..\\assets\\img\\outras\\Equip.jpg'; 
+        case 'Ritual':
+            return '..\\..\\assets\\img\\outras\\Ritual.jpg'; 
     }
     
   }
-
-  /*
-  tipoImagem(tipo:string){
-    switch(tipo){
-      case 'Aqua': return '..\\..\\assets\\img\\tiposMonstros\\Aqua.png';
-      case 'Beast': return '..\\..\\assets\\img\\tiposMonstros\\Beast-DG.png';
-      case 'Beast-Warrior': return '..\\..\\assets\\img\\tiposMonstros\\Beast-Warrior-DG.png';
-    //  case 'Creator-God'  : return '..\\..\\assets\\img\\tiposMonstros\\Beast-Warrior-DG.png';
-    case 'Cyberse' : return '..\\..\\assets\\img\\tiposMonstros\\Cyberse.PNG';
-    case 'Dinosaur' : return '..\\..\\assets\\img\\tiposMonstros\\Dinosaur-DG.png';
-    case 'Divine-Beast' : return '..\\..\\assets\\img\\tiposMonstros\\Divine-Beast-DG.png';
-    case 'Dragon' : return '..\\..\\assets\\img\\tiposMonstros\\Dragon-DG.png';
-    case 'Fairy': return '..\\..\\assets\\img\\tiposMonstros\\Fairy-DG.png';
-    case 'Fiend' : return '..\\..\\assets\\img\\tiposMonstros\\Fiend-DG.png';
-    case 'Fish' : return '..\\..\\assets\\img\\tiposMonstros\\Fish-DG.png';
-    case 'Insect' : return '..\\..\\assets\\img\\tiposMonstros\\Insect-DG.png';
-    case 'Machine' : return '..\\..\\assets\\img\\tiposMonstros\\Machine-DG.png';
-    case 'Plant' : return '..\\..\\assets\\img\\tiposMonstros\\Plant-DG.png';
-    case 'Psychic' : return '..\\..\\assets\\img\\tiposMonstros\\Psychic-DG.png';
-    case 'Pyro' : return '..\\..\\assets\\img\\tiposMonstros\\Pyro-DG.png';
-    case 'Reptile': return '..\\..\\assets\\img\\tiposMonstros\\Reptile-DG.png';
-    case 'Rock': return '..\\..\\assets\\img\\tiposMonstros\\Rock-DG.png';
-    case 'Sea Serpent': return '..\\..\\assets\\img\\tiposMonstros\\Sea_Serpent-DG.png';
-    case 'Spellcaster': return '..\\..\\assets\\img\\tiposMonstros\\Spellcaster-DG.png';
-    case 'Thunder': return '..\\..\\assets\\img\\tiposMonstros\\Thunder-DG.png';
-    case 'Warrior': return '..\\..\\assets\\img\\tiposMonstros\\Warrior-DG.png';
-    case 'Winged Beast' : return '..\\..\\assets\\img\\tiposMonstros\\Winged_Beast-DG.png';
-    case 'Wyrm' : return '..\\..\\assets\\img\\tiposMonstros\\Wyrm-DG.png';
-    case 'Zombie': return '..\\..\\assets\\img\\tiposMonstros\\Zombie-DG.png';
-    }
-  } */
 
   corRaridade(raridade:string){  
     if(raridade == 'Common'){

@@ -2,7 +2,7 @@
     <div class="set-header">  
         Card Details
        </div>
-    <div id="cabecalho" class="row">
+    <div id="cabecalho">
         <div id="cardImagem" >
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
@@ -43,19 +43,81 @@
             class="imgTooltip" >
           </div>
 
-        <!--Informações Card Monstros-->
-        <div id="infoCard" *ngIf="card.categoria !== 'Trap Card' && card.categoria !== 'Spell Card'">
-            <div class="row" style="border-bottom: solid thin #ccc; height: 40px;">
-                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 hide-sm">
-                    <p class="nome-cabecalho">{{card.nome}}</p>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-sm">
-                    <td class="td2">  <img [src]='card.atributo?.atributoImgPath' alt="" width="40px" 
-                        height="40px" style="display: inline-block; margin-top: -5px;"/> {{card.atributo?.name}} </td>
-                </div>
+        <!--Informações Card Monstros *ngIf="card.categoria !== 'Trap Card' && card.categoria !== 'Spell Card'"-->
+        <div id="infoCard" >
 
+                <div id="name-attr-card">
+                    <div class="nome-cabecalho">{{card.nome}}</div>
+                    <div>
+                        <img [src]='card.atributo?.atributoImgPath' alt="" width="40px" height="40px" /> {{card.atributo?.name}}
+                    </div>
+                </div>
+            
+            <div id="general-card-info" >
+                <div id="info-left" class="internal-div-info-card">
+                   <p>
+                        <strong>Number : </strong>  {{card.numero}} 
+                   </p>
+                   <p *ngIf="card.nivel">
+                        <strong>Level : </strong>  <img src="..\..\assets\img\outras\Nivel.png" alt=""  width="25px" height="25px" style="display: inline-block;"> {{card.nivel}}
+                    </p>
+                    <p *ngIf="cardTypes">
+                        <strong>Types : </strong> 
+                        <img  [src]='card.tipo?.tipoCardImgPath' alt="" height="28px" width="28px" style="display: inline-block; margin-right: 3px;">  
+                        {{cardTypes}} 
+                    </p>
+                    <p *ngIf="card.propriedade">
+                        <strong>Property : </strong> {{card.propriedade}}
+                        <img [src]='atributoImagem(card.propriedade)' alt="" *ngIf="card.propriedade !== 'Normal' " width="35px"/>
+                    </p>
+                </div>
+                <div id="info-right" class="internal-div-info-card">
+                   <p *ngIf="card.atk">
+                        <strong>ATK : </strong> <img src="..\..\assets\img\tiposMonstros\atk.JPG" alt="" width="32px" height="32px"> {{card?.atk}}
+                   </p>
+                   <p *ngIf="card.def">
+                        <strong>DEF : </strong>  <img src="..\..\assets\img\tiposMonstros\def.JPG" alt="" width="32px" height="32px" > {{card.def}}
+                    </p>
+                    <p *ngIf="card.qtd_link">
+                        <strong>Link : </strong> 
+                        <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="32px" height="32px" > {{card.qtd_link}}
+                    </p>
+                    <p *ngIf="card.archetype?.arcName">
+                        <strong>Archetype : </strong> 
+                        <a  [routerLink]="['/archetypeDetails/', card.archetype?.id]"  id='{{card.archetype?.id}}' (click)="storedArchetype($event)" >
+                            {{card.archetype?.arcName}} 
+                        </a>         
+                    </p>
+                  
+                </div>
             </div>
-            <div class="row" style="margin-top: 5px;">
+
+            <div class="row" style="padding: 3px; height: fit-content;margin-bottom: -5px; " *ngIf="card.genericType == 'PENDULUM'">
+                <div class="col-md-2" style=" position: relative; border-right:solid thin #ccc;">
+                    <p  style=" top: 25%; left: 30%; position: absolute; text-align: right;">
+                    <img src="..\..\assets\img\outras\EscalaAzul.png" alt="Blue Scale"> &nbsp;
+                        <span>{{card.escala}}</span> &nbsp;
+                    <img src="..\..\assets\img\outras\EscalaVermelha.png" alt="Red Scale"> 
+                    </p>
+                </div>
+                <div class="col-md-10" style="text-align: left; margin: -2; font-family:'Open Sans', Arial, sans-serif;" >
+                    <p class="card-descr-pend" style="font-size:12px; " >
+                        {{card.descr_pendulum}}
+                    </p>
+                </div>
+            </div> 
+        
+              <div class="row" id="card-description" >
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="text-align: left;">
+                    <p class="card-descr-pend" style="font-size:14px; margin-bottom: 1px;margin-top: 3px;
+                     font-family:'Open Sans', Arial, sans-serif;" >
+                          {{card.descricao}}
+                     </p>
+                </div>
+            </div>
+
+
+            <!-- <div class="row" style="margin-top: 5px; background-color: silver;">
                 <div id="left-col" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 hide-sm">
                     <table  class="table table-striped table-sm">
                         <tr>
@@ -64,8 +126,10 @@
                         </tr>
                         <tr>
                             <td class="td1">Nível:</td>
-                            <td class="td2"><img src="..\..\assets\img\outras\Nivel.png" alt="" 
-                                width="25px" height="25px" style="display: inline-block;"> {{card.nivel}}</td>
+                            <td class="td2">
+                                <img src="..\..\assets\img\outras\Nivel.png" alt=""  width="25px" height="25px" style="display: inline-block;"> 
+                                {{card.nivel}}
+                            </td>
                         </tr>
                         <tr>
                             <td class="td1">Types: </td>
@@ -109,7 +173,7 @@
                         </tr>
                     </table>
                 </div>
-                        <!--Descricao Pèndulum-->
+                
                         <div class="row" style="padding: 3px; height: fit-content;margin-bottom: -5px; " *ngIf="card.genericType == 'PENDULUM'">
                             <div class="col-md-2" style=" position: relative; border-right:solid thin #ccc;">
                                 <p  style=" top: 25%; left: 30%; position: absolute; text-align: right;">
@@ -124,7 +188,7 @@
                                     </p>
                             </div>
                         </div> 
-                          <!--Descricao Card-->
+                    
                           <div class="row" style="padding: 5px; margin-left: 10px ; width: 95%; height: fit-content; border-top: solid thin #ccc;" >
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="text-align: left;">
                                 <p class="card-descr-pend" style="font-size:14px; margin-bottom: 1px;margin-top: 3px;
@@ -135,19 +199,19 @@
                         </div>
 
                         
-            </div>
+            </div> -->
 
         </div> 
 
          <!--Informações Card Magia ou Trap-->
-         <div id="infoCard" *ngIf="card.categoria == 'Spell Card' || card.categoria == 'Trap Card' ">
+          <!-- <div id="infoCard" *ngIf="card.categoria == 'Spell Card' || card.categoria == 'Trap Card' ">
             <div class="row" style="border-bottom: solid thin #ccc; height: 40px;">
                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 hide-sm">
                     <p class="nome-cabecalho">{{card.nome}}</p>
                 </div>
-                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-sm" *ngIf="expression">
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-sm">
                     <td class="td2">  <img [src]='card.atributo?.atributoImgPath' alt="" width="40px" 
-                        height="40px" style="display: inline-block; margin-top: -5px;"/> {{card.atributo?.name}} </td>
+                        height="40px" style="display: inline-block; margin-top: -5px;"/> {{card?.categoria | uppercase }} </td>
                 </div>
 
             </div>
@@ -176,50 +240,28 @@
                         </tr>
                     </table>
                 </div>
-                          <!--Descricao Card-->
-                          <div class="row" style="padding: 5px; margin-left: 10px ; width: 95%; height: fit-content; border-top: solid thin #ccc;" >
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="text-align: left;">
-                                <p class="card-descr-pend" style="font-size:14px; margin-bottom: 1px;margin-top: 3px;
-                                 font-family:'Open Sans', Arial, sans-serif;" >
-                                      {{card.descricao}}
-                                 </p>
-                            </div>
-                        </div>
+
+                <div class="row" style="padding: 5px; margin-left: 10px ; width: 95%; height: fit-content; border-top: solid thin #ccc;" >
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="text-align: left;">
+                    <p class="card-descr-pend" style="font-size:14px; margin-bottom: 1px;margin-top: 3px;
+                        font-family:'Open Sans', Arial, sans-serif;" >
+                            {{card.descricao}}
+                        </p>
+                </div>
+                </div>
 
                         
             </div>
 
-        </div>
+        </div>  -->
 
        
        
     </div>
 
     <!--Div Decks que tem esse card-->
-    <div style=" width: 100%; margin-top: 30px; " class="container" id="subMainDiv">
-        <!--<div class="card mb-3" style="max-width: 540px;" *ngFor="let setsInfo of card.set_decks">
-            <div class="row g-0">
-              <div class="col-md-4" style="max-width: 28.33%;">
-                <img [src]='setsInfo.imagem' alt="..." width="130px" height="180px" >
-              </div>
-              <div class="col-md-8" style="background: white  !important;">
-                <div class="card-body">
-                    
-                  <h5 class="card-title" ><b><a href="/details" (click)="storeDeckId($event)" name={{setsInfo.id}} >{{setsInfo.nome}}
-                </a> </b>  </h5>        
-                  <p class="card-text"  style="color: #76767B !important;">DR3-EN157</p>
-                  <p class="raridade" style="width: 70px; height: 30px; border-radius: 15px; 
-                  background-color: green; color: white ; text-align: center ; font-weight: bold; font-size: 20px;" title="Ultra Rare">
-                    UR
-                </p>
-                  <p class="card-text" style="color: #1c9eff !important;
-                  font-weight: bold; font-size: 1.3em !important;"> US$ 3.08</p>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <!-- Card Price -->
-       
+    <div class="container" id="subMainDiv">
+          <!-- Card Price -->    
           <div id="card-price-chart">
             <mat-accordion >
                 <mat-expansion-panel (opened)="panelOpenState = true"
@@ -274,69 +316,11 @@
                  </div>
              </div>
           </div>  
-          <!-- <div id="table-description">          
-                <div class="table-users">
-                <i><span id="table-caption">Konami sets that contains this card</span></i>
-                <table cellspacing="0" >
-                  
-                    <tr>
-                        <th width="10%">Image</th>
-                        <th width="40%">Set Name</th>
-                        <th width="18%">Card Set Code</th>
-                        <th width="7%">Rarity</th>
-                        <th width="15%">Price (US$)</th>
-                    </tr >
-                    <tr *ngFor="let sets of konamiSets">
-                        <td style="text-align: center;">
-                            <img [src]='sets.image' alt="Image of the set" width="80px" height="110px" >
-                        </td>
-                        <td>
-                        <a [routerLink]="['/deck-details/', sets.name]" name="sets?.id" (click)="storeDeckId(sets?.id, sets.setType)">{{sets.name}}</a> 
-                        </td>
-                        <td style="text-align: center ;">
-                            {{sets.cardSetCode}}
-                        </td>
-                        <td class="td-raridade">
-                            <p  [title]='rarities' *ngFor="let rarities of sets.rarity"
-                            [ngClass]="['raridade', corRaridade(rarities)]"
-                            style="margin-left: 15px;">
-                            {{raridade}}
-                        </p>
-                        </td>
-                        <td style="text-align: center !important;">
-                            <p *ngFor="let prices of sets.price" class="card-text" 
-                            style="color: #1c9eff !important; font-weight: bold; font-size: 1.3em !important;">{{prices}}</p>
-                        </td>
-                    </tr>
-                </table>
-                </div>
-          </div> -->
-                    <!--Your card collections-->
-            <!-- <div id="div-card-collections" >
-                
-                    <div class="collection-description" style="border: solid 1px #faeec2;">
-                        <div class="collection-description-header" style="background-color: #FBF3D5; border: solid thin #fde899;">
-                            Your Konami Collections
-                        </div>
-                        <div class="collection-description-body" style="background-color: #f7f5f0;">
-                            <p *ngFor="let mapKonami of userKonamiCollectionMap | keyvalue">• {{mapKonami.key}}:<b style="color: #1c9eff;">{{mapKonami.value}}</b> </p>                            
-                        </div>
-                    </div>
-
-                    <div class="collection-description" style="border: solid 1px #B3D3EA;">
-                        <div class="collection-description-header" style="background-color: #B3D3EA; border: solid thin #a1d0f1;">
-                            This card in your collections
-                        </div>
-                        <div class="collection-description-body" style="background-color: #e0edf7;">
-                             <p *ngFor="let mapUserCol of userHaveByUserCollection | keyvalue">• {{mapUserCol.key}}:<b style="color: red;">{{mapUserCol.value}}</b> </p>                        
-                        </div>
-                    </div>
-            </div> -->
           </div>
-        </div> 
+    </div> 
 
         <!-- Modal -->
-<div class="modal fade" id="modalCards" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="modalCards" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">

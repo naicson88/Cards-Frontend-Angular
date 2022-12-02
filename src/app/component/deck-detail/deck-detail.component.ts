@@ -73,11 +73,13 @@ export class DeckDetailComponent implements OnInit {
      
     this.service.getDeckDetails(id, source, set_type).subscribe(data => {
      console.log(data)
+     debugger
       this.deckDetails = data;
-      this.arrInsideDecksCards = data['insideDeck']
+      this.arrInsideDecksCards = data['insideDecks']
       this.imgPath =  this.deckDetails.imgurUrl;
       
       if(this.arrInsideDecksCards[0].cards.length > 0) {
+        debugger
         this.isVisible = true;
         this.countsGeneric_type = data['statsQuantityByGenericType'];
         this.quantidadePorAtributo = data['statsQuantityByAttribute'];

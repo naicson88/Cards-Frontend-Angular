@@ -1,8 +1,7 @@
 #mainDivCards{
-  
+ 
     border: solid thin;
     margin-bottom: 4%;
-   
     padding: 10px;
     border-color: #BEBEBE;
    /* background: url(../../../../assets/img/banner.jpg); */
@@ -11,23 +10,29 @@
     background-color: ghostwhite;
     height: fit-content;
     margin-left: 5%;
-
+    display: flex;
+    flex-direction:column ;
+    align-items: center;
 }
 
 #subMainDiv{
-    border: 1px solid #DEE2E6;
+    border: 1px solid #cdd2d6;
     border-radius: 5px;
     padding: 10px;
+    margin: 0;
+    width: 100%; 
+    margin: 30px 0px;
+
 }
 
 #cabecalho{
+    
     width: 95%;
-    min-height: 350px;
+    min-height: 330px;
     height: fit-content;
     border: solid thin;
-    margin-left: 3%;
+    max-width: 1300px;
     padding: 10px;
-    vertical-align:top;
     background: linear-gradient(153deg, rgba(2,0,36,1) 0%, rgba(241,241,241,1) 0%, rgba(230,239,240,1) 25%, rgba(249,241,241,1) 72%, rgba(211,219,221,1) 100%, rgba(241,241,241,1) 100%);
 }
 
@@ -35,10 +40,7 @@
     width: 75%;
     min-height: 300px;
     height: fit-content;
-    margin-top: -290px;
     margin-left: 230px;
-    float: left;
-    padding: 10px;
     
 }
 
@@ -54,6 +56,50 @@
     border: 1px solid #ceefff;
     background: #fff;
     box-shadow: 0 1px 4px 0 rgba(21,180,255,0.5);
+}
+
+#general-card-info{
+    width: 100%; 
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.internal-div-info-card{
+    width: 49.5%;
+}
+
+.internal-div-info-card p{
+    border-bottom: solid thin white;
+    padding: 5px;
+    height:43px ;
+    margin-bottom: 0 !important;
+}
+
+#name-attr-card {
+   display: flex;
+   justify-content: space-around;
+   border-bottom: solid thin #ccc; 
+   height: 40px;
+   width: 100%;
+
+    align-items: center;
+
+}
+
+#card-description {
+    padding: 5px; 
+    margin-left: 10px ; 
+    width: 95%; 
+    height: fit-content; 
+    margin-top: 5px;
+}
+
+#card-description ::first-letter{
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: black;
 }
 
 .raridade {
@@ -151,6 +197,7 @@
      height: 35px; 
      margin-bottom: 30px;
      margin-top: 20px;
+     width: 100%;
      
   }
 
