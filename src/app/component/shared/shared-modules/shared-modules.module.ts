@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuantityRaritiesComponent } from '../quantity-rarities/quantity-rarities/quantity-rarities.component';
+import { AddToCollectionComponent } from '../add-to-collection/add-to-collection.component';
 
 @NgModule({
-  declarations: [QuantityRaritiesComponent],
+  declarations: [QuantityRaritiesComponent, AddToCollectionComponent],
   imports: [
     CommonModule,
   ],
   exports: [
-    QuantityRaritiesComponent
+    QuantityRaritiesComponent, AddToCollectionComponent
   ],
-  entryComponents: [QuantityRaritiesComponent]
+  entryComponents: [QuantityRaritiesComponent, AddToCollectionComponent]
 })
 
 export class SharedModulesModule { }

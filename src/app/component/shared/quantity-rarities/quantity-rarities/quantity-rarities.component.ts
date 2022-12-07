@@ -8,7 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class QuantityRaritiesComponent implements OnInit {
   @Input() rarities:{}
-  @Input() konamiRarities:{}
 
   constructor() { }
 

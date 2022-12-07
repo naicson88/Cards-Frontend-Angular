@@ -206,23 +206,20 @@ input[type=search]:focus {
   cursor: pointer;
 }
 
-.quantity {
+/* .quantity {
   background: #f5f7f8;
   border: 2px solid rgba(251, 167, 27, 0.82);
   width: fit-content;
   border-radius: 5px;
   color: #3f51b5;
-}
+} */
 
-.f_size_medium {
+/* .f_size_medium {
   font-size: .85em;
-}
+} */
 
-.quantity button {
-  height: 23px;
-  width: 24px;
-}
-.quantity input[type="text"] {
+
+/* .quantity input[type="text"] {
   padding: 0 8px;
   border-left-width: 0.1px;
   border-right-width:2px solid rgba(251, 167, 27, 0.82);
@@ -231,7 +228,7 @@ input[type=search]:focus {
   background: transparent;
   height: 26px;
   width: 44px;
-}
+} */
 
 .if_left, textarea {
   background: #f5f7f8;
@@ -324,28 +321,12 @@ margin-left: 50%;
 
 .image_card_bottom{
 
-width: 95%;
- height: 30px; 
- margin-top: 5px;
-padding-left: 5px;
+  width: 95%;
+  height: 30px; 
+  margin-top: 5px;
+  padding-left: 5px;
 }
 
-.input_qtd_userhave{
- height: 30px;
- width: 45px;
-  border-radius: 2px;
-  border: solid red thin;
-}
-
-
-.btn_add {
- float: right;
-  background-color: #28a745 !important;
-}
-
-.btn_add:hover{
-  background-color: #2cbd4e !important;
-}
 
 .img_deck_list {
   width: 50px; 

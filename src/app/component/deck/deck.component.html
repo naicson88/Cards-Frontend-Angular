@@ -1,10 +1,15 @@
 
 
 <div id="mainDiv" class="container" style="background-color: whitesmoke; min-width: 683px;" >
-   <div class="default-header">
+   <!-- <div class="default-header">
       <span *ngIf="source == 'USER' ">Your Sets</span>
       <span *ngIf="source == 'KONAMI' ">Konami's Sets</span>
-   </div>
+   </div> -->
+   <div id="separator">
+      <div *ngIf="source == 'USER' ">Your Sets</div>
+      <div *ngIf="source == 'KONAMI' ">Konami's Sets</div>
+   </div> 
+
 
    <div id="header-main" >
        <!--SEARCH BAR-->
@@ -111,23 +116,10 @@
                      </div>
 
                      <div class="image_card_bottom" *ngIf="source == 'KONAMI'">
-                        <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="source == 'KONAMI'">Total you have: &nbsp; &nbsp;</span>
-                        
-                        <input type="text" name="input_qtde" id="inp_{{deck.id}}" disabled
-                        value="{{deck.quantityUserHave == null ? 0 : deck.quantityUserHave}}" class="input_qtd_userhave">
-
-                        <button type="button" class="btn btn-success btn-sm btn_add" name="{{deck.id}}"  (click)="addSetToUserCollection(deck.id)" 
-                         title="Add One more to your collection" >
-                           <span style="font-size: smaller;">
-                              ADD +
-                           </span> 
-                       </button>
-
+                        <app-add-to-collection [deckID]="deck.id" [quantityUserHave]="deck.quantityUserHave" [set_type]="set_type"></app-add-to-collection>
                      </div>
 
                      <!--Opções que só aparecem se for deck de usuário-->
-                     <!-- &nbsp; <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;"></span>&nbsp;
-                     <mat-icon style="color: royalblue; cursor: pointer;" title="Add to your collection">library_add</mat-icon> -->
                      <div class="row editRemove"   *ngIf="source == 'USER'">
                         <div class="col-md-6"  style="text-align: center;">
                      <!--    <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>-->

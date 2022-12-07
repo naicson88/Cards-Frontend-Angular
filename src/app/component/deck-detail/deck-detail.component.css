@@ -381,3 +381,11 @@
     
   }
 
+#add-to-user-collection{
+  width: 15%;
+  margin-top: 15px;
+  margin-left: 42%;
+  padding: 3px;
+  border-radius: 3px;
+  border: solid thin silver;
+}

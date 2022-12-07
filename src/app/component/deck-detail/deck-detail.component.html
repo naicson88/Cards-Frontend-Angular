@@ -63,6 +63,10 @@
 
     </div>
   </div>
+      
+  <div id="add-to-user-collection" *ngIf="source == 'KONAMI'">
+    <app-add-to-collection [deckID]="deckDetails?.id" [quantityUserHave]="deckDetails?.quantityUserHave" [set_type]="set_type"></app-add-to-collection>
+ </div>
 
   <div class="p-5  rounded shadow mb-5" style="margin-top: 25px; display: none;" [style.display]="isVisible ? 'block' : 'none'">
     <!-- Rounded tabs -->

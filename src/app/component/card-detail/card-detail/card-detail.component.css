@@ -51,6 +51,7 @@
     object-fit: cover ; 
 }
 
+
 #carouselExampleControls {
 
     border: 1px solid #ceefff;
@@ -147,19 +148,7 @@
     font-size: 24px;
     line-height: 20px;
 }
-.td1{
-    font-weight: bold;
-}
 
-
-/*.card {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 1em 0;
-    text-align: left;
-    margin-top: 20px;
-  }*/
   #setsTitle{
      width: 90%;
      border-radius: 25px;

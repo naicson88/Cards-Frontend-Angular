@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import "~bootstrap-icons/font/bootstrap-icons.css"; */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,200&display=swap');
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -131,3 +132,34 @@ button {
     font-weight: 500;
   }
 
+
+  /* SEPARATOR TITLE OF EACH PAGE*/
+  
+#separator {
+  color: #D2B48C;
+  font-size: 5vh;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0px 50px 0px;
+
+}
+
+#separator::before, #separator::after {
+  content: '';
+  display: inline-block;
+  height: 0.09em;
+  width: 30% 
+}
+
+#separator::before {
+  background: linear-gradient(to right, rgba(240, 240, 240, 0),   #D2B48C);
+  margin-right: 2vh;
+}
+#separator::after {
+  background: linear-gradient(to left, rgba(240, 240, 240, 0),  #D2B48C);
+  margin-left: 2vh;
+}
