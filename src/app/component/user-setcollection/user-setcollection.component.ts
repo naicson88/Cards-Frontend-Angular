@@ -343,26 +343,27 @@ export class UserSetcollectionComponent implements OnInit {
     })
   }
   
+
  criterias = new Array();
  openDialogSearch() {
-  const dialogRef = this.dialog.open(SearchBoxComponent);
-  this.spinner.show();
-  dialogRef.afterClosed().subscribe(result => {
-    if(result.data != null && result.data != undefined && result.data.content.length > 0){
-     // console.log(result.data)
-      this.cardsSearched = result.data.content;
-    //  console.log(this.cardsSearched)
-      let page = 0;
-    }
-    else{
-      this.warningDialog("No Cards found in this consult")
-    }
-      this.criterias = result.criterias
+    const dialogRef = this.dialog.open(SearchBoxComponent);
+    
+    this.spinner.show();
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.data != null && result.data != undefined && result.data.content.length > 0){
+       console.log(result.data)
+        this.cardsSearched = result.data.content;
+      }
+
+      else{
+        this.warningDialog("No Cards found!")
+      }
+        this.criterias = result.criterias
+        this.spinner.hide();
+    }, error => {
       this.spinner.hide();
-  }, error => {
-    this.spinner.hide();
-      this.toast.error("Sorry, something bad happened, try again later. ERROR " + error.status)
-  });
+        this.toast.error("Sorry, something bad happened, try again later.")
+    });
   this.spinner.hide()
 }
 

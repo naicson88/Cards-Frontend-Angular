@@ -74,7 +74,7 @@ export class AddToCollectionComponent implements OnInit {
         return ;
       }      
       
-      if(parsed != NaN && parsed != undefined){
+      if(!Number.isNaN(parsed) && parsed != undefined){
         (<HTMLInputElement>document.getElementById(id)).value = parsed.toString();
       
       }    

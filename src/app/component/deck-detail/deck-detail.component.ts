@@ -19,7 +19,6 @@ import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 export class DeckDetailComponent implements OnInit {
   @ViewChild("attrCanvas",{static: true}) elemento: ElementRef; 
   @ViewChild("divCardDetails",{static: true}) divCardDetails: ElementRef; 
-  
 
   deckDetails: SetDetailsDTO
   arrInsideDecksCards: InsideDeck[] = []

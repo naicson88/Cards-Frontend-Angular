@@ -1,8 +1,7 @@
-import { COMPILER_OPTIONS, Component, Directive, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, Directive, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Card } from 'src/app/classes/Card';
 import { Imagens } from 'src/app/classes/Imagens';
-import { SearchCriteria } from 'src/app/classes/SearchCriteria';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 
@@ -32,6 +31,8 @@ export class CardsSearchComponent implements OnInit {
     this.loading = false;
 
   }
+
+  pageElement: any
   //Tooltip image
   topTp;
   leftTp;
@@ -48,85 +49,7 @@ export class CardsSearchComponent implements OnInit {
   cardsFromScroll: Card[] = [];
   relUserCard: any;
 
-  //Cards input field data 
-  cardname = '';
-  number = '';
-  level = '';
-  plusatk = '';
-  lessatk = '';
-  plusdef = '';
-  lessdef = '';
-  description = '';
-  links = '';
-  pendulum = '';
-
   criterios = new Array();
-  atributos = [
-    { name: this.imagens.dark, img: this.imagens.dark_img, id: 4 },
-    { name: this.imagens.fire, img: this.imagens.fire_img, id: 2 },
-    { name: this.imagens.wind, img: this.imagens.wind_img, id: 5 },
-    { name: this.imagens.light, img: this.imagens.light_img, id: 8 },
-    { name: this.imagens.earth, img: this.imagens.earth_img, id: 3 },
-    { name: this.imagens.water, img: this.imagens.water_img, id: 1 },
-  ]
-
-  properties = [
-    { name: this.imagens.continuous, img: this.imagens.continuous_img },
-    { name: this.imagens.field, img: this.imagens.field_img },
-    { name: this.imagens.counter, img: this.imagens.counter_img },
-    { name: this.imagens.equip, img: this.imagens.equip_img },
-    { name: this.imagens.quick, img: this.imagens.quick_img },
-    { name: this.imagens.ritual, img: this.imagens.ritual_icon },
-  ]
-
-  types = [
-    { name: this.imagens.aqua, img: this.imagens.aqua_img, id: 2 },
-    { name: this.imagens.beast, img: this.imagens.beast_img, id: 3 },
-    { name: this.imagens.beast_warrior, img: this.imagens.beast_warrior_img, id: 4 },
-    { name: this.imagens.cyberse, img: this.imagens.cyberse_img, id: 6 },
-    { name: this.imagens.dinosaur, img: this.imagens.dinosaur_img, id: 7 },
-    { name: this.imagens.divine_beast, img: this.imagens.divine_beast_img, id: 8 },
-    { name: this.imagens.dragon, img: this.imagens.dragon_img, id: 9 },
-    { name: this.imagens.fairy, img: this.imagens.fairy_img, id: 10 },
-    { name: this.imagens.fiend, img: this.imagens.fiend_img, id: 11 },
-    { name: this.imagens.fish, img: this.imagens.fish_img, id: 12 },
-    { name: this.imagens.insect, img: this.imagens.insect_img, id: 13 },
-    { name: this.imagens.machine, img: this.imagens.machine_img, id: 14 },
-    { name: this.imagens.plant, img: this.imagens.plant_img, id: 15 },
-    { name: this.imagens.pyro, img: this.imagens.pyro_img, id: 17 },
-
-    { name: this.imagens.reptile, img: this.imagens.reptile_img, id: 18 },
-    { name: this.imagens.rock, img: this.imagens.rock_img, id: 19 },
-    { name: this.imagens.sea_serpent, img: this.imagens.sea_serpent_img, id: 20 },
-    { name: this.imagens.spellcaster, img: this.imagens.spellcaster_img, id: 21 },
-    { name: this.imagens.thunder, img: this.imagens.thunder_img, id: 22 },
-    { name: this.imagens.warrior, img: this.imagens.warrior_img, id: 23 },
-    { name: this.imagens.winged_beast, img: this.imagens.winged_beast_img, id: 24 },
-    { name: this.imagens.wyrm, img: this.imagens.wyrm_img, id: 25 },
-    { name: this.imagens.zombie, img: this.imagens.zombie_img, id: 26 },
-
-  ]
-
-  cards = [
-    { name: this.imagens.monster, img: this.imagens.monster_img },
-    { name: this.imagens.spellc, img: this.imagens.spellc_img },
-    { name: this.imagens.trapc, img: this.imagens.trapc_img },
-    { name: this.imagens.pendulum, img: this.imagens.pendulum_img },
-    { name: this.imagens.xyz, img: this.imagens.xyz_img },
-    { name: this.imagens.synchron, img: this.imagens.synchron_img },
-    { name: this.imagens.fusion, img: this.imagens.fusion_img },
-    { name: this.imagens.link, img: this.imagens.link_img },
-    { name: this.imagens.ritual, img: this.imagens.ritual_img },
-  ]
-
-  sorts: Object[] = [
-    { value: 'name', viewValue: 'Name' },
-    { value: 'atk', viewValue: 'Attack' },
-    { value: 'def', viewValue: 'Defense' },
-    { value: 'level', viewValue: 'Level' },
-    { value: 'links', viewValue: 'Links' },
-    { value: 'pend', viewValue: 'Pendulum Scale' },
-  ];
 
   loadRandomCards() {
     this.cardsFound = [];
@@ -136,227 +59,13 @@ export class CardsSearchComponent implements OnInit {
     })
   }
 
-  searchCards() {
-      
-    this.criterios = []
-
-    this.inputFilters();
-
-    this.cardsFilters();
-
-    this.attrFilters();
-
-    this.typesFilters();
-
-    this.propertiesFilter();
-
-    if (this.criterios != null && this.criterios.length > 0) {
-
-      const params = this.getRequestParam(30, 0);
-      this.cardService.searchCards(params, this.criterios).subscribe(data => {
-
-        this.cardsFound = data;
-
-
-        this.relUserCard = GeneralFunctions.relUserCards(this.cardsFound, this.cardService);
-
-        this.isRandomCards = false;
-        this.totalFound = this.cardsFound[0].totalFound;
-
-      }, error => {
-        let errorCode = error.status;
-        this.router.navigate(["/error-page", errorCode]);
-      })
-
-    }
-
-  }
-
-
-  inputFilters() {
-
-    if (this.cardname != null && this.cardname != '') {
-      const criterio = new SearchCriteria();
-      criterio.criterios('nome', 'MATCH', this.cardname);
-      this.criterios.push(criterio);
-    }
-
-    if (this.number != null && this.number != '') {
-      const criterio = new SearchCriteria();
-      criterio.criterios('numero', 'EQUAL', this.number);
-      this.criterios.push(criterio);
-    }
-
-    if (this.plusatk != null && this.plusatk != '' && parseInt(this.plusatk) >= 0) {
-      const criterio = new SearchCriteria();
-      criterio.criterios('atk', 'GREATER_THAN_EQUAL', this.plusatk);
-      this.criterios.push(criterio);
-    }
-
-    if (this.lessatk != null && this.lessatk != '' && parseInt(this.lessatk) >= 0) {
-      const criterio = new SearchCriteria();
-      criterio.criterios('atk', 'LESS_THAN_EQUAL', this.lessatk);
-      this.criterios.push(criterio);
-    }
-
-    if (this.plusdef != null && this.plusdef != '' && parseInt(this.plusdef) >= 0) {
-      const criterio = new SearchCriteria();
-      criterio.criterios('def', 'GREATER_THAN_EQUAL', this.plusdef);
-      this.criterios.push(criterio);
-    }
-
-    if (this.lessdef != null && this.lessdef != '' && parseInt(this.lessdef) >= 0) {
-      const criterio = new SearchCriteria();
-      criterio.criterios('def', 'LESS_THAN_EQUAL', this.lessdef);
-      this.criterios.push(criterio);
-    }
-
-    if (this.description != null && this.description != '') {
-      const criterio = new SearchCriteria();
-      criterio.criterios('descricao', 'MATCH', this.description);
-      this.criterios.push(criterio);
-    }
-
-    // Inputs que possam ter Between
-    if (this.level != null && this.level != '') {
-
-      if (this.level.indexOf("-") !== -1) {
-        this.splitString(this.level, 'nivel');
-
-      } else {
-        const criterio = new SearchCriteria();
-        criterio.criterios('nivel', 'EQUAL', this.level);
-        this.criterios.push(criterio);
-      }
-
-    }
-
-    if (this.links != null && this.links != '') {
-
-
-      if (this.links.indexOf("-") !== -1) {
-        this.splitString(this.links, 'qtd_link');
-
-      } else {
-        const criterio = new SearchCriteria();
-        criterio.criterios('qtd_link', 'EQUAL', this.links);
-        this.criterios.push(criterio);
-      }
-
-    }
-
-    if (this.pendulum != null && this.pendulum != '') {
-
-      if (this.pendulum.indexOf("-") !== -1) {
-        this.splitString(this.pendulum, 'escala');
-
-      } else {
-        const criterio = new SearchCriteria();
-        criterio.criterios('escala', 'EQUAL', this.pendulum);
-        this.criterios.push(criterio);
-      }
-
-    }
-
-  }
-
-  cardsFilters() {
-
-    const cards = document.querySelectorAll('.cards');
-    const criterio = new SearchCriteria();
-    let param = new Array();
-
-    if (cards != null && cards.length > 0) {
-
-      for (var i = 0; i < cards.length; i++) {
-        if (cards[i].className.indexOf("mat-checkbox-checked") !== -1)
-          param.push(cards[i].getElementsByTagName('input')[0].defaultValue)
-      }
-
-      if (param != null && param.length > 0) {
-        criterio.criterios('genericType', 'IN', param);
-        this.criterios.push(criterio);
-      }
-
-    }
-
-  }
-
-  attrFilters() {
-    const attrs = document.querySelectorAll('.attr');
-    const criterio2 = new SearchCriteria();
-    let arrAttr = new Array();
-
-    if (attrs != null && attrs.length > 0) {
-
-      for (var i = 0; i < attrs.length; i++) {
-        if (attrs[i].className.indexOf("mat-checkbox-checked") !== -1) {
-          let txt = attrs[i].getElementsByTagName('input')[0].defaultValue;
-          arrAttr.push(txt);
-        }
-      }
-
-      if (arrAttr != null && arrAttr.length > 0) {
-        criterio2.criterios('atributo', 'IN', arrAttr);
-        this.criterios.push(criterio2);
-      }
-    }
-  }
-
-  propertiesFilter(){
-    const pprts = document.querySelectorAll('.pprt');
-    const criterio = new SearchCriteria();
-    let arrPprt = new Array();
-
-    if(pprts != null && pprts.length > 0){
-      for (var i = 0; i < pprts.length; i++) {
-        if (pprts[i].className.indexOf("mat-checkbox-checked") !== -1) {
-          let txt = pprts[i].getElementsByTagName('input')[0].defaultValue;
-          arrPprt.push(txt);
-        }
-      }
-    }
-
-    if (arrPprt != null && arrPprt.length > 0) {
-      criterio.criterios('propriedade', 'IN', arrPprt);
-      this.criterios.push(criterio);
-    }
-  }
-
-  typesFilters() {
-
-    const types = document.querySelectorAll('.types');
-    const criterio = new SearchCriteria();
-    let param = new Array();
-
-    if (types != null && types.length > 0) {
-
-      for (var i = 0; i < types.length; i++) {
-        if (types[i].className.indexOf("mat-checkbox-checked") !== -1)
-          param.push(types[i].getElementsByTagName('input')[0].defaultValue)
-      }
-
-      if (param != null && param.length > 0) {
-        criterio.criterios('tipo', 'IN', param);
-        this.criterios.push(criterio);
-      }
-    }
-    console.log(this.criterios);
-  }
-
-  splitString(txt: string, key: string) {
-
-    const criterio = new SearchCriteria();
-    const criterio2 = new SearchCriteria();
-
-    const splitted = txt.split("-", 2);
-
-    criterio.criterios(key, 'GREATER_THAN_EQUAL', splitted[0]);
-    this.criterios.push(criterio);
-
-    criterio2.criterios(key, 'LESS_THAN_EQUAL', splitted[1]);
-    this.criterios.push(criterio2);
-
+ 
+  setCardsFound(e:any){
+    this.pageElement = e.get('page');
+    this.criterios = e.get('criterios')
+    this.isRandomCards = false;
+    this.cardsFound = this.pageElement.content
+    console.log(this.pageElement)
   }
 
   cardImagem(cardId: any) {
@@ -408,32 +117,29 @@ export class CardsSearchComponent implements OnInit {
 
   }
 
-  page: number = 0;
-  pageSize: number = 30;
-
   onScroll() {
     if (this.isRandomCards)
       return false;
-    this.page = this.page + 1;
-    const params = this.getRequestParam(this.pageSize, this.page);
+    
+    if(this.cardsFound.length >= this.pageElement.totalElements)
+      return false;
+
+    const params = this.getRequestParam(this.pageElement.size, this.pageElement.number ++);
 
     this.cardService.searchCards(params, this.criterios).subscribe(newCards => {
 
-
       this.isRandomCards = false;
-      this.totalFound = this.cardsFound[0].totalFound;
-
+      this.totalFound = this.pageElement.totalElements
 
       this.cardsFromScroll = newCards;
-      this.relUserCard = GeneralFunctions.relUserCards(this.cardsFromScroll, this.cardService);
+      //this.relUserCard = GeneralFunctions.relUserCards(this.cardsFromScroll, this.cardService);
 
       this.cardsFromScroll.forEach(card => {
         this.cardsFound.push(card);
       });
 
-
     }, error => {
-      this.page = this.page - 1;
+      console.log(error)
     })
 
   }

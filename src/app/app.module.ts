@@ -23,7 +23,7 @@ import { authStrategyProvider } from './service/auth-service/auth.strategy';
 import { AuthInterceptor } from './service/auth-service/AuthInterceptor';
 import { ArchetypeComponent } from './component/archetype/archetype.component';
 import { ArchetypeDetailsComponent } from './component/archetype-details/archetype-details/archetype-details.component';
-import {  MatSpinner } from '@angular/material';
+import {  MatDialogRef, MatSpinner, MAT_DIALOG_DATA } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SpinnerComponent } from './component/spinner/spinner.component';
@@ -112,6 +112,7 @@ import { SharedModulesModule } from './component/shared/shared-modules/shared-mo
   providers: [
     BaseRoleGuard,
     authStrategyProvider, 
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
@@ -121,6 +122,7 @@ import { SharedModulesModule } from './component/shared/shared-modules/shared-mo
 
   {provide: HTTP_INTERCEPTORS,useClass: SpinnerService, multi: true },
   Imagens,
+  { provide: MatDialogRef, useValue: {}}, { provide: MAT_DIALOG_DATA, useValue: {} },
   
 ],
   bootstrap: [AppComponent]

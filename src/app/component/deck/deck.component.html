@@ -139,11 +139,7 @@
 
                         </div>
                      </div>
-                              
-
-                    
-                     
-                     
+    
                   </div>
              
             </div>
@@ -168,35 +164,38 @@
                      <img [src]='decklist.imagem'  height="70px" width="50px" title="{{decklist.nome}}" >
                    </div>  
 
-                  <div  style="width:90%; height: 70px; background-color:ghostwhite; padding: 5px; display: inline-block; " >
-               
-                        <a *ngIf="set_type != 'UD'" name="{{decklist.id}}"  (click)="storeDeckId(decklist.id)" [routerLink]="['/deck-details/', decklist.nome]" >
-                           {{decklist.nome}}
-                          </a>
-
-                          <a *ngIf="set_type == 'UD'" name="{{decklist.id}}"  (click)="storeDeckId(decklist.id)" [routerLink]="['/user-deck-details/', decklist.nome]" >
+                  <div  class="right-div-row-list">
+                        <div class="row-list-name">                          
+                           <a *ngIf="set_type != 'UD'" name="{{decklist.id}}"  (click)="storeDeckId(decklist.id)" [routerLink]="['/deck-details/', decklist.nome]" >
                               {{decklist.nome}}
-                          </a>
-                          <br>
-                        <!-- <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;">Released:</span> &nbsp; <span>2002</span>&nbsp;&nbsp;&nbsp; -->
+                           </a>
 
-                        <span *ngIf="set_type == 'UD'" style="float: right;">
-                            <!--Opções que só aparecem se for deck de usuário-->
-                            &nbsp; <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;"></span>&nbsp;
-                            <mat-icon style="color: royalblue; cursor: pointer;" title="Add to your collection">library_add</mat-icon>
+                           <a *ngIf="set_type == 'UD'" name="{{decklist.id}}"  (click)="storeDeckId(decklist.id)" [routerLink]="['/user-deck-details/', decklist.nome]" >
+                                 {{decklist.nome}}
+                           </a>
+                        </div>
 
-                            &nbsp; <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;"></span>&nbsp;
-                            <mat-icon style="color: #FFD700; cursor: pointer;" title="Edit this deck">edit</mat-icon> &nbsp;
-
-                           <span style="font-size:small; color: rgb(182, 178, 178); font-weight:normal;">
-
-                              <mat-icon style="color: red; cursor: pointer;" title="Delete from your collection"
-                              id="{{decklist.id}}" (click)="removeSetToUserCollection($event)">delete_forever</mat-icon>
-
-                           </span>&nbsp;
-                        </span>
-                              <!-- <button type="button" class="btn btn-info btn-sm" style="background-color: #138496 !important; margin-left: 20px;" >Manege</button> -->                 
+                        <!--Opções que só aparecem se for deck de usuário-->
+                        <div class="edit-remove-list"   *ngIf="source == 'USER'">
+                              <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="source == 'KONAMI'">Total you have:</span><br>
+   
+                              <a *ngIf="set_type == 'DECK'" name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                                 <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
+                              </a> &nbsp;
+   
+                              <a *ngIf="set_type != 'DECK'" name="{{deck.id}}" [routerLink]="['/user-setcollection-cards/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                                 <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
+                              </a> &nbsp;
+                              
+                              <button type="button" class="btn btn-outline-danger btn-sm"  title="Delete from your collection"
+                              id="{{deck.id}}" (click)="removeSetToUserCollection($event)">Remove            
+                              </button>
+                        </div>
                   </div>
+
+                        
+
+
             </div>
         </div>
       </mat-tab >

@@ -1,26 +1,24 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, HostListener, Inject, OnInit, Renderer2, ViewChild, ViewEncapsulation, ɵCodegenComponentFactoryResolver } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Card } from 'src/app/classes/Card';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { DeckService } from 'src/app/service/deck.service';
 import { GenericTypeCard } from 'src/app/Util/enums/GenericTypeCards';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { DeckDetailUserService } from './deck-detail-user.service';
-import {  ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Deck } from 'src/app/classes/Deck';
-import { MatDialog, throwMatDialogContentAlreadyAttachedError } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { BehaviorSubject, of } from 'rxjs';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
-import { error } from 'protractor';
+
 import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
 import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
 
 
 @Component({

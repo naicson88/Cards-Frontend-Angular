@@ -289,6 +289,8 @@ margin-left: 50%;
   font-size: smaller;
 }
 
+
+
 .search{
   width: 300px;
   position: relative;
@@ -327,28 +329,53 @@ margin-left: 50%;
   padding-left: 5px;
 }
 
-
 .img_deck_list {
   width: 50px; 
   position: relative;
 }
 
+.right-div-row-list {
+  width:90%; 
+  height: 70px; 
+  padding-left: 5px;
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+}
+
+.edit-remove-list{
+  width: 95%;
+  height: fit-content;
+  bottom: 0;
+  display: flex;
+  justify-content: end;
+  position: absolute;
+  bottom: 1px;
+}
+
+.row-list-name{
+  max-width: 100%;
+  height: 30%;
+  background-color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 #row-list{
-  display: inline-flex;
-  width: 48%;
-  margin-bottom: 5px;
- 
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: flex;
+  width: 32%;
+  margin-bottom: 10px;
+  /*box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;*/
   border: solid thin cadetblue;
-  margin: 1px;
+
 }
 
 #sets-list{
-
-  margin-top: 15px;
-  margin-bottom: 15px;
-  margin-left: 5%;
-
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 10px;
 }
 
 /* .form-select {
