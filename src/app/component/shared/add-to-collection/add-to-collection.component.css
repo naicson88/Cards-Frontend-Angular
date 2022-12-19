@@ -1,0 +1,32 @@
+
+.add-main-div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 2px 0;
+}
+
+.total {
+    font-size:x-small; 
+    color: #ccc; 
+    font-weight: bold;
+}
+
+
+.input_qtd_userhave{
+    height: 25px;
+    width: 40px;
+    border-radius: 2px;
+    border: solid red thin;
+    text-align: center;
+
+}
+
+.btn_add {
+    float: right;
+    background-color: #28a745 !important;
+}
+
+.btn_add:hover{
+    background-color: #2cbd4e !important;
+}

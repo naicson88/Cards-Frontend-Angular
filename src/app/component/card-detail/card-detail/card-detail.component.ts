@@ -19,23 +19,26 @@ export class CardDetailComponent implements OnInit {
   
 
   constructor(private router: Router, private service: CardServiceService, private archService: AchetypeService, private  spinner: SpinnerService) { }
+  
 
 
   ngOnInit() {
     this.loadCardDetail();
     this.cardPriceGrafic();
     window.scrollTo(0, 0); 
-
   }
 
   card: Card[]=[];
   userKonamiCollectionMap: Map<any,any>
-  userHaveByUserCollection: Map<any,any>;
+  userHaveByUserCollection: Map<any, any>;
+  userHaveByUserCollectionFiltered: string[]
   konamiSets:[] = [];
   totalViews:number;
   isLINKCard: boolean = false;
   cardTypes:string = "";
   cardAlternativeNumber:[] = [];
+
+  keyIsFound:boolean;
 
   loadCardDetail(){
    // const id = localStorage.getItem("idCard");
@@ -43,13 +46,12 @@ export class CardDetailComponent implements OnInit {
 
     this.spinner.show();
       this.service.getCardDetails(idd).subscribe(data => { 
-        
         console.log(data)
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
         this.cardAlternativeNumber = data['card']['alternativeCardNumber']
         // console.log("CARD: " + JSON.stringify(this.card))
-        this.qtdUserHaveByKonamiCollection(data);
+       // this.qtdUserHaveByKonamiCollection(data);
         this.qtdUserHaveByUserCollection(data);
         this.totalViews = data['views']['totalQtdViews'];
         this.verifyIfIsLinkCard(data);
@@ -61,7 +63,11 @@ export class CardDetailComponent implements OnInit {
       })  
     
   }
-  
+
+  setRarityColor(rarity:string){
+    return GeneralFunctions.colorRarity(rarity);
+  }
+
   setCardTypes(data:any){
     let card = data['card'];
     this.cardTypes += card.tipo.name;
@@ -75,8 +81,7 @@ export class CardDetailComponent implements OnInit {
     else if(card.genericType == 'SYNCHRO' )
       this.cardTypes += " / Synchro"; 
     else if(card.genericType == 'PENDULUM' )
-      this.cardTypes += " / Pendulum"; 
-    
+      this.cardTypes += " / Pendulum";   
     if(card.categoria.includes('Toon'))
       this.cardTypes += " / Toon"; 
     if(card.categoria.includes('Effect'))
@@ -92,7 +97,6 @@ export class CardDetailComponent implements OnInit {
       let card = data['card'];
       if(card.genericType == 'LINK')
         this.isLINKCard = true;
-        console.log("is link: " + this.isLINKCard)
   }
 
   cardImagem(cardId: any){
@@ -135,40 +139,11 @@ export class CardDetailComponent implements OnInit {
           return '..\\..\\assets\\img\\outras\\Counter.png';
         case 'Equip':
           return '..\\..\\assets\\img\\outras\\Equip.jpg'; 
+        case 'Ritual':
+            return '..\\..\\assets\\img\\outras\\Ritual.jpg'; 
     }
     
   }
-
-  /*
-  tipoImagem(tipo:string){
-    switch(tipo){
-      case 'Aqua': return '..\\..\\assets\\img\\tiposMonstros\\Aqua.png';
-      case 'Beast': return '..\\..\\assets\\img\\tiposMonstros\\Beast-DG.png';
-      case 'Beast-Warrior': return '..\\..\\assets\\img\\tiposMonstros\\Beast-Warrior-DG.png';
-    //  case 'Creator-God'  : return '..\\..\\assets\\img\\tiposMonstros\\Beast-Warrior-DG.png';
-    case 'Cyberse' : return '..\\..\\assets\\img\\tiposMonstros\\Cyberse.PNG';
-    case 'Dinosaur' : return '..\\..\\assets\\img\\tiposMonstros\\Dinosaur-DG.png';
-    case 'Divine-Beast' : return '..\\..\\assets\\img\\tiposMonstros\\Divine-Beast-DG.png';
-    case 'Dragon' : return '..\\..\\assets\\img\\tiposMonstros\\Dragon-DG.png';
-    case 'Fairy': return '..\\..\\assets\\img\\tiposMonstros\\Fairy-DG.png';
-    case 'Fiend' : return '..\\..\\assets\\img\\tiposMonstros\\Fiend-DG.png';
-    case 'Fish' : return '..\\..\\assets\\img\\tiposMonstros\\Fish-DG.png';
-    case 'Insect' : return '..\\..\\assets\\img\\tiposMonstros\\Insect-DG.png';
-    case 'Machine' : return '..\\..\\assets\\img\\tiposMonstros\\Machine-DG.png';
-    case 'Plant' : return '..\\..\\assets\\img\\tiposMonstros\\Plant-DG.png';
-    case 'Psychic' : return '..\\..\\assets\\img\\tiposMonstros\\Psychic-DG.png';
-    case 'Pyro' : return '..\\..\\assets\\img\\tiposMonstros\\Pyro-DG.png';
-    case 'Reptile': return '..\\..\\assets\\img\\tiposMonstros\\Reptile-DG.png';
-    case 'Rock': return '..\\..\\assets\\img\\tiposMonstros\\Rock-DG.png';
-    case 'Sea Serpent': return '..\\..\\assets\\img\\tiposMonstros\\Sea_Serpent-DG.png';
-    case 'Spellcaster': return '..\\..\\assets\\img\\tiposMonstros\\Spellcaster-DG.png';
-    case 'Thunder': return '..\\..\\assets\\img\\tiposMonstros\\Thunder-DG.png';
-    case 'Warrior': return '..\\..\\assets\\img\\tiposMonstros\\Warrior-DG.png';
-    case 'Winged Beast' : return '..\\..\\assets\\img\\tiposMonstros\\Winged_Beast-DG.png';
-    case 'Wyrm' : return '..\\..\\assets\\img\\tiposMonstros\\Wyrm-DG.png';
-    case 'Zombie': return '..\\..\\assets\\img\\tiposMonstros\\Zombie-DG.png';
-    }
-  } */
 
   corRaridade(raridade:string){  
     if(raridade == 'Common'){
@@ -216,10 +191,8 @@ export class CardDetailComponent implements OnInit {
   }
 
   storedArchetype(event){
-    //const id = event.target.id;
-    const archId = event.target.id;
+   const archId = event.target.id;
    localStorage.setItem("idArchetype", archId);
-   // console.log(id);s
    if(archId != null && archId != ""){  
    
      this.archService.setArchetypeId(archId);
@@ -275,22 +248,28 @@ export class CardDetailComponent implements OnInit {
     });
   }
 
-   qtdUserHaveByKonamiCollection(data:any) {
-     // console.log(JSON.stringify(data['qtdUserHaveByKonamiCollection']));
-    let  result = Object.entries(data['qtdUserHaveByKonamiCollection']);
-    this.userKonamiCollectionMap = new Map(result);
-   // console.log(this.userKonamiCollectionMap);
+  //  qtdUserHaveByKonamiCollection(data:any) {
+  //    // console.log(JSON.stringify(data['qtdUserHaveByKonamiCollection']));
+  //   let  result = Object.entries(data['qtdUserHaveByKonamiCollection']);
+  //   this.userKonamiCollectionMap = new Map(result);
+  //  // console.log(this.userKonamiCollectionMap);
+  //  }
+
+     qtdUserHaveByUserCollection(data:any){
+     let result = Object.entries(data['qtdUserHaveByUserCollection']);  
+     this.userHaveByUserCollection = new Map(result); 
    }
 
-   qtdUserHaveByUserCollection(data:any){
-     let result = Object.entries(data['qtdUserHaveByUserCollection']);
-     this.userHaveByUserCollection = new Map(result);
-  
+   filterMapSetCode(setCode:string){
+    this.userHaveByUserCollectionFiltered  = [];
+    this.userHaveByUserCollectionFiltered = this.userHaveByUserCollection.get(setCode)
    }
 
+   checkIfKeyExist(key:string): boolean{
+      if(this.userHaveByUserCollection.get(key))
+          return true;
+      else
+          return false;
+   }
 }
 
-class SetPriceRarity{
-  price: number;
-  rarity: string;
-}

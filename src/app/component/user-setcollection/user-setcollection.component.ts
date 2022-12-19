@@ -1,6 +1,6 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatCheckbox, MatDialog, MatDialogRef, MatSelect } from '@angular/material';
-import { Route, Router } from '@angular/router';
+import {  Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatCheckbox, MatDialog, MatDialogRef } from '@angular/material';
+import {  Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Card } from 'src/app/classes/Card';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
@@ -44,9 +44,16 @@ export class UserSetcollectionComponent implements OnInit {
   isVisible: boolean = true;
   showDetail = true;
 
+  rarities: {}
+  konamiRarities: {}
+
+  isNewCollection = false;
+
   ngOnInit() {
     this.getSetCollection();
   }
+
+
   //SWIPER
   breakpoints = {
     320:{slidePerView: 1.6, spaceBetween: 20}
@@ -60,26 +67,29 @@ export class UserSetcollectionComponent implements OnInit {
     this.userSetCollecton.name = "";
     this.userSetCollecton.totalPrice = "0";
     let arr = this.userSetCollecton.cards.slice(0);
-    this.originalCollection = arr;
+    this.originalCollection = arr;  
+    this.isNewCollection = true;
     this.spinner.hide();
   }
+
   getSetCollection(){
     this.spinner.show();
     const id = localStorage.getItem("idDeckDetails");
     
     if(id == "0"){
       this.newSetCollection();
+      this.rarities = {'Common': null}
       return false;
      }
 
     this.service.getSetCollection(id).subscribe(data => {
       this.userSetCollecton = data;
       this.setBasedDeck(data['basedDeck'])
+      this.rarities = data['konamiRarities']
       let arr = this.userSetCollecton.cards.slice(0);
       this.originalCollection = arr;
-      console.log(this.userSetCollecton)
 
-    }, error => {
+      }, error => {
       this.spinner.hide();
       console.log(error);
       this.errorDialog("It was not possible load this Set Collection, try again later!")
@@ -338,26 +348,27 @@ export class UserSetcollectionComponent implements OnInit {
     })
   }
   
+
  criterias = new Array();
  openDialogSearch() {
-  const dialogRef = this.dialog.open(SearchBoxComponent);
-  this.spinner.show();
-  dialogRef.afterClosed().subscribe(result => {
-    if(result.data != null && result.data != undefined && result.data.content.length > 0){
-     // console.log(result.data)
-      this.cardsSearched = result.data.content;
-    //  console.log(this.cardsSearched)
-      let page = 0;
-    }
-    else{
-      this.warningDialog("No Cards found in this consult")
-    }
-      this.criterias = result.criterias
+    const dialogRef = this.dialog.open(SearchBoxComponent);
+
+    this.spinner.show();
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.data != null && result.data != undefined && result.data.content.length > 0){
+       console.log(result.data)
+        this.cardsSearched = result.data.content;
+      }
+
+      else{
+        this.warningDialog("No Cards found!")
+      }
+        this.criterias = result.criterias
+        this.spinner.hide();
+    }, error => {
       this.spinner.hide();
-  }, error => {
-    this.spinner.hide();
-      this.toast.error("Sorry, something bad happened, try again later. ERROR " + error.status)
-  });
+        this.toast.error("Sorry, something bad happened, try again later.")
+    });
   this.spinner.hide()
 }
 

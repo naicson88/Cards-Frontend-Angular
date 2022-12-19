@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
@@ -51,7 +52,7 @@ export class TransferComponent implements OnInit {
           this.rightSets = names;     
         else
           this.leftSets = names;
-
+          
           this.spinner.hide();
       }, error => {  this.spinner.hide();})
     } else {
@@ -99,14 +100,13 @@ export class TransferComponent implements OnInit {
     
     this.spinner.show()
     this.service.getSetCollectionForTransfer(deckId).subscribe(data => {
+      console.log(data)
       if(side == 'L'){
         this.leftUserSetCollecton = data;
         this.leftUserSetCollecton.setType = setType
-        this.countRarities(this.leftUserSetCollecton)
       } else {
         this.rightUserSetCollection = data;
         this.rightUserSetCollection.setType = setType
-        this.countRarities(this.rightUserSetCollection)
       }
       this.spinner.hide();
     }, error => {
@@ -141,16 +141,6 @@ export class TransferComponent implements OnInit {
       this.transferCardToLeft(card)
     else
       this.transferCardToRight(card);
-  }
-
-  countRarities(userSet: UserSetCollectionDTO){
-    
-    userSet.rarities.Secret_Rare = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Secret Rare').length 
-    userSet.rarities.Ultra_Rare = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Ultra Rare').length
-    userSet.rarities.Super_Rare = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Super Rare').length
-    userSet.rarities.Rare = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Rare').length
-    userSet.rarities.Common = userSet.cards.filter(c => c.relDeckCards.card_raridade == 'Common').length
- 
   }
 
   private validQtdCardsDeck(userSet: UserSetCollectionDTO, cardId:number){
@@ -211,9 +201,6 @@ export class TransferComponent implements OnInit {
       this.leftUserSetCollecton.totalPrice = ((card.relDeckCards.card_price + leftTotalPrice).toFixed(2)).toString();
       this.rightUserSetCollection.totalPrice = ((rightTotalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
 
-      this.countRarities(this.leftUserSetCollecton)
-      this.countRarities(this.rightUserSetCollection)
-
   }
 
   transferCardToRight(card: CardSetCollectionDTO){
@@ -231,8 +218,6 @@ export class TransferComponent implements OnInit {
     this.leftUserSetCollecton.totalPrice =   ((leftTotalPrice - card.relDeckCards.card_price).toFixed(2)).toString();
     this.rightUserSetCollection.totalPrice = ((rightTotalPrice + card.relDeckCards.card_price).toFixed(2)).toString();
 
-    this.countRarities(this.leftUserSetCollecton)
-    this.countRarities(this.rightUserSetCollection)
   }
 
   getCardBySide(deck:UserSetCollectionDTO, setCode:string):CardSetCollectionDTO {
@@ -260,7 +245,7 @@ export class TransferComponent implements OnInit {
   }
 
   cardImagem(cardId: any){
-    let urlimg = 'https://storage.googleapis.com/ygoprodeck.com/pics/'+cardId+'.jpg';
+    let urlimg = GeneralFunctions.cardImagem+cardId+'.jpg';
     return urlimg;
   }
    

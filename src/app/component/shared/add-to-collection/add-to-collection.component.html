@@ -1,0 +1,13 @@
+
+<div class="add-main-div">
+    <span class="total">Total you have:</span>
+
+    <input type="text" name="input_qtde" id="inp_{{deckID}}" disabled
+    value="{{quantityUserHave == null ? 0 : quantityUserHave}}" class="input_qtd_userhave">
+
+    <button type="button" class="btn btn-success btn-sm btn_add" name="{{deckID}}" (click)="addSetToUserCollection(deckID)" title="Add One more to your collection" >
+        <span style="font-size: smaller;">
+            ADD +
+        </span> 
+    </button>
+</div>

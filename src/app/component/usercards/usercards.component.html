@@ -13,8 +13,12 @@
         <mat-icon >fiber_new</mat-icon>
         Card
     </button> -->
-    <div class="set-header">  
+    <!-- <div class="set-header">  
         Your Cards Collection
+    </div> -->
+
+    <div id="separator">
+       <div class="separator-title"> Your Card Collection</div>
     </div>
     
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: ghostwhite;" *ngIf="arrCards?.length > 0">
@@ -111,42 +115,19 @@
             <!--Div do corpo do modal-->
               <div id="div-corpo-modal" >
                   <!--Div parte de cima-->
-                  <div id="top-part" style=" height: 221px; margin-top: 10px; padding: 10px; margin-bottom: 5px" class="row" >
+                  <div id="top-part" class="row" >
                       <div id="modal-card-img" style="max-width: 168px; " class="col-md-3">
                         <img  [src]="cardImagem(arrCardsDetails.cardNumber)" alt="" width="165px" height="220px">
                       </div>   
                       
                   
-                    <div id="modal-card-detail" style="display: inline; margin-left: 2%; height: 220px; min-width: 568px; ">
+                    <div id="modal-card-detail" class="col-md-9">
                       <div id="modal-card-name"  >
                         {{arrCardsDetails.cardName}}
                       </div>
                       <div id="modal-card-details">
-                            <label for="total-card">Total you have:</label> {{qtdTotal}}
-                           
-                      </div>
-                      <div id="modal-card-details-table">
-                            <table style="border-collapse: separate; border-spacing: 3px 0; font-weight: 400; text-align: center; padding: 10px; width: 100%;">
-                              <thead>
-                                <tr>
-                                  <th  class="table-primary" width="20%">Common</th>
-                                  <th  class="table-info" width="20%">Rare</th>
-                                  <th class="table-success" width="20%">Super Rare</th>                          
-                                  <th class="table-warning" width="20%">Ultra Rare</th>
-                                  <th class="table-primary" width="20%">Secret Rare</th>
-                                </tr>
-                               
-                              </thead>
-                              <tbody>
-                                <tr style="background-color: ghostwhite;">
-                                  <td >{{qtdCommon}}</td>
-                                  <td>{{qtdRare}}</td>
-                                  <td>{{qtdSuperRare}}</td>
-                                  <td>{{qtdUltraRare}}</td>
-                                  <td>{{qtdSecretRare}}</td>
-                                </tr>
-                              </tbody>
-                            </table>
+                            <label for="total-card">Total you have:</label> {{qtdTotal}}  
+                            <app-quantity-rarities [rarities]="rarities" > </app-quantity-rarities>                       
                       </div>
                     </div>
                   </div>  

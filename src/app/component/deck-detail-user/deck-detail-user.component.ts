@@ -1,24 +1,24 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, HostListener, Inject, OnInit, Renderer2, ViewChild, ViewEncapsulation, ɵCodegenComponentFactoryResolver } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Card } from 'src/app/classes/Card';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { DeckService } from 'src/app/service/deck.service';
 import { GenericTypeCard } from 'src/app/Util/enums/GenericTypeCards';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { DeckDetailUserService } from './deck-detail-user.service';
-import {  ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Deck } from 'src/app/classes/Deck';
-import { MatDialog, throwMatDialogContentAlreadyAttachedError } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { BehaviorSubject, of } from 'rxjs';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
-import { error } from 'protractor';
+
 import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
-
+import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
 
 
 @Component({
@@ -77,6 +77,8 @@ mapSetCodes: Map<number, RelDeckCards[]> = new Map();
 
 cardsSearched = []; // Guarda o numero dos cards que ja tiveram Setcode consultados
 
+rarities ={};
+
   ngOnInit() {
     this.spinner.show();
 
@@ -87,11 +89,12 @@ cardsSearched = []; // Guarda o numero dos cards que ja tiveram Setcode consulta
   }
 
   ngAfterViewInit (){
-    this.setRarityClassAndPriceTitle()
+    //this.setRarityClassAndPriceTitle()
+
   }
 
   ngAfterViewChecked() {
-    
+    this.setRarityClassAndPriceTitle()
   }
 
 
@@ -413,11 +416,16 @@ calculateDeckPrice(relDeckCards:any[]){
 }
 
  calculateQtdRarity(){
- 
-  this.deck.qtdCommon = document.getElementsByClassName('common').length  //this.deck['cards'].filter(rel => rel.raridade == 'Common').length;
-  this.deck.qtdRare =  document.getElementsByClassName('rare').length //this.deck['cards'].filter(rel => rel.raridade == 'Rare').length;
-  this.deck.qtdSuperRare = document.getElementsByClassName('super_rare').length// this.deck['cards'].filter(rel => rel.raridade == 'Super Rare').length;
-  this.deck.qtdUltraRare = document.getElementsByClassName('ultra_rare').length
+  this.rarities = {
+    "Common": document.getElementsByClassName('Common').length,
+    "Rare" : document.getElementsByClassName('Rare').length,
+    "Super Rare": document.getElementsByClassName('Super Rare').length,
+    "Ultra Rare" : document.getElementsByClassName('Ultra Rare').length
+  }
+  // this.deck.qtdCommon = document.getElementsByClassName('common').length  //this.deck['cards'].filter(rel => rel.raridade == 'Common').length;
+  // this.deck.qtdRare =  document.getElementsByClassName('rare').length //this.deck['cards'].filter(rel => rel.raridade == 'Rare').length;
+  // this.deck.qtdSuperRare = document.getElementsByClassName('super_rare').length// this.deck['cards'].filter(rel => rel.raridade == 'Super Rare').length;
+  // this.deck.qtdUltraRare = document.getElementsByClassName('ultra_rare').length
 
   this.recalculateDeckPrice();
  } 
@@ -732,7 +740,7 @@ insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Ele
     let rel:RelDeckCards = new RelDeckCards()  
     let setCode = options[i + indexSum].innerHTML
 
-    if(!setCode.includes("SET CODE") && !setCode.includes("Not Defined") && setCode != ""){
+    if(!setCode.includes("SET CODE") && !setCode.includes(ECardRarities.NOT_DEFINED) && setCode != "") {
         
           for(var j = 0; j < array[i].relDeckCards.length; j++){
             if(array[i].relDeckCards[j].card_set_code == setCode.trim()){

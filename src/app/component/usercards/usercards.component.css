@@ -1,3 +1,5 @@
+
+
 .sidebar2 {
   height: 100%;
   width: 0;
@@ -158,3 +160,16 @@
  padding: 5px;
 }
 
+#top-part{
+  height: 221px; 
+  margin-top: 10px; 
+  padding: 10px; 
+  margin-bottom: 10px;
+}
+
+#modal-card-detail{
+  display: inline; 
+  margin-left: 2%; 
+  height: 220px; 
+  min-width: 568px; 
+}

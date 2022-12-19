@@ -1,30 +1,37 @@
-import { Component, ElementRef, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { EventEmitter } from 'protractor';
+import { Component, ElementRef, Inject, Injectable, OnInit, Output, EventEmitter  } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Card } from 'src/app/classes/Card';
 import { Imagens } from 'src/app/classes/Imagens';
 import { SearchCriteria } from 'src/app/classes/SearchCriteria';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { SpinnerService } from 'src/app/service/spinner.service';
+import { ErrorDialogComponent } from '../../dialogs/error-dialog/error-dialog.component';
+
 
 @Component({
   selector: 'app-search-box',
   templateUrl: './search-box.component.html',
-  styleUrls: ['./search-box.component.css']
+  styleUrls: ['./search-box.component.css'],
+
 })
+
 export class SearchBoxComponent implements OnInit {
 
-
-  constructor(private imagens: Imagens, private cardService: CardServiceService, {nativeElement}: ElementRef<HTMLImageElement>, @Inject(MAT_DIALOG_DATA) public data: Card[],
+  constructor(private imagens: Imagens, private cardService: CardServiceService, {nativeElement}: ElementRef<HTMLImageElement>,
+  @Inject(MAT_DIALOG_DATA) public data: Card[],
   @Inject(MAT_DIALOG_DATA) public crietrias: any[],
-  private dialogRef: MatDialogRef<SearchBoxComponent>) {
-    const supports = 'loading' in HTMLImageElement.prototype;
+  private dialogRef: MatDialogRef<SearchBoxComponent>,
+  private spinner: SpinnerService,
+  public dialog: MatDialog) {
 
+    const supports = 'loading' in HTMLImageElement.prototype;
     if(supports){
       nativeElement.setAttribute('loading','lazy');
     }
    }
  
+   @Output()  cardsFoundEvent = new EventEmitter<any>();
+   
   ngOnInit() {
     window.scrollTo(0, 0);
     
@@ -43,6 +50,7 @@ export class SearchBoxComponent implements OnInit {
   isRandomCards : boolean = true;
   cardsFoundQtd: number;
 
+  mapBusca = new Map();
 
   panelOpenState = false;
   chosen:string;
@@ -144,39 +152,26 @@ export class SearchBoxComponent implements OnInit {
     this.propertiesFilter();
 
     if(this.criterios != null && this.criterios.length > 0){
+      this.spinner.show()
+        const params = this.getRequestParam(this.pageSize, this.page)
 
-      const params = this.getRequestParam(this.pageSize, this.page)
+        this.cardService.searchCardsDetailed(params, this.criterios).subscribe(data => {
 
-      this.cardService.searchCardsDetailed(params, this.criterios).subscribe(data => {
-        this.cardsFound = data;
+        this.mapBusca.set("criterios", this.criterios)
+        this.mapBusca.set("page", data);
+        this.cardsFoundEvent.emit(this.mapBusca);
 
-       this.relUserCard = GeneralFunctions.relUserCards(this.cardsFound, this.cardService);
-       
-       this.dialogRef.close({data: this.cardsFound, criterias: this.criterios})
-  
+        this.spinner.hide()
+        this.dialogRef.close({data: data, criterias: this.criterios})
 
-
-       /* for(var i = 0; i < this.cardsFound.length; i++){
-          if(this.cardsFound[i]['numero'] != null){cardNumbers.push(this.cardsFound[i]['numero'] )}
-         }
-
-        this.cardService.relUserCards(cardNumbers).subscribe(rel =>{
-          this.relUserCard = rel;
-         
-          this.cardsFound.forEach( comp => {
-            this.relUserCard.map( e => {
-              if(e.cardNumero === comp.numero){
-                Object.assign(comp, {"qtd": e.qtd})
-              }
-            })
-          })
-        });*/
-
-      }) 
-  
+      }, error => {
+          this.errorDialog("Something Bad Happened! Try again later.")
+      })  
     }
-    //console.log(this.criterios);
-    
+  }
+
+  passInfoToParent(data:any){
+    this.cardsFoundEvent.emit(data);
   }
 
   propertiesFilter(){
@@ -304,7 +299,6 @@ export class SearchBoxComponent implements OnInit {
               }
               
             }
-
       }
 
       attrFilters(){
@@ -357,7 +351,7 @@ export class SearchBoxComponent implements OnInit {
           }
 
           if(param != null && param.length > 0){
-            criterio.criterios('tipos', 'IN', param);
+            criterio.criterios('tipo', 'IN', param);
             this.criterios.push(criterio);
           }
           
@@ -416,5 +410,10 @@ export class SearchBoxComponent implements OnInit {
       
       }
 
+      errorDialog(errorMessage:string){
+        this.dialog.open(ErrorDialogComponent, {
+          data: errorMessage
+        })
+      }
 
 }

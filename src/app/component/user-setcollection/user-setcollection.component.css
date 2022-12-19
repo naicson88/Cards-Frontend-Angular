@@ -5,13 +5,6 @@
     max-width: 85%;
 }
 
-#tableRarity{
-    width: 35%;
-    float: right;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
-    border-radius: 5px ; 
-    border: solid thin silver
-  }
 
   #optionsBtn{
     width: 100%; 
@@ -24,6 +17,34 @@
     display: flex;
     justify-content: space-between;
   
+  }
+
+  #div-options-img{
+    display: flex; 
+    justify-content: space-around;
+    margin: 15px 0;
+
+  }
+
+  #button-based{
+    background-color: #096e7e !important; 
+    margin-top: 5px;
+    margin-left: 35%;
+  }
+
+  #div-options{
+    border: solid thin silver; 
+    padding: 10px; 
+    width: fit-content; 
+    background-color:#fffafa;
+    display: inline-block;
+  }
+
+  #div-set-img{
+    margin-left: -20%;
+    margin-top: 10px;
+    align-items: center;
+
   }
 
   #onlyCardsIhave{
@@ -82,14 +103,7 @@
     justify-content: space-between;
   }
 
-  #divOptions{
-    border: solid thin silver; 
-    padding: 10px; 
-    width: fit-content; 
-    margin: 10px 0 20px 30px;
-    background-color:#fffafa;
-    display: inline-block;
-  }
+
 
   .divSingleCard{
     width: 180px;
@@ -188,4 +202,12 @@
     width: 160px !important; 
     height: 210px !important;
     margin-bottom: 3px;
+  }
+
+  #set-info-header{
+    margin-bottom: 20px; 
+    padding: 10px; 
+    background-color: ghostwhite;
+    display: flex;
+    justify-content: space-around;
   }

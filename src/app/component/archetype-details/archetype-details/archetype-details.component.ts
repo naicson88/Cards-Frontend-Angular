@@ -5,6 +5,7 @@ import { AchetypeService } from 'src/app/service/archetype-service/achetype.serv
 import {MatSort} from '@angular/material/sort';
 
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
+import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 
 @Component({
   selector: 'app-archetype-details',
@@ -29,7 +30,7 @@ export class ArchetypeDetailsComponent  implements OnInit  {
   }
 
   cardImagem(cardId: any){
-    let urlimg = 'https://storage.googleapis.com/ygoprodeck.com/pics/' + cardId + '.jpg';
+    let urlimg = GeneralFunctions.cardImagem + cardId + '.jpg';
     return urlimg;
   }
 

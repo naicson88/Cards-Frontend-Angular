@@ -46,23 +46,8 @@
       <!--Raridade-->
       <div class="row" style="border: gold solid thin;" *ngIf="arrInsideDecksCards[0]?.cards.length > 0">
 
-        <div id="rarity" style="width: 100%; background-color: rgb(164, 154, 231); height: 35px;">
-
-          <ul>
-            <li style="border-top: none !important">
-              <span class="badge  badge-secondary"> Common: {{deckDetails.qtd_comuns}}</span>
-            </li>
-            <li>
-              <span class="badge badge-primary ">Rare: {{deckDetails.qtd_raras}}</span>
-            </li>
-            <li>
-              <span class="badge  badge-success">Super Rare: {{deckDetails.qtd_super_raras}}</span>
-            </li>
-            <li>
-              <span class="badge   badge-danger">Ultra Rare: {{deckDetails.qtd_ultra_raras}}</span>
-            </li>
-
-          </ul>
+        <div id="rarity" style="width: 100%; background-color: rgb(164, 154, 231); height: fit-content;">
+          <app-quantity-rarities [rarities]="rarities"  style="width: 35% !important;"> </app-quantity-rarities>
         </div>
 
 
@@ -78,6 +63,10 @@
 
     </div>
   </div>
+      
+  <div id="add-to-user-collection" *ngIf="source == 'KONAMI'">
+    <app-add-to-collection [deckID]="deckDetails?.id" [quantityUserHave]="deckDetails?.quantityUserHave" [set_type]="set_type"></app-add-to-collection>
+ </div>
 
   <div class="p-5  rounded shadow mb-5" style="margin-top: 25px; display: none;" [style.display]="isVisible ? 'block' : 'none'">
     <!-- Rounded tabs -->

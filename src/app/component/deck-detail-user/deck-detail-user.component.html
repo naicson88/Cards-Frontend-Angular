@@ -22,30 +22,10 @@
             <span class="material-icons" title="Deck total value" style="cursor: pointer;"> paid </span> <span
                 style="font-size:xx-large">{{totalDeckValue}}</span>
         </div>
-
-        <div id="tableRarity" >
-
-            <table
-                style="border-collapse: separate; border-spacing: 3px 0; font-weight: 400; text-align: center; padding: 5px; width: 100%;">
-                <thead>
-                    <tr>
-                        <th class="table-primary" width="25%">Common</th>
-                        <th class="table-info" width="25%">Rare</th>
-                        <th class="table-success" width="25%">Super Rare</th>
-                        <th class="table-warning" width="25%">Ultra Rare</th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    <tr style="background-color: ghostwhite;">
-                        <td>{{deck?.qtdCommon}}</td>
-                        <td>{{deck?.qtdRare}}</td>
-                        <td>{{deck?.qtdSuperRare}}</td>
-                        <td>{{deck?.qtdUltraRare}}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div style="width: 40%;">
+            <app-quantity-rarities [rarities]="rarities"> </app-quantity-rarities>
         </div>
+
     </div>
 
 
@@ -71,8 +51,9 @@
         </div>
 
         <div id="btnSearch">
-            <button mat-raised-button color="primary" (click)="openDialogSearch()">Search <mat-icon>search</mat-icon>
-                </button>
+            <button mat-raised-button color="primary" (click)="openDialogSearch()">
+                Search <mat-icon>search</mat-icon>
+            </button>
         </div>
 
     </div>
@@ -116,7 +97,7 @@
                                     <span *ngIf="card.relDeckCards.length == 0 || card.relDeckCards.length > 1"
                                         style="color: red; font-weight: 700; top: 0;" id="main_{{i}}">
                                         $ 0.00</span>
-                                    <span id="main_r_{{i}}" style="font-size: x-small; float: right;"
+                                    <span id="main_r_{{i}}" style="font-size: x-small; float: right;" class="{{card.relDeckCards[0].card_raridade}}"
                                         *ngIf="card.relDeckCards.length == 1 ">{{card.relDeckCards[0].card_raridade}}
                                     </span>
                                     <span id="main_r_{{i}}" style="font-size: x-small; float: right;"

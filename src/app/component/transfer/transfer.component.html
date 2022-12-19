@@ -40,28 +40,6 @@
             <div class="setDescription col-md-9" >
                 <p class="nome-set">{{leftUserSetCollecton?.name}}</p>
                 <div class="description-bottom">
-                        <table >
-                            <thead>
-                              <tr>
-                                <th  class="table-primary" width="20%" *ngIf="leftUserSetCollecton?.rarities.Common > 0">Common</th>
-                                <th  class="table-info"    width="20%" *ngIf="leftUserSetCollecton?.rarities.Rare > 0">Rare</th>
-                                <th class="table-success"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Super_Rare > 0">Super Rare</th>                         
-                                <th class="table-primary"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Secret_Rare > 0">Secret Rare</th>
-                                <th class="table-warning"  width="20%" *ngIf="leftUserSetCollecton?.rarities.Ultra_Rare > 0">Ultra Rare</th>
-                              </tr>
-                             
-                            </thead>
-                            <tbody>
-                              <tr style="background-color: ghostwhite;">
-                                <td *ngIf="leftUserSetCollecton?.rarities.Common > 0">{{leftUserSetCollecton?.rarities.Common}}</td>
-                                <td *ngIf="leftUserSetCollecton?.rarities.Rare > 0">{{leftUserSetCollecton?.rarities.Rare}}</td>
-                                <td *ngIf="leftUserSetCollecton?.rarities.Super_Rare > 0">{{leftUserSetCollecton?.rarities.Super_Rare}}</td>
-                                <td *ngIf="leftUserSetCollecton?.rarities.Secret_Rare > 0">{{leftUserSetCollecton?.rarities.Secret_Rare}}</td>                        
-                                <td *ngIf="leftUserSetCollecton?.rarities.Ultra_Rare > 0">{{leftUserSetCollecton?.rarities.Ultra_Rare}}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-    
                     <div class="totalPrice">
                         <span> Total Price <br>{{leftUserSetCollecton?.totalPrice | currency : 'USD'}}</span>                  
                     </div>
@@ -136,28 +114,6 @@
                 <div class="setDescription col-sm-9">
                     <p class="nome-set">{{rightUserSetCollection?.name}}</p>
                     <div class="description-bottom">
-                            <table >
-                                <thead>
-                                  <tr>
-                                    <th  class="table-primary" width="20%" *ngIf="rightUserSetCollection?.rarities.Common > 0">Common</th>
-                                    <th  class="table-info"    width="20%" *ngIf="rightUserSetCollection?.rarities.Rare > 0">Rare</th>
-                                    <th class="table-success"  width="20%" *ngIf="rightUserSetCollection?.rarities.Super_Rare > 0">Super Rare</th>                         
-                                    <th class="table-primary"  width="20%" *ngIf="rightUserSetCollection?.rarities.Secret_Rare > 0">Secret Rare</th>
-                                    <th class="table-warning"  width="20%" *ngIf="rightUserSetCollection?.rarities.Ultra_Rare > 0">Ultra Rare</th>
-                                  </tr>
-                                 
-                                </thead>
-                                <tbody>
-                                  <tr style="background-color: ghostwhite;">
-                                    <td *ngIf="rightUserSetCollection?.rarities.Common > 0">{{rightUserSetCollection?.rarities.Common}}</td>
-                                    <td *ngIf="rightUserSetCollection?.rarities.Rare > 0">{{rightUserSetCollection?.rarities.Rare}}</td>
-                                    <td *ngIf="rightUserSetCollection?.rarities.Super_Rare > 0">{{rightUserSetCollection?.rarities.Super_Rare}}</td>
-                                    <td *ngIf="rightUserSetCollection?.rarities.Secret_Rare > 0">{{rightUserSetCollection?.rarities.Secret_Rare}}</td>                        
-                                    <td *ngIf="rightUserSetCollection?.rarities.Ultra_Rare > 0">{{rightUserSetCollection?.rarities.Ultra_Rare}}</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-        
                         <div class="totalPrice">
                             <span> Total Price <br>{{rightUserSetCollection?.totalPrice | currency : 'USD'}}</span>                  
                         </div>

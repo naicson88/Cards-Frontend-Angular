@@ -19,10 +19,9 @@ import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 export class DeckDetailComponent implements OnInit {
   @ViewChild("attrCanvas",{static: true}) elemento: ElementRef; 
   @ViewChild("divCardDetails",{static: true}) divCardDetails: ElementRef; 
-  
 
   deckDetails: SetDetailsDTO
-  arrInsideDecksCards: InsideDeck[];
+  arrInsideDecksCards: InsideDeck[] = []
   
   quantidadePorTipo = [];
   quantidadePorEstrelas = [];
@@ -34,6 +33,7 @@ export class DeckDetailComponent implements OnInit {
   categoriaCards =[];
   countsGeneric_type: any;
 
+  rarities : {}
 
   topTp;
   leftTp;
@@ -69,17 +69,21 @@ export class DeckDetailComponent implements OnInit {
     const id = localStorage.getItem("idDeckDetails");
     const source = localStorage.getItem("source");
     const set_type = localStorage.getItem("set_type");
-     
+    this.source = source 
     this.service.getDeckDetails(id, source, set_type).subscribe(data => {
      console.log(data)
+     
       this.deckDetails = data;
-      this.arrInsideDecksCards = data['insideDeck']
+      this.arrInsideDecksCards = data['insideDecks']
       this.imgPath =  this.deckDetails.imgurUrl;
       
       if(this.arrInsideDecksCards[0].cards.length > 0) {
+        
         this.isVisible = true;
         this.countsGeneric_type = data['statsQuantityByGenericType'];
         this.quantidadePorAtributo = data['statsQuantityByAttribute'];
+
+        this,this.rarities = data['quantity']
 
         this.setQuantityByCardType(data['statsQuantityByType'])
         this.setQuantityByCardProperty(data['statsQuantityByProperty'])
@@ -90,8 +94,7 @@ export class DeckDetailComponent implements OnInit {
         this.graficoAtributos();
         this.spinner.hide();
       } 
-
-     
+  
     }, error => {
       console.log(error)
       this.spinner.hide();

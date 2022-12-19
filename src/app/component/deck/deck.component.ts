@@ -119,45 +119,45 @@ export class DeckComponent implements OnInit {
 
   }
 
-    addSetToUserCollection(event:any){
-      let qtdCardManeged:number;
-      let setId =  event //event.target.name;
+    // addSetToUserCollection(event:any){
+    //   let qtdCardManeged:number;
+    //   let setId =  event //event.target.name;
 
-      if(this.set_type == 'DECK'){
+    //   if(this.set_type == 'DECK'){
           
-        this.service.addDeckToUsersCollection(setId).subscribe(data => {
-          qtdCardManeged = data;
+    //     this.service.addDeckToUsersCollection(setId).subscribe(data => {
+    //       qtdCardManeged = data;
   
-          if(qtdCardManeged == 0){
-            return false;
-          }
+    //       if(qtdCardManeged == 0){
+    //         return false;
+    //       }
   
-          if(qtdCardManeged > 0){
-            this.toastr.success('The Set has been added to your collection! Plus', 'Success!');
+    //       if(qtdCardManeged > 0){
+    //         this.toastr.success('The Set has been added to your collection! Plus', 'Success!');
               
-            this.manegeQuantity(setId, "A");
+    //         this.manegeQuantity(setId, "A");
   
-          } else {
-            this.toastr.error('Unable to add the Deck or Cards to the user.', 'Error!')
-          }
+    //       } else {
+    //         this.toastr.error('Unable to add the Deck or Cards to the user.', 'Error!')
+    //       }
   
-        })
+    //     })
 
-      } else {
+    //   } else {
         
-        this.service.addSetToUsersCollection(setId).subscribe(data => {
+    //     this.service.addSetToUsersCollection(setId).subscribe(data => {
 
-            this.toastr.success("The Set has been added to your collection! Plus all it's cards", 'Success!');
+    //         this.toastr.success("The Set has been added to your collection! Plus all it's cards", 'Success!');
               
-            this.manegeQuantity(setId, "A");
+    //         this.manegeQuantity(setId, "A");
 
-        }, error => {
-          console.log(error)
-          this.toastr.error('Something bad happened, try again later.', 'Error!')
-        })
-      }
+    //     }, error => {
+    //       console.log(error)
+    //       this.toastr.error('Something bad happened, try again later.', 'Error!')
+    //     })
+    //   }
       
-    }
+    // }
 
     removeSetToUserCollection(event:any) {
       
@@ -192,8 +192,6 @@ export class DeckComponent implements OnInit {
           })
         }
 
-       
-
         this.deck.splice(i, 1);
 
       } else {
@@ -201,29 +199,29 @@ export class DeckComponent implements OnInit {
       }
     }
 
-  manegeQuantity(deckId:string, flagAddOrRemove:string){
+  // manegeQuantity(deckId:string, flagAddOrRemove:string){
   
-    let id = "inp_"+deckId;
-    let el =(<HTMLInputElement>document.getElementById(id));
-    let valor = el.value;
-    if(valor != null){
-      let parsed = parseInt(valor);
+  //   let id = "inp_"+deckId;
+  //   let el =(<HTMLInputElement>document.getElementById(id));
+  //   let valor = el.value;
+  //   if(valor != null){
+  //     let parsed = parseInt(valor);
       
-      if(flagAddOrRemove == 'A'){
-        parsed += 1;
-      } else if (flagAddOrRemove == 'R' && parsed > 0){
-        parsed -= 1;
-      } else {
+  //     if(flagAddOrRemove == 'A'){
+  //       parsed += 1;
+  //     } else if (flagAddOrRemove == 'R' && parsed > 0){
+  //       parsed -= 1;
+  //     } else {
         
-        return ;
-      }      
+  //       return ;
+  //     }      
       
-      if(parsed != NaN && parsed != undefined){
-        (<HTMLInputElement>document.getElementById(id)).value = parsed.toString();
+  //     if(parsed != NaN && parsed != undefined){
+  //       (<HTMLInputElement>document.getElementById(id)).value = parsed.toString();
       
-      }    
-    }  
-  }
+  //     }    
+  //   }  
+  // }
 
   ordenacaoArrayAPI(){
     this.deck.sort(function(a,b){
@@ -244,8 +242,9 @@ export class DeckComponent implements OnInit {
    
   }
 
-  storeDeckId(id:any){
-    GeneralFunctions.storeInformation("idDeckDetails", id, this.source, this.set_type)
+  storeDeckId(id:any) {
+    const setType =  this.set_type != 'DECK' ? 'COLLECTION' : 'DECK'
+    GeneralFunctions.storeInformation("idDeckDetails", id, this.source, setType)
   }
   
   addDeckToCollection(e){

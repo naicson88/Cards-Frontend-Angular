@@ -1,10 +1,10 @@
-<div class="container" style="border: solid thin silver; background-color: ghostwhite;">
 
-    <div id="search-div">
 
-        <mat-expansion-panel style="background-color: ghostwhite;" [expanded]="true">
+    <div id="search-div" >
 
-            <mat-expansion-panel-header style="background-color: #63b175 !important;">
+        <mat-expansion-panel style="background-color: ghostwhite;" [expanded]="true" disabled>
+
+            <mat-expansion-panel-header style="background-color: #63b175 !important;" >
                 <mat-panel-title>
                     <h4 style="font-family: 'Arvo'; font-weight: 700; color: white; font-size: 26px;">Search filters
                         <mat-icon>filter_list</mat-icon>
@@ -30,10 +30,10 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <mat-form-field style="width: 100% !important; " appearance="legacy">
                                 <mat-label> Name</mat-label>
-                                <input matInput type="text" [(ngModel)]="cardname" name="cardname">
+                                <input matInput type="text" [(ngModel)]="cardname" name="cardname" maxlength="100">
                                 <button *ngIf="cardname" matSuffix mat-icon-button (click)="cardname=''">
                                     <mat-icon>close</mat-icon>
                                 </button>
@@ -43,32 +43,30 @@
                         <div class="col-md-3">
                             <mat-form-field style="width: 100% !important; " appearance="legacy">
                                 <mat-label>Number</mat-label>
-                                <input matInput type="number" name="number" [(ngModel)]="number">
-
+                                <input matInput type="number" name="number" [(ngModel)]="number" maxlength="15">
                             </mat-form-field>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <mat-form-field style="width: 30% !important; " appearance="legacy">
                                 <mat-label>Level</mat-label>
-                                <input matInput type="text" name="level" [(ngModel)]="level" maxlength="5">
+                                <input matInput type="text" name="level" [(ngModel)]="level" maxlength="2">
 
                             </mat-form-field>
                             <mat-icon>stars</mat-icon>
                         </div>
                     </div>
                     <!--ATTACK ROW-->
-                    <div class="row">
+                    <div class="row atk-def-row" >
                         <div class="col-md-6">
-
-                            <label for="">ATTACK:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label for="" >ATTACK:</label>&nbsp;&nbsp;
                             <mat-icon color="warn">arrow_upward</mat-icon>
                             <mat-form-field style="width: 25% !important; " appearance="legacy">
                                 <mat-label>More or Equal</mat-label>
                                 <input matInput type="number" max="5000" name="plusatk" [(ngModel)]="plusatk">
 
-                            </mat-form-field> &nbsp;&nbsp;&nbsp;&nbsp;
-                            <i> AND</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </mat-form-field> &nbsp;&nbsp;
+                            <i> AND</i>&nbsp;&nbsp;
                             <mat-icon color="primary">arrow_downward</mat-icon>
                             <mat-form-field style="width: 25% !important; " appearance="legacy">
                                 <mat-label>Less or Equal</mat-label>
@@ -77,14 +75,14 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="">DEFENSE:</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label for="">DEFENSE:</label>&nbsp;&nbsp;
                             <mat-icon color="warn">arrow_upward</mat-icon>
                             <mat-form-field style="width: 25% !important; " appearance="legacy">
 
                                 <mat-label>More or Equal</mat-label>
                                 <input matInput type="number" max="5000" name="plusdef" [(ngModel)]="plusdef">
-                            </mat-form-field> &nbsp;&nbsp;&nbsp;&nbsp;
-                            <i> AND</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </mat-form-field> &nbsp;&nbsp;
+                            <i> AND</i>&nbsp;&nbsp;
                             <mat-icon color="primary">arrow_downward</mat-icon>
                             <mat-form-field style="width: 25% !important; " appearance="legacy">
                                 <mat-label>Less or Equal</mat-label>
@@ -99,9 +97,7 @@
                             <mat-form-field class="example-full-width" appearance="legacy"
                                 style="width: 300px !important;">
                                 <mat-label>Card description</mat-label>
-
-                                <textarea matInput name="description" [(ngModel)]="description"></textarea>
-
+                                <textarea matInput name="description" [(ngModel)]="description" maxlength="100"></textarea>
                             </mat-form-field>
 
                         </div>
@@ -110,7 +106,7 @@
                             <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="30px" height="30px">
                             <mat-form-field style="width: 60% !important; " appearance="legacy">
                                 <mat-label>Links</mat-label>
-                                <input matInput type="text" maxlength="3" name="links" [(ngModel)]="links">
+                                <input matInput type="text" maxlength="2" name="links" [(ngModel)]="links">
                             </mat-form-field>
                         </div>
 
@@ -118,7 +114,7 @@
                             <img src="..\..\assets\img\outras\EscalaAzul.png" alt="Blue Scale"> &nbsp;
                             <mat-form-field style="width: 60% !important; " appearance="legacy">
                                 <mat-label>Pendulums</mat-label>
-                                <input matInput type="text" maxlength="5" name="pendulum" [(ngModel)]="pendulum">
+                                <input matInput type="text" maxlength="2" name="pendulum" [(ngModel)]="pendulum">
                             </mat-form-field>
                             <img src="..\..\assets\img\outras\EscalaVermelha.png" alt="Red Scale">
                         </div>
@@ -230,4 +226,4 @@
 
     </div>
 
-</div>
+

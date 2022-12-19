@@ -1,0 +1,52 @@
+<div id="tableRarity">
+      <table id="table-quantity">
+        <thead>
+          <tr>
+            <th class="table-primary" *ngIf="rarities['Common'] != undefined ">Common</th>
+            <th class="table-info"    *ngIf="rarities['Rare']">Rare</th>
+            <th class="table-success" *ngIf="rarities['Super Rare']">Super Rare</th>
+            <th class="table-warning" *ngIf="rarities['Ultra Rare']">Ultra Rare</th>
+            <th class="table-primary" *ngIf="rarities['Secret Rare']">Secret Rare</th>
+
+            <th class="table-primary" *ngIf="rarities['Ultimate Rare']">Ultimate Rare</th>
+            <th class="table-info"    *ngIf="rarities['Gold Rare']">Gold Rare</th>
+            <th class="table-success" *ngIf="rarities['Parallel Rare']">Parallel Rare</th>
+            <th class="table-warning" *ngIf="rarities['Ghost Rare']">Ghost Rare</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr style="background-color: ghostwhite;">
+            <td *ngIf="rarities['Common']">            
+              <span >{{rarities['Common']}}</span>
+            </td>
+            <td *ngIf="rarities['Rare']">
+              <span >{{rarities['Rare']}}</span>
+            </td>
+            <td *ngIf="rarities['Super Rare']">
+              <span >{{rarities['Super Rare']}}</span>
+            </td>
+            <td *ngIf="rarities['Ultra Rare']">
+              <span >{{rarities['Ultra Rare']}}</span>
+            </td>
+            <td *ngIf="rarities['Secret Rare']">
+              <span >{{rarities['Secret Rare']}}</span>
+            </td>
+
+            <td *ngIf="rarities['Ultimate Rare']">
+              <span >{{rarities['Ultimate Rare']}}</span>
+            </td>
+            <td *ngIf="rarities['Gold Rare']">
+              <span >{{rarities['Gold Rare']}}</span>
+            </td>
+            <td *ngIf="rarities['Parallel Rare']">
+              <span >{{rarities['Parallel Rare']}}</span>
+            </td>
+            <td *ngIf="rarities['Ghost Rare']">
+              <span >{{rarities['Ghost Rare']}}</span>
+            </td>
+           
+          </tr>
+        </tbody>
+      </table>
+</div>
