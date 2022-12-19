@@ -2,7 +2,7 @@
       <table id="table-quantity">
         <thead>
           <tr>
-            <th class="table-primary" *ngIf="rarities['Common']">Common</th>
+            <th class="table-primary" *ngIf="rarities['Common'] != undefined ">Common</th>
             <th class="table-info"    *ngIf="rarities['Rare']">Rare</th>
             <th class="table-success" *ngIf="rarities['Super Rare']">Super Rare</th>
             <th class="table-warning" *ngIf="rarities['Ultra Rare']">Ultra Rare</th>

@@ -192,8 +192,6 @@ export class DeckComponent implements OnInit {
           })
         }
 
-       
-
         this.deck.splice(i, 1);
 
       } else {
@@ -244,8 +242,9 @@ export class DeckComponent implements OnInit {
    
   }
 
-  storeDeckId(id:any){
-    GeneralFunctions.storeInformation("idDeckDetails", id, this.source, this.set_type)
+  storeDeckId(id:any) {
+    const setType =  this.set_type != 'DECK' ? 'COLLECTION' : 'DECK'
+    GeneralFunctions.storeInformation("idDeckDetails", id, this.source, setType)
   }
   
   addDeckToCollection(e){

@@ -107,7 +107,7 @@
         </div>
       </fieldset>
     </div>
-    <div id="div-set-img">
+    <div id="div-set-img" *ngIf="!isNewCollection">
       <img *ngIf="userSetCollecton?.setType != 'BOX'" [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="200px">
       <img *ngIf="userSetCollecton?.setType == 'BOX'" [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="290px"> 
       <br>
