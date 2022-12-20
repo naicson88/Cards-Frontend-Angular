@@ -5,7 +5,7 @@
         <button type="button" class="btn btn-outline-secondary btn-lg" (click)="showForm('NEW COLLECTION')">NEW COLLECTION</button>
         <button type="button" class="btn btn-outline-success btn-lg" (click)="showForm('COLLECTION DECK')">COLLECTION DECK</button>
         <button type="button" class="btn btn-outline-danger btn-lg" (click)="showForm('ADD NEW CARD TO DECK')" >ADD NEW CARD TO DECK</button>
-        <button type="button" class="btn btn-outline-dark btn-lg">NEW ARCHETYPE</button>
+        <button type="button" class="btn btn-outline-dark btn-lg" (click)="showForm('ADD ASSOCIATION')">NEW ASSOCIATION</button>
     </div>
 
     <div class="body-admin">
@@ -186,28 +186,16 @@
                     </div>
     
                  </div>
-                 <!-- <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label for="lancamento">Release Date</label><br>
-                        <input matInput [matDatepicker]="picker" class="form-control" name="lancamento" formControlName="lancamento" >
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </div>
-                    <div class="form-group col-md-2">    
-                        <label for="isSpeedDuel">Speed Duel</label>
-                        <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel"> 
-                            <option value="false" selected >No</option>
-                            <option value="true">Yes</option>
-                        </select>                        
-                    </div>
-                   
-                 </div> -->
                   <button mat-raised-button color="primary" (click)="onSubmitCollectionDeck()" style="margin-left: 45%;">Save</button>
             </form>
         </div>
          <!--ADD NEW CARD TO DECK -->
         <div *ngIf="chosenMenu == 'ADD NEW CARD TO DECK'">
             <app-admin-add-card-deck></app-admin-add-card-deck>
+        </div>
+        <!--ADD ASSOCIATION -->
+        <div *ngIf="chosenMenu == 'ADD ASSOCIATION'">
+            <app-admin-associate></app-admin-associate>
         </div>
       
     </div>

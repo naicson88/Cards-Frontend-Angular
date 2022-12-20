@@ -106,7 +106,8 @@ export class CardDetailComponent implements OnInit {
   }
 
    storeDeckId(id:any, set_type:string){
-    GeneralFunctions.storeInformation("idDeckDetails", id, 'konami', set_type)
+    let set = set_type != 'DECK' ? 'COLLECTION' : 'DECK'
+    GeneralFunctions.storeInformation("idDeckDetails", id, 'konami', set)
   }
 
 

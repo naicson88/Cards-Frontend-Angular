@@ -8,7 +8,6 @@ import { BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
-import { CardinfoComponent } from '../tooltip/cardinfo/cardinfo.component';
 import { Card } from 'src/app/classes/Card';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { ToastrService } from 'ngx-toastr';

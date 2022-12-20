@@ -1,0 +1,69 @@
+<div class="divTitle" style="color: white; background-color: grey">
+    <h2 style="font-weight: 700;">NEW ASSOCIATION</h2>
+</div>
+    <form action="" [formGroup]="formNewAssociation"  style="padding: 20px;">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="setType" >Source Set Type</label>
+               <select name="setType" class="form-control" id="setType" formControlName="setType" #setType  (change)="searchSets(setType.value)"> 
+                   <option value="DECK" >Deck</option>
+                   <option value="TIN">Tin</option>
+                   <option value="BOX">Box</option>
+                   <option value="BOOSTER">Booster</option>
+               </select>
+           </div>
+
+           <div class="form-group col-md-6">
+                <label for="setCollection" >Source Set Collection</label>
+                <select name="setSource" class="form-control" id="setSource" formControlName="setSource" #setSource > 
+                    <option *ngFor="let set of setsSearched" [value]="set.setId" selected>{{set.name}}</option>
+                </select>
+            </div>
+         </div>
+
+         <div class="form-row" id="row-to-associate">
+            <div class="form-group col-md-2">
+                <label for="setType" >Set Type</label>
+               <select name="setType" class="form-control" id="setType" formControlName="setType" #setType  (change)="searchSets(setType.value)"> 
+                   <option value="DECK" >Deck</option>
+                   <option value="TIN">Tin</option>
+                   <option value="BOX">Box</option>
+                   <option value="BOOSTER">Booster</option>
+               </select>
+           </div>
+
+           <div class="form-group col-md-6">
+                <label for="setCollection" >Set Collection</label>
+                <select name="setToAssociate" class="form-control" id="setToAssociate" formControlName="setToAssociate" #setToAssociate > 
+                    <option *ngFor="let set of setToAssociate" [value]="set.setId" selected>{{set.name}}</option>
+                </select>
+            </div>
+         </div>
+
+         <table class="table table-striped">
+            
+            <thead>
+              <tr>
+                <th scope="col" width="15%">Set ID</th>
+                <th scope="col"  width="85%">Set Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+          </table>
+
+         <button mat-raised-button color="primary" (click)="onSubmitAddNewCardToDeck()" style="margin-left: 45%;">Save</button>
+    </form>
+
