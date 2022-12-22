@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SetCollection } from 'src/app/classes/SetCollection';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { DeckCollection } from 'src/app/classes/DeckCollection';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -22,7 +23,7 @@ export class AdminDashboardComponent implements OnInit {
 
   chosenMenu:string = "NEW SET"
 
-  setsSearched: any[] = [];
+  setsSearched: any[] = []
 
   constructor(private adminService: AdminDashboardService, private http: HttpClient, private toastr: ToastrService,
      private spinner: SpinnerService) {}
@@ -42,7 +43,6 @@ export class AdminDashboardComponent implements OnInit {
   onSubmit(){  
    
     this.formDeck.value.lancamento = formatDate(this.formDeck.value.lancamento, 'dd-MM-yyyy', 'en-US')
-    console.log(this.formDeck)
     this.adminService.createNewKonamiDeck(this.formDeck.value).subscribe(result => {
       console.warn(result);
       this.toastr.success("Deck information sent to Queue");
@@ -122,11 +122,13 @@ export class AdminDashboardComponent implements OnInit {
     })
   }
 
-  searchSets(setType:string){
+  public searchSets(setType:string): Observable <any> {
+    var subject = new Subject<any>();
     this.spinner.show()
     if(setType == 'DECK'){
       this.adminService.getDecksNames(false).subscribe(names => {
-          this.setsSearched = names;     
+          this.setsSearched = names; 
+          subject.next(names);    
           this.spinner.hide();
       }, error => {  
         this.spinner.hide();
@@ -135,11 +137,14 @@ export class AdminDashboardComponent implements OnInit {
     } else {
       this.adminService.getSetCollectionNames(setType).subscribe(names => {
           this.setsSearched = names;
+          subject.next(names);    
           this.spinner.hide();
       }, error => { 
         alert("It was not possible search sets")
         this.spinner.hide();
-      })
-    }  
+      },)
+    } 
+    
+    return subject.asObservable();
   }
 }
