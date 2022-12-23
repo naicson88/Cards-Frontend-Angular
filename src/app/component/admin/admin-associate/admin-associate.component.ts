@@ -62,7 +62,7 @@ export class AdminAssociateComponent implements OnInit {
       return true;
   }
 
-  onSubmitNewAssociation(){
+  onNewAssociation(){
 
     if(!this.validateSource())
       return false;
@@ -80,7 +80,7 @@ export class AdminAssociateComponent implements OnInit {
   }
 
   createNewAssociationObj() {
-      
+        debugger
       let source = this.myDOMEle.nativeElement.value;
       let arrayToAssociate = [];
 
