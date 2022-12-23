@@ -64,4 +64,11 @@ import { environment } from "src/environments/environment";
         catchError(HandleErros.handleError)
       )       
     }
+
+    public createNewAssociation(association:any){
+      return this.http.post<any>(this.base_url+"/set-collection/new-association", association)
+        .pipe(
+          catchError(HandleErros.handleError)
+        )
+    }
   }

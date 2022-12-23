@@ -1,0 +1,23 @@
+.divTitle {
+    border: solid thin silver;
+    justify-content: center;
+    padding: 10px;
+    display: flex;
+    letter-spacing: 3px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    margin-bottom: 20px;
+    
+}
+
+button{
+    background-color: rgb(216, 49, 49);
+    color: white;
+}
+
+#row-to-associate{
+    margin: 10px 0px;
+    border: solid thin silver;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: ghostwhite;
+}

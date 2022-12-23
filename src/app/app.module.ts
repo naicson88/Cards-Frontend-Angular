@@ -39,7 +39,6 @@ import { CardinfoComponent } from './component/tooltip/cardinfo/cardinfo.compone
 import { DeckDetailUserComponent } from './component/deck-detail-user/deck-detail-user.component';
 import { SearchBoxComponent } from './component/cards-search/search-box/search-box.component';
 import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.component';
-import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin-dashboard.component';
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 import { AdminDashboardModule } from './component/admin/admin-dashboard/admin-dashboard.module';
 import { UserSetcollectionComponent } from './component/user-setcollection/user-setcollection.component';
@@ -49,8 +48,10 @@ import { EmailConfirmationComponent } from './component/index/emailConfirmation/
 import { SuccessconfirmationComponent } from './component/index/successConfirmation/successconfirmation/successconfirmation.component';
 import { BackToTopComponent } from './Util/BackToTopButton/back-to-top/back-to-top.component';
 import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence/maintenence.component';
-import { AdminAddCardDeckComponent } from './component/admin/admin-add-card-deck/admin-add-card-deck/admin-add-card-deck.component';
 import { SharedModulesModule } from './component/shared/shared-modules/shared-modules.module';
+import { AdminModule } from './component/admin/admin-module';
+import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin-dashboard.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,16 +76,13 @@ import { SharedModulesModule } from './component/shared/shared-modules/shared-mo
     DeckDetailUserComponent,
     SearchBoxComponent,
     ErrorPagesComponent,
-    AdminDashboardComponent,
     UserSetcollectionComponent,
     TransferComponent,
     EmailConfirmationComponent,
     SuccessconfirmationComponent,
     BackToTopComponent,
     MaintenenceComponent,
-    AdminAddCardDeckComponent,
-    
-  
+    AdminDashboardComponent
   
   ],
   imports: [
@@ -104,7 +102,7 @@ import { SharedModulesModule } from './component/shared/shared-modules/shared-mo
     DialogModule,
     AdminDashboardModule,
     SharedModulesModule,
-    
+    AdminModule, 
     ToastrModule.forRoot()
 
   ],
