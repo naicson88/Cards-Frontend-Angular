@@ -1,4 +1,6 @@
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export  class Imagens {
     
     public static basic_img_path = '..\\..\\assets\\img\\';

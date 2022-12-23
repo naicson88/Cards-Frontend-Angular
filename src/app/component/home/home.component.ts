@@ -2,7 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from './home.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { sanitizeIdentifier } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',

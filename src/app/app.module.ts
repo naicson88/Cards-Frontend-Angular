@@ -7,7 +7,7 @@ import { DeckComponent } from './component/deck/deck.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {IvyCarouselModule} from 'angular-responsive-carousel';
+// import {IvyCarouselModule} from 'angular-responsive-carousel';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { HomeComponent } from './component/home/home.component'; // <-- import the module
 import { FilterPipeModule } from 'ngx-filter-pipe';
@@ -91,7 +91,7 @@ import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin
     HttpClientModule,
     BrowserAnimationsModule,
     NgxPaginationModule ,
-    IvyCarouselModule,
+    // IvyCarouselModule,
     FilterPipeModule,
     FormsModule,
     ReactiveFormsModule ,

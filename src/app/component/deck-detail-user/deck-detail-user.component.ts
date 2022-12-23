@@ -29,9 +29,9 @@ import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
 })
 
 export class DeckDetailUserComponent implements OnInit, AfterViewInit, AfterViewChecked {
-  @ViewChild('btnSpan',{static: false})span:ElementRef;
-  @ViewChild('dropListContainer',{static: false}) dropListContainer?: ElementRef;
-  @ViewChild('deckName', {static:false}) deckNome:ElementRef
+  @ViewChild('btnSpan')span:ElementRef;
+  @ViewChild('dropListContainer') dropListContainer?: ElementRef;
+  @ViewChild('deckName') deckNome:ElementRef
 
   constructor(private cardService: CardServiceService, private ref: ElementRef, private router :Router, private spinner: SpinnerService,
     private deckService: DeckService, private deckDetailUSerService: DeckDetailUserService,  private toastr: ToastrService, public dialog: MatDialog) { }

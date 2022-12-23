@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./usercards.component.css']
 })
 export class UsercardsComponent implements OnInit {
-  @ViewChild('btnNew',  { static: false }) btnNew: ElementRef;
+  @ViewChild('btnNew') btnNew: ElementRef;
 
   constructor(private img: Imagens, private service: CardServiceService, private router: Router,
     private dialog: MatDialog, private spinner: SpinnerService,   private toastr: ToastrService,) { }

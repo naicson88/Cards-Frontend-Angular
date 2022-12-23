@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/service/auth-service/auth.service';
   styleUrls: ['./error-pages.component.css']
 })
 export class ErrorPagesComponent implements OnInit, AfterViewChecked {
-  @ViewChild('img',{static: false})img:HTMLElement;
+  @ViewChild('img')img:HTMLElement;
 
   constructor(private router: ActivatedRoute, private authService: AuthService, private r: Router) { }
 

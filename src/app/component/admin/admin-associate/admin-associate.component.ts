@@ -18,7 +18,7 @@ export class AdminAssociateComponent implements OnInit {
   ngOnInit() {
   }
 
-  @ViewChild('setSource', {static: false}) myDOMEle: ElementRef;
+  @ViewChild('setSource') myDOMEle: ElementRef;
 
   arrSetSource: any[] = [];
   arrSetToAssociate: any[] = [];
