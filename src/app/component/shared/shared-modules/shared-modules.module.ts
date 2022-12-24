@@ -4,6 +4,7 @@ import { QuantityRaritiesComponent } from '../quantity-rarities/quantity-raritie
 import { AddToCollectionComponent } from '../add-to-collection/add-to-collection.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CkeditorComponent } from '../ckeditor/ckeditor.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { CkeditorComponent } from '../ckeditor/ckeditor.component';
   ],
   imports: [
     CommonModule,
-    CKEditorModule
+    CKEditorModule,
+    FormsModule 
   ],
   exports: [
     QuantityRaritiesComponent, 

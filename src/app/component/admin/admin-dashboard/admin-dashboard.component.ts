@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KonamiDeck } from 'src/app/classes/KonamiDeck';
 import { AdminDashboardService } from '../admin-dashboard-service';
@@ -9,6 +9,7 @@ import { SetCollection } from 'src/app/classes/SetCollection';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { DeckCollection } from 'src/app/classes/DeckCollection';
 import { Observable, Subject } from 'rxjs';
+import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -26,7 +27,8 @@ export class AdminDashboardComponent implements OnInit {
   setsSearched: any[] = []
 
   constructor(private adminService: AdminDashboardService, private http: HttpClient, private toastr: ToastrService,
-     private spinner: SpinnerService) {}
+     private spinner: SpinnerService, private ckEditor: CkeditorComponent) {}
+
 
   ngOnInit() {
     this.createFormDeck(new KonamiDeck())
@@ -39,17 +41,20 @@ export class AdminDashboardComponent implements OnInit {
     else if (menu = 'DECK COLLECTION')
       this.createCollectionDeck(new DeckCollection);
   }
+  
+ @ViewChild("myEditor", { static: false }) myEditor: any; 
 
   onSubmit(){  
-   
-    this.formDeck.value.lancamento = formatDate(this.formDeck.value.lancamento, 'dd-MM-yyyy', 'en-US')
-    this.adminService.createNewKonamiDeck(this.formDeck.value).subscribe(result => {
-      console.warn(result);
-      this.toastr.success("Deck information sent to Queue");
-      this.formDeck.reset();
-    }, error =>{
-      console.log(error.msg)
-    })
+    let data = this.ckEditor.getData(this.myEditor);
+    alert(data)
+    // this.formDeck.value.lancamento = formatDate(this.formDeck.value.lancamento, 'dd-MM-yyyy', 'en-US')
+    // this.adminService.createNewKonamiDeck(this.formDeck.value).subscribe(result => {
+    //   console.warn(result);
+    //   this.toastr.success("Deck information sent to Queue");
+    //   this.formDeck.reset();
+    // }, error =>{
+    //   console.log(error.msg)
+    // })
     
   }
 
@@ -147,4 +152,10 @@ export class AdminDashboardComponent implements OnInit {
     
     return subject.asObservable();
   }
+
+ showCk(){
+    const domEditableElement = document.querySelector('.ck-editor__editable');
+    console.log(domEditableElement)
+ }
+
 }
