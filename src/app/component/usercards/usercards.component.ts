@@ -5,7 +5,7 @@ import { CardServiceService } from 'src/app/service/card-service/card-service.se
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import * as _ from 'lodash'
 import { BehaviorSubject } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { Card } from 'src/app/classes/Card';

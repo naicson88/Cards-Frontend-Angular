@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { CardSetCollectionDTO } from 'src/app/classes/CardSetCollectionDTO';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';

@@ -23,7 +23,8 @@ import { authStrategyProvider } from './service/auth-service/auth.strategy';
 import { AuthInterceptor } from './service/auth-service/AuthInterceptor';
 import { ArchetypeComponent } from './component/archetype/archetype.component';
 import { ArchetypeDetailsComponent } from './component/archetype-details/archetype-details/archetype-details.component';
-import {  MatDialogRef, MatSpinner, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSpinner } from '@angular/material/progress-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SpinnerComponent } from './component/spinner/spinner.component';
@@ -51,6 +52,9 @@ import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence
 import { SharedModulesModule } from './component/shared/shared-modules/shared-modules.module';
 import { AdminModule } from './component/admin/admin-module';
 import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin-dashboard.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -103,6 +107,7 @@ import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin
     AdminDashboardModule,
     SharedModulesModule,
     AdminModule, 
+    CommonModule ,
     ToastrModule.forRoot()
 
   ],

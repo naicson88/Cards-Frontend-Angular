@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KonamiDeck } from 'src/app/classes/KonamiDeck';
 import { AdminDashboardService } from '../admin-dashboard-service';
-import {formatDate } from '@angular/common';
+import { formatDate } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { SetCollection } from 'src/app/classes/SetCollection';
 import { SpinnerService } from 'src/app/service/spinner.service';

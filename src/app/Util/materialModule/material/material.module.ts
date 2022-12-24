@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDatepickerModule, MatExpansionModule, MatNativeDateModule, MatSelectModule, MatSpinner, MAT_DATE_LOCALE } from '@angular/material';
+import { MatNativeDateModule, MatOption, MatOptionModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSpinner } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,6 +22,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 @NgModule({
   declarations: [],
   imports: [
+    MatAutocompleteModule ,
+    MatSpinner,
     CommonModule,
     MatTabsModule,
     MatToolbarModule,
@@ -34,10 +40,14 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatTooltipModule,
     MatDatepickerModule,
     MatNativeDateModule ,
-    MatAutocompleteModule
+    MatOptionModule,
    
   ],
   exports: [
+    MatAutocompleteModule ,
+    MatSpinner,
+    MatOptionModule,
+    MatMenuModule,
     CommonModule,
     MatTabsModule,
     MatToolbarModule,

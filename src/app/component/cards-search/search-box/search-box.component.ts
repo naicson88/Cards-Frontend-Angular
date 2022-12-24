@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, Injectable, OnInit, Output, EventEmitter  } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Card } from 'src/app/classes/Card';
 import { Imagens } from 'src/app/classes/Imagens';
 import { SearchCriteria } from 'src/app/classes/SearchCriteria';

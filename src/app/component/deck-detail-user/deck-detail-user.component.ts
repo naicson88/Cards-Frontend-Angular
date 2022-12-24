@@ -7,7 +7,7 @@ import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { DeckDetailUserService } from './deck-detail-user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Deck } from 'src/app/classes/Deck';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { BehaviorSubject, of } from 'rxjs';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';

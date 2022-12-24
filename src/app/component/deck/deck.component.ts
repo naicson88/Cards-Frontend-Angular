@@ -5,7 +5,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from 'src/app/service/spinner.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';

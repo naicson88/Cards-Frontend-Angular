@@ -1,5 +1,6 @@
 import {  Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatCheckbox, MatDialog, MatDialogRef } from '@angular/material';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {  Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Card } from 'src/app/classes/Card';
