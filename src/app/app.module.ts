@@ -52,6 +52,7 @@ import { SharedModulesModule } from './component/shared/shared-modules/shared-mo
 import { AdminModule } from './component/admin/admin-module';
 import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin-dashboard.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +83,7 @@ import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin
     SuccessconfirmationComponent,
     BackToTopComponent,
     MaintenenceComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
   
   ],
   imports: [
