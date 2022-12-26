@@ -45,16 +45,18 @@ export class AdminDashboardComponent implements OnInit {
  @ViewChild("myEditor", { static: false }) myEditor: any; 
 
   onSubmit(){  
-    let data = this.ckEditor.getData(this.myEditor);
-    alert(data)
-    // this.formDeck.value.lancamento = formatDate(this.formDeck.value.lancamento, 'dd-MM-yyyy', 'en-US')
-    // this.adminService.createNewKonamiDeck(this.formDeck.value).subscribe(result => {
-    //   console.warn(result);
-    //   this.toastr.success("Deck information sent to Queue");
-    //   this.formDeck.reset();
-    // }, error =>{
-    //   console.log(error.msg)
-    // })
+
+    this.formDeck.value.lancamento = formatDate(this.formDeck.value.lancamento, 'dd-MM-yyyy', 'en-US')
+    this.formDeck.value.description = this.ckEditor.getData(this.myEditor);
+
+    console.log(this.formDeck.value)
+    this.adminService.createNewKonamiDeck(this.formDeck.value).subscribe(result => {
+      console.warn(result);
+      this.toastr.success("Deck information sent to Queue");
+      this.formDeck.reset();
+    }, error =>{
+      console.log(error.msg)
+    })
     
   }
 
@@ -67,14 +69,16 @@ export class AdminDashboardComponent implements OnInit {
       isSpeedDuel: new FormControl(konamiDeck.isSpeedDuel),
       requestSource: new FormControl(konamiDeck.requestSource),
       setCode: new FormControl(konamiDeck.setCode),
-      isBasedDeck: new FormControl(false)
+      isBasedDeck: new FormControl(false),
+      description: new FormControl('')
     })
   }
 
   onSubmitSetCollection(){
 
     this.formCollection.value.releaseDate = formatDate(this.formCollection.value.releaseDate, 'dd-MM-yyyy', 'en-US')
-     
+    this.formCollection.value.description = this.ckEditor.getData(this.myEditor);
+
     this.adminService.createNewSetCollection(this.formCollection.value).subscribe(result => {
 
       this.toastr.success("SetCollection sent to Queue")
@@ -95,7 +99,8 @@ export class AdminDashboardComponent implements OnInit {
       onlyDefaultDeck: new FormControl(setCollection.onlyDefaultDeck),
       isSpeedDuel: new FormControl(setCollection.isSpeedDuel),
       requestSource : new FormControl(setCollection.requestSource),
-      setCode: new FormControl(setCollection.setCode)
+      setCode: new FormControl(setCollection.setCode),
+      description: new FormControl('')
     })
    
   } 

@@ -8,5 +8,6 @@ export class KonamiDeck {
     setType:string;
     isSpeedDuel: any;
     requestSource:string;
-    setCode:string
+    setCode:string;
+    description:string
 }
