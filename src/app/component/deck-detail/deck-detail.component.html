@@ -7,11 +7,14 @@
 
     <div id="imagemCabecalho">
       <img [src]='imgPath' alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;">
+           
+    <div id="add-to-user-collection" *ngIf="source == 'KONAMI'">
+      <app-add-to-collection [deckID]="deckDetails?.id" [quantityUserHave]="deckDetails?.quantityUserHave" [set_type]="set_type"></app-add-to-collection>
     </div>
+  </div>
 
     <div id="informacoes">
       <!--Nome do Deck e data de lançamento-->
-
       <div class="row" style="border-bottom: solid thin #ccc; height: 40px;">
         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 hide-sm">
           <p class="nome-cabecalho">{{deckDetails?.nome}}</p>
@@ -42,7 +45,6 @@
            </div>
         </div>
       
-
       <!--Raridade-->
       <div class="row" style="border: gold solid thin;" *ngIf="arrInsideDecksCards[0]?.cards.length > 0">
 
@@ -62,11 +64,24 @@
       </div>
 
     </div>
+
+    <div id="set-description" *ngIf="deckDetails?.description != null">
+      <mat-accordion>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-description>
+                <span> Description</span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>    
+          <div style=" font-size: 16px !important; line-height: 25px;" [innerHTML]="deckDetails?.description">
+               
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
   </div>
-      
-  <div id="add-to-user-collection" *ngIf="source == 'KONAMI'">
-    <app-add-to-collection [deckID]="deckDetails?.id" [quantityUserHave]="deckDetails?.quantityUserHave" [set_type]="set_type"></app-add-to-collection>
- </div>
+
 
   <div class="p-5  rounded shadow mb-5" style="margin-top: 25px; display: none;" [style.display]="isVisible ? 'block' : 'none'">
     <!-- Rounded tabs -->
