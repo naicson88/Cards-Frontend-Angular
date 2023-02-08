@@ -36,18 +36,10 @@ export class HomeComponent implements OnInit {
         this.router.navigate(["/error-page", errorCode]);
       }
     }
-
-    // limparUrl(lastSets: any) {
-    //     lastSets.forEach(set => {
-    //       set['img'] = this.domSanitizer.bypassSecurityTrustUrl(set['img']);
-    //       console.log(set['img'])
-    //     });
-    // }
-
-
+    
      storeDeckId(id:any, setType:string, source:string){
-        //  const id = event.target.name;
-          
+        //  const id = event.target.name;        
+         setType =  setType != 'DECK' ? 'COLLECTION' : 'DECK'
           localStorage.setItem("idDeckDetails", id);
           localStorage.setItem("source", source);
           localStorage.setItem("set_type", setType);        

@@ -272,5 +272,12 @@ export class CardDetailComponent implements OnInit {
       else
           return false;
    }
+
+   getSetByName(setName:string){
+      let modal = (document.getElementById('closeModalBtn') as HTMLElement);
+      modal.click();
+      let rightName = setName.substring(0, setName.indexOf("(")).trim();     
+      this.router.navigate(['userdeck-details', rightName],  { queryParams: { order: 'popular' }})
+   }
 }
 
