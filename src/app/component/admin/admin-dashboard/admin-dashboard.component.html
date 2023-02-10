@@ -60,6 +60,12 @@
                         <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode" >
                     </div>
                  </div>
+                 <div class="form-row" >
+                    <div class="form-group col-md-8" style="margin-left: 15%;">
+                        <caption>Description</caption>
+                        <app-ckeditor #myEditor></app-ckeditor>
+                    </div>
+                 </div>
                   <button mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 45%;">Save</button>
             </form>
         </div>
@@ -119,9 +125,12 @@
 
                 </div>
 
-                <div class="form-row">
-                  
-                </div>
+                <div class="form-row" >
+                    <div class="form-group col-md-8" style="margin-left: 15%;">
+                        <caption>Description</caption>
+                        <app-ckeditor #myEditor></app-ckeditor>
+                    </div>
+                 </div>
 
                 <button mat-raised-button color="primary" (click)="onSubmitSetCollection()"  style="margin-left: 45%;">Save</button>
             </form>   
@@ -200,7 +209,5 @@
       
     </div>
 </div>
-
-
 
 <app-footer></app-footer>

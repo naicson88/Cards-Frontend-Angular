@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KonamiDeck } from 'src/app/classes/KonamiDeck';
 import { AdminDashboardService } from '../admin-dashboard-service';
@@ -9,6 +9,7 @@ import { SetCollection } from 'src/app/classes/SetCollection';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { DeckCollection } from 'src/app/classes/DeckCollection';
 import { Observable, Subject } from 'rxjs';
+import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -26,7 +27,8 @@ export class AdminDashboardComponent implements OnInit {
   setsSearched: any[] = []
 
   constructor(private adminService: AdminDashboardService, private http: HttpClient, private toastr: ToastrService,
-     private spinner: SpinnerService) {}
+     private spinner: SpinnerService, private ckEditor: CkeditorComponent) {}
+
 
   ngOnInit() {
     this.createFormDeck(new KonamiDeck())
@@ -39,10 +41,15 @@ export class AdminDashboardComponent implements OnInit {
     else if (menu = 'DECK COLLECTION')
       this.createCollectionDeck(new DeckCollection);
   }
+  
+ @ViewChild("myEditor", { static: false }) myEditor: any; 
 
   onSubmit(){  
-   
+
     this.formDeck.value.lancamento = formatDate(this.formDeck.value.lancamento, 'dd-MM-yyyy', 'en-US')
+    this.formDeck.value.description = this.ckEditor.getData(this.myEditor);
+
+    console.log(this.formDeck.value)
     this.adminService.createNewKonamiDeck(this.formDeck.value).subscribe(result => {
       console.warn(result);
       this.toastr.success("Deck information sent to Queue");
@@ -62,14 +69,16 @@ export class AdminDashboardComponent implements OnInit {
       isSpeedDuel: new FormControl(konamiDeck.isSpeedDuel),
       requestSource: new FormControl(konamiDeck.requestSource),
       setCode: new FormControl(konamiDeck.setCode),
-      isBasedDeck: new FormControl(false)
+      isBasedDeck: new FormControl(false),
+      description: new FormControl('')
     })
   }
 
   onSubmitSetCollection(){
 
     this.formCollection.value.releaseDate = formatDate(this.formCollection.value.releaseDate, 'dd-MM-yyyy', 'en-US')
-     
+    this.formCollection.value.description = this.ckEditor.getData(this.myEditor);
+
     this.adminService.createNewSetCollection(this.formCollection.value).subscribe(result => {
 
       this.toastr.success("SetCollection sent to Queue")
@@ -90,7 +99,8 @@ export class AdminDashboardComponent implements OnInit {
       onlyDefaultDeck: new FormControl(setCollection.onlyDefaultDeck),
       isSpeedDuel: new FormControl(setCollection.isSpeedDuel),
       requestSource : new FormControl(setCollection.requestSource),
-      setCode: new FormControl(setCollection.setCode)
+      setCode: new FormControl(setCollection.setCode),
+      description: new FormControl('')
     })
    
   } 
@@ -147,4 +157,10 @@ export class AdminDashboardComponent implements OnInit {
     
     return subject.asObservable();
   }
+
+ showCk(){
+    const domEditableElement = document.querySelector('.ck-editor__editable');
+    console.log(domEditableElement)
+ }
+
 }

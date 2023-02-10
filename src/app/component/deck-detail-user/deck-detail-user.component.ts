@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Card } from 'src/app/classes/Card';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { DeckService } from 'src/app/service/deck.service';
@@ -28,7 +28,7 @@ import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class DeckDetailUserComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class DeckDetailUserComponent implements OnInit, AfterContentInit , AfterViewChecked {
   @ViewChild('btnSpan',{static: false})span:ElementRef;
   @ViewChild('dropListContainer',{static: false}) dropListContainer?: ElementRef;
   @ViewChild('deckName', {static:false}) deckNome:ElementRef
@@ -88,13 +88,12 @@ rarities ={};
     this.spinner.hide();
   }
 
-  ngAfterViewInit (){
-    //this.setRarityClassAndPriceTitle()
-
+  ngAfterContentInit  (){
+    this.setRarityClassAndPriceTitle()
   }
 
   ngAfterViewChecked() {
-    this.setRarityClassAndPriceTitle()
+    //this.setRarityClassAndPriceTitle()
   }
 
 
@@ -114,39 +113,39 @@ rarities ={};
 
 loadDeckCards(){
   
-  const id = localStorage.getItem("idDeckDetails");
+    const id = localStorage.getItem("idDeckDetails");
+    
+    if(id == "0"){
+    this.infoDialog('Create your new Deck!');
+    this.deck = new Deck();
+    this.deck.id = 0;
+    this.deck.nome = "";
+    return false;
+    }
+
+    this.spinner.show();
+    this.deckService.editDeck(id, "User").subscribe(data => {
+      console.log(data)
+    this.deck = data
   
-  if(id == "0"){
-   this.infoDialog('Create your new Deck!');
-   this.deck = new Deck();
-   this.deck.id = 0;
-   this.deck.nome = "";
-   return false;
-  }
+    this.mainDeckCards = data['cards'];
+    this.countTypeCards(this.mainDeckCards, "main");
 
-  this.spinner.show();
-  this.deckService.editDeck(id, "User").subscribe(data => {
-    console.log(data)
-  this.deck = data
- 
-  this.mainDeckCards = data['cards'];
-  this.countTypeCards(this.mainDeckCards, "main");
+    this.extraDeckCards = data['extraDeck'];
+    this.countTypeCards(this.extraDeckCards, "extra");
 
-  this.extraDeckCards = data['extraDeck'];
-  this.countTypeCards(this.extraDeckCards, "extra");
-
-  this.sideDeckCards = data['sideDeckCards'];
-  this.relDeckCards =  data['rel_deck_cards'];
-  this.calculateDeckPrice(this.relDeckCards);
-  this.setRelDeckCards();
-  this.spinner.hide();
-
-  },
-  error =>{
-    let errorCode = error.status;
-    this.router.navigate(["/error-page", errorCode]);
+    this.sideDeckCards = data['sideDeckCards'];
+    this.relDeckCards =  data['rel_deck_cards'];
+    this.calculateDeckPrice(this.relDeckCards);
+    this.setRelDeckCards();
     this.spinner.hide();
-  })
+
+    },
+    error =>{
+      let errorCode = error.status;
+      this.router.navigate(["/error-page", errorCode]);
+      this.spinner.hide();
+    })
 }
 
 

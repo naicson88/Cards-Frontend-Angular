@@ -6,7 +6,8 @@ import { AdminAddCardDeckComponent } from './admin-add-card-deck/admin-add-card-
 import { MaterialModule } from 'src/app/Util/materialModule/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from '../footer/footer.component';
-import { AppModule } from 'src/app/app.module';
+import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
+import { CkeditorComponent } from '../shared/ckeditor/ckeditor.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { AppModule } from 'src/app/app.module';
         CommonModule, 
         MaterialModule, 
         ReactiveFormsModule,
+        SharedModulesModule
     ],
     exports: [
         AdminAssociateComponent, 

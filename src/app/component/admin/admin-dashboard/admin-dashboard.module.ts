@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/Util/materialModule/material/material.module';
+import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
 
 
 @NgModule({
@@ -12,6 +13,10 @@ import { MaterialModule } from 'src/app/Util/materialModule/material/material.mo
   ],
   exports:[
 
+  ],
+
+  providers: [
+    CkeditorComponent
   ]
 })
 

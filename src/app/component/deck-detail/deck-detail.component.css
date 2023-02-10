@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,200&display=swap');
 #mainDiv{
     transition: margin-left .5s;
     border: solid thin;
@@ -13,12 +14,14 @@
 
 #cabecalhoDeck{
     width: 65%;
-    height: 330px;
+    height: fit-content;
     background-color: ghostwhite;
     border: solid thin silver ;
     margin-left: 20%;
     padding: 10px;
-    vertical-align:top;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
@@ -27,11 +30,10 @@
     margin-top: 5px;
     margin-bottom: 5px; 
     margin-left: 1%;
-  
     padding: 6px;
     box-shadow: 0 2px 4px 0 rgba(21,180,255,0.5);
     width: 200px;
-    height: 270px;
+    height: fit-content;
     float: left;
   
 }
@@ -40,21 +42,22 @@
     width: 75%;
     background-color: ghostwhite;
     height: 300px;
-    margin-top: -290px;
-    margin-left: 230px;
-    float: right;
     padding: 10px;
 }
-/*
-.raridade{
-    border: solid thin green;
-    border-radius: 15px;
-    align-items: center;
-    width: 30%;
-    margin-left: 20px;
-    margin-top: 10px;
-    padding-top: 5px;
-}*/
+
+#set-description {
+  flex-basis: 100%;
+  margin-top: 10px;
+}
+
+  #set-description span {
+      color: goldenrod; 
+      font-weight: bold; 
+      letter-spacing: 3px; 
+      margin-left: 42%;
+      font-family: Arial, Helvetica, sans-serif
+  }
+
 
 .nome-cabecalho {
   font-size: 1.3em;
@@ -382,9 +385,8 @@
   }
 
 #add-to-user-collection{
-  width: 15%;
-  margin-top: 15px;
-  margin-left: 42%;
+  width: 100%;
+  margin-top: 10px;
   padding: 3px;
   border-radius: 3px;
   border: solid thin silver;

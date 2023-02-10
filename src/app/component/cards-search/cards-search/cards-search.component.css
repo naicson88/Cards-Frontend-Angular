@@ -3,18 +3,6 @@
     padding: 20px;
 }
 
-/* #search-div{
-    margin-left: 5%;
-    margin-bottom: 30px;
-    border: solid thin silver;
-    border-radius: 3px;
-    width: 90%;
-    background-color: ghostwhite;
-    padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-} */
-
-
 .att-search ul {
     list-style-type: none; /*to remove bullets*/
     text-align: center;
