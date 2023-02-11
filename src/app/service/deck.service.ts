@@ -105,8 +105,8 @@ export class DeckService {
     )
   }
 
-  public searchBySetName(name:string){
-      return this.http.get<any>(this.base_url+`/decks/search-by-set-name?setName=${name}`)
+  public searchBySetName(name:string, source:string){
+      return this.http.get<any>(this.base_url+`/decks/search-by-set-name?setName=${name}&source=${source}`)
         .pipe(
           catchError(HandleErros.handleError)
         )

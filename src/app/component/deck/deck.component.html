@@ -83,19 +83,19 @@
                      <div class="deckuct-deatil" style="margin-bottom: 12px; margin-left: 12px;">
                            <h6 class="name" title=" {{deck.nome}}" style="font-weight: 600; font-size: small;">
                              
-                                 <a *ngIf="source == 'KONAMI' && set_type == 'DECK'" name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/deck-details/', deck.nome]" class="deck_name">                           
-                                  {{deck.nome}}
+                                 <a *ngIf="source == 'KONAMI' && set_type == 'DECK'" name="{{deck.id}}"  (click)="storeDeckId(deck.id, deck.setType)" [routerLink]="['/deck-details/', deck.nome]" class="deck_name">                           
+                                     {{deck.nome}}
                                  </a>
 
-                                  <a *ngIf="source == 'KONAMI' && set_type != 'DECK'" name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/collection-details/', deck.nome]" class="deck_name">                                 
+                                  <a *ngIf="source == 'KONAMI' && set_type != 'DECK'" name="{{deck.id}}"  (click)="storeDeckId(deck.id, deck.setType)" [routerLink]="['/collection-details/', deck.nome]" class="deck_name">                                 
                                      {{deck.nome}}
                                   </a>
 
-                                 <a *ngIf="source == 'USER' && set_type == 'DECK'"  name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/user-deck-details/', deck.nome]" class="deck_name">               
+                                 <a *ngIf="source == 'USER' && set_type == 'DECK'"  name="{{deck.id}}"  (click)="storeDeckId(deck.id, deck.setType)" [routerLink]="['/user-deck-details/', deck.nome]" class="deck_name">               
                                      {{deck.nome}}
                                  </a> 
 
-                                 <a *ngIf="source == 'USER' && set_type != 'DECK'"  name="{{deck.id}}"  (click)="storeDeckId(deck.id)" [routerLink]="['/user-setcollection-details/', deck.nome]" class="deck_name">               
+                                 <a *ngIf="source == 'USER' && set_type != 'DECK'"  name="{{deck.id}}"  (click)="storeDeckId(deck.id, deck.setType)" [routerLink]="['/user-setcollection-details/', deck.nome]" class="deck_name">               
                                     {{deck.nome}}
                                 </a> 
 
@@ -125,11 +125,11 @@
                      <!--    <a href="javascript:void(0);" class="btn btn-danger">Add to cart</a>-->
                            <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="source == 'KONAMI'">Total you have:</span><br>
 
-                           <a *ngIf="set_type == 'DECK'" name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                           <a *ngIf="deck.setType == 'DECK'" name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id, deck.setType)" >
                               <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
                            </a> &nbsp;
 
-                           <a *ngIf="set_type != 'DECK'" name="{{deck.id}}" [routerLink]="['/user-setcollection-cards/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                           <a *ngIf="deck.setType != 'DECK'" name="{{deck.id}}" [routerLink]="['/user-setcollection-cards/', deck.nome]" (click)="storeDeckId(deck.id, deck.setType)" >
                               <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
                            </a> &nbsp;
                            
@@ -166,11 +166,11 @@
 
                   <div  class="right-div-row-list">
                         <div class="row-list-name">                          
-                           <a *ngIf="set_type != 'UD'" name="{{decklist.id}}"  (click)="storeDeckId(decklist.id)" [routerLink]="['/deck-details/', decklist.nome]" >
+                           <a *ngIf="set_type != 'UD'" name="{{decklist.id}}"  (click)="storeDeckId(decklist.id, decklist.setType )" [routerLink]="['/deck-details/', decklist.nome]" >
                               {{decklist.nome}}
                            </a>
 
-                           <a *ngIf="set_type == 'UD'" name="{{decklist.id}}"  (click)="storeDeckId(decklist.id)" [routerLink]="['/user-deck-details/', decklist.nome]" >
+                           <a *ngIf="set_type == 'UD'" name="{{decklist.id}}"  (click)="storeDeckId(decklist.id, decklist.setType)" [routerLink]="['/user-deck-details/', decklist.nome]" >
                                  {{decklist.nome}}
                            </a>
                         </div>
@@ -179,11 +179,11 @@
                         <div class="edit-remove-list"   *ngIf="source == 'USER'">
                               <span style="font-size:x-small; color: #ccc; font-weight: bold; " *ngIf="source == 'KONAMI'">Total you have:</span><br>
    
-                              <a *ngIf="set_type == 'DECK'" name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                              <a *ngIf="deck.setType == 'DECK'" name="{{deck.id}}" [routerLink]="['/userdeck-details/', deck.nome]" (click)="storeDeckId(deck.id,deck.setType)" >
                                  <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
                               </a> &nbsp;
    
-                              <a *ngIf="set_type != 'DECK'" name="{{deck.id}}" [routerLink]="['/user-setcollection-cards/', deck.nome]" (click)="storeDeckId(deck.id)" >
+                              <a *ngIf="deck.setType != 'DECK'" name="{{deck.id}}" [routerLink]="['/user-setcollection-cards/', deck.nome]" (click)="storeDeckId(deck.id, deck.setType)" >
                                  <button type="button" class="btn btn-outline-warning btn-sm"> Edit  </button>
                               </a> &nbsp;
                               

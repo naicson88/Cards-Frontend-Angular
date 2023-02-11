@@ -242,8 +242,9 @@ export class DeckComponent implements OnInit {
    
   }
 
-  storeDeckId(id:any) {
-    const setType =  this.set_type != 'DECK' ? 'COLLECTION' : 'DECK'
+  storeDeckId(id:any, setType:string) {
+    debugger
+    setType =  setType != 'DECK' ? 'COLLECTION' : 'DECK'
     GeneralFunctions.storeInformation("idDeckDetails", id, this.source, setType)
   }
   
@@ -257,7 +258,7 @@ export class DeckComponent implements OnInit {
   setName:string = '';
   searchByName(){
 
-    this.service.searchBySetName(this.setName).subscribe( data => {
+    this.service.searchBySetName(this.setName, this.source).subscribe( data => {
         
         let decksFound:any[] = [];
         const {content, totalElements} = data;
@@ -265,7 +266,10 @@ export class DeckComponent implements OnInit {
         decksFound = content;
 
         if(decksFound == null || decksFound == undefined || decksFound.length == 0){
-            this.toastr.warning("No Set found with this name")
+            if(this.source == 'KONAMI')
+              this.toastr.warning("No Set found with this name")
+            else
+              this.toastr.warning("No Set found with this name in yout collection")
         } else {
           this.deck = [];
           this.deck = decksFound;
