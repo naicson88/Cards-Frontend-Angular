@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
 
     loadHomeInfo(){
       this.service.loadHomeInfo().subscribe(info => {
-        console.log(info)
+        console.log("TESTEEEEEE")
        this.infoHome = info;
  
        this.img = this.infoHome['lastSets'].img
