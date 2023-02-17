@@ -79,6 +79,8 @@ cardsSearched = []; // Guarda o numero dos cards que ja tiveram Setcode consulta
 
 rarities ={};
 
+mainTitle = "Your Deck"
+
   ngOnInit() {
     this.spinner.show();
 

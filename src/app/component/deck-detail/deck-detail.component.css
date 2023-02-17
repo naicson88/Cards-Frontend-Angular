@@ -9,15 +9,18 @@
     border-color: #BEBEBE;
     margin-left: 7%;
     min-width: 900px;
-    background: white;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 #cabecalhoDeck{
     width: 65%;
+    min-width: 900px;
     height: fit-content;
     background-color: ghostwhite;
     border: solid thin silver ;
-    margin-left: 20%;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -234,18 +237,6 @@
     margin: 0;
     z-index: 9999;
     display: block;
-  }
-  
-  .set-header{
-    background: rgb(15,117,178);
-    background: linear-gradient(146deg, rgba(15,117,178,1) 59%, rgba(59,216,235,1) 78%, rgba(239,241,241,1) 97%, rgba(241,241,241,1) 100%);
-    color: white;
-     font-size: 1.5em;
-     text-align: center;
-     vertical-align: center;
-     text-transform: uppercases;
-     height: 35px; 
-     margin-bottom: 20px;
   }
 
   .card-details-header{

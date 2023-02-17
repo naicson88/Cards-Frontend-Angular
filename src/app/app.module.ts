@@ -51,6 +51,7 @@ import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence
 import { SharedModulesModule } from './component/shared/shared-modules/shared-modules.module';
 import { AdminModule } from './component/admin/admin-module';
 import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin-dashboard.component';
+import { PageHeaderComponent } from './component/shared/page-header/page-header.component';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin
     BackToTopComponent,
     MaintenenceComponent,
     AdminDashboardComponent,
+    PageHeaderComponent,
   
   ],
   imports: [

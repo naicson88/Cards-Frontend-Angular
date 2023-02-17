@@ -16,12 +16,8 @@ export class CardDetailComponent implements OnInit {
   @ViewChild("attrCanvas",{static: true}) elemento: ElementRef;
   raridade:string;
 
-  
-
   constructor(private router: Router, private service: CardServiceService, private archService: AchetypeService, private  spinner: SpinnerService) { }
   
-
-
   ngOnInit() {
     this.loadCardDetail();
     this.cardPriceGrafic();
@@ -37,6 +33,7 @@ export class CardDetailComponent implements OnInit {
   isLINKCard: boolean = false;
   cardTypes:string = "";
   cardAlternativeNumber:[] = [];
+  mainTitle = "Card's Details"
 
   keyIsFound:boolean;
 
