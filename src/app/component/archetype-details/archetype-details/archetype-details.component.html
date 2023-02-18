@@ -5,9 +5,7 @@
   </div>
   
   <div class="flex-container" style="border: solid thin; background-color: ghostwhite;">
-    <div class="set-header">
-      Cards related to this archetype
-    </div>
+  <app-page-header [pageTitle]="mainTitle"></app-page-header>
     <span style="margin-left: 47%; color: green">({{ total }} cards)</span>
     <table class="table table-striped" style="width: 100%;">
      
@@ -24,7 +22,7 @@
             <img [src]="cardImagem(arc.numero)" alt="" width="143" height="200"
               style="margin-left: -3px; margin-top: -3px;" (mouseover)="mostrarImgToolTip($event)"
               (mousemove)="mostrarImgToolTip($event)" (mouseout)="esconderImgToolTip()"><br>
-              <span style="color: grey; font-size: smaller">Quantity you have: <b>{{arc.qtdUserHave}}</b></span> 
+              <span style="color: grey; font-size: smaller">You have: <b>{{arc.qtdUserHave}}</b></span> 
           </td>
 
           <td width="23%">

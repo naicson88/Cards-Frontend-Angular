@@ -15,6 +15,7 @@ import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 export class ArchetypeDetailsComponent  implements OnInit  {
   archetype: Archetype[] = [];
   total : number = 0;
+  mainTitle:string = "Cards related to this archetype"
 
   constructor(private archService: AchetypeService, private cardService: CardServiceService) {
    

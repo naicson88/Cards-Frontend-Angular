@@ -47,6 +47,8 @@ export class UsercardsComponent implements OnInit {
   rarities: {} = {"teste": 0};
   konamiRarities: {} 
 
+  mainTitle = "Your Card Collection"
+
   ngOnInit() {
     this.map();
     this.cardsByGenericType(this.genericTypeAtual);

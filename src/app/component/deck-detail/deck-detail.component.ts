@@ -45,6 +45,7 @@ export class DeckDetailComponent implements OnInit {
   set_type:string;
 
   imgPath: string;
+  mainTitle = "Deck's Details"
   constructor(private service: DeckService, private cardService: CardServiceService, private router: ActivatedRoute, private  spinner: SpinnerService) { }
 
   ngOnInit() {

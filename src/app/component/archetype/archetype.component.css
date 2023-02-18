@@ -20,16 +20,6 @@
     font: 42px/1.5 Helvetica, sans-serif;
     color: rgb(192, 191, 191);
     font-weight: 600;
-
-    /*
-    
-    border-radius: 50%;
-    width: 80px;
-    height: 80px; 
-
-   background-color: steelblue;
-   text-align: center;
-   vertical-align: middle;*/
     
 }
 .rounded {
@@ -50,10 +40,26 @@
     margin-bottom: -10px;
     background-color: ghostwhite;
     border: double silver; 
-    width: 80%; 
+    width: 85%; 
     height: fit-content;
     padding: 10px;
     min-width: 700px;
+}
+
+#div-letters{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+
+}
+
+#div-letters span {
+    width: 30px; 
+    background-color: deepskyblue; 
+    padding: 3px;
+    text-align: center;
+    height: 29px;
+    margin: 2px 1px;
 }
 
 h1{
