@@ -243,7 +243,6 @@ export class DeckComponent implements OnInit {
   }
 
   storeDeckId(id:any, setType:string) {
-    debugger
     setType =  setType != 'DECK' ? 'COLLECTION' : 'DECK'
     GeneralFunctions.storeInformation("idDeckDetails", id, this.source, setType)
   }
