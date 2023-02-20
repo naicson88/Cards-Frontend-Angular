@@ -3,7 +3,7 @@ RUN npm install @angular/cli@latest -g
 RUN mkdir -p /home/boilerplate
 WORKDIR /home/boilerplate
 EXPOSE 4200
-CMD ng serve --port 4200 --host 0.0.0.0 --poll 5000
+CMD ng serve --port 4200 --host 0.0.0.0 --poll 2000
 
     ###### FUNCIONAL, A DE CIMA É PARA DESENVOLVER DENTRO DO CONTAINER, A DE BAIXO PODERIA SUBIR EM PROD - MAIS LEVE!! #######
             # FROM node:16.19.0-alpine as builder

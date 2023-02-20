@@ -52,6 +52,7 @@ import { SharedModulesModule } from './component/shared/shared-modules/shared-mo
 import { AdminModule } from './component/admin/admin-module';
 import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin-dashboard.component';
 import { PageHeaderComponent } from './component/shared/page-header/page-header.component';
+import { ChangeArtComponent } from './component/shared/change-art/change-art.component';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import { PageHeaderComponent } from './component/shared/page-header/page-header.
     MaintenenceComponent,
     AdminDashboardComponent,
     PageHeaderComponent,
+    ChangeArtComponent,
   
   ],
   imports: [

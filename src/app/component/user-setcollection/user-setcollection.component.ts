@@ -14,6 +14,7 @@ import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.compo
 import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
+import { ChangeArtComponent } from '../shared/change-art/change-art.component';
 import { UserSetCollectionService } from './user-setcollection.service';
 
 @Component({
@@ -31,7 +32,7 @@ export class UserSetcollectionComponent implements OnInit {
 
   
   constructor(private service: UserSetCollectionService, private spinner: SpinnerService, private dialog: MatDialog,
-     private toast: ToastrService, private cardService: CardServiceService, private route: Router ) {}
+     private toast: ToastrService, private cardService: CardServiceService, private route: Router, ) {}
 
   userSetCollecton: UserSetCollectionDTO; 
   originalCollection: Array<CardSetCollectionDTO> = []
@@ -66,8 +67,8 @@ export class UserSetcollectionComponent implements OnInit {
     this.userSetCollecton.id = 0;
     this.userSetCollecton.name = "";
     this.userSetCollecton.totalPrice = "0";
-    let arr = this.userSetCollecton.cards.slice(0);
-    this.originalCollection = arr;  
+    this.originalCollection = this.userSetCollecton.cards.slice(0); 
+
     this.isNewCollection = true;
     this.spinner.hide();
   }
@@ -86,8 +87,10 @@ export class UserSetcollectionComponent implements OnInit {
       this.userSetCollecton = data;
       this.setBasedDeck(data['basedDeck'])
       this.rarities = data['konamiRarities']
-      let arr = this.userSetCollecton.cards.slice(0);
-      this.originalCollection = arr;
+      this.originalCollection = this.userSetCollecton.cards.slice(0);;
+ 
+      this.putAngularId(this.originalCollection )
+      console.log(this.originalCollection)
 
       }, error => {
       this.spinner.hide();
@@ -396,7 +399,7 @@ export class UserSetcollectionComponent implements OnInit {
     newcard.relDeckCards = rel;
     if(this.userSetCollecton.id > 0){
       this.originalCollection.unshift(newcard);
-      console.log(this.originalCollection)
+
      this.userSetCollecton.cards = this.originalCollection;
     }
     else{
@@ -483,7 +486,7 @@ export class UserSetcollectionComponent implements OnInit {
     this.setCardsToBeSaved()
       
     this.userSetCollecton.name = collectionName
-      
+    console.log(this.userSetCollecton)
       this.service.saveSetCollection(this.userSetCollecton).subscribe(data => {
         this.userSetCollecton.cards = this.originalCollection;
         this.spinner.hide();
@@ -502,10 +505,12 @@ export class UserSetcollectionComponent implements OnInit {
   setCardsToBeSaved(){
       this.originalCollection.filter(coll => coll.quantityUserHave > 0).forEach(coll => {
           if(coll.relDeckCards.card_set_code.includes("Set Code"))
-              coll.relDeckCards.card_set_code = "Not Defined"
-          
+              coll.relDeckCards.card_set_code = "Not Defined"          
+
            this.userSetCollecton.cards.push(coll);
       }) 
+
+      //console.log(this.userSetCollecton.cards)
   }
 
   openDialog(){
@@ -547,5 +552,18 @@ export class UserSetcollectionComponent implements OnInit {
 
   }
   
+  openDialogArt(cardId:number, angularId:string): void {
+    console.log(cardId)
+    const dialogRef = this.dialog.open(ChangeArtComponent, {
+        data: {cardId: cardId},
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+          if(result)
+            this.originalCollection.find(card => card.angularId == angularId).number = result
+          
+          console.log(this.originalCollection)
+      });
+    }
 
 }
