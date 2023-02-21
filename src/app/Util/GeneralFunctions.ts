@@ -1,5 +1,8 @@
 import { Serializer } from "@angular/compiler";
+import { Router } from "@angular/router";
+import { Observable, of, Subject } from "rxjs";
 import { Card } from "../classes/Card";
+import { AuthService } from "../service/auth-service/auth.service";
 import { CardServiceService } from "../service/card-service/card-service.service";
 import { ExtraDeckTypes } from "./enums/ExtraDeckTypes";
 
@@ -124,5 +127,35 @@ export abstract class GeneralFunctions  {
     localStorage.setItem("source", source);
     localStorage.setItem("set_type", setType);
   }
+
+
+  public static validUser(authService: AuthService, router: Router): Observable<boolean> {
+      const result = new Subject<boolean>();
+
+      authService.getUser().subscribe(userReturned => { 
+
+        const userRole:string = userReturned.role.roleName
+          
+          if(userRole == undefined || userRole == null)
+            router.navigate(['/login'])
+          if(userRole == "ROLE_ADMIN"  || userRole == "ROLE_MODERATOR")
+            result.next(true);
+          else if(userRole == "ROLE_USER")
+            result.next(false);
+          else
+            result.next(false);
+
+      }, error => {
+        result.next(false)
+        console.log("Error when try to consult user" + error.erro);
+      })
+
+      return result.asObservable();
+    }
+    
+    checkIfIsAdmin(userRole:string) {   
+      //  let user:string = localStorage.getItem('currentUser');
+          
+    }
   
 }

@@ -1,0 +1,55 @@
+
+.button-search button {
+    position: absolute;
+    left: 19px;
+    bottom:0
+}
+
+#main-div-cards{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: ghostwhite;
+    padding: 10px;
+}
+
+.div-single-card-edit{
+    width: 310px;
+    height: 235px;
+    border: solid thin silver;
+    border-radius: 5px;
+    display: flex;
+    padding: 5x;
+    flex-direction: column;
+    padding: 2px;
+    position: relative;
+    background-color: white;
+}
+
+.superior-div{
+    display: flex;
+    justify-content: space-around;
+    height: fit-content;
+}
+
+.div-details{
+    background-color: silver;
+    flex:1;
+    padding: 3px;
+    font-size: small;
+  
+}
+.div-details input{
+    width: fit-content;
+    margin-bottom: 2px;
+    line-height: 18px;
+    float: right;
+}
+
+.div-button-card{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2px;
+}

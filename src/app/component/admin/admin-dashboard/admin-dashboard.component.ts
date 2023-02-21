@@ -38,7 +38,7 @@ export class AdminDashboardComponent implements OnInit {
     this.chosenMenu = menu;
     if(menu == 'NEW COLLECTION')
       this.createFormSetCollection(new SetCollection());
-    else if (menu = 'DECK COLLECTION')
+    else if (menu == 'DECK COLLECTION')
       this.createCollectionDeck(new DeckCollection);
   }
   

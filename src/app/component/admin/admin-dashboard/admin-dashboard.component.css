@@ -9,7 +9,7 @@ button{
 
 #header-block{
     display: flex;
-    justify-content: space-around;
+    justify-content: left;
     flex-wrap: wrap;
     background-color: ghostwhite;
     width: 98%;
@@ -20,7 +20,9 @@ button{
     border-radius: 3px;
     padding: 10px;
 }
-
+#header-block button {
+    margin: 7px;
+}
 .body-admin{
     width: 90%;
     margin-top: 40px;
