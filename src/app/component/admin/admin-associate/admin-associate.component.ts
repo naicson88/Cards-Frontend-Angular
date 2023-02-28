@@ -79,8 +79,7 @@ export class AdminAssociateComponent implements OnInit {
       })
   }
 
-  createNewAssociationObj() {
-        debugger
+  createNewAssociationObj() {        
       let source = this.myDOMEle.nativeElement.value;
       let arrayToAssociate = [];
 

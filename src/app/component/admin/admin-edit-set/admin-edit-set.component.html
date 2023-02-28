@@ -4,40 +4,50 @@
     <form action="" [formGroup]="formSearchToEdit" style="padding: 20px;">
         <div class="form-row">
             <div class="form-group col-md-2">
-                <label for="setType" >Set Type</label>
-               <select name="setType" class="form-control" id="setType" formControlName="setType" #setType  (change)="searchSets(setType.value)"> 
-                  <option [value]="" selected></option>
-                   <option value="DECK" >Deck</option>
-                   <option value="TIN">Tin</option>
-                   <option value="BOX">Box</option>
-                   <option value="BOOSTER">Booster</option>
-               </select>
+                <label for="setType1" >Set Type</label>
+                <select name="setType1" class="form-control" id="setType1"  #setType1  (change)="searchSets(setType1.value)"> 
+                    <option value="DECK" >Deck</option>
+                    <option value="TIN">Tin</option>
+                    <option value="BOX">Box</option>
+                    <option value="BOOSTER">Booster</option>
+                </select>
            </div>
 
            <div class="form-group col-md-6">
                 <label for="setCollection" >Set Collection</label>
-                <select name="setId" class="form-control" id="setId" formControlName="setId" #setChoosen >                
+                <select name="setIdSearch" class="form-control" id="setIdSearch"  #setChoosen >                
                     <option *ngFor="let set of arrSetSource" [value]="set.setId" >{{set.name}}</option>
                 </select>
             </div>
 
             <div class="form-group col-md-4 button-search">
-                <button mat-raised-button color="warn" (click)="searchSetToEdit()">Search</button>
+                <button mat-raised-button color="warn" (click)="searchDeckToEdit(setChoosen.value)">Search</button>
             </div>
            
          </div>
     </form>
 
     <form action="" [formGroup]="formEditSet" style="padding: 20px; border-top: solid 2px red">
+        <div class="form-row select-to-edit" >
+            <div class="form-group col-md-6">
+                <label for="setType1" >Collection to Edit</label>
+                <select name="collToEdit" class="form-control" id="collToEdit"  #collToEdit (change)="searchSets(collToEdit.value)"> 
+                    <option value="DECK" >Deck</option>
+                    <option value="TIN">Tin</option>
+                    <option value="BOX">Box</option>
+                    <option value="BOOSTER">Booster</option>
+                </select>
+           </div>
+        </div>
         <div class="form-row">
              <div class="form-group col-md-4">
                 <label for="setId">ID</label>
-                <input type="text" class="form-control" name="setId" id="setId" required formControlName="setId">
+                <input type="text" class="form-control" name="setId" id="setId" required formControlName="setId" [value]="setDetailsDeck?.id">
               </div>
 
               <div class="form-group col-md-8">
-                <label for="seName">Name</label>
-                <input type="text" class="form-control" name="seName" id="seName" required formControlName="seName">
+                <label for="setName">Name</label>
+                <input type="text" class="form-control" name="setName" id="setName" required formControlName="setName" [value]="setDetailsDeck?.nome">
             </div>
         </div>
 
@@ -48,7 +58,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="image">Image</label>
-                <input type="text" class="form-control" name="image" id="image" required formControlName="image">
+                <input type="text" class="form-control" name="image" id="image" required formControlName="image" [value]="setDetailsDeck?.imagem">
             </div>
             <div class="form-group col-md-3">
                 <label for="setType" >Set Type</label>
@@ -64,7 +74,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="setCode">Set Code</label>
-                <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode">
+                <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode"  [value]="setDetailsDeck?.setCode">
             </div>
 
             <div class="form-group col-md-3">
@@ -98,8 +108,8 @@
                 <div class="div-img">
                     <img src='https://images.ygoprodeck.com/images/cards/8949584.jpg' alt="" width="139px" height="185px" (click)="cardSelected(alt)">
                 </div>
-                <div class="div-details">
-                   <input type="text" value="49806510" name="cardNumber"/>
+                <div class="div-details" (change)="onChangeEnableSaveButton('321')">
+                   <input type="text" value="49806510" name="cardNumber" />
                    <input type="text" value="HCSS-PT003" name="cardSetCode" />
                    <input type="text" value="1000.00" name="cardPrice"/>
                    <input type="text" value="Ultra Rare" name="cardRarity"/> 
@@ -110,7 +120,7 @@
             </div>
             
             <div class="div-button-card" >
-                <button mat-raised-button color="primary" (click)="searchSetToEdit()">Save</button>&nbsp;&nbsp;
+                <button mat-raised-button color="primary" (click)="searchSetToEdit()" id="btn-321" disabled>Save</button>&nbsp;&nbsp;
                 <button mat-raised-button color="warn" (click)="searchSetToEdit()">Delete</button>
             </div>
         </div>
@@ -119,7 +129,7 @@
                 <div class="div-img">
                     <img src='https://images.ygoprodeck.com/images/cards/8949584.jpg' alt="" width="139px" height="185px" (click)="cardSelected(alt)">
                 </div>
-                <div class="div-details">
+                <div class="div-details" (change)="onChangeEnableSaveButton('123')">
                    <input type="text" value="49806510" name="cardNumber"/>
                    <input type="text" value="HCSS-PT003" name="cardSetCode" />
                    <input type="text" value="1000.00" name="cardPrice"/>
@@ -131,7 +141,7 @@
             </div>
             
             <div class="div-button-card" >
-                <button mat-raised-button color="primary" (click)="searchSetToEdit()">Save</button>&nbsp;&nbsp;
+                <button mat-raised-button color="primary" (click)="searchSetToEdit()" id="btn-123" disabled>Save</button>&nbsp;&nbsp;
                 <button mat-raised-button color="warn" (click)="searchSetToEdit()">Delete</button>
             </div>
         </div>

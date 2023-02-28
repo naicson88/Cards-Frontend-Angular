@@ -5,6 +5,7 @@ import { catchError } from "rxjs/operators";
 import { DeckCollection } from "src/app/classes/DeckCollection";
 import { KonamiDeck } from "src/app/classes/KonamiDeck";
 import { SetCollection } from "src/app/classes/SetCollection";
+import { SetDetailsDTO } from "src/app/classes/SetDetailsDTO";
 import { HandleErros } from "src/app/Util/HandleErros";
 import { environment } from "src/environments/environment";
 
@@ -67,6 +68,13 @@ import { environment } from "src/environments/environment";
 
     public createNewAssociation(association:any){
       return this.http.post<any>(this.base_url+"/set-collection/new-association", association)
+        .pipe(
+          catchError(HandleErros.handleError)
+        )
+    }
+
+    public searchDeckToEdit(deckId:number){
+        return this.http.get<SetDetailsDTO>(this.base_url_main+`/decks/get-deck-to-edit?deckId=${deckId}`)
         .pipe(
           catchError(HandleErros.handleError)
         )
