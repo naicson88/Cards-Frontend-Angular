@@ -15,6 +15,7 @@ export class SetDetailsDTO {
     setType: string;
     dt_criacao: Date
     isSpeedDuel: string;
+    isBasedDeck:boolean;
     insideDeck: InsideDeck[];
     statsQuantityByAttribute: [];
     statsQuantityByLevel: [];
@@ -25,4 +26,6 @@ export class SetDetailsDTO {
     statsDef: [];
     imgurUrl: string;
     imagem:string
+    setCode:string
+    description:string
 }

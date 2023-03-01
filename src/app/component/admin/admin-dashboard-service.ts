@@ -79,4 +79,12 @@ import { environment } from "src/environments/environment";
           catchError(HandleErros.handleError)
         )
     }
+
+    public editDeck(dto:any){
+      return this.http.post<any>(this.base_url_main+`/decks/deck-to-edit`, dto)
+      .pipe(
+        catchError(HandleErros.handleError)
+      )
+  }
+
   }

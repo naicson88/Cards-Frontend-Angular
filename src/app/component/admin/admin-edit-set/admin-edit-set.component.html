@@ -6,6 +6,7 @@
             <div class="form-group col-md-2">
                 <label for="setType1" >Set Type</label>
                 <select name="setType1" class="form-control" id="setType1"  #setType1  (change)="searchSets(setType1.value)"> 
+                    <option value="" ></option>
                     <option value="DECK" >Deck</option>
                     <option value="TIN">Tin</option>
                     <option value="BOX">Box</option>
@@ -27,11 +28,12 @@
          </div>
     </form>
 
-    <form action="" [formGroup]="formEditSet" style="padding: 20px; border-top: solid 2px red">
+    <form action="" [formGroup]="formEditSet" style="padding: 20px; border-top: solid 2px red; background-color: ghostwhite;">
         <div class="form-row select-to-edit" >
             <div class="form-group col-md-6">
                 <label for="setType1" >Collection to Edit</label>
                 <select name="collToEdit" class="form-control" id="collToEdit"  #collToEdit (change)="searchSets(collToEdit.value)"> 
+                 
                     <option value="DECK" >Deck</option>
                     <option value="TIN">Tin</option>
                     <option value="BOX">Box</option>
@@ -40,25 +42,24 @@
            </div>
         </div>
         <div class="form-row">
-             <div class="form-group col-md-4">
+             <div class="form-group col-md-3">
                 <label for="setId">ID</label>
-                <input type="text" class="form-control" name="setId" id="setId" required formControlName="setId" [value]="setDetailsDeck?.id">
+                <input type="text" class="form-control" name="setId" id="setId" required formControlName="id" disabled>
               </div>
-
-              <div class="form-group col-md-8">
+              <div class="form-group col-md-9">
                 <label for="setName">Name</label>
-                <input type="text" class="form-control" name="setName" id="setName" required formControlName="setName" [value]="setDetailsDeck?.nome">
+                <input type="text" class="form-control" name="setName" id="setName" required formControlName="nome" >
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="release">Release</label>
-                <input type="text" class="form-control" name="release" id="release" required formControlName="release">
+                <input type="text" class="form-control" name="release" id="release" required formControlName="lancamento" >
             </div>
             <div class="form-group col-md-6">
                 <label for="image">Image</label>
-                <input type="text" class="form-control" name="image" id="image" required formControlName="image" [value]="setDetailsDeck?.imagem">
+                <input type="text" class="form-control" name="image" id="image" required formControlName="imagem" >
             </div>
             <div class="form-group col-md-3">
                 <label for="setType" >Set Type</label>
@@ -74,22 +75,22 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="setCode">Set Code</label>
-                <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode"  [value]="setDetailsDeck?.setCode">
+                <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode" >
             </div>
 
             <div class="form-group col-md-3">
                <label for="isSpeedDuel">Speed Duel</label>
                 <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel" #isSpeedDuel > 
-                    <option value="TRUE" >TRUE</option>
-                    <option value="FALSE">FALSE</option>
+                    <option value="true" >TRUE</option>
+                    <option value="false" >FALSE</option>
                 </select>
              </div>
 
              <div class="form-group col-md-3">
                <label for="isBasedDeck">Based Deck</label>
                 <select name="isBasedDeck" class="form-control" id="isBasedDeck" formControlName="isBasedDeck" #isBasedDeck > 
-                    <option value="TRUE" >TRUE</option>
-                    <option value="FALSE">FALSE</option>
+                    <option value="true" >TRUE</option>
+                    <option value="false">FALSE</option>
                 </select>
            </div>
        </div>
@@ -97,72 +98,33 @@
         <div class="form-row" >
             <div class="form-group col-md-8" style="margin-left: 15%;">
                 <caption>Description</caption>
+                <!-- <app-ckeditor #myEditor [myEditor]="setDetailsDeck?.description"></app-ckeditor> -->
                 <app-ckeditor #myEditor></app-ckeditor>
             </div>
          </div>
+
+         <button mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 45%;">Save</button>
     </form>
 
     <div id="main-div-cards">
-        <div class="div-single-card-edit">
+        <div *ngFor="let card of setDetailsDeck?.insideDecks[0].relDeckCards" class="div-single-card-edit">
             <div class="superior-div">
                 <div class="div-img">
-                    <img src='https://images.ygoprodeck.com/images/cards/8949584.jpg' alt="" width="139px" height="185px" (click)="cardSelected(alt)">
+                    <img [src]='cardImagem(card.cardNumber)' alt="" width="139px" height="185px" (click)="cardSelected(card.cardId)">
                 </div>
-                <div class="div-details" (change)="onChangeEnableSaveButton('321')">
-                   <input type="text" value="49806510" name="cardNumber" />
-                   <input type="text" value="HCSS-PT003" name="cardSetCode" />
-                   <input type="text" value="1000.00" name="cardPrice"/>
-                   <input type="text" value="Ultra Rare" name="cardRarity"/> 
-                   <input type="text" value="UR(ScR)" name="rarityCode"/>
-                   <input type="text" value="Secret Gold Parrallel Rare dfsdfsdfsdfsdf" name="rarityDetails"/>
-                   <input type="text" value="100" name="cardQuantity"/>              
+                <div class="div-details" (change)="onChangeEnableSaveButton(card.cardId)">
+                   <input type="text" [value]="card.cardNumber" name="cardNumber" />
+                   <input type="text" [value]="card.card_set_code" name="cardSetCode" />
+                   <input type="text" [value]="card.card_price" name="cardPrice"/>
+                   <input type="text" [value]="card.card_raridade" name="cardRarity"/> 
+                   <input type="text" [value]="card.setRarityCode" name="rarityCode"/>
+                   <input type="text" [value]="card.rarityDetails" name="rarityDetails"/>
+                   <input type="text" [value]="card.quantity" name="cardQuantity"/>              
                 </div>
             </div>
             
             <div class="div-button-card" >
-                <button mat-raised-button color="primary" (click)="searchSetToEdit()" id="btn-321" disabled>Save</button>&nbsp;&nbsp;
-                <button mat-raised-button color="warn" (click)="searchSetToEdit()">Delete</button>
-            </div>
-        </div>
-        <div class="div-single-card-edit">
-            <div class="superior-div">
-                <div class="div-img">
-                    <img src='https://images.ygoprodeck.com/images/cards/8949584.jpg' alt="" width="139px" height="185px" (click)="cardSelected(alt)">
-                </div>
-                <div class="div-details" (change)="onChangeEnableSaveButton('123')">
-                   <input type="text" value="49806510" name="cardNumber"/>
-                   <input type="text" value="HCSS-PT003" name="cardSetCode" />
-                   <input type="text" value="1000.00" name="cardPrice"/>
-                   <input type="text" value="Ultra Rare" name="cardRarity"/> 
-                   <input type="text" value="UR(ScR)" name="rarityCode"/>
-                   <input type="text" value="Secret Gold Parrallel Rare dfsdfsdfsdfsdf" name="rarityDetails"/>
-                   <input type="text" value="100" name="cardQuantity"/>              
-                </div>
-            </div>
-            
-            <div class="div-button-card" >
-                <button mat-raised-button color="primary" (click)="searchSetToEdit()" id="btn-123" disabled>Save</button>&nbsp;&nbsp;
-                <button mat-raised-button color="warn" (click)="searchSetToEdit()">Delete</button>
-            </div>
-        </div>
-        <div class="div-single-card-edit">
-            <div class="superior-div">
-                <div class="div-img">
-                    <img src='https://images.ygoprodeck.com/images/cards/8949584.jpg' alt="" width="139px" height="185px" (click)="cardSelected(alt)">
-                </div>
-                <div class="div-details">
-                   <input type="text" value="49806510" name="cardNumber"/>
-                   <input type="text" value="HCSS-PT003" name="cardSetCode" />
-                   <input type="text" value="1000.00" name="cardPrice"/>
-                   <input type="text" value="Ultra Rare" name="cardRarity"/> 
-                   <input type="text" value="UR(ScR)" name="rarityCode"/>
-                   <input type="text" value="Secret Gold Parrallel Rare dfsdfsdfsdfsdf" name="rarityDetails"/>
-                   <input type="text" value="100" name="cardQuantity"/>              
-                </div>
-            </div>
-            
-            <div class="div-button-card" >
-                <button mat-raised-button color="primary" (click)="searchSetToEdit()">Save</button>&nbsp;&nbsp;
+                <button mat-raised-button color="primary" (click)="searchSetToEdit()" id="btn-{{card.cardId}}" disabled>Save</button>&nbsp;&nbsp;
                 <button mat-raised-button color="warn" (click)="searchSetToEdit()">Delete</button>
             </div>
         </div>

@@ -12,12 +12,13 @@ label {
     justify-content: space-evenly;
     background-color: ghostwhite;
     padding: 10px;
+    flex-wrap: wrap;
 }
 
 .div-single-card-edit{
     width: 310px;
     height: 240px;
-    border: solid thin silver;
+    border: solid  silver;
     border-radius: 5px;
     display: flex;
     padding: 5x;
@@ -25,6 +26,7 @@ label {
     padding: 2px;
     position: relative;
     background-color: white;
+    margin-bottom: 5px;
 }
 
 .superior-div{

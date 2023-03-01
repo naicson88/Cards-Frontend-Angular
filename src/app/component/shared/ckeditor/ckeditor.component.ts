@@ -9,7 +9,7 @@ import * as ClassicEditor from '../../../../../ckeditor5/build/ckeditor';
 })
 export class CkeditorComponent implements OnInit {
 
-  @Input() myEditor: any;
+  //@Input() myEditor: any;
 
   constructor() { }
 
@@ -19,10 +19,14 @@ export class CkeditorComponent implements OnInit {
     
   }
 
-    
   getData(element:any):string {
     let data = element.data
     return data;
+  }
+
+  setData(element:any):string {
+    console.log(element.data)
+    return "teste"
   }
 
 }
