@@ -22,15 +22,14 @@
             </div>
 
             <div class="form-group col-md-4 button-search">
-                <button mat-raised-button color="warn" (click)="searchDeckToEdit(setChoosen.value)">Search</button>
+                <button mat-raised-button color="warn" (click)="searchDeckToEdit(setChoosen.value, setType1.value)">Search</button>
             </div>
-           
          </div>
     </form>
 
     <form action="" [formGroup]="formEditSet" style="padding: 20px; border-top: solid 2px red; background-color: ghostwhite;">
         <div class="form-row select-to-edit" >
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" *ngIf="setDetailsDeck?.insideDecks != null">
                 <label for="setType1" >Collection to Edit</label>
                 <select name="collToEdit" class="form-control" id="collToEdit"  #collToEdit (change)="searchSets(collToEdit.value)"> 
                  
@@ -43,8 +42,8 @@
         </div>
         <div class="form-row">
              <div class="form-group col-md-3">
-                <label for="setId">ID</label>
-                <input type="text" class="form-control" name="setId" id="setId" required formControlName="id" disabled>
+                <label for="id">ID</label>
+                <input type="text" class="form-control" name="id" id="id" required formControlName="id">
               </div>
               <div class="form-group col-md-9">
                 <label for="setName">Name</label>
@@ -57,9 +56,9 @@
                 <label for="release">Release</label>
                 <input type="text" class="form-control" name="release" id="release" required formControlName="lancamento" >
             </div>
-            <div class="form-group col-md-6">
-                <label for="image">Image</label>
-                <input type="text" class="form-control" name="image" id="image" required formControlName="imagem" >
+            <div class="form-group col-md-4">
+                <label for="setCode">Set Code</label>
+                <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode" >
             </div>
             <div class="form-group col-md-3">
                 <label for="setType" >Set Type</label>
@@ -73,10 +72,6 @@
         </div>
 
         <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="setCode">Set Code</label>
-                <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode" >
-            </div>
 
             <div class="form-group col-md-3">
                <label for="isSpeedDuel">Speed Duel</label>
@@ -95,8 +90,15 @@
            </div>
        </div>
 
-        <div class="form-row" >
-            <div class="form-group col-md-8" style="margin-left: 15%;">
+       <div class="form-row" style="margin-left: 40%;">
+            <div class="form-group col-md-4">
+                <img [src]='setDetailsDeck.imagem' alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;">
+                <input type="text" class="form-control" name="image" id="image" required formControlName="imagem" >
+            </div>
+       </div>
+
+        <div class="form-row" style="margin-left: 22%;">
+            <div class="form-group col-md-8" >
                 <caption>Description</caption>
                 <!-- <app-ckeditor #myEditor [myEditor]="setDetailsDeck?.description"></app-ckeditor> -->
                 <app-ckeditor #myEditor></app-ckeditor>
@@ -107,7 +109,7 @@
     </form>
 
     <div id="main-div-cards">
-        <div *ngFor="let card of setDetailsDeck?.insideDecks[0].relDeckCards" class="div-single-card-edit">
+        <div *ngFor="let card of setDetailsDeck?.relDeckCards" class="div-single-card-edit">
             <div class="superior-div">
                 <div class="div-img">
                     <img [src]='cardImagem(card.cardNumber)' alt="" width="139px" height="185px" (click)="cardSelected(card.cardId)">

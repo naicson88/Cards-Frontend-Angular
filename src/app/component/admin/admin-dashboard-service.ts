@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError } from "rxjs/operators";
 import { DeckCollection } from "src/app/classes/DeckCollection";
+import { SetEditDTO } from "src/app/classes/DTO/SetEditDTO";
 import { KonamiDeck } from "src/app/classes/KonamiDeck";
 import { SetCollection } from "src/app/classes/SetCollection";
 import { SetDetailsDTO } from "src/app/classes/SetDetailsDTO";
@@ -73,15 +74,16 @@ import { environment } from "src/environments/environment";
         )
     }
 
-    public searchDeckToEdit(deckId:number){
-        return this.http.get<SetDetailsDTO>(this.base_url_main+`/decks/get-deck-to-edit?deckId=${deckId}`)
+    public searchDeckToEdit(deckId:number, setType:string){
+        let path = setType === 'DECK' ? '/decks/get-deck-to-edit' :  '/collection/collection-to-edit';
+        return this.http.get<SetEditDTO>(this.base_url_main+path+`?deckId=${deckId}`)
         .pipe(
           catchError(HandleErros.handleError)
         )
     }
 
     public editDeck(dto:any){
-      return this.http.post<any>(this.base_url_main+`/decks/deck-to-edit`, dto)
+      return this.http.post<any>(this.base_url_main+`/decks/edit-deck`, dto)
       .pipe(
         catchError(HandleErros.handleError)
       )

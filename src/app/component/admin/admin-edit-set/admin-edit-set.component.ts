@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { SetEditDTO } from 'src/app/classes/DTO/SetEditDTO';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
@@ -22,20 +23,20 @@ export class AdminEditSetComponent implements OnInit {
   @ViewChild("myEditor", { static: false }) myEditor: any; 
 
   ngOnInit() {
-    this.createFormSet(new SetDetailsDTO)
+    this.createFormSet(new SetEditDTO)
   }
 
   formSearchToEdit: FormGroup = new FormGroup({})
   formEditSet: FormGroup = new FormGroup({})
 
-  setDetailsDeck: SetDetailsDTO;
+  setDetailsDeck: SetEditDTO;
   arrSetSource:[] = [];
 
   foundSetToEdit: boolean = true
 
-  createFormSet(setData: SetDetailsDTO){
+  createFormSet(setData: SetEditDTO){
     this.formEditSet = new FormGroup({
-      id: new FormControl({value: setData.id, disabled: true}, Validators.required),
+      id: new FormControl(setData.id),
       nome: new FormControl(setData.nome, Validators.required),
       lancamento:new FormControl(setData.lancamento),
       imagem: new FormControl(setData.imagem),
@@ -43,7 +44,7 @@ export class AdminEditSetComponent implements OnInit {
       setCode: new FormControl(setData.setCode),
       isSpeedDuel: new FormControl(setData.isSpeedDuel),
       isBasedDeck: new FormControl(setData.isBasedDeck),
-      description: new FormControl(setData.description),
+      //description: new FormControl(setData.description),
     })
   }
 
@@ -62,9 +63,11 @@ export class AdminEditSetComponent implements OnInit {
      (document.getElementById("btn-"+num) as HTMLButtonElement).disabled = false;
   }
 
-  searchDeckToEdit(deckId:number){
-      this.service.searchDeckToEdit(deckId).subscribe(response => {
+  searchDeckToEdit(deckId:number, setType:string){
+  
+      this.service.searchDeckToEdit(deckId, setType).subscribe(response => {
           this.setDetailsDeck = response;
+          console.log(this.setDetailsDeck) 
           this.createFormSet(response)
 
           let i:number = this.setDetailsDeck.isSpeedDuel ? 0 : 1;
@@ -80,8 +83,8 @@ export class AdminEditSetComponent implements OnInit {
               }
           }
 
-          this.myEditor.data = this.setDetailsDeck.description;
-          //console.log(this.setDetailsDeck) 
+          this.myEditor.data = response.description;
+         
       })
   }
 
