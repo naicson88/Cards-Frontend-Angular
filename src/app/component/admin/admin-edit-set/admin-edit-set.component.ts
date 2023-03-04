@@ -104,4 +104,11 @@ export class AdminEditSetComponent implements OnInit {
     return urlimg;
   }
 
+  setOnFormToEdit(id:number){
+    if(this.setDetailsDeck.id == id)
+      this.createFormSet(this.setDetailsDeck)
+    else
+        this.createFormSet(this.setDetailsDeck.insideDecks.find(inside => inside.id === id))
+  }
+
 }

@@ -30,17 +30,73 @@
     <form action="" [formGroup]="formEditSet" style="padding: 20px; border-top: solid 2px red; background-color: ghostwhite;">
         <div class="form-row select-to-edit" >
             <div class="form-group col-md-6" *ngIf="setDetailsDeck?.insideDecks != null">
-                <label for="setType1" >Collection to Edit</label>
-                <select name="collToEdit" class="form-control" id="collToEdit"  #collToEdit (change)="searchSets(collToEdit.value)"> 
-                 
-                    <option value="DECK" >Deck</option>
-                    <option value="TIN">Tin</option>
-                    <option value="BOX">Box</option>
-                    <option value="BOOSTER">Booster</option>
+                <label for="collToEdit" >Collection to Edit</label>
+                <select name="collToEdit" class="form-control" id="collToEdit"  #collToEdit (change)="setOnFormToEdit(collToEdit.value)">            
+                    <option value="setDetailsDeck.id" >{{setDetailsDeck.nome}}</option>
+                    <option value="inside.id" *ngFor="let inside of setDetailsDeck?.insideDecks">{{inside.nome}}</option>
                 </select>
            </div>
         </div>
-        <div class="form-row">
+        <div class="superior-block">
+            <div class="superior-left">
+                <div class="form-group col-md-12">
+                    <img [src]='setDetailsDeck?.imagem' alt="" width="200" height="265" >
+                    <input type="text" class="form-control" name="image" id="image" required formControlName="imagem" >
+                </div>
+            </div>
+            <div class="superior-right">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                       <label for="id">ID</label>
+                       <input type="text" class="form-control" name="id" id="id" required formControlName="id">
+                     </div>
+                     <div class="form-group col-md-9">
+                       <label for="setName">Name</label>
+                       <input type="text" class="form-control" name="setName" id="setName" required formControlName="nome" >
+                   </div>
+               </div>
+               <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="release">Release</label>
+                    <input type="text" class="form-control" name="release" id="release" required formControlName="lancamento" >
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="setCode">Set Code</label>
+                    <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode" >
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="setType" >Set Type</label>
+                    <select name="setType" class="form-control" id="setType" formControlName="setType" #setType > 
+                        <option value="DECK" >DECK</option>
+                        <option value="TIN">TIN</option>
+                        <option value="BOX">BOX</option>
+                        <option value="BOOSTER">BOOSTER</option>
+                    </select>
+                </div>         
+               </div>
+               <div class="form-row">
+
+                <div class="form-group col-md-3">
+                   <label for="isSpeedDuel">Speed Duel</label>
+                    <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel" #isSpeedDuel > 
+                        <option value="true" >TRUE</option>
+                        <option value="false" >FALSE</option>
+                    </select>
+                 </div>
+    
+                 <div class="form-group col-md-3">
+                   <label for="isBasedDeck">Based Deck</label>
+                    <select name="isBasedDeck" class="form-control" id="isBasedDeck" formControlName="isBasedDeck" #isBasedDeck > 
+                        <option value="true" >TRUE</option>
+                        <option value="false">FALSE</option>
+                    </select>
+               </div>
+               </div>
+            </div>
+        </div> 
+
+      
+        <!-- <div class="form-row">
              <div class="form-group col-md-3">
                 <label for="id">ID</label>
                 <input type="text" class="form-control" name="id" id="id" required formControlName="id">
@@ -49,9 +105,9 @@
                 <label for="setName">Name</label>
                 <input type="text" class="form-control" name="setName" id="setName" required formControlName="nome" >
             </div>
-        </div>
+        </div> -->
 
-        <div class="form-row">
+        <!-- <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="release">Release</label>
                 <input type="text" class="form-control" name="release" id="release" required formControlName="lancamento" >
@@ -69,9 +125,9 @@
                     <option value="BOOSTER">BOOSTER</option>
                 </select>
             </div>         
-        </div>
+        </div> -->
 
-        <div class="form-row">
+        <!-- <div class="form-row">
 
             <div class="form-group col-md-3">
                <label for="isSpeedDuel">Speed Duel</label>
@@ -88,19 +144,18 @@
                     <option value="false">FALSE</option>
                 </select>
            </div>
-       </div>
+       </div> -->
 
-       <div class="form-row" style="margin-left: 40%;">
+       <!-- <div class="form-row" style="margin-left: 40%;">
             <div class="form-group col-md-4">
                 <img [src]='setDetailsDeck.imagem' alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;">
                 <input type="text" class="form-control" name="image" id="image" required formControlName="imagem" >
             </div>
-       </div>
+       </div> -->
 
         <div class="form-row" style="margin-left: 22%;">
             <div class="form-group col-md-8" >
                 <caption>Description</caption>
-                <!-- <app-ckeditor #myEditor [myEditor]="setDetailsDeck?.description"></app-ckeditor> -->
                 <app-ckeditor #myEditor></app-ckeditor>
             </div>
          </div>

@@ -65,3 +65,16 @@ label {
     margin-bottom: 10px;
     background-color: silver;
 }
+
+.superior-block{
+    display: flex;
+    justify-content: space-around;
+}
+
+.superior-left{
+    width: 28%;
+}
+
+.superior-right{
+    width: 72%;
+}
