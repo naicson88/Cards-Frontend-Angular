@@ -33,7 +33,7 @@
                 <label for="collToEdit" >Collection to Edit</label>
                 <select name="collToEdit" class="form-control" id="collToEdit"  #collToEdit (change)="setOnFormToEdit(collToEdit.value)">            
                     <option value="setDetailsDeck.id" >{{setDetailsDeck.nome}}</option>
-                    <option value="inside.id" *ngFor="let inside of setDetailsDeck?.insideDecks">{{inside.nome}}</option>
+                    <option [value]="inside.id" *ngFor="let inside of setDetailsDeck?.insideDecks" style="color:red">{{inside.nome}}</option>
                 </select>
            </div>
         </div>
@@ -164,7 +164,7 @@
     </form>
 
     <div id="main-div-cards">
-        <div *ngFor="let card of setDetailsDeck?.relDeckCards" class="div-single-card-edit">
+        <div *ngFor="let card of formEditSet?.value.relDeckCards" class="div-single-card-edit">
             <div class="superior-div">
                 <div class="div-img">
                     <img [src]='cardImagem(card.cardNumber)' alt="" width="139px" height="185px" (click)="cardSelected(card.cardId)">

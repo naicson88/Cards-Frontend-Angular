@@ -23,7 +23,7 @@ export class AdminEditSetComponent implements OnInit {
   @ViewChild("myEditor", { static: false }) myEditor: any; 
 
   ngOnInit() {
-    this.createFormSet(new SetEditDTO)
+    this.createFormSet(new SetEditDTO, false)
   }
 
   formSearchToEdit: FormGroup = new FormGroup({})
@@ -34,7 +34,7 @@ export class AdminEditSetComponent implements OnInit {
 
   foundSetToEdit: boolean = true
 
-  createFormSet(setData: SetEditDTO){
+  createFormSet(setData: SetEditDTO, isDeckType){
     this.formEditSet = new FormGroup({
       id: new FormControl(setData.id),
       nome: new FormControl(setData.nome, Validators.required),
@@ -45,6 +45,8 @@ export class AdminEditSetComponent implements OnInit {
       isSpeedDuel: new FormControl(setData.isSpeedDuel),
       isBasedDeck: new FormControl(setData.isBasedDeck),
       //description: new FormControl(setData.description),
+      relDeckCards: new FormControl(setData.relDeckCards),
+      isDeckType: new FormControl(isDeckType)
     })
   }
 
@@ -67,8 +69,9 @@ export class AdminEditSetComponent implements OnInit {
   
       this.service.searchDeckToEdit(deckId, setType).subscribe(response => {
           this.setDetailsDeck = response;
-          console.log(this.setDetailsDeck) 
-          this.createFormSet(response)
+          let isDeckType =   this.setDetailsDeck.setType == 'DECK' ? true : false
+          this.createFormSet(response, isDeckType)
+          console.log(this.formEditSet) 
 
           let i:number = this.setDetailsDeck.isSpeedDuel ? 0 : 1;
           this.isSpeedDuel.nativeElement.options[i].selected = true;
@@ -90,13 +93,21 @@ export class AdminEditSetComponent implements OnInit {
 
   onSubmit(){
       this.formEditSet.value.description =  this.ckEditor.getData(this.myEditor);
-
-      this.service.editDeck(this.formEditSet.value).subscribe(result => {
-        console.warn(result);
-        this.toastr.success("Deck edited successfully!");
-      }, error =>{
-        console.log(error.msg)
-      })
+      if(this.formEditSet.value.isDeckType){
+          this.service.editDeck(this.formEditSet.value).subscribe(result => {
+            this.toastr.success("Deck edited successfully!");
+          }, error =>{
+            this.toastr.error("Cannot save the Set!");
+            console.log(error.msg)
+          })
+      }  else {
+        this.service.editCollection(this.formEditSet.value).subscribe(result => {
+          this.toastr.success("Collection edited successfully!");
+        }, error =>{
+          this.toastr.error("Cannot save the Set!");
+          console.log(error.msg)
+        })
+      }  
   }
 
   cardImagem(cardId: any){
@@ -105,10 +116,14 @@ export class AdminEditSetComponent implements OnInit {
   }
 
   setOnFormToEdit(id:number){
-    if(this.setDetailsDeck.id == id)
-      this.createFormSet(this.setDetailsDeck)
+    var idNumber: number = +id;
+    if(this.setDetailsDeck.id == idNumber){
+      let isDeckType =   this.setDetailsDeck.setType == 'DECK' ? true : false;
+      this.createFormSet(this.setDetailsDeck, isDeckType)
+    }
     else
-        this.createFormSet(this.setDetailsDeck.insideDecks.find(inside => inside.id === id))
+        this.createFormSet(this.setDetailsDeck.insideDecks.find(inside => inside.id === idNumber), true)
+    
   }
 
 }

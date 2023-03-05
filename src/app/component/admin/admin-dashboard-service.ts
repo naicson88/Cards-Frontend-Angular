@@ -89,4 +89,11 @@ import { environment } from "src/environments/environment";
       )
   }
 
+    public editCollection(dto:any){
+      return this.http.post<any>(this.base_url_main+`/collection/edit-collection`, dto)
+      .pipe(
+        catchError(HandleErros.handleError)
+      )
+  }
+
   }
