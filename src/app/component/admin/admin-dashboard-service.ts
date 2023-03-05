@@ -96,4 +96,18 @@ import { environment } from "src/environments/environment";
       )
   }
 
+    public saveRelDeckCards(rel:any){
+      return this.http.post<any>(this.base_url_main+`/relDeckCards/edit-relation`, rel)
+      .pipe(
+        catchError(HandleErros.handleError)
+      )
+  }
+
+    public deleteRelation(id:number){
+      return this.http.delete<any>(this.base_url_main+`/relDeckCards/remove-relation?relId=${id}`, )
+      .pipe(
+        catchError(HandleErros.handleError)
+      )
+  }
+
   }

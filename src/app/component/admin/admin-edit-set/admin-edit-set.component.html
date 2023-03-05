@@ -22,7 +22,7 @@
             </div>
 
             <div class="form-group col-md-4 button-search">
-                <button mat-raised-button color="warn" (click)="searchDeckToEdit(setChoosen.value, setType1.value)">Search</button>
+                <button mat-raised-button color="warn" (click)="searchDeckToEdit(setChoosen.value, setType1.value)">Search 	<mat-icon>search</mat-icon></button>
             </div>
          </div>
     </form>
@@ -95,64 +95,6 @@
             </div>
         </div> 
 
-      
-        <!-- <div class="form-row">
-             <div class="form-group col-md-3">
-                <label for="id">ID</label>
-                <input type="text" class="form-control" name="id" id="id" required formControlName="id">
-              </div>
-              <div class="form-group col-md-9">
-                <label for="setName">Name</label>
-                <input type="text" class="form-control" name="setName" id="setName" required formControlName="nome" >
-            </div>
-        </div> -->
-
-        <!-- <div class="form-row">
-            <div class="form-group col-md-3">
-                <label for="release">Release</label>
-                <input type="text" class="form-control" name="release" id="release" required formControlName="lancamento" >
-            </div>
-            <div class="form-group col-md-4">
-                <label for="setCode">Set Code</label>
-                <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode" >
-            </div>
-            <div class="form-group col-md-3">
-                <label for="setType" >Set Type</label>
-                <select name="setType" class="form-control" id="setType" formControlName="setType" #setType > 
-                    <option value="DECK" >DECK</option>
-                    <option value="TIN">TIN</option>
-                    <option value="BOX">BOX</option>
-                    <option value="BOOSTER">BOOSTER</option>
-                </select>
-            </div>         
-        </div> -->
-
-        <!-- <div class="form-row">
-
-            <div class="form-group col-md-3">
-               <label for="isSpeedDuel">Speed Duel</label>
-                <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel" #isSpeedDuel > 
-                    <option value="true" >TRUE</option>
-                    <option value="false" >FALSE</option>
-                </select>
-             </div>
-
-             <div class="form-group col-md-3">
-               <label for="isBasedDeck">Based Deck</label>
-                <select name="isBasedDeck" class="form-control" id="isBasedDeck" formControlName="isBasedDeck" #isBasedDeck > 
-                    <option value="true" >TRUE</option>
-                    <option value="false">FALSE</option>
-                </select>
-           </div>
-       </div> -->
-
-       <!-- <div class="form-row" style="margin-left: 40%;">
-            <div class="form-group col-md-4">
-                <img [src]='setDetailsDeck.imagem' alt="" width="193" height="265" style="margin-left: -3px; margin-top: -3px;">
-                <input type="text" class="form-control" name="image" id="image" required formControlName="imagem" >
-            </div>
-       </div> -->
-
         <div class="form-row" style="margin-left: 22%;">
             <div class="form-group col-md-8" >
                 <caption>Description</caption>
@@ -160,29 +102,35 @@
             </div>
          </div>
 
-         <button mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 45%;">Save</button>
+         <button mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 45%;">Save <mat-icon>save</mat-icon></button>
     </form>
 
+    <div style="margin-left:90%; padding: 5px;">
+        <button mat-raised-button color="accent" (click)="addNewRelation()" title="Add new Relation"> New <mat-icon>library_add</mat-icon></button>
+    </div>
     <div id="main-div-cards">
         <div *ngFor="let card of formEditSet?.value.relDeckCards" class="div-single-card-edit">
             <div class="superior-div">
                 <div class="div-img">
-                    <img [src]='cardImagem(card.cardNumber)' alt="" width="139px" height="185px" (click)="cardSelected(card.cardId)">
+                    <img [src]='cardImagem(card.cardNumber)' alt="" width="139px" height="185px" style="cursor: pointer;"
+                     matTooltip="Change Card Art"
+                     (click)="openDialogArt(card)"
+                     >
                 </div>
-                <div class="div-details" (change)="onChangeEnableSaveButton(card.cardId)">
-                   <input type="text" [value]="card.cardNumber" name="cardNumber" />
-                   <input type="text" [value]="card.card_set_code" name="cardSetCode" />
-                   <input type="text" [value]="card.card_price" name="cardPrice"/>
-                   <input type="text" [value]="card.card_raridade" name="cardRarity"/> 
-                   <input type="text" [value]="card.setRarityCode" name="rarityCode"/>
-                   <input type="text" [value]="card.rarityDetails" name="rarityDetails"/>
-                   <input type="text" [value]="card.quantity" name="cardQuantity"/>              
+                <div class="div-details" (change)="onChangeEnableSaveButton(card.cardId)" #divDetails>
+                   <input type="text" [value]="card.cardNumber" name="cardNumber" (keyup)="keyDownChangeValue(card, $event,'cardNumber')"/>
+                   <input type="text" [value]="card.card_set_code" name="cardSetCode" (keyup)="keyDownChangeValue(card, $event,'cardSetCode')"/>
+                   <input type="text" [value]="card.card_price" name="cardPrice" (keyup)="keyDownChangeValue(card, $event,'card_price')"/>
+                   <input type="text" [value]="card.card_raridade" name="cardRarity" (keyup)="keyDownChangeValue(card, $event,'card_raridade')"/> 
+                   <input type="text" [value]="card.setRarityCode" name="rarityCode" (keyup)="keyDownChangeValue(card, $event,'setRarityCode')"/>
+                   <input type="text" [value]="card.rarityDetails" name="rarityDetails" (keyup)="keyDownChangeValue(card, $event,'rarityDetails')"/>
+                   <input type="text" [value]="card.quantity" name="cardQuantity" (keyup)="keyDownChangeValue(card, $event,'quantity')"/>              
                 </div>
             </div>
             
             <div class="div-button-card" >
-                <button mat-raised-button color="primary" (click)="searchSetToEdit()" id="btn-{{card.cardId}}" disabled>Save</button>&nbsp;&nbsp;
-                <button mat-raised-button color="warn" (click)="searchSetToEdit()">Delete</button>
+                <button mat-raised-button color="primary" (click)="saveRelDeckCards(card)" id="btn-{{card.cardId}}" disabled>Save</button>&nbsp;&nbsp;
+                <button mat-raised-button color="warn" (click)="removeRelation(card)">Delete</button>
             </div>
         </div>
     </div>

@@ -1,9 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import { SetEditDTO } from 'src/app/classes/DTO/SetEditDTO';
+import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { ChangeArtComponent } from '../../shared/change-art/change-art.component';
 import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
 import { AdminDashboardService } from '../admin-dashboard-service';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
@@ -15,7 +18,8 @@ import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.comp
 })
 export class AdminEditSetComponent implements OnInit {
 
-  constructor(private admin: AdminDashboardComponent,  private ckEditor: CkeditorComponent, private service: AdminDashboardService, private toastr: ToastrService,) { }
+  constructor(private admin: AdminDashboardComponent,  private ckEditor: CkeditorComponent, private service: AdminDashboardService, private toastr: ToastrService,
+    private dialog: MatDialog,) { }
 
   @ViewChild('isSpeedDuel', {static: false}) isSpeedDuel: ElementRef;
   @ViewChild('isBasedDeck', {static: false}) isBasedDeck: ElementRef;
@@ -124,6 +128,40 @@ export class AdminEditSetComponent implements OnInit {
     else
         this.createFormSet(this.setDetailsDeck.insideDecks.find(inside => inside.id === idNumber), true)
     
+  }
+
+  saveRelDeckCards(rel:RelDeckCards){
+      this.service.saveRelDeckCards(rel).subscribe(result => {
+        this.toastr.success("Relation edited successfully!");
+      } , error =>{
+        this.toastr.error("Cannot save the Set!");
+        console.log(error.msg)
+      })
+  }
+
+  keyDownChangeValue(card:RelDeckCards, e:any, propertie:string){
+      card[propertie] = e.target.value;
+  }
+
+  openDialogArt(card:RelDeckCards){
+      const dialogRef = this.dialog.open(ChangeArtComponent, {
+        data: {cardId: card.cardId}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+          if(result != 'undefined')
+            card['cardNumber'] = result
+      })
+
+      this.onChangeEnableSaveButton(card.cardId.toString());
+  }
+
+  removeRelation(card:RelDeckCards) {
+      if(confirm("Are sure want to delete this Relation?")){
+          this.service.deleteRelation(card.id).subscribe(result => {
+              this.toastr.success("Relation removed successfully");
+          })
+      }
   }
 
 }

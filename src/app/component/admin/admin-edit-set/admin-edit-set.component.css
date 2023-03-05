@@ -13,6 +13,8 @@ label {
     background-color: ghostwhite;
     padding: 10px;
     flex-wrap: wrap;
+    border: solid thin silver;
+    border-radius: 5px;
 }
 
 .div-single-card-edit{
