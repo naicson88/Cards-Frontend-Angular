@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators,  FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
 import { SetEditDTO } from 'src/app/classes/DTO/SetEditDTO';
+import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
@@ -19,7 +20,7 @@ import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.comp
 export class AdminEditSetComponent implements OnInit {
 
   constructor(private admin: AdminDashboardComponent,  private ckEditor: CkeditorComponent, private service: AdminDashboardService, private toastr: ToastrService,
-    private dialog: MatDialog,) { }
+    private dialog: MatDialog, private formBuilder: FormBuilder) { }
 
   @ViewChild('isSpeedDuel', {static: false}) isSpeedDuel: ElementRef;
   @ViewChild('isBasedDeck', {static: false}) isBasedDeck: ElementRef;
@@ -28,17 +29,20 @@ export class AdminEditSetComponent implements OnInit {
 
   ngOnInit() {
     this.createFormSet(new SetEditDTO, false)
+    this.createFormRel(new RelDeckCards)
   }
 
   formSearchToEdit: FormGroup = new FormGroup({})
+  formRelation: FormGroup = new FormGroup({})
   formEditSet: FormGroup = new FormGroup({})
 
   setDetailsDeck: SetEditDTO;
   arrSetSource:[] = [];
+  listRarities:string[] = [];
 
   foundSetToEdit: boolean = true
 
-  createFormSet(setData: SetEditDTO, isDeckType){
+  createFormSet(setData: SetEditDTO, isDeckType:boolean){
     this.formEditSet = new FormGroup({
       id: new FormControl(setData.id),
       nome: new FormControl(setData.nome, Validators.required),
@@ -51,6 +55,22 @@ export class AdminEditSetComponent implements OnInit {
       //description: new FormControl(setData.description),
       relDeckCards: new FormControl(setData.relDeckCards),
       isDeckType: new FormControl(isDeckType)
+    })
+  }
+
+  createFormRel(relation: RelDeckCards){
+    this.formRelation = new FormGroup({
+      cardId: new FormControl(Number(relation.cardId), Validators.required),
+      deckId: new FormControl(Number(relation.deckId), Validators.required),
+      cardNumber: new FormControl(Number(relation.cardNumber), Validators.required),
+      cardSetCode: new FormControl(relation.cardSetCode, Validators.required),
+      card_price: new FormControl(Number(relation.card_price), Validators.required),
+      card_raridade: new FormControl(relation.card_raridade, Validators.required),
+      isSideDeck: new FormControl(Boolean(relation.isSideDeck, ), Validators.required),
+      isSpeedDuel: new FormControl(Boolean(relation.isSpeedDuel), Validators.required),
+      quantity: new FormControl(Number(relation.quantity), Validators.required),
+      setRarityCode: new FormControl(relation.setRarityCode, Validators.required),
+      rarityDetails: new FormControl(relation.rarityDetails, Validators.required),
     })
   }
 
@@ -149,7 +169,7 @@ export class AdminEditSetComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-          if(result != 'undefined')
+          if(result != undefined)
             card['cardNumber'] = result
       })
 
@@ -164,4 +184,16 @@ export class AdminEditSetComponent implements OnInit {
       }
   }
 
+  submitFormRelation(){
+    this.service.saveRelation(this.formRelation.value).subscribe(result => {
+        this.toastr.success("Card Relation saved successfully!");
+        console.log(result);
+    })
+  }
+
+  setRarities() {
+      for(const value in GeneralFunctions.enumKeys(ECardRarities)){
+          console.log(ECardRarities[value]);
+      }
+  }
 }

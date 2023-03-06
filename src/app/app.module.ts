@@ -54,8 +54,6 @@ import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin
 import { PageHeaderComponent } from './component/shared/page-header/page-header.component';
 import { ChangeArtComponent } from './component/shared/change-art/change-art.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +87,6 @@ import { ChangeArtComponent } from './component/shared/change-art/change-art.com
     AdminDashboardComponent,
     PageHeaderComponent,
     ChangeArtComponent,
-  
   
   ],
   imports: [

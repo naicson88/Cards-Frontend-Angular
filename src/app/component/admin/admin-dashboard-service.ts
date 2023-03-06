@@ -5,6 +5,7 @@ import { catchError } from "rxjs/operators";
 import { DeckCollection } from "src/app/classes/DeckCollection";
 import { SetEditDTO } from "src/app/classes/DTO/SetEditDTO";
 import { KonamiDeck } from "src/app/classes/KonamiDeck";
+import { RelDeckCards } from "src/app/classes/Rel_Deck_Cards";
 import { SetCollection } from "src/app/classes/SetCollection";
 import { SetDetailsDTO } from "src/app/classes/SetDetailsDTO";
 import { HandleErros } from "src/app/Util/HandleErros";
@@ -110,4 +111,20 @@ import { environment } from "src/environments/environment";
       )
   }
 
+      public loadCards(){
+        return this.http.get<any>(this.base_url_main+`/cards/get-all-card-names`, )
+        .pipe(
+          catchError(HandleErros.handleError)
+        )
+    }
+
+    public saveRelation(rel:RelDeckCards){
+      return this.http.post<any>(this.base_url_main+`/relDeckCards/create-relation`, rel)
+      .pipe(
+        catchError(HandleErros.handleError)
+      )
   }
+
+    
+
+}

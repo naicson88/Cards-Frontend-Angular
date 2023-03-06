@@ -43,7 +43,7 @@ export class CardDetailComponent implements OnInit {
 
     this.spinner.show();
       this.service.getCardDetails(idd).subscribe(data => { 
-        console.log(data)
+        console.log(data['card'].id)
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
         this.cardAlternativeNumber = data['card']['alternativeCardNumber']

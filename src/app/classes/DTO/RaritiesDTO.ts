@@ -8,4 +8,8 @@ export class RaritiesDTO {
 	Gold_Rare:string
 	Parallel_Rare:string
 	Ghost_Rare:string 
+
+	raritiesList() {
+		return ['Common', 'Rare', 'Super Rare', 'Ultra Rare', 'Secret Rare', 'Ultimate Rare', 'Gold Rare', 'Parallel Rare', 'Ghost Rare']
+	}
 }

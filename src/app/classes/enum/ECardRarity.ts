@@ -1,5 +1,5 @@
 export enum ECardRarities {
-    COMMON ="Common",
+    COMMON = "Common",
 	RARE = "Rare", 
 	SUPER_RARE = "Super Rare",
 	ULTRA_RARE = "Ultra Rare",
