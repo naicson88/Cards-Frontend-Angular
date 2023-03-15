@@ -32,6 +32,7 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.createFormDeck(new KonamiDeck())
+    this.createCollectionDeck(new DeckCollection())
   }
 
   showForm(menu:string){
@@ -105,10 +106,12 @@ export class AdminDashboardComponent implements OnInit {
    
   } 
 
-  onSubmitCollectionDeck(){ 
+  submitCollectionDeck(){ 
+      debugger
+      let value = this.formDeckCollection.value
    // this.formDeckCollection.value.lancamento = formatDate(this.formDeckCollection.value.lancamento, 'dd-MM-yyyy', 'en-US')
-      this.adminService.createNewDeckCollection(this.formDeckCollection.value).subscribe(result => {
-      this.toastr.success("Deck Collection sent to Queue")
+      this.adminService.createNewDeckCollection(value).subscribe(result => {
+      this.toastr.success("Deck Collection sent to Queue");
       this.formCollection.reset();
 
     }, error => {

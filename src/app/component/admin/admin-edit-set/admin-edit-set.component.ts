@@ -184,16 +184,20 @@ export class AdminEditSetComponent implements OnInit {
       }
   }
 
-  submitFormRelation(){
+  submitFormRelation(){  
+    console.log(this.formRelation.value)
     this.service.saveRelation(this.formRelation.value).subscribe(result => {
-        this.toastr.success("Card Relation saved successfully!");
-        console.log(result);
+        this.toastr.success("Card Relation saved successfully!");       
+    }, error => {
+      this.toastr.error("Cannot save Relation");       
     })
   }
 
   setRarities() {
-      for(const value in GeneralFunctions.enumKeys(ECardRarities)){
-          console.log(ECardRarities[value]);
-      }
+      let rarities = Object.values(ECardRarities)
+      console.log(rarities) 
+      for ( let index in rarities ){
+          this.listRarities.push(rarities[index])
+      }  
   }
 }

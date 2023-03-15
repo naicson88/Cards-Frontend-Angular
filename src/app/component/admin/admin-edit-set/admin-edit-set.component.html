@@ -40,7 +40,10 @@
         <div class="superior-block">
             <div class="superior-left">
                 <div class="form-group col-md-12">
-                    <img [src]='setDetailsDeck?.imagem' alt="" width="200" height="265" >
+                    <img [src]='setDetailsDeck?.imagem' alt="" width="200" height="265" *ngIf="setDetailsDeck?.imagem != undefined; else backImage">
+                    <ng-template #backImage>
+                        <img src='../../../../assets/img/outras/back_card.jpg' alt="" width="200" height="265" >
+                    </ng-template>                
                     <input type="text" class="form-control" name="image" id="image" required formControlName="imagem" >
                 </div>
             </div>
@@ -151,7 +154,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="cardId">Card ID</label>
-                        <input type="text" class="form-control" id="cardId" name="cardId" formControlName="cardId">
+                        <input type="text" class="form-control" id="cardId" name="cardId" formControlName="cardId" placeholder="">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="deckId">Deck ID</label>
@@ -177,7 +180,7 @@
                     <div class="form-group col-md-7" >
                         <label for="cardSetCode">Raridade</label>
                         <select name="card_raridade" class="form-control" id="card_raridade" formControlName="card_raridade" > 
-                            <option value="item" *ngFor="let item of listRarities">{{item}}</option>
+                            <option [value]="item" *ngFor="let item of listRarities">{{item}}</option>
                         </select>
                     </div>
                 </div>

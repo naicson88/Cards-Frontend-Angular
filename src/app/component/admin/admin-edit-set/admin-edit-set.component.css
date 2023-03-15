@@ -77,6 +77,11 @@ label {
     width: 28%;
 }
 
+.superior-left img {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
 .superior-right{
     width: 72%;
 }
