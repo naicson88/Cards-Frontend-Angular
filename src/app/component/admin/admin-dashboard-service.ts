@@ -125,6 +125,14 @@ import { environment } from "src/environments/environment";
       )
   }
 
+    public  getRelationByDeckId(deckId:number){
+        return this.http.get<any>(this.base_url_main+`/relDeckCards/get-by-deck-id?deckId=${deckId}`)
+        .pipe(
+          catchError(HandleErros.handleError)
+        )
+    }
+  
+
     
 
 }

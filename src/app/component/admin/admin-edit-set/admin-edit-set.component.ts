@@ -6,6 +6,7 @@ import { SetEditDTO } from 'src/app/classes/DTO/SetEditDTO';
 import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
+import { SpinnerService } from 'src/app/service/spinner.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { ChangeArtComponent } from '../../shared/change-art/change-art.component';
 import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
@@ -20,7 +21,7 @@ import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.comp
 export class AdminEditSetComponent implements OnInit {
 
   constructor(private admin: AdminDashboardComponent,  private ckEditor: CkeditorComponent, private service: AdminDashboardService, private toastr: ToastrService,
-    private dialog: MatDialog, private formBuilder: FormBuilder) { }
+    private dialog: MatDialog, private spinner: SpinnerService) { }
 
   @ViewChild('isSpeedDuel', {static: false}) isSpeedDuel: ElementRef;
   @ViewChild('isBasedDeck', {static: false}) isBasedDeck: ElementRef;
@@ -153,6 +154,7 @@ export class AdminEditSetComponent implements OnInit {
   saveRelDeckCards(rel:RelDeckCards){
       this.service.saveRelDeckCards(rel).subscribe(result => {
         this.toastr.success("Relation edited successfully!");
+        this.getRelationByDeckId(rel.deckId);
       } , error =>{
         this.toastr.error("Cannot save the Set!");
         console.log(error.msg)
@@ -178,10 +180,23 @@ export class AdminEditSetComponent implements OnInit {
 
   removeRelation(card:RelDeckCards) {
       if(confirm("Are sure want to delete this Relation?")){
-          this.service.deleteRelation(card.id).subscribe(result => {
-              this.toastr.success("Relation removed successfully");
+          this.service.deleteRelation(card.id).subscribe(result => {            
+              this.getRelationByDeckId(card.deckId);
+              this.toastr.success("Relation removed successfully");           
           })
       }
+  }
+
+  getRelationByDeckId(deckId:number) {
+      this.spinner.show()
+      this.service.getRelationByDeckId(deckId).subscribe(result => {
+          this.formEditSet.value.relDeckCards = [];
+          this.formEditSet.value.relDeckCards = result;
+        this.spinner.hide() ;
+      }, error => {
+        console.log(error)
+        this.spinner.hide()
+      })
   }
 
   submitFormRelation(){  
