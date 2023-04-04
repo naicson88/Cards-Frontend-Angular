@@ -10,6 +10,7 @@ import { ExtraDeckTypes } from "./enums/ExtraDeckTypes";
 export abstract class GeneralFunctions  {
 
     public static cardImagem:string = 'https://images.ygoprodeck.com/images/cards/'
+    public static croppedImage:string = 'https://images.ygoprodeck.com/images/cards_cropped/'
     
 
     public static relUserCards(cardsFound: Card[], service: CardServiceService) {

@@ -40,7 +40,7 @@ export class CardDetailComponent implements OnInit {
   loadCardDetail(){
    // const id = localStorage.getItem("idCard");
     let idd =  Number(localStorage.getItem("idCard"));
-
+   console.log(document.getElementById('idAdmin') as HTMLElement);
     this.spinner.show();
       this.service.getCardDetails(idd).subscribe(data => { 
         console.log(data['card'].id)
@@ -275,6 +275,13 @@ export class CardDetailComponent implements OnInit {
       modal.click();
       let rightName = setName.substring(0, setName.indexOf("(")).trim();     
       this.router.navigate(['userdeck-details', rightName],  { queryParams: { order: 'popular' }})
+   }
+
+   seeCropped() {
+      let img = (document.getElementsByClassName('active')[0] as HTMLElement);
+      let rawUrl = img.firstChild
+      let cardId = rawUrl['src'].split("cards/")[1]
+      window.open(GeneralFunctions.croppedImage+cardId, "_blank");
    }
 }
 

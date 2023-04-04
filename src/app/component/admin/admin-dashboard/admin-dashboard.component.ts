@@ -115,7 +115,7 @@ export class AdminDashboardComponent implements OnInit {
       this.formCollection.reset();
 
     }, error => {
-      this.toastr.error("Something bad happened. " + error)
+       this.toastr.error("Something bad happened. " + error)
     })
 
   }

@@ -10,7 +10,7 @@ label {
 #main-div-cards{
     display: flex;
     justify-content: space-evenly;
-    background-color: ghostwhite;
+    background-color: lightgray;
     padding: 10px;
     flex-wrap: wrap;
     border: solid thin silver;
