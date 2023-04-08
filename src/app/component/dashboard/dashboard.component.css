@@ -1,0 +1,140 @@
+#main-div {
+    width: 100%;
+    min-width: 1030px;
+    padding: 40px;
+    border: solid thin red;
+    background-color: #e9eaef;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body{
+    padding: 1.0rem !important;
+}
+
+ .title-input{
+    height: 120px;
+    border: solid thin blue;
+    margin-bottom: 1.5rem;
+} 
+
+ h1 {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.description-board{
+    border-radius: 0.25rem;
+    background-color: #FFF;
+    height: 50px;
+    padding: 12px;
+}
+
+.description-board span {
+    color: #6c757d
+}
+
+.cards-attribute .card-body{
+    display: flex;
+    justify-content: space-around;
+
+    height: fit-content;
+    flex-wrap: wrap;
+}
+
+.card-attribute-cards{
+    height: fit-content;
+    width: 16%;
+    min-width: 150px;
+    margin-bottom: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+}
+
+.card-attribue-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.card-attribue-head span {
+    text-shadow: 1px 1px 1px #000;
+}
+
+.card-attribute-cards-stats{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #e9eaef;
+}
+
+.type-cards-table-properties{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.type-cards-table-properties .cards-table{
+    width: 65%;
+    max-height: 230px;
+}  
+
+.all-body{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+
+.type-cards-table-properties .cards-propesties{
+    width: 32%;
+    max-height: 230px;
+}   
+
+.card-static{
+    width: 19%;
+    margin-bottom:1.875rem;
+    border:none;
+    border-radius:5px;
+    box-shadow:0 10px 40px 0 rgba(62,57,107,.07),0 2px 9px 0 rgba(62,57,107,.06)
+  }
+
+  .content-small{
+    display: none;
+}
+
+.card-property{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3px;
+}
+
+ .card-property-mat{
+    text-align: center; 
+} 
+
+.body-property{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-content: center;
+
+}
+@media only screen and (max-width: 1321px) {
+    
+    .normal-content{
+        display: none;
+    }
+
+    .content-small{
+        display: block;
+    }
+
+    .content-small .card-body{
+        padding: 1.0rem;
+    }
+
+}

@@ -21,6 +21,7 @@ import { UsercardsComponent } from './component/usercards/usercards.component';
 import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.component';
 import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence/maintenence.component';
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'decks', component: DeckComponent , data : {set_type: 'DECK', source: 'KONAMI'}},
@@ -43,7 +44,7 @@ const routes: Routes = [
     // children:[
     //   { path: 'confirm-email', component: EmailConfirmationComponent},
     // ]},
-   { path: 'confirm-email', component: EmailConfirmationComponent},
+  { path: 'confirm-email', component: EmailConfirmationComponent},
   { path: 'archetypes', component: ArchetypeComponent},
   { path: 'archetypeDetails/:archId', component: ArchetypeDetailsComponent},
   { path: 'cards-search', component: CardsSearchComponent},
@@ -52,10 +53,10 @@ const routes: Routes = [
   { path: 'error-page/:code', component:ErrorPagesComponent},
   { path: 'maintenence', component:MaintenenceComponent},
   { path: 'admin-dashboard', component:AdminDashboardComponent, canActivate: [BaseRoleGuard]},
+  { path: 'dashboard/:setName', component:DashboardComponent },
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: '**', redirectTo: 'index', pathMatch: 'full' },
-  
-  
+   
 ];
 
 @NgModule({
