@@ -1,7 +1,7 @@
 <div id="main-div">
     <!--Header-->
     <div class="title-input">
-        <h1>Starter Deck: Pegasus</h1>
+        <h1>{{fullStats.nome}} <span style="font-size: 12px">{{fullStats.lancamento}}</span></h1>
         <div class="description-board">
             <span>Dashboard</span>
         </div>
@@ -9,7 +9,7 @@
     <!--Cards Attribute-->
     <div class="cards-attribute card">
         <h5 class="card-header">
-            Featured
+            <i class="fas fa-circle"></i> Attribute
         </h5>
         <div class="card-body">       
             <div class="card-attribute-cards">
@@ -104,12 +104,12 @@
             </div> 
        </div>
     </div>
-    <!--Card Types and-->
+    <!--Card Types and Monster Types-->
     <div class="type-cards-table-properties">
 
         <div class="cards-table card ">
             <h6 class="card-header">
-                Card Types
+                <i class="fas fa-magic"></i> &nbsp; Card Types
             </h6>
             <div class="card-body all-body overflow-auto">   
                 <div class="card-static" style="border: solid thin green;">
@@ -275,17 +275,18 @@
             </div>
         </div>
 
-        <div class="cards-propesties card">
+        <div class="cards-monster-type card">
             <h6 class="card-header">
-                Properties
+                <i class="fas fa-dragon"></i>&nbsp; Monster Types
             </h6>
-            <div class="card-body body-property overflow-auto" >
-                <div class="card-property">
-                    <mat-card style="padding: 10px !important;">
+            <div class="card-body body-types overflow-auto" >
+                <div class="card-types">
+                    <mat-card style="padding: 1px !important;">
                         <mat-card-content>
                             <div class="card-property-mat">      
-                                <div>
+                                <div class="head-card-property">
                                     <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
+                                    <span style="font-size: smaller">Winged-Beast</span>  
                                 </div>                                 
                                <div>
                                 <span style="font-size: smaller">4 Cards</span>  
@@ -296,12 +297,13 @@
                         </mat-card-content>
                     </mat-card>
                 </div>
-                <div class="card-property">
-                    <mat-card style="padding: 10px !important;">
+                <div class="card-types">
+                    <mat-card style="padding: 1px !important;">
                         <mat-card-content>
                             <div class="card-property-mat">      
-                                <div>
+                                <div class="head-card-property">
                                     <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
+                                    <span style="font-size: smaller">Winged-Beast</span>  
                                 </div>                                 
                                <div>
                                 <span style="font-size: smaller">4 Cards</span>  
@@ -312,12 +314,13 @@
                         </mat-card-content>
                     </mat-card>
                 </div>
-                <div class="card-property">
-                    <mat-card style="padding: 10px !important;">
+                <div class="card-types">
+                    <mat-card style="padding: 1px !important;">
                         <mat-card-content>
                             <div class="card-property-mat">      
-                                <div>
+                                <div class="head-card-property">
                                     <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
+                                    <span style="font-size: smaller">Winged-Beast</span>  
                                 </div>                                 
                                <div>
                                 <span style="font-size: smaller">4 Cards</span>  
@@ -328,12 +331,13 @@
                         </mat-card-content>
                     </mat-card>
                 </div>
-                <div class="card-property">
-                    <mat-card style="padding: 10px !important;">
+                <div class="card-types">
+                    <mat-card style="padding: 1px !important;">
                         <mat-card-content>
                             <div class="card-property-mat">      
-                                <div>
+                                <div class="head-card-property">
                                     <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
+                                    <span style="font-size: smaller">Winged-Beast</span>  
                                 </div>                                 
                                <div>
                                 <span style="font-size: smaller">4 Cards</span>  
@@ -344,28 +348,13 @@
                         </mat-card-content>
                     </mat-card>
                 </div>
-                <div class="card-property">
-                    <mat-card style="padding: 10px !important;">
+                <div class="card-types">
+                    <mat-card style="padding: 1px !important;">
                         <mat-card-content>
                             <div class="card-property-mat">      
-                                <div>
+                                <div class="head-card-property">
                                     <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
-                                </div>                                 
-                               <div>
-                                <span style="font-size: smaller">4 Cards</span>  
-                               </div>
-                                                    
-                            </div>
-                            
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-                <div class="card-property">
-                    <mat-card style="padding: 10px !important;">
-                        <mat-card-content>
-                            <div class="card-property-mat">      
-                                <div>
-                                    <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
+                                    <span style="font-size: smaller">Winged-Beast</span>  
                                 </div>                                 
                                <div>
                                 <span style="font-size: smaller">4 Cards</span>  
@@ -379,4 +368,113 @@
             </div>
         </div>
     </div>
+    <!--Attack Defense charts-->
+    <div class="atk-def-chart-div">
+    <div class="atk-chart card">
+        <h5 class="card-header">
+            <i class="fal fa-swords"></i> Quantity by Attack
+        </h5>
+        <div class="card-body">
+            <app-barchart></app-barchart>
+        </div>
+    </div>
+    <div class="def-chart card">
+        <h5 class="card-header">
+            <i class="far fa-shield-cross"></i> &nbsp; Quantity by Defense
+        </h5>
+        <div class="card-body">
+            <app-barchart></app-barchart>
+        </div>
+        
+    </div>
+    </div>
+    <!--Stars -->
+    <div class="div-stars-rarities card">
+        <h5 class="card-header">
+            <i class="fas fa-level-up-alt"></i> Monster Level
+        </h5>
+        <div class="card-body body-monster-stars">
+            <div class="monster-stars-card">
+                <mat-card style="padding: 1px !important;">
+                    <mat-card-content>
+                    <mat-card-title>
+                        <div class="card-stars-head">                     
+                            <img src="assets/img/outras/Nivel.png" alt="" width="50px" height="50px" >
+                            <span style="padding-left: 5px; color: white;">100x</span> 
+                        </div>
+                    </mat-card-title>
+                      <div class="card-attribute-cards-stats">
+                        <span style="font-size: 18px;">16 Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> (58%) </span> 
+                      </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <!--Price and Properties-->
+    <div class="monster-types-div ">
+        <div class="stars-div card">
+            <h5 class="card-header">
+                <i class="fas fa-money-bill"></i> Price
+            </h5>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        <div class="cards-propesties card overflow-auto">
+            <h6 class="card-header">
+                <i class="fas fa-infinity"></i> Properties
+            </h6>
+            <div class="card-body body-types overflow-auto" >
+                <div class="card-types">
+                    <mat-card style="padding: 1px !important;">
+                        <mat-card-content>
+                            <div class="card-property-mat">      
+                                <div class="head-card-property">
+                                    <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
+                                    <span style="font-size: smaller">Winged-Beast</span>  
+                                </div>                                 
+                               <div>
+                                <span style="font-size: smaller">4 Cards</span>  
+                               </div>
+                                                    
+                            </div>
+                            
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+ 
 </div>

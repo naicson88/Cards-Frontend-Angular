@@ -54,6 +54,7 @@ import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin
 import { PageHeaderComponent } from './component/shared/page-header/page-header.component';
 import { ChangeArtComponent } from './component/shared/change-art/change-art.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { BarchartComponent } from './component/shared/charts/barchart/barchart.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     PageHeaderComponent,
     ChangeArtComponent,
     DashboardComponent,
+    BarchartComponent,
   
   ],
   imports: [

@@ -77,9 +77,34 @@
 }
 
 .type-cards-table-properties .cards-table{
-    width: 65%;
+    width: 68%;
     max-height: 230px;
 }  
+
+.cards-monster-type{
+    width: 30%;
+    max-height: 230px !important
+}
+
+ .card-types{
+    width: 49% !important;
+    margin-bottom: 3px;
+
+}
+
+.head-card-property{
+   display: flex; 
+   justify-content: space-evenly; 
+   align-items: center;
+}
+
+.body-types{
+    padding: 1px !important;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+
+}
 
 .all-body{
     display: flex;
@@ -88,9 +113,9 @@
 }
 
 
-.type-cards-table-properties .cards-propesties{
-    width: 32%;
-    max-height: 230px;
+.cards-propesties{
+    width: 30%;
+    height: 295px;
 }   
 
 .card-static{
@@ -123,6 +148,51 @@
     align-content: center;
 
 }
+
+.div-stars-rarities {
+    margin-top: 20px;
+   
+}
+
+.body-monster-stars{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card-stars-head{
+    background-color: green;
+    padding: 5px;
+    color: white;
+}
+
+.monster-types-card{
+    width: max-content;
+}
+
+.monster-types-div{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.stars-div{
+    width: 68%;
+}
+
+.rarities-div{
+    width: 30%;
+}
+
+.atk-def-chart-div{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.atk-def-chart-div .card {
+    width: 49%;
+}
+
 @media only screen and (max-width: 1321px) {
     
     .normal-content{
