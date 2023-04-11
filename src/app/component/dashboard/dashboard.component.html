@@ -12,96 +12,21 @@
             <i class="fas fa-circle"></i> Attribute
         </h5>
         <div class="card-body">       
-            <div class="card-attribute-cards">
+            <div class="card-attribute-cards" *ngFor="let attr of fullStats?.setStats?.atributos">
                 <mat-card>
                     <mat-card-content>
                     <mat-card-title>
                             <div class="card-attribue-head">
-                                <span class="light-color">LIGHT</span> 
-                                <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px">
+                                <span class="{{attr.name | lowercase }}-color">{{attr.name}}</span> 
+                                <img [src]="attr.atributoImgPath" alt="" width="50px" height="50px">
                             </div>
                     </mat-card-title>
                     <div class="card-attribute-cards-stats">
-                            <span style="font-size: 18px;">16 Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> (58%) </span> 
+                            <span style="font-size: 18px;">{{attr.quantity}} Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> ({{attr.percentage}}%) </span> 
                         </div>
                     </mat-card-content>
                 </mat-card>
             </div>  
-            <div class="card-attribute-cards">
-                <mat-card>
-                    <mat-card-content>
-                    <mat-card-title>
-                            <div class="card-attribue-head">
-                                <span class="dark-color">DARK</span> 
-                                <img src="assets/img/outras/DARK.png" alt="" width="50px" height="50px">
-                            </div>
-                    </mat-card-title>
-                    <div class="card-attribute-cards-stats">
-                            <span style="font-size: 18px;">16 Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> (58%) </span> 
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div> 
-            <div class="card-attribute-cards">
-                <mat-card>
-                    <mat-card-content>
-                    <mat-card-title>
-                            <div class="card-attribue-head">
-                                <span class="earth-color">EARTH</span> 
-                                <img src="assets/img/outras/TERRA.png" alt="" width="50px" height="50px">
-                            </div>
-                    </mat-card-title>
-                    <div class="card-attribute-cards-stats">
-                            <span style="font-size: 18px;">16 Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> (58%) </span> 
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div> 
-            <div class="card-attribute-cards">
-                <mat-card>
-                    <mat-card-content>
-                    <mat-card-title>
-                            <div class="card-attribue-head">
-                                <span class="fire-color">FIRE</span> 
-                                <img src="assets/img/outras/FIRE.png" alt="" width="50px" height="50px">
-                            </div>
-                    </mat-card-title>
-                    <div class="card-attribute-cards-stats">
-                            <span style="font-size: 18px;">16 Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> (58%) </span> 
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div> 
-            <div class="card-attribute-cards">
-                <mat-card>
-                    <mat-card-content>
-                    <mat-card-title>
-                            <div class="card-attribue-head">
-                                <span>EARTH</span> 
-                                <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px">
-                            </div>
-                    </mat-card-title>
-                    <div class="card-attribute-cards-stats">
-                            <span style="font-size: 18px;">16 Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> (58%) </span> 
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div> 
-            <div class="card-attribute-cards">
-                <mat-card>
-                    <mat-card-content>
-                    <mat-card-title>
-                            <div class="card-attribue-head">
-                                <span>EARTH</span> 
-                                <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px">
-                            </div>
-                    </mat-card-title>
-                    <div class="card-attribute-cards-stats">
-                            <span style="font-size: 18px;">16 Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> (58%) </span> 
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div> 
        </div>
     </div>
     <!--Card Types and Monster Types-->
@@ -112,17 +37,17 @@
                 <i class="fas fa-magic"></i> &nbsp; Card Types
             </h6>
             <div class="card-body all-body overflow-auto">   
-                <div class="card-static" style="border: solid thin green;">
+                <div class="card-static" style="border: solid thin green;" *ngFor="let generic of fullStats?.setStats?.genericTypes">
 
                     <div class="card-content normal-content">
                         <div class="card-body">
                             <div class="media d-flex" style="justify-content: space-between;">
                                 <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px">
+                                    <img [src]="generic.path" alt="" width="58px" height="85px">
                                 </div>
                                 <div style="margin-top: 9px;">
-                                    <h3>18x</h3>
-                                    <span style="color: green">Monster</span>
+                                    <h3>{{generic.quantity}}x</h3>
+                                    <span style="color: green">{{generic.name}}</span>
                                 </div>
                             </div>
                         </div>
@@ -142,136 +67,7 @@
                         </div>
                     </div>
 
-                </div> 
-
-                <div class="card-static" style="border: solid thin green;">
-
-                    <div class="card-content normal-content">
-                        <div class="card-body">
-                            <div class="media d-flex" style="justify-content: space-between;">
-                                <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px">
-                                </div>
-                                <div style="margin-top: 9px;">
-                                    <h3>18x</h3>
-                                    <span style="color: green">Monster</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--How will be shown on 1360pix or less--> 
-                    <div class="card-content content-small">
-                        <div class="card-body">
-                            <div class="media d-flex" style="justify-content: space-between;">
-                                <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px"> <br>
-                                    <span style="color: green">Monster</span>
-                                </div>
-                                <div style="margin-top: 25px;">
-                                    <h3>18x</h3>                                 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> 
-
-                <div class="card-static" style="border: solid thin green;">
-
-                    <div class="card-content normal-content">
-                        <div class="card-body">
-                            <div class="media d-flex" style="justify-content: space-between;">
-                                <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px">
-                                </div>
-                                <div style="margin-top: 9px;">
-                                    <h3>18x</h3>
-                                    <span style="color: green">Monster</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--How will be shown on 1360pix or less--> 
-                    <div class="card-content content-small">
-                        <div class="card-body">
-                            <div class="media d-flex" style="justify-content: space-between;">
-                                <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px"> <br>
-                                    <span style="color: green">Monster</span>
-                                </div>
-                                <div style="margin-top: 25px;">
-                                    <h3>18x</h3>                                 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> 
-
-                <div class="card-static" style="border: solid thin green;">
-
-                    <div class="card-content normal-content">
-                        <div class="card-body">
-                            <div class="media d-flex" style="justify-content: space-between;">
-                                <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px">
-                                </div>
-                                <div style="margin-top: 9px;">
-                                    <h3>18x</h3>
-                                    <span style="color: green">Monster</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--How will be shown on 1360pix or less--> 
-                    <div class="card-content content-small">
-                        <div class="card-body">
-                            <div class="media d-flex" style="justify-content: space-between;">
-                                <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px"> <br>
-                                    <span style="color: green">Monster</span>
-                                </div>
-                                <div style="margin-top: 25px;">
-                                    <h3>18x</h3>                                 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> 
-
-                <div class="card-static" style="border: solid thin green;">
-                    <div class="card-content normal-content">
-                        <div class="card-body">
-                            <div class="media d-flex" style="justify-content: space-between;">
-                                <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px">
-                                </div>
-                                <div style="margin-top: 9px;">
-                                    <h3>18x</h3>
-                                    <span style="color: green">Monster</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--How will be shown on 1360pix or less--> 
-                    <div class="card-content content-small">
-                        <div class="card-body">
-                            <div class="media d-flex" style="justify-content: space-between;">
-                                <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px"> <br>
-                                    <span style="color: green">Monster</span>
-                                </div>
-                                <div style="margin-top: 25px;">
-                                    <h3>18x</h3>                                 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> 
-                
-            
+                </div>        
             </div>
         </div>
 
@@ -280,84 +76,16 @@
                 <i class="fas fa-dragon"></i>&nbsp; Monster Types
             </h6>
             <div class="card-body body-types overflow-auto" >
-                <div class="card-types">
+                <div class="card-types" *ngFor="let tipo of fullStats?.setStats?.tipoCard">
                     <mat-card style="padding: 1px !important;">
                         <mat-card-content>
                             <div class="card-property-mat">      
                                 <div class="head-card-property">
-                                    <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
-                                    <span style="font-size: smaller">Winged-Beast</span>  
+                                    <img [src]="tipo.tipoCardImgPath" alt="" width="50px" height="50px"> 
+                                    <span style="font-size: smaller">{{tipo.name}}</span>  
                                 </div>                                 
                                <div>
-                                <span style="font-size: smaller">4 Cards</span>  
-                               </div>
-                                                    
-                            </div>
-                            
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-                <div class="card-types">
-                    <mat-card style="padding: 1px !important;">
-                        <mat-card-content>
-                            <div class="card-property-mat">      
-                                <div class="head-card-property">
-                                    <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
-                                    <span style="font-size: smaller">Winged-Beast</span>  
-                                </div>                                 
-                               <div>
-                                <span style="font-size: smaller">4 Cards</span>  
-                               </div>
-                                                    
-                            </div>
-                            
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-                <div class="card-types">
-                    <mat-card style="padding: 1px !important;">
-                        <mat-card-content>
-                            <div class="card-property-mat">      
-                                <div class="head-card-property">
-                                    <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
-                                    <span style="font-size: smaller">Winged-Beast</span>  
-                                </div>                                 
-                               <div>
-                                <span style="font-size: smaller">4 Cards</span>  
-                               </div>
-                                                    
-                            </div>
-                            
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-                <div class="card-types">
-                    <mat-card style="padding: 1px !important;">
-                        <mat-card-content>
-                            <div class="card-property-mat">      
-                                <div class="head-card-property">
-                                    <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
-                                    <span style="font-size: smaller">Winged-Beast</span>  
-                                </div>                                 
-                               <div>
-                                <span style="font-size: smaller">4 Cards</span>  
-                               </div>
-                                                    
-                            </div>
-                            
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-                <div class="card-types">
-                    <mat-card style="padding: 1px !important;">
-                        <mat-card-content>
-                            <div class="card-property-mat">      
-                                <div class="head-card-property">
-                                    <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
-                                    <span style="font-size: smaller">Winged-Beast</span>  
-                                </div>                                 
-                               <div>
-                                <span style="font-size: smaller">4 Cards</span>  
+                                <span style="font-size: smaller">{{tipo.quantity}} Cards</span>  
                                </div>
                                                     
                             </div>

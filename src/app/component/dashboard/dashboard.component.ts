@@ -12,8 +12,6 @@ export class DashboardComponent implements OnInit {
 
   fullStats: any = {}
 
-  attributesArray
-
   ngOnInit() {
     this.getStats()
   }
@@ -26,10 +24,3 @@ export class DashboardComponent implements OnInit {
   }
 }
 
-export class Attributes {
-    name:string;
-    path:string;
-    qtd: number
-
-    constructor(name:string,path:string,qtd: number){}
-}
