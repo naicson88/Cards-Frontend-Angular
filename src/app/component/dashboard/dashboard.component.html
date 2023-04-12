@@ -103,7 +103,7 @@
             <i class="fal fa-swords"></i> Quantity by Attack
         </h5>
         <div class="card-body">
-            <app-barchart></app-barchart>
+            <app-barchart [attackDefData]="fullStats?.setStats?.listAtk"></app-barchart>
         </div>
     </div>
     <div class="def-chart card">
@@ -111,7 +111,7 @@
             <i class="far fa-shield-cross"></i> &nbsp; Quantity by Defense
         </h5>
         <div class="card-body">
-            <app-barchart></app-barchart>
+            <app-barchart [attackDefData]="fullStats?.setStats?.listDef"></app-barchart>
         </div>
         
     </div>

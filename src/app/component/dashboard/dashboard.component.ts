@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
       this.service.getStats().subscribe(data =>{
           this.fullStats = data
           console.log(this.fullStats)
+          console.log(this.fullStats.setStats.listDef)
       })  
   }
 }
