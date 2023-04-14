@@ -211,3 +211,7 @@
     display: flex;
     justify-content: space-around;
   }
+
+  .single-card-image:hover{
+    cursor: pointer;
+  }

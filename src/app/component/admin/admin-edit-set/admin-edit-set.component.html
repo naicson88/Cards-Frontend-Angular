@@ -1,0 +1,225 @@
+<div class="divTitle" style="color: white; background-color: #17A2B8">
+    <h2 style="font-weight: 700;">EDIT SET</h2>
+</div>
+    <form action="" [formGroup]="formSearchToEdit" style="padding: 20px;">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="setType1" >Set Type</label>
+                <select name="setType1" class="form-control" id="setType1"  #setType1  (change)="searchSets(setType1.value)"> 
+                    <option value="" ></option>
+                    <option value="DECK" >Deck</option>
+                    <option value="TIN">Tin</option>
+                    <option value="BOX">Box</option>
+                    <option value="BOOSTER">Booster</option>
+                </select>
+           </div>
+
+           <div class="form-group col-md-6">
+                <label for="setCollection" >Set Collection</label>
+                <select name="setIdSearch" class="form-control" id="setIdSearch"  #setChoosen >                
+                    <option *ngFor="let set of arrSetSource" [value]="set.setId" >{{set.name}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4 button-search">
+                <button mat-raised-button color="warn" (click)="searchDeckToEdit(setChoosen.value, setType1.value)">Search 	<mat-icon>search</mat-icon></button>
+            </div>
+         </div>
+    </form>
+
+    <form action="" [formGroup]="formEditSet" style="padding: 20px; border-top: solid 2px red; background-color: ghostwhite;">
+        <div class="form-row select-to-edit" >
+            <div class="form-group col-md-6" *ngIf="setDetailsDeck?.insideDecks != null">
+                <label for="collToEdit" >Collection to Edit</label>
+                <select name="collToEdit" class="form-control" id="collToEdit"  #collToEdit (change)="setOnFormToEdit(collToEdit.value)">            
+                    <option value="setDetailsDeck.id" >{{setDetailsDeck.nome}}</option>
+                    <option [value]="inside.id" *ngFor="let inside of setDetailsDeck?.insideDecks" style="color:red">{{inside.nome}}</option>
+                </select>
+           </div>
+        </div>
+        <div class="superior-block">
+            <div class="superior-left">
+                <div class="form-group col-md-12">
+                    <img [src]='setDetailsDeck?.imagem' alt="" width="200" height="265" *ngIf="setDetailsDeck?.imagem != undefined; else backImage">
+                    <ng-template #backImage>
+                        <img src='../../../../assets/img/outras/back_card.jpg' alt="" width="200" height="265" >
+                    </ng-template>                
+                    <input type="text" class="form-control" name="image" id="image" required formControlName="imagem" >
+                </div>
+            </div>
+            <div class="superior-right">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                       <label for="id">ID</label>
+                       <input type="text" class="form-control" name="id" id="id" required formControlName="id">
+                     </div>
+                     <div class="form-group col-md-9">
+                       <label for="setName">Name</label>
+                       <input type="text" class="form-control" name="setName" id="setName" required formControlName="nome" >
+                   </div>
+               </div>
+               <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="release">Release</label>
+                    <input type="text" class="form-control" name="release" id="release" required formControlName="lancamento" >
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="setCode">Set Code</label>
+                    <input type="text" class="form-control" name="setCode" id="setCode" required formControlName="setCode" >
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="setType" >Set Type</label>
+                    <select name="setType" class="form-control" id="setType" formControlName="setType" #setType > 
+                        <option value="DECK" >DECK</option>
+                        <option value="TIN">TIN</option>
+                        <option value="BOX">BOX</option>
+                        <option value="BOOSTER">BOOSTER</option>
+                    </select>
+                </div>         
+               </div>
+               <div class="form-row">
+
+                <div class="form-group col-md-3">
+                   <label for="isSpeedDuel">Speed Duel</label>
+                    <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel" #isSpeedDuel > 
+                        <option value="true" >TRUE</option>
+                        <option value="false" >FALSE</option>
+                    </select>
+                 </div>
+    
+                 <div class="form-group col-md-3">
+                   <label for="isBasedDeck">Based Deck</label>
+                    <select name="isBasedDeck" class="form-control" id="isBasedDeck" formControlName="isBasedDeck" #isBasedDeck > 
+                        <option value="true" >TRUE</option>
+                        <option value="false">FALSE</option>
+                    </select>
+               </div>
+               </div>
+            </div>
+        </div> 
+
+        <div class="form-row" style="margin-left: 22%;">
+            <div class="form-group col-md-8" >
+                <caption>Description</caption>
+                <app-ckeditor #myEditor></app-ckeditor>
+            </div>
+         </div>
+
+         <button mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 45%;">Save <mat-icon>save</mat-icon></button>
+    </form>
+
+    <div style="margin-left:90%; padding: 5px;">
+        <button mat-raised-button color="accent" title="Add new Relation" data-toggle="modal" data-target="#modalForm" (click)="setRarities()"> New <mat-icon>library_add</mat-icon></button>
+    </div>
+
+    <div id="main-div-cards">
+        <div *ngFor="let card of formEditSet?.value.relDeckCards" class="div-single-card-edit">
+            <div class="superior-div">
+                <div class="div-img">
+                    <img [src]='cardImagem(card.cardNumber)' alt="" width="139px" height="185px" style="cursor: pointer;"
+                     matTooltip="Change Card Art"
+                     (click)="openDialogArt(card)"
+                     >
+                </div>
+                <div class="div-details" (change)="onChangeEnableSaveButton(card.cardId)" #divDetails>
+                   <input type="text" [value]="card.cardNumber" name="cardNumber" (keyup)="keyDownChangeValue(card, $event,'cardNumber')"/>
+                   <input type="text" [value]="card.card_set_code" name="cardSetCode" (keyup)="keyDownChangeValue(card, $event,'cardSetCode')"/>
+                   <input type="text" [value]="card.card_price" name="cardPrice" (keyup)="keyDownChangeValue(card, $event,'card_price')"/>
+                   <input type="text" [value]="card.card_raridade" name="cardRarity" (keyup)="keyDownChangeValue(card, $event,'card_raridade')"/> 
+                   <input type="text" [value]="card.setRarityCode" name="rarityCode" (keyup)="keyDownChangeValue(card, $event,'setRarityCode')"/>
+                   <input type="text" [value]="card.rarityDetails" name="rarityDetails" (keyup)="keyDownChangeValue(card, $event,'rarityDetails')"/>
+                   <input type="text" [value]="card.quantity" name="cardQuantity" (keyup)="keyDownChangeValue(card, $event,'quantity')"/>              
+                </div>
+            </div>
+            
+            <div class="div-button-card" >
+                <button mat-raised-button color="primary" (click)="saveRelDeckCards(card)" id="btn-{{card.cardId}}" disabled>Save</button>&nbsp;&nbsp;
+                <button mat-raised-button color="warn" (click)="removeRelation(card)">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Rel. Deck Card</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formRelation" (ngSubmit)="submitFormRelation()">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="cardId">Card ID</label>
+                        <input type="text" class="form-control" id="cardId" name="cardId" formControlName="cardId" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="deckId">Deck ID</label>
+                        <input type="text" class="form-control" id="deckId" name="deckId" formControlName="deckId">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6" >
+                        <label for="rel-number">Number</label>
+                        <input type="text" class="form-control" id="cardNumber"  name="cardNumber" formControlName="cardNumber">
+                    </div>
+                    <div class="form-group col-md-6" >
+                        <label for="cardSetCode">Set Code</label>
+                        <input type="text" class="form-control" id="cardSetCode"  name="cardSetCode" formControlName="cardSetCode">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-5" >
+                        <label for="card_price">Price</label>
+                        <input type="text" class="form-control" id="card_price"  name="card_price" formControlName="card_price">
+                    </div>
+                    <div class="form-group col-md-7" >
+                        <label for="cardSetCode">Raridade</label>
+                        <select name="card_raridade" class="form-control" id="card_raridade" formControlName="card_raridade" > 
+                            <option [value]="item" *ngFor="let item of listRarities">{{item}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6" >
+                        <label for="isSpeedDuel">Speed Duel</label>
+                        <select name="isSpeedDuel" class="form-control" id="isSpeedDuel" formControlName="isSpeedDuel"  > 
+                            <option value="true" >TRUE</option>
+                            <option value="false" >FALSE</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6" >
+                        <label for="isSideDeck">Side Deck</label>
+                        <select name="isSideDeck" class="form-control" id="isSideDeck" formControlName="isSideDeck" > 
+                            <option value="true" >TRUE</option>
+                            <option value="false" >FALSE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3" >
+                        <label for="quantity">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" name="quantity" formControlName="quantity">
+                    </div>
+                    <div class="form-group col-md-3" >
+                        <label for="setRarityCode">R. Code</label>
+                        <input type="text" class="form-control" id="setRarityCode" name="setRarityCode" formControlName="setRarityCode">
+                    </div>
+                    <div class="form-group col-md-6" >
+                        <label for="rarityDetails">R. Details</label>
+                        <input type="text" class="form-control" id="rarityDetails" name="rarityDetails" formControlName="rarityDetails">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div> 
+      </div>
+    </div>
+  </div>

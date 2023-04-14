@@ -176,8 +176,13 @@
 
       <!-- <mat-checkbox class="example-margin" [(ngModel)]="onlyCardsIhave" style="margin-left: -90%;"></mat-checkbox> -->
       <div style="margin-top: 3px;">
-        <img [src]='cardImagem(card.number)' alt="" width="129px" height="169px"
-          [style.opacity]="card.quantityUserHave == 0 ? 0.5 : 1">
+        <img 
+             [src]='cardImagem(card.number)' alt="" width="129px" height="169px"
+             [style.opacity]="card.quantityUserHave == 0 ? 0.5 : 1" 
+             class="single-card-image"  
+             matTooltip="Change Card Art"
+             (click)="openDialogArt(card.cardId, card.angularId)"
+             >
       </div>
       <div class="singleCardName">
         <p class="card-name">

@@ -52,7 +52,9 @@ import { SharedModulesModule } from './component/shared/shared-modules/shared-mo
 import { AdminModule } from './component/admin/admin-module';
 import { AdminDashboardComponent } from './component/admin/admin-dashboard/admin-dashboard.component';
 import { PageHeaderComponent } from './component/shared/page-header/page-header.component';
-
+import { ChangeArtComponent } from './component/shared/change-art/change-art.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { BarchartComponent } from './component/shared/charts/barchart/barchart.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,9 @@ import { PageHeaderComponent } from './component/shared/page-header/page-header.
     MaintenenceComponent,
     AdminDashboardComponent,
     PageHeaderComponent,
+    ChangeArtComponent,
+    DashboardComponent,
+    BarchartComponent,
   
   ],
   imports: [

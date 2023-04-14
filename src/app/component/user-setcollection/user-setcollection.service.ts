@@ -13,7 +13,7 @@ import { environment } from "src/environments/environment";
 
     userSet: UserSetCollectionDTO
 
-    constructor(private http: HttpClient, private router: Router ) {}
+    constructor(private http: HttpClient, private router: Router) {}
   
     base_url = environment.devCardsMain
 

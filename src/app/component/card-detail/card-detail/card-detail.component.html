@@ -16,7 +16,7 @@
                   </div>
 
                   <div class="carousel-item" *ngFor="let card of cardAlternativeNumber | slice:1;">
-                    <img class="d-block w-100" [src]="cardImagem(card.cardAlternativeNumber)" alt="First slide" width="193" height="265"
+                    <img class="d-block w-100" [src]="cardImagem(card.cardAlternativeNumber)" alt="First slide" width="193" height="265" 
                     (mouseover)="mostrarImgToolTip($event)"
                     (mousemove)="mostrarImgToolTip($event)"
                     (mouseout)="esconderImgToolTip()">
@@ -35,6 +35,9 @@
             
             <div id="total-card-views">
                 Total Views:  <b>{{totalViews}}</b> 
+          </div>
+          <div style="margin-top: -30px; margin-left: 110px; cursor: pointer" (click)="seeCropped()">
+              <img src="../../../../assets/img/icons/image.png" alt="image icon" title="See Cropped Art" height="28px" width="28px" >
           </div>
         </div>
         

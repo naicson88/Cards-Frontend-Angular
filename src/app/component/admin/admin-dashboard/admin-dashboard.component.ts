@@ -32,13 +32,14 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.createFormDeck(new KonamiDeck())
+    this.createCollectionDeck(new DeckCollection())
   }
 
   showForm(menu:string){
     this.chosenMenu = menu;
     if(menu == 'NEW COLLECTION')
       this.createFormSetCollection(new SetCollection());
-    else if (menu = 'DECK COLLECTION')
+    else if (menu == 'DECK COLLECTION')
       this.createCollectionDeck(new DeckCollection);
   }
   
@@ -105,14 +106,16 @@ export class AdminDashboardComponent implements OnInit {
    
   } 
 
-  onSubmitCollectionDeck(){ 
+  submitCollectionDeck(){ 
+      debugger
+      let value = this.formDeckCollection.value
    // this.formDeckCollection.value.lancamento = formatDate(this.formDeckCollection.value.lancamento, 'dd-MM-yyyy', 'en-US')
-      this.adminService.createNewDeckCollection(this.formDeckCollection.value).subscribe(result => {
-      this.toastr.success("Deck Collection sent to Queue")
+      this.adminService.createNewDeckCollection(value).subscribe(result => {
+      this.toastr.success("Deck Collection sent to Queue");
       this.formCollection.reset();
 
     }, error => {
-      this.toastr.error("Something bad happened. " + error)
+       this.toastr.error("Something bad happened. " + error)
     })
 
   }

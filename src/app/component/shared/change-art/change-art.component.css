@@ -1,0 +1,39 @@
+.cards-arts{
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 700px;
+    max-height: 400px;
+    overflow-y:scroll;
+    background-color: ghostwhite;
+    padding: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.single-art-card{
+    width:129px;
+    height:169px;
+    border: solid thin silver;
+    margin: 10px 5px;
+}
+
+label:before {
+    content: url("../../../../assets/img/icons/emptybox.JPG");
+    position: absolute;
+    z-index: 100;
+    width: fit-content;
+    height: fit-content;
+    
+  }
+
+  :checked+label:before {
+    content: url("../../../../assets/img/icons/checkedbox.JPG");
+  }
+
+  input[type=radio] {
+    display: none;
+  }
+
+  .single-art-card img {
+    cursor: pointer;
+  }

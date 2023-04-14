@@ -6,6 +6,7 @@
         <button type="button" class="btn btn-outline-success btn-lg" (click)="showForm('COLLECTION DECK')">COLLECTION DECK</button>
         <button type="button" class="btn btn-outline-danger btn-lg" (click)="showForm('ADD NEW CARD TO DECK')" >ADD NEW CARD TO DECK</button>
         <button type="button" class="btn btn-outline-dark btn-lg" (click)="showForm('ADD ASSOCIATION')">NEW ASSOCIATION</button>
+        <button type="button" class="btn btn-outline-info btn-lg" (click)="showForm('EDIT SET')">EDIT SET</button>
     </div>
 
     <div class="body-admin">
@@ -195,7 +196,7 @@
                     </div>
     
                  </div>
-                  <button mat-raised-button color="primary" (click)="onSubmitCollectionDeck()" style="margin-left: 45%;">Save</button>
+                  <button mat-raised-button color="primary" (click)="submitCollectionDeck()" style="margin-left: 45%;">Save</button>
             </form>
         </div>
          <!--ADD NEW CARD TO DECK -->
@@ -205,6 +206,9 @@
         <!--ADD ASSOCIATION -->
         <div *ngIf="chosenMenu == 'ADD ASSOCIATION'">
             <app-admin-associate></app-admin-associate>
+        </div>
+        <div *ngIf="chosenMenu == 'EDIT SET'">
+            <app-admin-edit-set></app-admin-edit-set>
         </div>
       
     </div>

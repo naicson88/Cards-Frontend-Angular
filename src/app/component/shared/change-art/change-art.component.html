@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Choose Card's Art </h2>
+    <br>
+    <div mat-dialog-content>
+        <div class="cards-arts">
+            <div class="single-art-card" *ngFor="let alt of alternativesArts">
+                <input type="radio" [id]="alt" name="myRadio"/>
+                <label [for]="alt">
+                    <img [src]='cardImagem(alt)' alt="" width="129px" height="169px" (click)="cardSelected(alt)">
+                </label>           
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="cardChoosen()" cdkFocusInitial  [disabled]="selectedCard == 0">Choose</button>
+    </div>

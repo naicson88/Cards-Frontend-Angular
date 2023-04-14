@@ -1,0 +1,268 @@
+#main-div {
+    width: 100%;
+    min-width: 1030px;
+    padding: 40px;
+    border: solid thin red;
+    background-color: #e9eaef;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body{
+    padding: 1.0rem !important;
+}
+
+ .title-input{
+    height: 120px;
+    border: solid thin blue;
+    margin-bottom: 1.5rem;
+} 
+
+ h1 {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.description-board{
+    border-radius: 0.25rem;
+    background-color: #FFF;
+    height: 50px;
+    padding: 12px;
+}
+
+.description-board span {
+    color: #6c757d
+}
+
+.cards-attribute .card-body{
+    display: flex;
+    justify-content: space-around;
+
+    height: fit-content;
+    flex-wrap: wrap;
+}
+
+.card-attribute-cards{
+    height: fit-content;
+    width: 16%;
+    min-width: 150px;
+    margin-bottom: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: solid thin silver;
+
+}
+
+.card-attribue-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.card-attribue-head span {
+    text-shadow: 1px 1px 1px #000;
+}
+
+.card-attribute-cards-stats{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #e9eaef;
+}
+
+.span-level-stars{
+   float:right;
+   color: white;
+   padding-right: 5px;
+}
+
+.type-cards-table-properties{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.type-cards-table-properties .cards-table{
+    width: 68%;
+    max-height: 230px;
+}  
+
+.cards-monster-type{
+    width: 30%;
+    max-height: 230px !important
+}
+
+ .card-types{
+    width: 49% !important;
+    margin-bottom: 3px;
+
+}
+
+.div-namecard-type-small {
+    margin-top: 25px; 
+    margin-left: 9px
+}
+
+.div-namecard-type-small h3 {
+    position: absolute;
+    margin-left: -30px;
+    font-size: 24px;
+}
+
+.head-card-property{
+   display: flex; 
+   justify-content: space-evenly; 
+   align-items: center;
+}
+
+.body-types{
+    padding: 1px !important;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+
+}
+
+.all-body{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+
+.cards-propesties{
+    width: 58%;
+    
+}   
+
+.card-static{
+    width: 19%;
+    margin-bottom:1.875rem;
+    border:none;
+    border-radius:5px;
+    box-shadow:0 10px 40px 0 rgba(62,57,107,.07),0 2px 9px 0 rgba(62,57,107,.06)
+  }
+
+  .content-small{
+    display: none;
+}
+
+.card-property{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3px;
+}
+
+ .card-property-mat{
+    text-align: center; 
+} 
+
+.body-property{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-content: center;
+
+}
+
+.div-stars-rarities {
+    margin-top: 20px;
+   
+}
+
+.monster-stars-card{
+    width: 10%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.body-monster-stars{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card-stars-head{
+    background-color: lightcoral;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+}
+
+.monster-types-card{
+    width: max-content;
+}
+
+.monster-types-div{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.stars-div{
+    width: 40%;
+}
+
+.rarities-div{
+    width: 30%;
+}
+
+.atk-def-chart-div{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.atk-def-chart-div .card {
+    width: 49%;
+}
+
+.card-valuable-mat{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-valuables{
+    width: 50%;
+    border: solid thin silver;
+}
+
+.body-valuables{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.head-card-valuable{
+    width: 90px;
+}
+
+.head-card-valuable img {
+    height: 120px;
+    width: 90px;
+}
+
+.div-valuable-details{
+    flex-grow: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 1321px) {
+    
+    .normal-content{
+        display: none;
+    }
+
+    .content-small{
+        display: block;
+    }
+
+    .content-small .card-body{
+        padding: 1.0rem;
+    }
+
+}

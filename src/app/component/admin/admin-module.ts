@@ -8,11 +8,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from '../footer/footer.component';
 import { SharedModulesModule } from '../shared/shared-modules/shared-modules.module';
 import { CkeditorComponent } from '../shared/ckeditor/ckeditor.component';
+import { AdminEditSetComponent } from './admin-edit-set/admin-edit-set.component';
 
 @NgModule({
     declarations: [
         AdminAssociateComponent, 
-        AdminAddCardDeckComponent
+        AdminAddCardDeckComponent,
+        AdminEditSetComponent
     ],
     imports: [
         CommonModule, 
@@ -23,11 +25,17 @@ import { CkeditorComponent } from '../shared/ckeditor/ckeditor.component';
     exports: [
         AdminAssociateComponent, 
         AdminAddCardDeckComponent,
+        AdminEditSetComponent
     ],
     entryComponents: [
         AdminAssociateComponent, 
         AdminAddCardDeckComponent,
+        AdminEditSetComponent,
         FooterComponent
+    ],
+
+    providers:[
+        CkeditorComponent
     ]
 })
 
