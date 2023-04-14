@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
+import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,8 +21,17 @@ export class DashboardComponent implements OnInit {
       this.service.getStats().subscribe(data =>{
           this.fullStats = data
           console.log(this.fullStats)
-          console.log(this.fullStats.setStats.listDef)
       })  
+  }
+
+  setRarityColor(rarity:string){
+    return GeneralFunctions.colorRarity(rarity);
+  }
+
+  cardImagem(cardId: any){
+    var num: number = +cardId;
+    let urlimg = GeneralFunctions.cardImagem + num + '.jpg';
+    return urlimg;
   }
 }
 

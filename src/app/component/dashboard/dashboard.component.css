@@ -70,6 +70,12 @@
     border-bottom: 1px solid #e9eaef;
 }
 
+.span-level-stars{
+   float:right;
+   color: white;
+   padding-right: 5px;
+}
+
 .type-cards-table-properties{
     margin-top: 20px;
     display: flex;
@@ -91,6 +97,17 @@
     width: 49% !important;
     margin-bottom: 3px;
 
+}
+
+.div-namecard-type-small {
+    margin-top: 25px; 
+    margin-left: 9px
+}
+
+.div-namecard-type-small h3 {
+    position: absolute;
+    margin-left: -30px;
+    font-size: 24px;
 }
 
 .head-card-property{
@@ -115,8 +132,8 @@
 
 
 .cards-propesties{
-    width: 30%;
-    height: 295px;
+    width: 58%;
+    
 }   
 
 .card-static{
@@ -155,15 +172,21 @@
    
 }
 
+.monster-stars-card{
+    width: 10%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
 .body-monster-stars{
     display: flex;
     justify-content: space-evenly;
 }
 
 .card-stars-head{
-    background-color: green;
+    background-color: lightcoral;
     padding: 5px;
     color: white;
+    border-radius: 5px;
 }
 
 .monster-types-card{
@@ -177,7 +200,7 @@
 }
 
 .stars-div{
-    width: 68%;
+    width: 40%;
 }
 
 .rarities-div{
@@ -192,6 +215,40 @@
 
 .atk-def-chart-div .card {
     width: 49%;
+}
+
+.card-valuable-mat{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-valuables{
+    width: 50%;
+    border: solid thin silver;
+}
+
+.body-valuables{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.head-card-valuable{
+    width: 90px;
+}
+
+.head-card-valuable img {
+    height: 120px;
+    width: 90px;
+}
+
+.div-valuable-details{
+    flex-grow: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @media only screen and (max-width: 1321px) {

@@ -45,7 +45,7 @@
                                 <div class="align-self-center" >
                                     <img [src]="generic.path" alt="" width="58px" height="85px">
                                 </div>
-                                <div style="margin-top: 9px;">
+                                <div style="margin-top: 9px; text-align: center;">
                                     <h3>{{generic.quantity}}x</h3>
                                     <span style="color: green">{{generic.name}}</span>
                                 </div>
@@ -57,11 +57,11 @@
                         <div class="card-body">
                             <div class="media d-flex" style="justify-content: space-between;">
                                 <div class="align-self-center" >
-                                    <img src="/../../assets/img/outras/magicIcon.png" alt="" width="58px" height="85px"> <br>
-                                    <span style="color: green">Monster</span>
+                                    <img [src]="generic.path" alt="" width="58px" height="85px"> <br>
+                                    <span style="color: green">{{generic.name}}</span>
                                 </div>
-                                <div style="margin-top: 25px; margin-left: 9px">
-                                    <h3>18x</h3>                                 
+                                <div class="div-namecard-type-small" >
+                                    <h3>{{generic.quantity}}x</h3>                             
                                 </div>
                             </div>
                         </div>
@@ -122,17 +122,17 @@
             <i class="fas fa-level-up-alt"></i> Monster Level
         </h5>
         <div class="card-body body-monster-stars">
-            <div class="monster-stars-card">
+            <div class="monster-stars-card" *ngFor="let level of fullStats?.setStats?.listLevel">
                 <mat-card style="padding: 1px !important;">
                     <mat-card-content>
                     <mat-card-title>
                         <div class="card-stars-head">                     
-                            <img src="assets/img/outras/Nivel.png" alt="" width="50px" height="50px" >
-                            <span style="padding-left: 5px; color: white;">100x</span> 
+                            <img src="assets/img/outras/Nivel.png" alt="" width="40px" height="40px" >
+                            <span class="span-level-stars">{{level.value}}x</span> 
                         </div>
                     </mat-card-title>
                       <div class="card-attribute-cards-stats">
-                        <span style="font-size: 18px;">16 Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> (58%) </span> 
+                        <span style="font-size: 18px;">{{level.quantity}} Cards</span>&nbsp; <span style="font-size: 14px; font-weight: 300;"> ({{level.percentage}}%) </span> 
                       </div>
                     </mat-card-content>
                 </mat-card>
@@ -143,60 +143,52 @@
     <div class="monster-types-div ">
         <div class="stars-div card">
             <h5 class="card-header">
-                <i class="fas fa-money-bill"></i> Price
+                <i class="fas fa-infinity"></i> Properties
             </h5>
             <div class="card-body">
                 <table class="table table-striped">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Img</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                      <tr *ngFor="let prop of fullStats?.setStats?.listProperties; let i = index">
+                        <th scope="row">{{ i + 1}}</th>
+                        <td><img [src]="prop.path" width="40" height="40" alt="Propertie Image"></td>
+                        <td>{{prop.name}}</td>
+                        <td>{{prop.quantity}}</td>
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
-                    </tbody>
                   </table>
             </div>
         </div>
         <div class="cards-propesties card overflow-auto">
-            <h6 class="card-header">
-                <i class="fas fa-infinity"></i> Properties
+            <h6 class="card-header">        
+                <i class="fas fa-money-bill"></i> Price
             </h6>
-            <div class="card-body body-types overflow-auto" >
-                <div class="card-types">
+
+            <div class="card-body body-valuables overflow-auto" >
+                <div class="card-valuables" *ngFor="let valuable of fullStats?.setStats?.listMostValuable">
                     <mat-card style="padding: 1px !important;">
                         <mat-card-content>
-                            <div class="card-property-mat">      
-                                <div class="head-card-property">
-                                    <img src="assets/img/outras/LUZ.png" alt="" width="50px" height="50px"> 
-                                    <span style="font-size: smaller">Winged-Beast</span>  
+                            <div class="card-valuable-mat">      
+                                <div class="head-card-valuable">
+                                    <img [src]='cardImagem(valuable.number)' alt="" >                          
                                 </div>                                 
-                               <div>
-                                <span style="font-size: smaller">4 Cards</span>  
+                               <div class="div-valuable-details"> 
+                                    <p class="card-name" style="font-size: 16px !important;">
+                                        <a [routerLink]="['/card-detail/', valuable.name]"  name="{{valuable.number}}" >
+                                       {{valuable.name}}         
+                                    </a>
+                                    </p>   
+                                    <span style="font-size: 14px; color: green; ">U$$ {{ valuable.value | number : '1.2-2'}}</span><br>
+                                    <span style="font-size: 14px" [ngClass]="setRarityColor(valuable.rarity)">{{valuable.rarity}}</span>   
                                </div>
                                                     
-                            </div>
-                            
+                            </div>                     
                         </mat-card-content>
                     </mat-card>
                 </div>

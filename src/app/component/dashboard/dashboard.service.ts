@@ -16,7 +16,7 @@ import { environment } from "src/environments/environment";
     base_url = environment.devCardsMain
 
     public getStats() {
-        return this.http.get<any>(this.base_url+`/decks/set-stats?id=2534&source=KONAMI&setType=DECK`)
+        return this.http.get<any>(this.base_url+`/decks/set-stats?id=2453&source=KONAMI&setType=DECK`)
         .pipe(
             catchError(HandleErros.handleError)
         )
