@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DeckService } from 'src/app/service/deck.service';
 import {Chart} from   'chart.js';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Route, Router} from '@angular/router';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { CardDetailsDTO } from 'src/app/classes/CardDetailsDTO';
 import { InsideDeck } from 'src/app/classes/InsideDeck';
@@ -46,11 +46,12 @@ export class DeckDetailComponent implements OnInit {
 
   imgPath: string;
   mainTitle = "Deck's Details"
-  constructor(private service: DeckService, private cardService: CardServiceService, private router: ActivatedRoute, private  spinner: SpinnerService) { }
+  constructor(private service: DeckService, private cardService: CardServiceService, private activaeRoute: ActivatedRoute, private  spinner: SpinnerService,
+    private router: Router,) { }
 
   ngOnInit() {
 
-    this.router.data.subscribe(source =>{
+    this.activaeRoute.data.subscribe(source =>{
       this.source = source.source;
       this.set_type= source.set_type;
     })
@@ -343,6 +344,17 @@ export class DeckDetailComponent implements OnInit {
  
      }
    });
+ }
+
+ openDashboardPage() {
+  
+    const id = localStorage.getItem("idDeckDetails");
+    const source = localStorage.getItem("source");
+    const set_type = localStorage.getItem("set_type");
+
+    const name = this.deckDetails.nome;
+
+    window.open(`/dashboard/${name}?id=${id}&source=${source}&setType=${set_type}`, '_blank');
  }
 
   // setCodeAndPrice(deckDetails: Deck) {

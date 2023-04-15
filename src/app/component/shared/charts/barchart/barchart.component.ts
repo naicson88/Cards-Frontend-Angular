@@ -28,6 +28,18 @@ export class BarchartComponent implements OnInit, AfterViewInit, OnChanges {
     //   this.graficoAttackDefData();
     // }
   }
+  colors: string[] = []
+
+  getColor(value:any){
+    if(value >= 0 && value <= 1000){
+      return 'rgba(50, 205, 50, 0.7)'
+    } 
+    else if (value > 1000 && value <= 2000){
+      return  'rgba(160, 82, 45, 0.7)'
+    }
+    else
+    return 'rgba(255, 0, 0, 0.7)'
+  }
 
   graficoAttackDefData(){
 
@@ -36,6 +48,7 @@ export class BarchartComponent implements OnInit, AfterViewInit, OnChanges {
 
     this.attackDefData.forEach(element => {
       let v = element.value;
+      this.colors.push(this.getColor(v))
       value.push(v);
     });
 
@@ -44,8 +57,6 @@ export class BarchartComponent implements OnInit, AfterViewInit, OnChanges {
       qtd.push(v);
     });
 
-    console.log(qtd)
-
     new Chart(this.elemento.nativeElement, {
       type: 'bar',
       data: {
@@ -53,21 +64,22 @@ export class BarchartComponent implements OnInit, AfterViewInit, OnChanges {
           datasets: [{
               label: 'QUANTITY',
               data: qtd,
-              backgroundColor: [
-                  'rgba(160, 82, 45, 0.7)',
-                  'rgba(255, 0, 0, 0.7)',
-                  'rgba(50, 205, 50, 0.7)',
-                  'rgba(139, 0, 139, 0.7)',
-                  'rgba(255, 255, 0, 0.7)',
-                  'rgba(160, 82, 45, 0.7)',
-                  'rgba(255, 0, 0, 0.7)',
-                  'rgba(128,128,0, 0.7)',
-                  'rgba(50, 205, 50, 0.7)',
-                  'rgba(139, 0, 139, 0.7)',
-                  'rgba(255, 255, 0, 0.7)',
+              backgroundColor: this.colors,
+              // [
+              //     'rgba(160, 82, 45, 0.7)',
+              //     'rgba(255, 0, 0, 0.7)',
+              //     'rgba(50, 205, 50, 0.7)',
+              //     'rgba(139, 0, 139, 0.7)',
+              //     'rgba(255, 255, 0, 0.7)',
+              //     'rgba(160, 82, 45, 0.7)',
+              //     'rgba(255, 0, 0, 0.7)',
+              //     'rgba(128,128,0, 0.7)',
+              //     'rgba(50, 205, 50, 0.7)',
+              //     'rgba(139, 0, 139, 0.7)',
+              //     'rgba(255, 255, 0, 0.7)',
                   
                  
-              ],
+              // ],
               borderColor: [
                   'rgba(255,99,132,1)',
                   'rgba(54, 162, 235, 1)',

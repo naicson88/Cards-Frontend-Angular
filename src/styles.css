@@ -132,6 +132,53 @@ button {
     font-weight: 500;
   }
 
+  .fiend-color{
+    color: purple;
+  }
+
+  .pyro-color{
+    color: red;
+  }
+
+  .aqua-color{
+    color: blue;
+  }
+
+  .plant-color{
+    color: green;
+  }
+
+  .winged.beast-color{
+    color: olive;
+  }
+
+  .warrior-color{
+    color: darkgray;
+  }
+  
+  .fairy-color{
+    color: palevioletred;
+  }
+
+  .spellcaster-color{
+    color: darkslateblue
+  }
+
+  .zombie-color{
+    font-weight: #444;
+  }
+
+  .rock-color{
+    color: brown;
+  }
+
+  .insect-color{
+    color:#339966
+  }
+
+  .thunder-color{
+      color: goldenrod
+  }
 
   /* SEPARATOR TITLE OF EACH PAGE*/
   

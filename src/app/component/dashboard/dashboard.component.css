@@ -15,13 +15,13 @@
 
  .title-input{
     height: 120px;
-    border: solid thin blue;
     margin-bottom: 1.5rem;
 } 
 
  h1 {
     font-weight: 700;
     letter-spacing: 1px;
+    margin-bottom: 20px;
 }
 .description-board{
     border-radius: 0.25rem;
@@ -95,8 +95,12 @@
 
  .card-types{
     width: 49% !important;
-    margin-bottom: 3px;
+    margin-top: 4px;
 
+}
+
+.color-type{
+    font-weight: 600;
 }
 
 .div-namecard-type-small {
