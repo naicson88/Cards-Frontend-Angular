@@ -50,8 +50,7 @@
             <div class="div-cards" *ngFor="let card of arrCards; let i = index">
                 <p class="card-name">
                     <a [routerLink]="['/card-detail/', card.nome]"  name="{{card.numero}}" (click)="storedCardId($event)"  >
-                      {{card.nome}}
-                    
+                      {{card.nome}}           
                   </a>
                 </p> 
 

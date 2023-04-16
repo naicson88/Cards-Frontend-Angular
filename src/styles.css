@@ -152,6 +152,18 @@ button {
     color: olive;
   }
 
+  .beast-warrior-color{
+    color: rgb(120, 233, 7);
+  }
+
+  .machine-color{
+    color: grey;
+  }
+
+  .dragon-color{
+    color: firebrick;
+  }
+
   .warrior-color{
     color: darkgray;
   }
@@ -180,6 +192,21 @@ button {
       color: goldenrod
   }
 
+  .beast-color {
+    color: chocolate;
+  }
+
+  .cyberse-color{
+    color: #4568dc;
+  }
+
+  .dinosaur-color {
+    color: burlywood
+  }
+
+  .wyrm-color{
+    color:#b06ab3
+  }
   /* SEPARATOR TITLE OF EACH PAGE*/
   
 #separator {

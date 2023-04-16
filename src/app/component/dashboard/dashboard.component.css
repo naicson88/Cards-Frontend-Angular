@@ -177,13 +177,19 @@
 }
 
 .monster-stars-card{
-    width: 10%;
+    width: 11%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 5px;
+}
+
+.sea.serpent-color {
+    color: skyblue;
 }
 
 .body-monster-stars{
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .card-stars-head{
@@ -228,7 +234,7 @@
 
 .card-valuables{
     width: 50%;
-    border: solid thin silver;
+  
 }
 
 .body-valuables{
