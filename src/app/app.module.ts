@@ -55,6 +55,7 @@ import { PageHeaderComponent } from './component/shared/page-header/page-header.
 import { ChangeArtComponent } from './component/shared/change-art/change-art.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { BarchartComponent } from './component/shared/charts/barchart/barchart.component';
+import { AccountManagerComponent } from './component/account-manager/account-manager.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { BarchartComponent } from './component/shared/charts/barchart/barchart.c
     ChangeArtComponent,
     DashboardComponent,
     BarchartComponent,
+    AccountManagerComponent,
   
   ],
   imports: [

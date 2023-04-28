@@ -315,7 +315,7 @@ addCardSideDeck(index:any){
  }
 
  this.validAndAddCardRespectiveDeck(index, this.sideDeckCards,"Card added in Side Deck", null)
- this.sideDeckCards[0].relDeckCards.isSideDeck = true
+ this.sideDeckCards[0].relDeckCards[0].isSideDeck = true
 }
 
 addCardExtraDeck(index:any){
@@ -704,10 +704,12 @@ saveDeck(){
 
   deckEdited.id = this.deck.id;
   deckEdited.nome = this.deckNome.nativeElement.value.trim();
+ 
   if(deckEdited.nome == undefined || deckEdited.nome == ""){
     this.errorDialog("Invalid Deck Name!");
     return false;
   }
+
   deckEdited.setType = "DECK";
   
   let options = document.querySelectorAll('option:checked');
@@ -738,33 +740,40 @@ errorMsg:string;
 insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Element>, deckId:number, isSideDeck:boolean){
 
   for(var i = 0; i < array.length; i++){ 
-    let rel:RelDeckCards = new RelDeckCards()  
+    let rel:RelDeckCards = new RelDeckCards() ;
     let setCode = options[i + indexSum].innerHTML
 
-    if(!setCode.includes("SET CODE") && !setCode.includes(ECardRarities.NOT_DEFINED) && setCode != "") {
-        
-          for(var j = 0; j < array[i].relDeckCards.length; j++){
-            if(array[i].relDeckCards[j].card_set_code == setCode.trim()){
-              rel = array[i].relDeckCards[j]
-              rel.cardId = array[i].id
-              break;
-            }
-          }
+    if(!setCode.includes("SET CODE") && !setCode.includes(ECardRarities.NOT_DEFINED) && setCode != ""  && setCode != "undefined") {
+        let relation:RelDeckCards = array[i].relDeckCards.find(rel => rel.card_set_code === setCode.trim());
+        rel.cardId = array[i].id 
+        rel.quantity = 1
 
-        this.relDeckCardsForSave.push(rel);
+        this.relDeckCardsForSave.push(relation);
 
     } else {    
-        
-      let  rel2:RelDeckCards = new RelDeckCards()
-      rel2.cardNumber = array[i].numero
-      rel2.isSideDeck = isSideDeck
-      rel2.deckId = deckId
-      rel2.cardId = array[i].id
-      rel2.isSpeedDuel = rel.isSpeedDuel == undefined ? false : rel.isSpeedDuel;
+
+      let rel2: RelDeckCards = this.createRelUndefinied(array[i].numero, isSideDeck, false ,deckId,array[i].id)
       this.relDeckCardsForSave.push(rel2);
-      }   
-    
+      
+      }      
   }
+}
+
+createRelUndefinied(cardNumber:number, isSideDeck:boolean, isSpeeduel:boolean, deckId:number, cardId:number): RelDeckCards {
+      let  rel2:RelDeckCards = new RelDeckCards()
+      rel2.cardNumber = cardNumber
+      rel2.isSideDeck = isSideDeck
+      rel2.isSpeedDuel = isSpeeduel
+      rel2.deckId = deckId
+      rel2.cardId = cardId
+      rel2.dt_criacao = new Date();
+      rel2.card_price = 0.0
+      rel2.card_raridade = "undefined"
+      rel2.cardSetCode = "undefined"
+      rel2.setRarityCode = "undefined"
+      rel2.rarityDetails = "undefined"
+      rel2.quantity = 1
+      return rel2;
 }
 
 rearrengeCards(){

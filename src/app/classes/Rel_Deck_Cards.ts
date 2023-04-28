@@ -9,6 +9,7 @@ export class RelDeckCards {
     cardNumber: number;
     cardId: number
     isSpeedDuel: boolean
+    dt_criacao: Date
 
     total: number;
     common: number;

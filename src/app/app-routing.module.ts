@@ -22,6 +22,7 @@ import { ErrorPagesComponent } from './error-pages/error-pages/error-pages.compo
 import { MaintenenceComponent } from './error-pages/maintenence-page/maintenence/maintenence.component';
 import { BaseRoleGuard } from './Util/CanActivate/BaseRoleGuard';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { AccountManagerComponent } from './component/account-manager/account-manager.component';
 
 const routes: Routes = [
   { path: 'decks', component: DeckComponent , data : {set_type: 'DECK', source: 'KONAMI'}},
@@ -54,6 +55,7 @@ const routes: Routes = [
   { path: 'maintenence', component:MaintenenceComponent},
   { path: 'admin-dashboard', component:AdminDashboardComponent, canActivate: [BaseRoleGuard]},
   { path: 'dashboard/:setName', component:DashboardComponent },
+  { path: 'account-manager', component:AccountManagerComponent },
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: '**', redirectTo: 'index', pathMatch: 'full' },
    
