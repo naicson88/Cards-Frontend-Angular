@@ -209,4 +209,8 @@ export class SideMenuComponent implements OnInit {
         console.log('ERROR: It was not possible redirect in General Search')
     }
 
+    goToAccountManage() {
+      this.router.navigate(['account-manager'])
+    }
+
 }

@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountManageService } from './account-manager.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth-service/auth.service';
 
 
 @Component({
@@ -12,11 +13,14 @@ import { Router } from '@angular/router';
 })
 export class AccountManagerComponent implements OnInit {
 
-  constructor( private toastr: ToastrService, private service: AccountManageService, private router: Router) { }
+  constructor( private toastr: ToastrService, private service: AccountManageService, private router: Router, private authService: AuthService,) { }
 
   formCliente: FormGroup;
 
   isSuccessPage: false;
+
+  isPasswordOk = false;
+  showWrongPassword = false;
 
   ngOnInit() {
     this.createForm(new ManageAccount())
@@ -64,9 +68,24 @@ export class AccountManagerComponent implements OnInit {
         this.toastr.error("Username too small! Must have at least 6 characteres"); 
         return false
       }
-
       return true;
-  }
+   }
+
+   confirmPassword(pass:string){
+      this.authService.confirmPassword(pass).subscribe(data => {   
+          console.log(data)   
+          if(data === 'Correct!'){    
+            this.isPasswordOk = true;
+          }        
+      }, error => {
+        console.log(error)
+         this.showWrongPassword = true;
+      })
+   }
+
+   setWrong(){
+    this.showWrongPassword = false
+   }
 }
 
 export class ManageAccount {

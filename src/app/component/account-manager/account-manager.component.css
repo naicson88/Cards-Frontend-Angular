@@ -1,3 +1,5 @@
+
+
 .container {
     background-color: #fff;
    display: flex;
@@ -11,6 +13,7 @@
     margin-top: 30px;
     margin-bottom: 30px;
     padding-left: 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .div-form h5{

@@ -1,5 +1,20 @@
 <div class="container">
-    <div class="div-form" *ngIf="!isSuccessPage">
+    
+    <div class="div-form" *ngIf="isPasswordOk == false" style="margin-bottom: 100px;">
+        <h5>Confirm Password</h5>
+        <label for="confirmPass" style="font-size: small; color: red;" *ngIf="showWrongPassword == true">Invalid Password!</label><br>
+        <mat-form-field appearance="outline"  class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password"  #confirmPass id="confirmPass" (input)="setWrong()">         
+        </mat-form-field>
+        
+        &nbsp;&nbsp;
+        <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="confirmPassword(confirmPass.value)">
+            Confirm 
+        </button>
+    </div>
+
+    <div class="div-form" *ngIf="!isSuccessPage && isPasswordOk == true">
         <h5>Manage Account</h5>
         <small style="margin-left: 5%; color:#1E90FF">* Please note that only fields filled will be changed!</small>
         <form [formGroup]="formCliente">
