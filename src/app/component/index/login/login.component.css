@@ -5,7 +5,107 @@
     padding: 60px 1rem;
 } */
 
-
+ .login-container {
+	 /* background-color: #f0f2f5; */
+	 background:url(../../../../assets/img/outras/paginas/loginback.jpg);
+	 height: 100vh;
+	 width: 100vw;
+	 position: relative;
+	 display: flex;
+	 flex-direction: column;
+}
+ .login-header {
+	 height: 90vh;
+	 width: 100%;
+	 display: flex;
+	 gap: 20px;
+	 align-items: center;
+	 justify-content: center;
+}
+ .login-header-left {
+	 width: 588px;
+	 padding-right: 32px;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: start;
+}
+ .login-header-left img {
+	 margin-bottom: 28px;
+	 margin-right: 32px;
+}
+ .login-header-left h2 {
+	 font-size: 28px;
+	 font-weight: normal;
+	 line-height: 32px;
+	 width: 588px;
+}
+ .login-header-right-card {
+	 height: 380px;
+	 width: 400px;
+	 padding: 10px;
+	 border-radius: 10px;
+	 margin-bottom: 30px;
+}
+ .login-header-right-card-content {
+	 padding: 5px;
+	 display: flex;
+	 flex-direction: column;
+}
+ .login-header-right-card-content .login-form {
+	 display: flex;
+	 flex-direction: column;
+	 gap: 10px;
+}
+ .login-header-right-card-content .login-form input {
+	 padding: 20px;
+	 outline: none;
+	 border: 1px solid lightgray;
+	 border-radius: 5px;
+}
+ .login-header-right-card-content .login-form input::placeholder {
+	 font-size: 16px;
+	 font-weight: normal;
+}
+ .login-header-right-card-content .login-form .login-button {
+	 background-color: #1877f2;
+	 padding: 15px;
+	 outline: none;
+	 border: none;
+	 border-radius: 7px;
+	 color: white;
+	 font-size: 18px;
+	 font-weight: bold;
+	 margin-bottom: 20px;
+	 cursor: pointer;
+}
+ .login-header-right-card-content a {
+	 text-decoration: none;
+	 color: #1877f2;
+	 text-align: center;
+	 border-bottom: 1px solid lightgray;
+	 margin-bottom: 20px;
+	 padding-bottom: 20px;
+	 cursor: pointer;
+}
+ .login-header-right-card-content .create-account {
+	 background-color: #42b72a;
+	 display: inline-block;
+	 align-self: center;
+	 outline: none;
+	 border: none;
+	 border-radius: 7px;
+	 padding: 15px 30px;
+	 color: white;
+	 font-size: bold;
+	 cursor: pointer;
+	 margin-top: 15px;
+}
+ .login-header-right .tagline {
+	 text-align: center;
+	 letter-spacing: 0.7px;
+}
+ 
+/* 
 #main-div {
   margin: 0;
 	padding: 0;
@@ -124,4 +224,4 @@ a u:hover{
 
 #return:hover {
 	background: #0f86f5; 
-}
+} */

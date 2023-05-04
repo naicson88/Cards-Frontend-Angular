@@ -1,13 +1,13 @@
 <div id="main-div">
     <!--Header-->
-    <div class="title-input">
+    <div class="title-input ">
         <h1>{{fullStats.nome}} <span style="font-size: 12px">{{fullStats.lancamento}}</span></h1>
         <div class="description-board">
             <span>Dashboard</span>
         </div>
     </div>
     <!--Cards Attribute-->
-    <div class="cards-attribute card">
+    <div class="cards-attribute card shadows">
         <h5 class="card-header">
             <i class="fas fa-circle"></i> Attribute
         </h5>
@@ -30,7 +30,7 @@
        </div>
     </div>
     <!--Card Types and Monster Types-->
-    <div class="type-cards-table-properties">
+    <div class="type-cards-table-properties shadows">
 
         <div class="cards-table card ">
             <h6 class="card-header">
@@ -97,8 +97,8 @@
         </div>
     </div>
     <!--Attack Defense charts-->
-    <div class="atk-def-chart-div">
-    <div class="atk-chart card">
+    <div class="atk-def-chart-div shadows">
+    <div class="atk-chart card shadows">
         <h5 class="card-header">
             <i class="fal fa-swords"></i> Quantity by Attack
         </h5>
@@ -106,7 +106,7 @@
             <app-barchart [attackDefData]="fullStats?.setStats?.listAtk"></app-barchart>
         </div>
     </div>
-    <div class="def-chart card">
+    <div class="def-chart card shadows">
         <h5 class="card-header">
             <i class="far fa-shield-cross"></i> &nbsp; Quantity by Defense
         </h5>
@@ -117,7 +117,7 @@
     </div>
     </div>
     <!--Stars -->
-    <div class="div-stars-rarities card">
+    <div class="div-stars-rarities card shadows">
         <h5 class="card-header">
             <i class="fas fa-level-up-alt"></i> Monster Level
         </h5>
@@ -140,7 +140,7 @@
         </div>
     </div>
     <!--Price and Properties-->
-    <div class="monster-types-div ">
+    <div class="monster-types-div shadows">
         <div class="stars-div card">
             <h5 class="card-header">
                 <i class="fas fa-infinity"></i> Properties

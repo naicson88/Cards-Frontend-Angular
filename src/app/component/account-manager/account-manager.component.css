@@ -1,4 +1,7 @@
-
+/* mudar estilo do Angular Material*/
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: green !important;
+  }
 
 .container {
     background-color: #fff;

@@ -143,6 +143,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  openRegister(){
+    this.router.navigate(['/register'])
+  }
+
 
   errorDialog(errorMessage:string){
     this.dialog.open(ErrorDialogComponent, {
