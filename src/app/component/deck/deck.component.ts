@@ -9,8 +9,6 @@ import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
-import { Observable } from 'rxjs';
-import {startWith, map} from 'rxjs/operators';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 
 

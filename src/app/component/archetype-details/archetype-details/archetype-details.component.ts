@@ -6,6 +6,7 @@ import {MatSort} from '@angular/material/sort';
 
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-archetype-details',
@@ -35,14 +36,17 @@ export class ArchetypeDetailsComponent  implements OnInit  {
     return urlimg;
   }
 
+ // @applyLoader()
   loadArchetypeDetails(){
     const id = localStorage.getItem("idArchetype");
-   // const id = this.archService.getArchetypeId();
     this.archService.getArchetype(id).subscribe(data =>{    
-      console.info(data)
+
      this.archetype = data;
-     this.total = this.archetype['arrayCards'].length
-    
+     this.total = this.archetype['arrayCards'].length 
+    }, err => {
+        console.log(err)
+    }, () => {
+      console.log('TERMINOOOU')
     })
   }
   

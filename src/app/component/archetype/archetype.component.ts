@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Archetype } from 'src/app/classes/Archetype';
 import { AchetypeService } from 'src/app/service/archetype-service/achetype.service';
-import { SpinnerService } from 'src/app/service/spinner.service';
-
+import { applyLoader } from '../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-archetype',
@@ -12,7 +11,7 @@ import { SpinnerService } from 'src/app/service/spinner.service';
 })
 export class ArchetypeComponent implements OnInit {
 
-  constructor(private router: Router, private service: AchetypeService, private archService: AchetypeService, private spinner: SpinnerService) { }
+  constructor(private router: Router, private service: AchetypeService, private archService: AchetypeService, ) { }
 
   ngOnInit() {
     this.loadAllArchetypes();
@@ -20,14 +19,12 @@ export class ArchetypeComponent implements OnInit {
 
   archetype: Archetype[] = [];
 
+  @applyLoader()
   loadAllArchetypes(){
-    this.spinner.show();
     this.service.getAllArchetypes().subscribe(data => {
     this.archetype = data;
-      this.spinner.hide();
     }, error => {
       console.log(error);
-      this.spinner.hide();
     })
   }
 

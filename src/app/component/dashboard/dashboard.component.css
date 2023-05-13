@@ -54,14 +54,12 @@
     margin-bottom: 10px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border: solid thin silver;
-
 }
 
 .card-attribue-head{
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .card-attribue-head span {

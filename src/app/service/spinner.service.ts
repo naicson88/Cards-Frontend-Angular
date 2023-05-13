@@ -13,12 +13,12 @@ export class SpinnerService  implements HttpInterceptor{
   constructor(private spinner: NgxSpinnerService)  { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-   //this.show();
-   
-     return next.handle(req).pipe(
-      finalize( ()=> this.hide())
-   );
-   }
+    this.show();
+    
+      return next.handle(req).pipe(
+        finalize( ()=> this.hide())
+    );
+  }
 
   public show(){
     this.spinner.show();
