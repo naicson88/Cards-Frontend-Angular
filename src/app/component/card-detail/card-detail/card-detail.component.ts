@@ -6,6 +6,7 @@ import { CardServiceService } from 'src/app/service/card-service/card-service.se
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import {Chart} from 'chart.js';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-card-detail',
@@ -37,11 +38,12 @@ export class CardDetailComponent implements OnInit {
 
   keyIsFound:boolean;
 
+  @applyLoader()
   loadCardDetail(){
    // const id = localStorage.getItem("idCard");
     let idd =  Number(localStorage.getItem("idCard"));
    console.log(document.getElementById('idAdmin') as HTMLElement);
-    this.spinner.show();
+
       this.service.getCardDetails(idd).subscribe(data => { 
         console.log(data['card'].id)
         this.card = data['card'];
@@ -53,10 +55,10 @@ export class CardDetailComponent implements OnInit {
         this.totalViews = data['views']['totalQtdViews'];
         this.verifyIfIsLinkCard(data);
         this.setCardTypes(data)
-        this.spinner.hide();
+    
       }, error => {
         console.log(error)
-        this.spinner.hide();
+      
       })  
     
   }

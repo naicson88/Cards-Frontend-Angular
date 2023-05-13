@@ -12,6 +12,7 @@ import { Card } from 'src/app/classes/Card';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { applyLoader } from '../shared/decorators/Decorators';
 
 
 @Component({
@@ -67,13 +68,12 @@ export class UsercardsComponent implements OnInit {
     let sideBar = (<HTMLInputElement>document.getElementById("mySidebar"));
     sideBar.style.width = "300px";
   }
-  
+  @applyLoader()
   cardsByGenericType(genericType:string){
     this.genericTypeAtual = genericType;
     const params = this.getRequestParam(this.pageSize, 0);
 
     if(genericType != null && genericType != " "){
-      this.spinner.show();
 
       this.service.getCardsByGenericType(params, genericType).subscribe(data => {
         if(data.length > 0){
@@ -84,8 +84,7 @@ export class UsercardsComponent implements OnInit {
         }
           
       })
-      
-      this.spinner.hide();
+
     }
   }
 
@@ -155,9 +154,8 @@ export class UsercardsComponent implements OnInit {
     }
     
     qtdTotal:number = 0;
-    
+    @applyLoader()
     cardOfUserDetails(cardId:number) {            
-      this.spinner.show()
 
         this.service.cardOfUserDetails(cardId).subscribe(data =>{
           let qtd = 0;
@@ -170,11 +168,8 @@ export class UsercardsComponent implements OnInit {
           this.rarities = this.arrCardsDetails['rarity']
           this.qtdTotal = qtd;
 
-          this.spinner.hide()
-
         }, error => {
           console.log(error)
-          this.spinner.hide();
         });
 
        
@@ -207,25 +202,22 @@ export class UsercardsComponent implements OnInit {
     setRarityColor(rarity:string){
       return GeneralFunctions.colorRarity(rarity);
     }
-
+    @applyLoader()
     searchCardsByName(){
-      
+              
         if(this.cardname != null && this.cardname != ""){
 
-          if(this.cardname.length <= 3){
+          if(this.cardname.length <= 3){ 
             this.warningDialog("Please write at least 4 characteres");
             return false;
           }
 
           this.service.searchCardsByName(this.cardname).subscribe(data=>{
-            this.spinner.show();
          
             if(Object.keys(data).length > 0 ){
               this.arrCards = data;
-              this.spinner.hide();
             }
             else{
-              this.spinner.hide();
                 this.errorDialog("No cards found with this name!")
             }
             

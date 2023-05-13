@@ -16,6 +16,7 @@ import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { ChangeArtComponent } from '../shared/change-art/change-art.component';
 import { UserSetCollectionService } from './user-setcollection.service';
+import { applyLoader } from '../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-user-setcollection',
@@ -59,7 +60,7 @@ export class UserSetcollectionComponent implements OnInit {
   breakpoints = {
     320:{slidePerView: 1.6, spaceBetween: 20}
   };
-
+  @applyLoader()
   newSetCollection(){
     this.infoDialog('Create your new Collection!');
     this.userSetCollecton = new UserSetCollectionDTO();
@@ -70,11 +71,9 @@ export class UserSetcollectionComponent implements OnInit {
     this.originalCollection = this.userSetCollecton.cards.slice(0); 
 
     this.isNewCollection = true;
-    this.spinner.hide();
   }
-
+  @applyLoader()
   getSetCollection(){
-    this.spinner.show();
     const id = localStorage.getItem("idDeckDetails");
     
     if(id == "0"){
@@ -90,10 +89,8 @@ export class UserSetcollectionComponent implements OnInit {
       this.originalCollection = this.userSetCollecton.cards.slice(0);;
  
       this.putAngularId(this.originalCollection )
-      console.log(this.originalCollection)
 
       }, error => {
-      this.spinner.hide();
       console.log(error);
       this.errorDialog("It was not possible load this Set Collection, try again later!")
     })
@@ -351,12 +348,11 @@ export class UserSetcollectionComponent implements OnInit {
     })
   }
   
-
  criterias = new Array();
+ @applyLoader()
  openDialogSearch() {
     const dialogRef = this.dialog.open(SearchBoxComponent);
 
-    this.spinner.show();
     dialogRef.afterClosed().subscribe(result => {
       if(result.data != null && result.data != undefined && result.data.content.length > 0){
        console.log(result.data)
@@ -367,9 +363,7 @@ export class UserSetcollectionComponent implements OnInit {
         this.warningDialog("No Cards found!")
       }
         this.criterias = result.criterias
-        this.spinner.hide();
     }, error => {
-      this.spinner.hide();
         this.toast.error("Sorry, something bad happened, try again later.")
     });
   this.spinner.hide()

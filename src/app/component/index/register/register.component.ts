@@ -11,6 +11,7 @@ import { ErrorDialogComponent } from '../../dialogs/error-dialog/error-dialog.co
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog/info-dialog.component';
 import { SuccessDialogComponent } from '../../dialogs/success-dialog/success-dialog.component';
 import { WarningDialogComponent } from '../../dialogs/warning-dialog/warning-dialog.component';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 
 @Component({
@@ -79,8 +80,8 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  @applyLoader()
   register(){
-    this.spinner.show();
     let validFields:string = this.validFields();
     if(validFields != ""){
       alert(validFields) 

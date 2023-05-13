@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
 import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
+import { applyLoader } from '../shared/decorators/Decorators';
 
 
 @Component({
@@ -81,13 +82,11 @@ rarities ={};
 
 mainTitle = "Your Deck"
 
-  ngOnInit() {
-    this.spinner.show();
+    @applyLoader()
+    ngOnInit() {
 
       this.loadDeckCards();
       this.loadRandomCards();
-
-    this.spinner.hide();
   }
 
   ngAfterContentInit  (){
@@ -113,21 +112,20 @@ mainTitle = "Your Deck"
      
     }
 
+@applyLoader()
 loadDeckCards(){
   
     const id = localStorage.getItem("idDeckDetails");
     
     if(id == "0"){
-    this.infoDialog('Create your new Deck!');
-    this.deck = new Deck();
-    this.deck.id = 0;
-    this.deck.nome = "";
-    return false;
+      this.infoDialog('Create your new Deck!');
+      this.deck = new Deck();
+      this.deck.id = 0;
+      this.deck.nome = "";
+      return false;
     }
 
-    this.spinner.show();
     this.deckService.editDeck(id, "User").subscribe(data => {
-      console.log(data)
     this.deck = data
   
     this.mainDeckCards = data['cards'];
@@ -140,13 +138,11 @@ loadDeckCards(){
     this.relDeckCards =  data['rel_deck_cards'];
     this.calculateDeckPrice(this.relDeckCards);
     this.setRelDeckCards();
-    this.spinner.hide();
 
     },
     error =>{
       let errorCode = error.status;
       this.router.navigate(["/error-page", errorCode]);
-      this.spinner.hide();
     })
 }
 
@@ -696,6 +692,7 @@ sendToMainDeck(index:number){
 
 relDeckCardsForSave:RelDeckCards[] = new Array();
 
+@applyLoader()
 saveDeck(){
   
   this.relDeckCardsForSave = [];
@@ -721,14 +718,12 @@ saveDeck(){
   deckEdited.rel_deck_cards = this.relDeckCardsForSave;
   console.log(JSON.stringify(deckEdited))
   this.deckService.saveUserDeck(deckEdited).subscribe(result => {
-    this.spinner.show();
+
     if(result.status == 200)
       this.successDialog("Deck was successfully saved!")
-      this.spinner.hide();
 
   }, error =>{
 
-    this.spinner.hide();
     console.log(JSON.stringify(error))
     if(error.status != 200)
       this.errorDialog("Sorry, can't save deck now, try again later :(")

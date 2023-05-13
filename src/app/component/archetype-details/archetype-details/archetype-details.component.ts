@@ -7,6 +7,7 @@ import {MatSort} from '@angular/material/sort';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
 import { applyLoader } from '../../shared/decorators/Decorators';
+import { SpinnerService } from 'src/app/service/spinner.service';
 
 @Component({
   selector: 'app-archetype-details',
@@ -18,7 +19,7 @@ export class ArchetypeDetailsComponent  implements OnInit  {
   total : number = 0;
   mainTitle:string = "Cards related to this archetype"
 
-  constructor(private archService: AchetypeService, private cardService: CardServiceService) {
+  constructor(private archService: AchetypeService, private cardService: CardServiceService,) {
    
   }
   
@@ -36,7 +37,7 @@ export class ArchetypeDetailsComponent  implements OnInit  {
     return urlimg;
   }
 
- // @applyLoader()
+  @applyLoader()
   loadArchetypeDetails(){
     const id = localStorage.getItem("idArchetype");
     this.archService.getArchetype(id).subscribe(data =>{    

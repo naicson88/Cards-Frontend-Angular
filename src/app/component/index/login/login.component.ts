@@ -11,6 +11,7 @@ import { ErrorDialogComponent } from '../../dialogs/error-dialog/error-dialog.co
 import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog/info-dialog.component';
 import { SuccessDialogComponent } from '../../dialogs/success-dialog/success-dialog.component';
 import { WarningDialogComponent } from '../../dialogs/warning-dialog/warning-dialog.component';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 
 
@@ -75,8 +76,8 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  @applyLoader()
   onSubmit() {
-    this.spinner.show();
     
     const loginRequest: LoginRequest = {
       username: this.f.userName.value,
@@ -86,7 +87,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginRequest).subscribe(user => {
       this.router.navigate([this.authService.INITIAL_PATH]);
     }, error => {
-      this.spinner.hide();
+
       console.log(error);
         if(error.error.msg == "Bad credentials"){
           this.errorDialog("Invalid Username / Password");
@@ -95,7 +96,6 @@ export class LoginComponent implements OnInit {
         }
     }); 
 
-    this.spinner.hide();
   }
 
   verifyBadRequest() {

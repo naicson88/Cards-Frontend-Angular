@@ -8,6 +8,7 @@ import { WarningDialogComponent } from 'src/app/component/dialogs/warning-dialog
 import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { SuccessconfirmationService } from './successconfirmation.service';
+import { applyLoader } from 'src/app/component/shared/decorators/Decorators';
 
 @Component({
   selector: 'app-successconfirmation',
@@ -35,15 +36,14 @@ export class SuccessconfirmationComponent implements OnInit {
       this.resetPassword();
   }
 
+  @applyLoader()
   validToken(){
-    this.spinner.show();
 
     if(this.token == undefined || this.token == "")
       this.router.navigate(['/index'])
 
     this.service.validTokenEmailConfirmation(this.token).subscribe(response => {
       this.success = true;
-      this.spinner.hide();
     }, error => {
       console.log(error)
       if(error.error.msg == "It was not possible find User with this token")
@@ -55,7 +55,6 @@ export class SuccessconfirmationComponent implements OnInit {
         this.router.navigate(['/index'])
        };
       }
-      this.spinner.hide()
     })
   }
 

@@ -10,6 +10,7 @@ import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.compo
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
 import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { applyLoader } from '../shared/decorators/Decorators';
 
 
 
@@ -69,11 +70,9 @@ export class DeckComponent implements OnInit {
       this.router.navigate(['deck-details', nome]);
     }
   }
- 
+  
+  @applyLoader()
   getDecksInfo(): void {
-
-      this.spinner.show();
-
       const params = this.getRequestParam(this.pageSize, this.page);
   
       this.service.getDecks(params, this.set_type, this.source).subscribe(data => {

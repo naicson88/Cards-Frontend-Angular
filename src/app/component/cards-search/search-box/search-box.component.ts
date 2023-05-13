@@ -6,6 +6,7 @@ import { SearchCriteria } from 'src/app/classes/SearchCriteria';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { ErrorDialogComponent } from '../../dialogs/error-dialog/error-dialog.component';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 
 @Component({
@@ -137,6 +138,7 @@ export class SearchBoxComponent implements OnInit {
     { value: 'pend', viewValue: 'Pendulum Scale' },
   ];
 
+  @applyLoader()
   searchCards(){
 
     this.criterios = []
@@ -152,7 +154,7 @@ export class SearchBoxComponent implements OnInit {
     this.propertiesFilter();
 
     if(this.criterios != null && this.criterios.length > 0){
-      this.spinner.show()
+    
         const params = this.getRequestParam(this.pageSize, this.page)
 
         this.cardService.searchCardsDetailed(params, this.criterios).subscribe(data => {
@@ -161,7 +163,7 @@ export class SearchBoxComponent implements OnInit {
         this.mapBusca.set("page", data);
         this.cardsFoundEvent.emit(this.mapBusca);
 
-        this.spinner.hide()
+       
         this.dialogRef.close({data: data, criterias: this.criterios})
 
       }, error => {
