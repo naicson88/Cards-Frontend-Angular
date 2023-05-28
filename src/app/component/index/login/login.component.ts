@@ -115,6 +115,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/index'])
   }
 
+  @applyLoader()
   resendPassword(){
 
     let email = this.fr.emailResend.value
@@ -125,16 +126,13 @@ export class LoginComponent implements OnInit {
     }
 
     if(email){
-      this.spinner.show()
+
       this.authService.resendPassword(email).subscribe(response => {
        console.log(response)
-
-        this.spinner.hide();
         this.successDialog("Email sent to " + email + ", access to change your password!");
         this.return()
       }, error => {
- 
-        this.spinner.hide();      
+       
         this.errorDialog(error.error.msg)   
       })
     }

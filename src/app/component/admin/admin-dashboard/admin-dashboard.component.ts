@@ -10,6 +10,7 @@ import { SpinnerService } from 'src/app/service/spinner.service';
 import { DeckCollection } from 'src/app/classes/DeckCollection';
 import { Observable, Subject } from 'rxjs';
 import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -135,26 +136,25 @@ export class AdminDashboardComponent implements OnInit {
     })
   }
 
+  @applyLoader()
   public searchSets(setType:string): Observable <any> {
     var subject = new Subject<any>();
-    this.spinner.show()
     if(setType == 'DECK'){
       this.adminService.getDecksNames(false).subscribe(names => {
           this.setsSearched = names; 
           subject.next(names);    
-          this.spinner.hide();
-      }, error => {  
-        this.spinner.hide();
+   
+      }, error => { 
         alert("It was not possible search sets")
       })
     } else {
       this.adminService.getSetCollectionNames(setType).subscribe(names => {
           this.setsSearched = names;
           subject.next(names);    
-          this.spinner.hide();
+        
       }, error => { 
         alert("It was not possible search sets")
-        this.spinner.hide();
+      
       },)
     } 
     

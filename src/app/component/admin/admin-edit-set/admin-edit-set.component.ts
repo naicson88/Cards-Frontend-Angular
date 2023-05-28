@@ -12,6 +12,7 @@ import { ChangeArtComponent } from '../../shared/change-art/change-art.component
 import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
 import { AdminDashboardService } from '../admin-dashboard-service';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-admin-edit-set',
@@ -187,15 +188,16 @@ export class AdminEditSetComponent implements OnInit {
       }
   }
 
+  @applyLoader()
   getRelationByDeckId(deckId:number) {
-      this.spinner.show()
+    
       this.service.getRelationByDeckId(deckId).subscribe(result => {
           this.formEditSet.value.relDeckCards = [];
           this.formEditSet.value.relDeckCards = result;
-        this.spinner.hide() ;
+       ;
       }, error => {
         console.log(error)
-        this.spinner.hide()
+      
       })
   }
 

@@ -87,13 +87,13 @@ export class DeckDetailComponent implements OnInit {
 
           this, (this.rarities = data["quantity"]);
 
-          this.setQuantityByCardType(data["statsQuantityByType"]);
-          this.setQuantityByCardProperty(data["statsQuantityByProperty"]);
-          this.setQuantityByStars(data["statsQuantityByLevel"]);
-          this.setQuantityByAtk(data["statsAtk"]);
-          this.setQuantityByDef(data["statsDef"]);
+          // this.setQuantityByCardType(data["statsQuantityByType"]);
+          // this.setQuantityByCardProperty(data["statsQuantityByProperty"]);
+          // this.setQuantityByStars(data["statsQuantityByLevel"]);
+          // this.setQuantityByAtk(data["statsAtk"]);
+          // this.setQuantityByDef(data["statsDef"]);
           //Imagens.basic_img_path + this.deckDetails.setType.toLowerCase() + "\\" + this.deckDetails.nome + ".jpg"
-          this.graficoAtributos();
+          // this.graficoAtributos();
         }
       },
       (error) => {
@@ -311,55 +311,6 @@ export class DeckDetailComponent implements OnInit {
       case "Zombie":
         return "..\\..\\assets\\img\\tiposMonstros\\Zombie-DG.png";
     }
-  }
-
-  graficoAtributos() {
-    new Chart(this.elemento.nativeElement, {
-      type: "bar",
-      data: {
-        labels: ["EARTH", "FIRE", "WIND", "DARK", "LIGHT", "WATER"],
-        datasets: [
-          {
-            label: "QUANTITY",
-            data: [
-              this.quantidadePorAtributo.EARTH,
-              this.quantidadePorAtributo.FIRE,
-              this.quantidadePorAtributo.WIND,
-              this.quantidadePorAtributo.DARK,
-              this.quantidadePorAtributo.LIGHT,
-              this.quantidadePorAtributo.WATER,
-            ],
-            backgroundColor: [
-              "rgba(160, 82, 45, 0.7)",
-              "rgba(255, 0, 0, 0.7)",
-              "rgba(50, 205, 50, 0.7)",
-              "rgba(139, 0, 139, 0.7)",
-              "rgba(255, 255, 0, 0.7)",
-            ],
-            borderColor: [
-              "rgba(255,99,132,1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
-      },
-    });
   }
 
   openDashboardPage() {

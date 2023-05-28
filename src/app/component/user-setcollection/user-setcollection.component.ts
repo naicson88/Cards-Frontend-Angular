@@ -366,7 +366,6 @@ export class UserSetcollectionComponent implements OnInit {
     }, error => {
         this.toast.error("Sorry, something bad happened, try again later.")
     });
-  this.spinner.hide()
 }
 
   closeSearch(){
@@ -409,6 +408,7 @@ export class UserSetcollectionComponent implements OnInit {
     localStorage.setItem("idCard", cardNumber);
   }
 
+  @applyLoader()
   consultCardSetCode(card){
     
     if(card.cardId == null || card.cardId == undefined){
@@ -418,8 +418,7 @@ export class UserSetcollectionComponent implements OnInit {
     
     if(card.searchedRelDeckCards.length == 0){
   
-      this.cardService.findAllRelDeckCardsByCardNumber(card.cardId).subscribe(data => { 
-        this.spinner.show();     
+      this.cardService.findAllRelDeckCardsByCardNumber(card.cardId).subscribe(data => {     
         let relationArray: RelDeckCards[] = data;
         card.listSetCode = [];
         relationArray.forEach(rel => {
@@ -428,11 +427,8 @@ export class UserSetcollectionComponent implements OnInit {
         });
         card.searchedRelDeckCards = relationArray;
         card.quantityOtherCollections = 0;
-
-        this.spinner.hide();
       },
       error =>{
-        this.spinner.hide();
         console.log(error.body)
         this.errorDialog("ERROR: Something wrong happened, try again later.")
       });
@@ -461,9 +457,8 @@ export class UserSetcollectionComponent implements OnInit {
     //console.log(this.originalCollection);   
   }
 
-
+  @applyLoader()
   saveSetCollection(){
-
     this.closeSearch();
 
     let collectionName = this.nameInput.nativeElement.value;
@@ -474,7 +469,6 @@ export class UserSetcollectionComponent implements OnInit {
       return false;
     }
 
-    this.spinner.show();
     this.userSetCollecton.cards = [];
  
     this.setCardsToBeSaved()
@@ -483,10 +477,8 @@ export class UserSetcollectionComponent implements OnInit {
     console.log(this.userSetCollecton)
       this.service.saveSetCollection(this.userSetCollecton).subscribe(data => {
         this.userSetCollecton.cards = this.originalCollection;
-        this.spinner.hide();
         this.successDialog("Set Collection was successfully saved!");
       }, error => {
-        this.spinner.hide()
         console.log(error);
         this.errorDialog("Sorry, It was not possible save Collection, try again later!");
       })

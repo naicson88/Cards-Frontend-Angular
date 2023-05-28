@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { AdminDashboardService } from '../admin-dashboard-service';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-admin-associate',
@@ -62,19 +63,16 @@ export class AdminAssociateComponent implements OnInit {
       return true;
   }
 
+  @applyLoader()
   onNewAssociation(){
-
     if(!this.validateSource())
       return false;
 
       let obj = this.createNewAssociationObj();
-      this.spinner.show()
 
       this.adminService.createNewAssociation(obj).subscribe(data => {
         this.toastr.success('Association Sent Successfully')
-        this.spinner.hide()
       }, error => {
-          this.spinner.hide()
           console.log(error)
       })
   }
