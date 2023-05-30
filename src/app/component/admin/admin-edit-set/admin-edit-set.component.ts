@@ -7,7 +7,7 @@ import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { SpinnerService } from 'src/app/service/spinner.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 import { ChangeArtComponent } from '../../shared/change-art/change-art.component';
 import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
 import { AdminDashboardService } from '../admin-dashboard-service';

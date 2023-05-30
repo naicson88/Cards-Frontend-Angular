@@ -8,7 +8,7 @@ import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
@@ -17,6 +17,7 @@ import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog
 import { ChangeArtComponent } from '../shared/change-art/change-art.component';
 import { UserSetCollectionService } from './user-setcollection.service';
 import { applyLoader } from '../shared/decorators/Decorators';
+import { DialogUtils } from 'src/app/Util/DialogUtils';
 
 @Component({
   selector: 'app-user-setcollection',
@@ -51,6 +52,8 @@ export class UserSetcollectionComponent implements OnInit {
 
   isNewCollection = false;
 
+  dialogUtils = new DialogUtils(this.dialog);
+
   ngOnInit() {
     this.getSetCollection();
   }
@@ -62,7 +65,7 @@ export class UserSetcollectionComponent implements OnInit {
   };
   @applyLoader()
   newSetCollection(){
-    this.infoDialog('Create your new Collection!');
+    this.dialogUtils.infoDialog('Create your new Collection!');
     this.userSetCollecton = new UserSetCollectionDTO();
     this.userSetCollecton.cards = new Array();
     this.userSetCollecton.id = 0;
@@ -92,7 +95,7 @@ export class UserSetcollectionComponent implements OnInit {
 
       }, error => {
       console.log(error);
-      this.errorDialog("It was not possible load this Set Collection, try again later!")
+      this.dialogUtils.errorDialog("It was not possible load this Set Collection, try again later!")
     })
   }
 
@@ -324,29 +327,6 @@ export class UserSetcollectionComponent implements OnInit {
     return urlimg;
   }
 
-  errorDialog(errorMessage:string){
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMessage
-    })
-  }
-  
-  warningDialog(warningMessage:string){
-    this.dialog.open(WarningDialogComponent, {
-      data: warningMessage
-    })
-  }
-  
-  infoDialog(infoMessage:string){
-    this.dialog.open(InfoDialogComponent, {
-      data: infoMessage
-    })
-  }
-  
-  successDialog(successMessage:string){
-    this.dialog.open(SuccessDialogComponent,{
-      data: successMessage
-    })
-  }
   
  criterias = new Array();
  @applyLoader()
@@ -360,7 +340,7 @@ export class UserSetcollectionComponent implements OnInit {
       }
 
       else{
-        this.warningDialog("No Cards found!")
+        this.dialogUtils.warningDialog("No Cards found!")
       }
         this.criterias = result.criterias
     }, error => {
@@ -412,7 +392,7 @@ export class UserSetcollectionComponent implements OnInit {
   consultCardSetCode(card){
     
     if(card.cardId == null || card.cardId == undefined){
-      this.errorDialog("Sorry, can't consult card's set codes.");
+      this.dialogUtils.errorDialog("Sorry, can't consult card's set codes.");
       return false;
     }
     
@@ -430,7 +410,7 @@ export class UserSetcollectionComponent implements OnInit {
       },
       error =>{
         console.log(error.body)
-        this.errorDialog("ERROR: Something wrong happened, try again later.")
+        this.dialogUtils.errorDialog("ERROR: Something wrong happened, try again later.")
       });
     } 
    
@@ -464,7 +444,7 @@ export class UserSetcollectionComponent implements OnInit {
     let collectionName = this.nameInput.nativeElement.value;
 
     if(collectionName == "" || collectionName == null){
-      this.warningDialog("Please, fill the Collection's Name!");
+      this.dialogUtils.warningDialog("Please, fill the Collection's Name!");
       this.nameInput.nativeElement.focus();
       return false;
     }
@@ -477,10 +457,10 @@ export class UserSetcollectionComponent implements OnInit {
     console.log(this.userSetCollecton)
       this.service.saveSetCollection(this.userSetCollecton).subscribe(data => {
         this.userSetCollecton.cards = this.originalCollection;
-        this.successDialog("Set Collection was successfully saved!");
+        this.dialogUtils.successDialog("Set Collection was successfully saved!");
       }, error => {
         console.log(error);
-        this.errorDialog("Sorry, It was not possible save Collection, try again later!");
+        this.dialogUtils.errorDialog("Sorry, It was not possible save Collection, try again later!");
       })
   }
 
@@ -526,10 +506,11 @@ export class UserSetcollectionComponent implements OnInit {
 
     this.service.createBasedDeck(Number(deckId)).subscribe(result => {
       this.closeDialog();
-      this.successDialog("A Based Deck has been created!")
-      localStorage.setItem("idDeckDetails", result);
-      localStorage.setItem("source", "KONAMI");
-      localStorage.setItem("set_type", "DECK");
+      this.dialogUtils.successDialog("A Based Deck has been created!")
+      // localStorage.setItem("idDeckDetails", result);
+      // localStorage.setItem("source", "KONAMI");
+      // localStorage.setItem("set_type", "DECK");
+      GeneralFunctions.saveDeckInfoLocalStorage(result, "KONAMI", "DECK");
       this.route.navigate(['/userdeck-details/', '']);
 
     }, error => {

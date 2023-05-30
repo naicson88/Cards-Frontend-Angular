@@ -6,7 +6,7 @@ import { ActivatedRoute, Route, Router } from "@angular/router";
 import { SetDetailsDTO } from "src/app/classes/SetDetailsDTO";
 import { InsideDeck } from "src/app/classes/InsideDeck";
 import { SpinnerService } from "src/app/service/spinner.service";
-import { GeneralFunctions } from "src/app/Util/GeneralFunctions";
+import { GeneralFunctions } from "src/app/Util/Utils";
 import { applyLoader } from "../shared/decorators/Decorators";
 
 @Component({
@@ -233,9 +233,10 @@ export class DeckDetailComponent implements OnInit {
 
   storeDeckId(id: any) {
     //  const id = event.target.name;
-    localStorage.setItem("idDeckDetails", id);
-    localStorage.setItem("source", this.source);
-    localStorage.setItem("set_type", this.set_type);
+    // localStorage.setItem("idDeckDetails", id);
+    // localStorage.setItem("source", this.source);
+    // localStorage.setItem("set_type", this.set_type);
+    GeneralFunctions.saveDeckInfoLocalStorage(id, this.source, this.set_type);
   }
 
   atributoImagem(atributo: string) {

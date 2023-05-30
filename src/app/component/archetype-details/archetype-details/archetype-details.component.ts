@@ -5,7 +5,7 @@ import { AchetypeService } from 'src/app/service/archetype-service/achetype.serv
 import {MatSort} from '@angular/material/sort';
 
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 import { applyLoader } from '../../shared/decorators/Decorators';
 import { SpinnerService } from 'src/app/service/spinner.service';
 

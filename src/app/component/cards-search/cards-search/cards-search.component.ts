@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Card } from 'src/app/classes/Card';
 import { Imagens } from 'src/app/classes/Imagens';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 
 @Component({
   selector: 'app-cards-search',

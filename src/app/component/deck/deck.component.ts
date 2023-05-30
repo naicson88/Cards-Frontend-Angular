@@ -9,8 +9,9 @@ import { MatDialog } from '@angular/material';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 import { applyLoader } from '../shared/decorators/Decorators';
+import { DialogUtils } from 'src/app/Util/DialogUtils';
 
 
 
@@ -25,24 +26,19 @@ import { applyLoader } from '../shared/decorators/Decorators';
 })
 
 export class DeckComponent implements OnInit {
+ dialogUtils = new DialogUtils(this.dialog); 
  page: number = 1; 
  pageSize: number = 25
  pageSizes = [25,50,75,100];
  totalItens = 0;
-
  set_type: string;
  source: string
-
  deck: Deck[]
  relUserDeck: any[];
  safeUrl: SafeUrl;
-
  arrayAutocomplete: any[] = [];
  filteredAutocomplete: any[];
-
-
  user: any;
-
  imgPath: string;
  
   constructor(private service: DeckService, private domSanitizer: DomSanitizer, private  router: Router, public dialog: MatDialog,
@@ -115,47 +111,6 @@ export class DeckComponent implements OnInit {
   return params;
 
   }
-
-    // addSetToUserCollection(event:any){
-    //   let qtdCardManeged:number;
-    //   let setId =  event //event.target.name;
-
-    //   if(this.set_type == 'DECK'){
-          
-    //     this.service.addDeckToUsersCollection(setId).subscribe(data => {
-    //       qtdCardManeged = data;
-  
-    //       if(qtdCardManeged == 0){
-    //         return false;
-    //       }
-  
-    //       if(qtdCardManeged > 0){
-    //         this.toastr.success('The Set has been added to your collection! Plus', 'Success!');
-              
-    //         this.manegeQuantity(setId, "A");
-  
-    //       } else {
-    //         this.toastr.error('Unable to add the Deck or Cards to the user.', 'Error!')
-    //       }
-  
-    //     })
-
-    //   } else {
-        
-    //     this.service.addSetToUsersCollection(setId).subscribe(data => {
-
-    //         this.toastr.success("The Set has been added to your collection! Plus all it's cards", 'Success!');
-              
-    //         this.manegeQuantity(setId, "A");
-
-    //     }, error => {
-    //       console.log(error)
-    //       this.toastr.error('Something bad happened, try again later.', 'Error!')
-    //     })
-    //   }
-      
-    // }
-
     removeSetToUserCollection(event:any) {
       
       let qtdCardManeged:number;
@@ -173,7 +128,7 @@ export class DeckComponent implements OnInit {
          
           }, error => {
             console.log(error)
-            this.errorDialog("Sorry, something bad happened.")
+            this.dialogUtils.errorDialog("Sorry, something bad happened.")
            
           })
         } else {
@@ -184,7 +139,7 @@ export class DeckComponent implements OnInit {
             
           }, error => {
             console.log(error)
-            this.errorDialog("Sorry, something bad happened.")
+            this.dialogUtils.errorDialog("Sorry, something bad happened.")
            
           })
         }
@@ -195,30 +150,6 @@ export class DeckComponent implements OnInit {
           return false;
       }
     }
-
-  // manegeQuantity(deckId:string, flagAddOrRemove:string){
-  
-  //   let id = "inp_"+deckId;
-  //   let el =(<HTMLInputElement>document.getElementById(id));
-  //   let valor = el.value;
-  //   if(valor != null){
-  //     let parsed = parseInt(valor);
-      
-  //     if(flagAddOrRemove == 'A'){
-  //       parsed += 1;
-  //     } else if (flagAddOrRemove == 'R' && parsed > 0){
-  //       parsed -= 1;
-  //     } else {
-        
-  //       return ;
-  //     }      
-      
-  //     if(parsed != NaN && parsed != undefined){
-  //       (<HTMLInputElement>document.getElementById(id)).value = parsed.toString();
-      
-  //     }    
-  //   }  
-  // }
 
   ordenacaoArrayAPI(){
     this.deck.sort(function(a,b){
@@ -241,7 +172,7 @@ export class DeckComponent implements OnInit {
 
   storeDeckId(id:any, setType:string) {
     setType =  setType != 'DECK' ? 'COLLECTION' : 'DECK'
-    GeneralFunctions.storeInformation("idDeckDetails", id, this.source, setType)
+    GeneralFunctions.saveDeckInfoLocalStorage(id, this.source, setType);
   }
   
   addDeckToCollection(e){
@@ -274,7 +205,7 @@ export class DeckComponent implements OnInit {
       
     }, error => {
     
-      this.errorDialog("Sorry, some error happened. Try again later.");
+      this.dialogUtils.errorDialog("Sorry, some error happened. Try again later.");
     })
 
   }
@@ -282,7 +213,7 @@ export class DeckComponent implements OnInit {
   getSetTypeValue(setType:string){
 
     if(setType == null || setType == undefined){
-      this.errorDialog("Sorry, it was not possible consult itens.");
+      this.dialogUtils.errorDialog("Sorry, it was not possible consult itens.");
       return false;
     }
 
@@ -305,25 +236,6 @@ export class DeckComponent implements OnInit {
 
   private _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
-  }
- 
-
-  errorDialog(errorMessage:string){
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMessage
-    })
-  }
-  
-  warningDialog(warningMessage:string){
-    this.dialog.open(WarningDialogComponent, {
-      data: warningMessage
-    })
-  }
-  
-  successDialog(successMessage:string){
-    this.dialog.open(SuccessDialogComponent,{
-      data: successMessage
-    })
   }
 
   

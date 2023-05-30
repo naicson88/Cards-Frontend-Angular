@@ -5,12 +5,13 @@ import { ToastrService } from "ngx-toastr";
 import { CardSetCollectionDTO } from "src/app/classes/CardSetCollectionDTO";
 import { UserSetCollectionDTO } from "src/app/classes/UserSetCollectionDTO";
 import { SpinnerService } from "src/app/service/spinner.service";
-import { GeneralFunctions } from "src/app/Util/GeneralFunctions";
+import { GeneralFunctions } from "src/app/Util/Utils";
 import { ErrorDialogComponent } from "../dialogs/error-dialog/error-dialog.component";
 import { SuccessDialogComponent } from "../dialogs/success-dialog/success-dialog.component";
 import { WarningDialogComponent } from "../dialogs/warning-dialog/warning-dialog.component";
 import { TransferService } from "./transfer.service";
 import { applyLoader } from "../shared/decorators/Decorators";
+import { DialogUtils } from "src/app/Util/DialogUtils";
 
 @Component({
   selector: "app-transfer",
@@ -41,6 +42,8 @@ export class TransferComponent implements OnInit {
 
   leftUserSetCollecton: UserSetCollectionDTO;
   rightUserSetCollection: UserSetCollectionDTO;
+
+  dialogUtils = new DialogUtils(this.dialog);
 
   ngOnInit() {}
 
@@ -87,7 +90,7 @@ export class TransferComponent implements OnInit {
         }
       },
       (error) => {
-        this.errorDialog("Sorry, something wrong happened! Try again later");
+        this.dialogUtils.errorDialog("Sorry, something wrong happened! Try again later");
         console.log(error);
       }
     );
@@ -107,7 +110,7 @@ export class TransferComponent implements OnInit {
         }
       },
       (error) => {
-        this.errorDialog("Sorry, something wrong happened! Try again later");
+        this.dialogUtils.errorDialog("Sorry, something wrong happened! Try again later");
         console.log(error);
       }
     );
@@ -127,7 +130,7 @@ export class TransferComponent implements OnInit {
     ) {
       return true;
     } else {
-      this.errorDialog("This set has already been choose!");
+      this.dialogUtils.errorDialog("This set has already been choose!");
       return false;
     }
   }
@@ -141,7 +144,7 @@ export class TransferComponent implements OnInit {
       (side == "R" && this.leftUserSetCollecton == undefined) ||
       (side == "L" && this.rightUserSetCollection == undefined)
     ) {
-      this.errorDialog("First, choose the Set of other side");
+      this.dialogUtils.errorDialog("First, choose the Set of other side");
       return;
     }
 
@@ -283,10 +286,10 @@ export class TransferComponent implements OnInit {
     this.service.saveSets(setsToBeSaved).subscribe(
       (result) => {
         let msg = result;
-        this.successDialog(msg);
+        this.dialogUtils.successDialog(msg);
       },
       (error) => {
-        this.errorDialog("Sorry, something bad happened! Try again later");
+        this.dialogUtils.errorDialog("Sorry, something bad happened! Try again later");
         console.log(error);
       }
     );
@@ -295,24 +298,6 @@ export class TransferComponent implements OnInit {
   cardImagem(cardId: any) {
     let urlimg = GeneralFunctions.cardImagem + cardId + ".jpg";
     return urlimg;
-  }
-
-  errorDialog(errorMessage: string) {
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMessage,
-    });
-  }
-
-  warningDialog(warningMessage: string) {
-    this.dialog.open(WarningDialogComponent, {
-      data: warningMessage,
-    });
-  }
-
-  successDialog(successMessage: string) {
-    this.dialog.open(SuccessDialogComponent, {
-      data: successMessage,
-    });
   }
 
   storedCardId(cardNumber: any) {

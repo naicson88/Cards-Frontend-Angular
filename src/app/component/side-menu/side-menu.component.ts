@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { GeneralSearchDTO } from 'src/app/classes/GeneralSearchDTO';
 import { AuthService } from 'src/app/service/auth-service/auth.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 
 @Component({
   selector: 'app-side-menu',
@@ -170,10 +170,10 @@ export class SideMenuComponent implements OnInit {
 
   storeDeckId(id:any){
     //  const id = event.target.name;
-      localStorage.setItem("idDeckDetails", '0');
-      localStorage.setItem("source", "USER");
-      localStorage.setItem("set_type", "DECK");
-    
+      // localStorage.setItem("idDeckDetails", '0');
+      // localStorage.setItem("source", "USER");
+      // localStorage.setItem("set_type", "DECK");
+      GeneralFunctions.saveDeckInfoLocalStorage(0, "USER", "DECK");
     }
 
     generalSearch(){
@@ -197,7 +197,15 @@ export class SideMenuComponent implements OnInit {
      storeInformations(id:any, setType:string, name:string){
       
       let arg = setType != 'CARD' ? 'idDeckDetails' : 'idCard'
-      GeneralFunctions.storeInformation(arg, id, 'konami', setType)
+      GeneralFunctions.saveDeckInfoLocalStorage(id, "konami", setType);
+      // let map = new Map<string, any>([
+      //   [arg, id],
+      //   ["source", "konami"],
+      //   ["set_type", setType],
+      // ]);
+      // GeneralFunctions.storeDataLocalStorage(map);
+      
+      // GeneralFunctions.storeInformation(arg, id, 'konami', setType)
 
       if(setType == 'DECK')
        this.route.navigate(['/deck-details/', name]);

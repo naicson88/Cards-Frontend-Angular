@@ -7,11 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/classes/User';
 import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
-import { ErrorDialogComponent } from '../../dialogs/error-dialog/error-dialog.component';
-import { InfoDialogComponent } from '../../dialogs/info-dialog/info-dialog/info-dialog.component';
-import { SuccessDialogComponent } from '../../dialogs/success-dialog/success-dialog.component';
-import { WarningDialogComponent } from '../../dialogs/warning-dialog/warning-dialog.component';
 import { applyLoader } from '../../shared/decorators/Decorators';
+import { DialogUtils } from 'src/app/Util/DialogUtils';
 
 
 @Component({
@@ -38,6 +35,7 @@ export class RegisterComponent implements OnInit {
 
   isRegiter: boolean = false;
   isChangePassword = false;
+  dialogUtils = new DialogUtils(this.dialog);
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -100,7 +98,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['confirm-email'], {queryParams: {email: this.f.email.value}})
     }, error =>{
       console.log(error);
-      this.warningDialog(error.msg)
+      this.dialogUtils.warningDialog(error.msg)
     })
   }
 
@@ -134,7 +132,7 @@ export class RegisterComponent implements OnInit {
         this.isChangePassword = true;
         this.user = response;
     }, error => {
-        this.errorDialog(error.error.msg)
+        this.dialogUtils.errorDialog(error.error.msg)
     })
   }
 
@@ -148,47 +146,23 @@ export class RegisterComponent implements OnInit {
     }
 
     if(pass != con){
-      this.errorDialog("Password dont match  confirmation!");
+      this.dialogUtils.errorDialog("Password dont match  confirmation!");
       return false;
     }
 
     this.user.password = pass;
 
     this.authService.changePassword(this.user).subscribe(response => {
-      this.successDialog("Password has been changed successfully!")
+      this.dialogUtils.successDialog("Password has been changed successfully!")
       this.router.navigate(['/login'])
     } , error => {
-        this.errorDialog(error.error.msg);
+        this.dialogUtils.errorDialog(error.error.msg);
     })
 
   }
 
   return(){
     this.router.navigate(['/index'])
-  }
-
-  errorDialog(errorMessage:string){
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMessage
-    })
-  }
-  
-  warningDialog(warningMessage:string){
-    this.dialog.open(WarningDialogComponent, {
-      data: warningMessage
-    })
-  }
-  
-  infoDialog(infoMessage:string){
-    this.dialog.open(InfoDialogComponent, {
-      data: infoMessage
-    })
-  }
-  
-  successDialog(successMessage:string){
-    this.dialog.open(SuccessDialogComponent,{
-      data: successMessage
-    })
   }
 
 }

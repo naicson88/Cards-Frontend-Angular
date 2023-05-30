@@ -40,11 +40,9 @@ export class ArchetypeComponent implements OnInit {
   }
 
   
-  storedArchetype(id){
-     
+  storedArchetype(id){     
    // const id = event.target.id;
-    localStorage.setItem("idArchetype", id);
-
+     localStorage.setItem("idArchetype", id);
   }
 
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HomeService } from './home.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { sanitizeIdentifier } from '@angular/compiler';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 
 @Component({
   selector: 'app-home',
@@ -39,9 +40,10 @@ export class HomeComponent implements OnInit {
      storeDeckId(id:any, setType:string, source:string){
         //  const id = event.target.name;        
          setType =  setType != 'DECK' ? 'COLLECTION' : 'DECK'
-          localStorage.setItem("idDeckDetails", id);
-          localStorage.setItem("source", source);
-          localStorage.setItem("set_type", setType);        
+         GeneralFunctions.saveDeckInfoLocalStorage(id, source, setType);
+          // localStorage.setItem("idDeckDetails", id);
+          // localStorage.setItem("source", source);
+          // localStorage.setItem("set_type", setType);        
         }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { DashboardService } from "./dashboard.service";
-import { GeneralFunctions } from "src/app/Util/GeneralFunctions";
+import { GeneralFunctions } from "src/app/Util/Utils";
 import { ActivatedRoute } from "@angular/router";
 import { applyLoader } from "../shared/decorators/Decorators";
 

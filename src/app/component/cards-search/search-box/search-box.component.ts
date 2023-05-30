@@ -7,6 +7,7 @@ import { CardServiceService } from 'src/app/service/card-service/card-service.se
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { ErrorDialogComponent } from '../../dialogs/error-dialog/error-dialog.component';
 import { applyLoader } from '../../shared/decorators/Decorators';
+import { DialogUtils } from 'src/app/Util/DialogUtils';
 
 
 @Component({
@@ -36,7 +37,10 @@ export class SearchBoxComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     
-  }
+  } 
+
+  dialogUtil = new DialogUtils(this.dialog);
+
 
   loading: boolean = true
   onLoad() {
@@ -167,7 +171,7 @@ export class SearchBoxComponent implements OnInit {
         this.dialogRef.close({data: data, criterias: this.criterios})
 
       }, error => {
-          this.errorDialog("Something Bad Happened! Try again later.")
+          this.dialogUtil.errorDialog("Something Bad Happened! Try again later.")
       })  
     }
   }
@@ -410,12 +414,6 @@ export class SearchBoxComponent implements OnInit {
       
         return params;
       
-      }
-
-      errorDialog(errorMessage:string){
-        this.dialog.open(ErrorDialogComponent, {
-          data: errorMessage
-        })
       }
 
 }

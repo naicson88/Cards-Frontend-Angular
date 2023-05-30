@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { ErrorDialogComponent } from 'src/app/component/dialogs/error-dialog/error-dialog.component';
-import { InfoDialogComponent } from 'src/app/component/dialogs/info-dialog/info-dialog/info-dialog.component';
-import { SuccessDialogComponent } from 'src/app/component/dialogs/success-dialog/success-dialog.component';
-import { WarningDialogComponent } from 'src/app/component/dialogs/warning-dialog/warning-dialog.component';
 import { AuthService } from 'src/app/service/auth-service/auth.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { SuccessconfirmationService } from './successconfirmation.service';
@@ -65,30 +61,4 @@ export class SuccessconfirmationComponent implements OnInit {
   login(){
     this.router.navigate(['/login'])
   }
-
-  errorDialog(errorMessage:string){
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMessage
-    })
-  }
-  
-  warningDialog(warningMessage:string){
-    this.dialog.open(WarningDialogComponent, {
-      data: warningMessage
-    })
-  }
-  
-  infoDialog(infoMessage:string){
-    this.dialog.open(InfoDialogComponent, {
-      data: infoMessage
-    })
-  }
-  
-  successDialog(successMessage:string){
-    this.dialog.open(SuccessDialogComponent,{
-      data: successMessage
-    })
-  }
-
-
 }
