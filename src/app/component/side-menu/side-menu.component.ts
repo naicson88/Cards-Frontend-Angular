@@ -83,8 +83,8 @@ export class SideMenuComponent implements OnInit {
    private _filterStates(value: string): any[] {
     const filterValue = value.toLowerCase();
     let arr : GeneralSearchDTO[] = [];
-    arr = this.generalSearchArr.filter(data => (data.name.toLowerCase().includes(filterValue)) || (data.setCode != null ? data.setCode.toLowerCase().includes(filterValue) : null));
-    console.log(arr)
+    arr = this.generalSearchArr.filter(data => (data.name.toLowerCase().includes(filterValue)) 
+                                        || (data.setCode != null ? data.setCode.toLowerCase().includes(filterValue) : null));
     return arr
   }
   
@@ -169,18 +169,18 @@ export class SideMenuComponent implements OnInit {
   }
 
   storeDeckId(id:any){
-    //  const id = event.target.name;
-      // localStorage.setItem("idDeckDetails", '0');
-      // localStorage.setItem("source", "USER");
-      // localStorage.setItem("set_type", "DECK");
       GeneralFunctions.saveDeckInfoLocalStorage(0, "USER", "DECK");
-    }
+  }
 
-    generalSearch(){
-      this.authService.generalSerach().subscribe(data => {
-        this.generalSearchArr = data;
-        console.log(this.generalSearchArr)
-      })
+    generalSearch(e:any){
+      let param = e.target.value
+      if(param.length === 3){
+        this.authService.generalSerach(param).subscribe(data => {
+          this.generalSearchArr = data;
+          // console.log(this.generalSearchArr)
+        })
+      }
+      
     }
 
     cardImagem(cardId: any){

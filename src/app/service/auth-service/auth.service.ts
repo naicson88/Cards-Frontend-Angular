@@ -129,8 +129,8 @@ export class AuthService {
     return this.http.get<any>(this.base_url+"actuator/health")
   }
 
-  generalSerach(){
-    return this.http.get<any>(this.base_url+'/home/general-search')
+  generalSerach(param:string){
+    return this.http.get<any>(this.base_url+`/home/general-search?param=${param}`)
   }
 }
 
