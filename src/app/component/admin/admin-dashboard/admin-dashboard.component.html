@@ -16,21 +16,34 @@
             <div class="divTitle" style="color: white; background-color: #007bff;">
                 <h2 style="font-weight: 700;">NEW DECK</h2>
             </div>
-            <form  action="" [formGroup]="formDeck" style="padding: 20px;">
+            <form  action="" [formGroup]="formDeck" style="padding: 20px;" >
                 <div class="form-row">
+
                   <div class="form-group col-md-6">
                     <label for="nome">Set Name</label>
-                    <input type="text" class="form-control" name="nome" id="nome" required formControlName="nome">
+                    <input type="text" class="form-control"  name="nome" id="nome" formControlName="nome">
+                    <div class="form-control-feedback" *ngIf="formDeck.controls.nome.errors != null && formDeck.controls.nome.touched == true" >
+                        <mat-error  class="error-message" *ngIf="formDeck.controls.nome.errors.required">Nome is required </mat-error>                 
+                    </div>
                   </div>
+
                   <div class="form-group col-md-6">
                     <label for="imagem" >Image Path</label>
-                    <input type="text" class="form-control" name="imagem" id="imagem" required formControlName="imagem" >
+                    <input type="text" class="form-control" name="imagem" id="imagem" formControlName="imagem" >
+                    <div class="form-control-feedback" *ngIf="formDeck.controls.imagem.errors != null && formDeck.controls.imagem.touched == true" >
+                        <mat-error class="error-message" *ngIf="formDeck.controls.imagem.errors.required">Imagem is required </mat-error>                 
+                    </div>
+                  </div>
+
                 </div>
-                </div>
+
                 <div class="form-row">                 
                     <div class="form-group col-md-6">
                         <label for="requestSource" >Deck Name Source</label>
                         <input type="text" class="form-control" name="requestSource" id="requestSource" required formControlName="requestSource" >
+                        <div class="form-control-feedback" *ngIf="formDeck.controls.requestSource.errors != null && formDeck.controls.requestSource.touched == true" >
+                            <mat-error class="error-message" *ngIf="formDeck.controls.requestSource.errors.required">Request Source is required </mat-error>                 
+                        </div>
                     </div>
                 </div>         
                
@@ -67,7 +80,7 @@
                         <app-ckeditor #myEditor></app-ckeditor>
                     </div>
                  </div>
-                  <button mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 45%;">Save</button>
+                  <button [disabled]="!formDeck.valid" mat-raised-button color="primary" (click)="onSubmit()" style="margin-left: 45%;">Save</button>
             </form>
         </div>
           <!--NEW COLLECTION-->

@@ -132,6 +132,10 @@ export class AuthService {
   generalSerach(param:string){
     return this.http.get<any>(this.base_url+`/home/general-search?param=${param}`)
   }
+
+  getIpAddress(): Observable<string> {
+    return this.http.get<any>("http://api.ipify.org/?format=json").pipe(map(res => res.ip));
+  }
 }
 
 

@@ -1,5 +1,5 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Inject, Injectable } from "@angular/core";
+import { Inject, Injectable, OnInit } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { AuthService } from "./auth.service";
 import { AUTH_STRATEGY } from "./auth.strategy";
@@ -9,16 +9,19 @@ import { catchError } from 'rxjs/operators';
 import { Router } from "@angular/router";
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor, OnInit {
 
   constructor(private router: Router, private authService: AuthService, @Inject(AUTH_STRATEGY) private jwt: JwtAuthStrategy) { }
+ async ngOnInit() {
+    
+  }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+     
     if (configg.auth === 'token' && this.jwt && this.jwt.getToken()) {
       request = this.addToken(request, this.jwt.getToken());
     }
-
+    
     let url = window.location.href;
 
     if ((this.jwt.getToken() === null || this.jwt.getToken() === "") && !url.includes("/login")  
@@ -30,7 +33,18 @@ export class AuthInterceptor implements HttpInterceptor {
     if(url.includes("/index") && this.jwt.getToken() != null  && this.jwt.getToken() != ""){
       this.router.navigate(['/home'])
     }
+   
+    let clonedRequest = null;
+  
+   var ip = sessionStorage.getItem("Address") === null ? 'NO IP' : sessionStorage.getItem("Address")
+   if(ip === 'NO IP' && (!url.includes("/login") && !url.includes("/register"))) {
+     this.authService.doLogoutAndRedirectToLogin();
+     return null;
+   }  
 
+    if(request.url != "http://api.ipify.org/?format=json")
+      request = request.clone({headers: request.headers.append('X-Forwarded-For', ip)});
+  
     return next.handle(request).pipe(catchError(error => {
 
       if(error.error.msg == 'Bad credentials'){
@@ -45,8 +59,7 @@ export class AuthInterceptor implements HttpInterceptor {
         this.router.navigate(["/error-page", 500])
       }
 
-      else if (error.statusText == "Unknown Error") {
-        
+      else if (error.statusText == "Unknown Error") {       
         this.router.navigate(["/maintenence"])
       }
 

@@ -179,8 +179,7 @@ export class SideMenuComponent implements OnInit {
           this.generalSearchArr = data;
           // console.log(this.generalSearchArr)
         })
-      }
-      
+      } 
     }
 
     cardImagem(cardId: any){
@@ -198,14 +197,6 @@ export class SideMenuComponent implements OnInit {
       
       let arg = setType != 'CARD' ? 'idDeckDetails' : 'idCard'
       GeneralFunctions.saveDeckInfoLocalStorage(id, "konami", setType);
-      // let map = new Map<string, any>([
-      //   [arg, id],
-      //   ["source", "konami"],
-      //   ["set_type", setType],
-      // ]);
-      // GeneralFunctions.storeDataLocalStorage(map);
-      
-      // GeneralFunctions.storeInformation(arg, id, 'konami', setType)
 
       if(setType == 'DECK')
        this.route.navigate(['/deck-details/', name]);

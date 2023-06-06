@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KonamiDeck } from 'src/app/classes/KonamiDeck';
 import { AdminDashboardService } from '../admin-dashboard-service';
 import {formatDate } from '@angular/common';
@@ -34,6 +34,7 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit() {
     this.createFormDeck(new KonamiDeck())
     this.createCollectionDeck(new DeckCollection())
+    console.log(this.formDeck)
   }
 
   showForm(menu:string){
@@ -64,13 +65,13 @@ export class AdminDashboardComponent implements OnInit {
 
   createFormDeck(konamiDeck:KonamiDeck){
     this.formDeck = new FormGroup({
-      nome: new FormControl(konamiDeck.nome),
-      setType: new FormControl(konamiDeck.setType),
-      lancamento: new FormControl(konamiDeck.lancamento),
-      imagem: new FormControl(konamiDeck.imagem),
-      isSpeedDuel: new FormControl(konamiDeck.isSpeedDuel),
-      requestSource: new FormControl(konamiDeck.requestSource),
-      setCode: new FormControl(konamiDeck.setCode),
+      nome: new FormControl(konamiDeck.nome, {validators: [Validators.required] , updateOn: 'blur'}),
+      setType: new FormControl(konamiDeck.setType, [Validators.required]),
+      lancamento: new FormControl(konamiDeck.lancamento, [Validators.required]),
+      imagem: new FormControl(konamiDeck.imagem, [Validators.required]),
+      isSpeedDuel: new FormControl(konamiDeck.isSpeedDuel, [Validators.required]),
+      requestSource: new FormControl(konamiDeck.requestSource, [Validators.required]),
+      setCode: new FormControl(konamiDeck.setCode, [Validators.required]),
       isBasedDeck: new FormControl(false),
       description: new FormControl('')
     })

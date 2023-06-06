@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { DeckService } from "src/app/service/deck.service";
-import { Chart } from "chart.js";
 import { CardServiceService } from "src/app/service/card-service/card-service.service";
 import { ActivatedRoute, Route, Router } from "@angular/router";
 import { SetDetailsDTO } from "src/app/classes/SetDetailsDTO";
@@ -68,9 +67,9 @@ export class DeckDetailComponent implements OnInit {
   //Carrega informações do deck
   @applyLoader()
   loadDeckDetails() {
-    const id = localStorage.getItem("idDeckDetails");
-    const source = localStorage.getItem("source");
-    const set_type = localStorage.getItem("set_type");
+    const id = sessionStorage.getItem("idDeckDetails");
+    const source = sessionStorage.getItem("source");
+    const set_type = sessionStorage.getItem("set_type");
     this.source = source;
     this.service.getDeckDetails(id, source, set_type).subscribe(
       (data) => {
@@ -315,9 +314,9 @@ export class DeckDetailComponent implements OnInit {
   }
 
   openDashboardPage() {
-    const id = localStorage.getItem("idDeckDetails");
-    const source = localStorage.getItem("source");
-    const set_type = localStorage.getItem("set_type");
+    const id = sessionStorage.getItem("idDeckDetails");
+    const source = sessionStorage.getItem("source");
+    const set_type = sessionStorage.getItem("set_type");
 
     const name = this.deckDetails.nome;
 

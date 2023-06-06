@@ -127,8 +127,7 @@ export abstract class GeneralFunctions  {
 
   public static storeDataLocalStorage(map: Map<string, any> ){
     map.forEach((value: string, key:any) => {
-      console.log(key + ' - ' + value)
-      localStorage.setItem(key, value);
+      sessionStorage.setItem(key, value);
     })
   }
 

@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
     this.formResend = this.fb.group({
       emailResend: ['', Validators.required],
     });
+
   }
 
   checkFormType(){
@@ -85,8 +86,6 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginRequest).subscribe(user => {
       this.router.navigate([this.authService.INITIAL_PATH]);
     }, error => {
-
-      console.log(error);
         if(error.error.msg == "Bad credentials"){
           this.dialogUtils.errorDialog("Invalid Username / Password");
         } else {
@@ -141,6 +140,15 @@ export class LoginComponent implements OnInit {
 
   openRegister(){
     this.router.navigate(['/register'])
+  }
+
+  getAddress() {
+    if(sessionStorage.getItem("Address") === null){
+      this.authService.getIpAddress().subscribe(addr => {
+        console.log(addr)
+        GeneralFunctions.storeDataLocalStorage(new Map<string,string>([['Address', addr]]))
+      })
+    }
   }
 
 }
