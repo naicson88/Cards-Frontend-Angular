@@ -174,12 +174,16 @@ export class SideMenuComponent implements OnInit {
 
     generalSearch(e:any){
       let param = e.target.value
-      if(param.length === 3){
+      
+      if(param.length === 3 || param.length > 3 && this.generalSearchArr.length == 0){
         this.authService.generalSerach(param).subscribe(data => {
           this.generalSearchArr = data;
-          // console.log(this.generalSearchArr)
         })
       } 
+    }
+
+    clickedGeneralSearch(value:string){
+      console.log(value)
     }
 
     cardImagem(cardId: any){
