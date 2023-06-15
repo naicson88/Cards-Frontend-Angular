@@ -16,9 +16,7 @@
             color: #054b16; font-weight: 900;" *ngIf="isRandomCards">
             Random cards</span>
 
-        <span style="margin-left: 80%; font-family: 
-            SegoeProBlack, Segoe UI,SegoeUI,Helvetica,Arial,sans-serif; 
-            color: steelblue; font-weight: 900;" *ngIf="!isRandomCards">
+        <span class="total-found" *ngIf="!isRandomCards">
             <span style="color:#63b175;"> {{totalFound}} </span>cards found!</span>
 
         <div id="cards-body" style="padding-left: 3%;">
@@ -26,10 +24,11 @@
             <div id="imgGeneral" *ngFor="let card of cardsFound"
                 style="margin-left: 1%; margin-bottom: 1%; cursor: pointer; " class="imgCard">
 
-                <a [routerLink]="['/card-detail/', card.nome]" name="{{card.numero}}" (click)="openCardDetail($event)" target="_blank">
+                <a [routerLink]="['/card-detail/', card.nome]" name="{{card.numero}}" (click)="openCardDetail(card.numero)" target="_blank">
                     <img [src]='cardImagem(card.numero)' alt="" width="160px" height="219px" name="{{card.numero}}"
                         (mouseover)="mostrarImgToolTip(card.imagem, $event)"
                         (mousemove)="mostrarImgToolTip(card.imagem, $event)" (mouseout)="esconderImgToolTip()"
+                        loading="lazy"
                         style="margin: -2px;">
                 </a>
                 <br>
@@ -49,7 +48,7 @@
 
             <!--Div que será mostrada quando o mouse passar sobre a carta -->
             <div class="divTooltip" [ngStyle]="{'top': topTp, 'left': leftTp }">
-                <img [src]='imgTooltip' alt="" width="310px" height="420px" *ngIf="isShowTooltip" class="imgTooltip">
+                <img [src]='imgTooltip' alt="" width="310px" height="420px" *ngIf="isShowTooltip" class="imgTooltip" loading="lazy">
             </div>
 
         </div>

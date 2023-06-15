@@ -108,8 +108,8 @@
       </fieldset>
     </div>
     <div id="div-set-img" *ngIf="!isNewCollection">
-      <img *ngIf="userSetCollecton?.setType != 'BOX'" [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="200px">
-      <img *ngIf="userSetCollecton?.setType == 'BOX'" [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="290px"> 
+      <img *ngIf="userSetCollecton?.setType != 'BOX'" [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="200px" loading="lazy">
+      <img *ngIf="userSetCollecton?.setType == 'BOX'" [src]="userSetCollecton?.image" alt="Set Collection image" height="280px" width="290px" loading="lazy"> 
       <br>
       <button type="button" class="btn btn-info btn-sm" id="button-based" *ngIf="basedDecks.length > 0"
         (click)="openDialog()">
@@ -126,7 +126,7 @@
         [cellWidth]="160">
         <div class="carousel-cell" *ngFor="let searched of cardsSearched" style="width: 165px;">
 
-          <img [src]='cardImagem(searched.numero)' title="{{searched.nome}}" class="searched-img">
+          <img [src]='cardImagem(searched.numero)' title="{{searched.nome}}" class="searched-img" loading="lazy">
           <span style="margin-left: 35%;">
             <button type="button" class="btn btn-info btn-sm" style="background-color: #096e7e !important"
               (click)="addToCollection(searched)">
@@ -182,6 +182,7 @@
              class="single-card-image"  
              matTooltip="Change Card Art"
              (click)="openDialogArt(card.cardId, card.angularId)"
+             loading="lazy"
              >
       </div>
       <div class="singleCardName">

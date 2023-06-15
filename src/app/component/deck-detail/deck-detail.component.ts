@@ -221,13 +221,6 @@ export class DeckDetailComponent implements OnInit {
 
   storedCardId(event) {
     localStorage.setItem("idCard", event.target.name);
-    const cardNumber = event.target.name;
-    if (cardNumber != null && cardNumber != "") {
-      this.cardService.setCardNumber(cardNumber);
-    } else {
-      alert("Unable to consult this card, try again later.");
-      return false;
-    }
   }
 
   storeDeckId(id: any) {

@@ -77,7 +77,7 @@ export class UserSetcollectionComponent implements OnInit {
   }
   @applyLoader()
   getSetCollection(){
-    const id = localStorage.getItem("idDeckDetails");
+    const id = sessionStorage.getItem("idDeckDetails");
     
     if(id == "0"){
       this.newSetCollection();
@@ -85,7 +85,7 @@ export class UserSetcollectionComponent implements OnInit {
       return false;
      }
 
-    this.service.getSetCollection(id).subscribe(data => {
+    this.service.getSetCollection(Number(id)).subscribe(data => {
       this.userSetCollecton = data;
       this.setBasedDeck(data['basedDeck'])
       this.rarities = data['konamiRarities']

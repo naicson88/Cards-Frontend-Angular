@@ -210,17 +210,6 @@ export class UsercardsComponent implements OnInit {
     storedCardId(event){
         const id = event.target.name;
         localStorage.setItem("idCard", id);
-    
-        const cardNumber = event.target.name;
-        if(cardNumber != null && cardNumber != ""){
-      
-          this.service.setCardNumber(cardNumber);
-        
-        } else {
-           console.log("Unable to consult this card, try again later.");
-           return false;
-        }
-       
       }
 
       storeDeckId(id:any, setType:string){

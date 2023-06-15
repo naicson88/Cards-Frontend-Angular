@@ -122,13 +122,13 @@
             <div class="col-xl-2 col-lg-1 col-md-2 col-sm-2 hide-sm">
               <div id="imgLinha">
                 <img [src]='cardImagem(cardsInfo.numero)' (mouseover)="mostrarImgToolTip(cardsInfo.imagem, $event)"
-                  (mousemove)="mostrarImgToolTip(cardsInfo.imagem, $event)" (mouseout)="esconderImgToolTip()" alt=""
+                  (mousemove)="mostrarImgToolTip(cardsInfo.imagem, $event)" (mouseout)="esconderImgToolTip()" alt="Yugioh card image" loading="lazy"
                   width="160px" height="219px" style="margin: -2px;">
               </div>
 
               <!-- Div que será mostrada quando o mouse passar sobre a carta  -->
               <div class="divTooltip" [ngStyle]="{'top': topTp, 'left': leftTp }">
-                <img [src]='imgTooltip' alt="" width="310px" height="420px" *ngIf="isShowTooltip" class="imgTooltip">
+                <img [src]='imgTooltip' alt="" width="310px" height="420px" *ngIf="isShowTooltip" class="imgTooltip" >
               </div>
             </div>
             <!--MONSTROS-->
@@ -155,7 +155,7 @@
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 hide-sm"
                   style="max-width: 13%; padding-right: 1px; padding-left: 1px;">
-                  <img [src]='cardsInfo.atributo.atributoImgPath' alt="" width="30px" height="30px"
+                  <img [src]='cardsInfo.atributo.atributoImgPath' alt="" width="30px" height="30px" loading="lazy"
                     style="display: inline-block;"> &nbsp;
                   <p class="atributo-card" style="display: inline-block; margin: 0 2px 0 2px;" [ngClass]="setAttColor(cardsInfo.atributo.name)">
                     {{cardsInfo.atributo.name}}
@@ -165,12 +165,12 @@
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2"
                   style="max-width: 13%; padding-right: 1px; padding-left: 1px;margin-top: 1px;"
                   *ngIf="cardsInfo.categoria !='Link Monster' ">
-                  <img src="..\..\assets\img\outras\Nivel.png" alt="" width="25px" height="25px"
+                  <img src="..\..\assets\img\outras\Nivel.png" alt="" width="25px" height="25px" loading="lazy"
                     style="display: inline-block;">&nbsp;
                   <p class="nivel" style=" display: inline-block; margin-left: 2px; "> Level {{cardsInfo.nivel}} </p>
                 </div>
                 <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5" style="padding-right: 1px; padding-left: 1px;">
-                  <img [src]='cardsInfo.tipo.tipoCardImgPath' alt="" height="30px" width="30px"
+                  <img [src]='cardsInfo.tipo.tipoCardImgPath' alt="" height="30px" width="30px" loading="lazy"
                     style="display: inline-block; ">&nbsp;
                   <p class="tipos" style="display: inline-block; margin-left: 2px;">[
                     <span>{{cardsInfo.tipo.name}} </span>
@@ -189,7 +189,7 @@
                   </p>
                 </div>
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="max-width: 14%;">
-                  <img src="..\..\assets\img\tiposMonstros\atk.JPG" alt="" width="30px" height="30px"
+                  <img src="..\..\assets\img\tiposMonstros\atk.JPG" alt="" width="30px" height="30px" loading="lazy"
                     style="display: inline-block; margin-top: -25px; margin-left: -10px;">
                   <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;">ATK / <br><b
                       [ngStyle]="{'color':setColorAtkDef(cardsInfo.atk)}"> {{cardsInfo.atk}}</b></p>
@@ -197,7 +197,7 @@
                 <!--Caso não seja monstro Link-->
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="max-width: 14% !important;"
                   *ngIf="cardsInfo.categoria !='Link Monster' ">
-                  <img src="..\..\assets\img\tiposMonstros\def.JPG" alt="" width="30px" height="30px"
+                  <img src="..\..\assets\img\tiposMonstros\def.JPG" alt="" width="30px" height="30px" loading="lazy"
                     style="display: inline-block; margin-top: -25px; margin-left: -10px;">
                   <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;">DEF / <br> <b
                       [ngStyle]="{'color':setColorAtkDef(cardsInfo.def)}">{{cardsInfo.def}}</b> </p>
@@ -206,7 +206,7 @@
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="max-width: 17% !important;"
                   *ngIf="cardsInfo.categoria == 'Link Monster' ">
                   <p class="nivel" style="display: inline-block;  margin-left: 4px;">
-                    <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="30px" height="30px"
+                    <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="30px" height="30px" loading="lazy"
                       style="display: inline-block;">
                     <b> Link - {{cardsInfo.qtd_link}}</b>
                   </p>
@@ -290,7 +290,7 @@
 
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 hide-sm"
                   style="max-width: 14%; padding-right: 1px; padding-left: 1px;">
-                  <img [src]='cardsInfo.atributo.atributoImgPath' alt="Attribute Image" width="30px" height="30px"
+                  <img [src]='cardsInfo.atributo.atributoImgPath' alt="Attribute Image" width="30px" height="30px" loading="lazy"
                     style="display: inline-block;">&nbsp;
                   <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">
                     <span *ngIf="cardsInfo.categoria == 'Spell Card'" [ngClass]="setAttColor('SPELL')">SPELL</span>
@@ -301,7 +301,7 @@
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-sm"
                   style="max-width: 16%; padding-right: 1px; padding-left: 1px;"
                   *ngIf="cardsInfo.propriedade != 'Normal' &&  cardsInfo.propriedade != null">
-                  <img [src]='atributoImagem(cardsInfo.propriedade)' alt="" width="30px" height="30px"
+                  <img [src]='atributoImagem(cardsInfo.propriedade)' alt="" width="30px" height="30px" loading="lazy"
                     style="display: inline-block;">
                   <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">
                     {{cardsInfo.propriedade}}
@@ -363,7 +363,7 @@
 
               <div id="imgGeneral" *ngFor="let imgGen of insideDeck.cards"
                 style="margin-left: 1%; margin-bottom: 1%; cursor: pointer; " class="imgCard">
-                <img [src]='cardImagem(imgGen.numero)' alt="" width="160px" height="219px"
+                <img [src]='cardImagem(imgGen.numero)' alt="" width="160px" height="219px" loading="lazy"
                   (mouseover)="mostrarImgToolTip(imgGen.imagem, $event)"
                   (mousemove)="mostrarImgToolTip(imgGen.imagem, $event)" (mouseout)="esconderImgToolTip()"
                   style="margin: -2px;">

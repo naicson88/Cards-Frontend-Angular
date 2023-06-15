@@ -20,7 +20,7 @@
         <li class="nav-item" *ngFor="let icon of arrIcons" (click)="cardsByGenericType(icon.tipo)">
           <a class="nav-link " id="Monster-tab" data-toggle="tab" href="#{{icon.tipo}}" role="tab"
            aria-controls="Monster" aria-selected="true" name="{{icon.tipo}}">
-            <img [src]='icon.img' alt="" width="28px" height="40px" >&nbsp; {{icon.tipo}}</a>
+            <img [src]='icon.img' alt="" width="28px" height="40px" loading="lazy">&nbsp; {{icon.tipo}}</a>
         </li>
         
     </ul>
@@ -56,7 +56,7 @@
 
                 <div class="card-img" style="margin-left: 5%; margin-top: -5px;">
                   <!-- <img src="../../../assets/SummonedSkull-SDY-NA-C-1E.jpg" alt="" width="165px" height="220px"> -->
-                  <img [src]="cardImagem(card.numero)" alt="" width="165px" height="220px" style="cursor: pointer;" title="{{card.nome}}"
+                  <img [src]="cardImagem(card.numero)" alt="" width="165px" height="220px" style="cursor: pointer;" title="{{card.nome}}" loading="lazy"
                   (mouseover)="mostrarDivCardsInfo($event, card.numero)"
                   (mouseout)="esconderImgToolTip()"
                   >
@@ -110,7 +110,7 @@
                   <!--Div parte de cima-->
                   <div id="top-part" class="row" >
                       <div id="modal-card-img" style="max-width: 168px; " class="col-md-3">
-                        <img  [src]="cardImagem(arrCardsDetails.cardNumber)" alt="" width="165px" height="220px">
+                        <img  [src]="cardImagem(arrCardsDetails.cardNumber)" alt="" width="165px" height="220px" loading="lazy">
                       </div>   
                       
                   

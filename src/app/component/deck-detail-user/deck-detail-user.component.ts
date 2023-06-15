@@ -100,21 +100,13 @@ dialogUtils = new DialogUtils(this.dialog);
   storedCardId(cardNumber:any){
   
     localStorage.setItem("idCard", cardNumber);
-
-    if(cardNumber != null && cardNumber != ""){
-      this.cardService.setCardNumber(cardNumber);
-
-      } else {
-         console.log("Unable to consult this card, try again later.");
-         return false;
-      }
      
     }
 
 @applyLoader()
 loadDeckCards(){
   
-    const id = localStorage.getItem("idDeckDetails");
+    const id = sessionStorage.getItem("idDeckDetails");
     
     if(id == "0"){
       this.dialogUtils.infoDialog('Create your new Deck!');
