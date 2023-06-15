@@ -132,10 +132,9 @@
               </div>
             </div>
             <!--MONSTROS-->
-            <div class="row-infomacoes-card"
-              *ngIf="cardsInfo.categoria != 'Spell Card' && cardsInfo.categoria != 'Trap Card' && cardsInfo.categoria != 'Skill Card'">
+            <div class="row-infomacoes-card" *ngIf="cardsInfo.categoria != 'Spell Card' && cardsInfo.categoria != 'Trap Card' && cardsInfo.categoria != 'Skill Card'">
               <!--Nome e raridade-->
-              <div class="row" style="padding: 3px; border-bottom: solid thin #ccc; height: 30px; margin: 1px">
+              <div class="row" style="border-bottom: solid thin #ccc; height: 30px; margin: 1px">
                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 hide-sm">
                   <p class="nome-card">
                     <a [routerLink]="['/card-detail/', cardsInfo.nome]" name="{{cardsInfo.numero}}"
@@ -144,73 +143,68 @@
                     </a>
                   </p>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4"
-                  style="text-align: right; margin-top: -3px; margin-right: -10px;">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4" style="text-align: right; margin-top: -3px; margin-right: -10px;">
                   <h6 style="color: #9370DB"><strong>{{cardsInfo.listCardRarity[0].cardSetCode}}</strong></h6>
                 </div>
               </div>
-              <!--Informacoes da carta caso seja MONSTRO-->
-              <div class="row"
-                style="padding: 3px; border-bottom: solid thin #ccc; height: 39px; font-size: 14px; margin-bottom: 1px;">
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 hide-sm"
-                  style="max-width: 13%; padding-right: 1px; padding-left: 1px;">
-                  <img [src]='cardsInfo.atributo.atributoImgPath' alt="" width="30px" height="30px" loading="lazy"
-                    style="display: inline-block;"> &nbsp;
-                  <p class="atributo-card" style="display: inline-block; margin: 0 2px 0 2px;" [ngClass]="setAttColor(cardsInfo.atributo.name)">
-                    {{cardsInfo.atributo.name}}
-                  </p>
+              <div class="row row-card-info" >
+                <div class="card-details-div">
+            
+                    <div >
+                      <img [src]='cardsInfo.atributo.atributoImgPath' alt=""  loading="lazy"> &nbsp;
+                      <p class="atributo-card" style="display: inline-block; margin: 0 2px 0 2px;" [ngClass]="setAttColor(cardsInfo.atributo.name)">
+                        {{cardsInfo.atributo.name}}
+                      </p>
+                    </div>
+
+                    <div *ngIf="cardsInfo.categoria !='Link Monster' ">
+                      <img src="..\..\assets\img\outras\Nivel.png" alt="" loading="lazy">&nbsp;
+                      <p class="nivel" style=" display: inline-block; margin-left: 2px; "> Level {{cardsInfo.nivel}} </p>
+                    </div>
+
+                    <div >
+                      <img [src]='cardsInfo.tipo.tipoCardImgPath' alt="" loading="lazy">&nbsp;
+                      <p class="tipos" style="display: inline-block; margin-left: 2px;">[
+                        <span>{{cardsInfo.tipo.name}} </span>
+
+                        <span *ngIf="cardsInfo.categoria == 'XYZ Monster' ">/ XYZ </span>
+                        <span *ngIf="cardsInfo.categoria == 'Fusion Monster'">/ Fusion </span>
+                        <span *ngIf="cardsInfo.categoria == 'Link Monster'">/ Link </span>
+                        <span *ngIf="cardsInfo.categoria == 'Synchro Monster'||
+                          cardsInfo.categoria == 'Synchro Tuner Monster' ">/ Synchro </span>
+                        <span *ngIf="cardsInfo.categoria == 'Toon Monster'">/ Toon </span>
+                        <span *ngIf="cardsInfo.categoria == 'Effect Monster'">/ Effect </span>
+                        <span *ngIf="cardsInfo.categoria == 'Flip Effect Monster'">/ Flip </span>
+                        <span *ngIf="cardsInfo.categoria == 'Tuner Monster'">/ Turner </span>
+                        <span *ngIf="cardsInfo.categoria == 'Pendulum Effect Monster'">/ Pendulum </span>
+                        ]
+                      </p>
+                    </div>
                 </div>
 
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2"
-                  style="max-width: 13%; padding-right: 1px; padding-left: 1px;margin-top: 1px;"
-                  *ngIf="cardsInfo.categoria !='Link Monster' ">
-                  <img src="..\..\assets\img\outras\Nivel.png" alt="" width="25px" height="25px" loading="lazy"
-                    style="display: inline-block;">&nbsp;
-                  <p class="nivel" style=" display: inline-block; margin-left: 2px; "> Level {{cardsInfo.nivel}} </p>
-                </div>
-                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5" style="padding-right: 1px; padding-left: 1px;">
-                  <img [src]='cardsInfo.tipo.tipoCardImgPath' alt="" height="30px" width="30px" loading="lazy"
-                    style="display: inline-block; ">&nbsp;
-                  <p class="tipos" style="display: inline-block; margin-left: 2px;">[
-                    <span>{{cardsInfo.tipo.name}} </span>
+                <div class="card-details-div">
+                    <div >
+                      <img src="..\..\assets\img\tiposMonstros\atk.JPG" alt="" loading="lazy" title="Attack">&nbsp;
+                      <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;"><b
+                          [ngStyle]="{'color':setColorAtkDef(cardsInfo.atk)}"> {{cardsInfo.atk}}</b></p>
+                    </div>
+                    <!--Caso não seja monstro Link-->
+                    <div *ngIf="cardsInfo.categoria !='Link Monster' ">
+                      <img src="..\..\assets\img\tiposMonstros\def.JPG" alt="" loading="lazy" title="Defense">&nbsp;
+                      <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;"> <b
+                          [ngStyle]="{'color':setColorAtkDef(cardsInfo.def)}">{{cardsInfo.def}}</b> </p>
+                    </div>
+                    <!--Caso seja monstro LINK-->
+                    <div *ngIf="cardsInfo.categoria == 'Link Monster' ">
+                      <p class="nivel" style="display: inline-block;  margin-left: 4px;">
+                        <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="30px" height="30px" loading="lazy"
+                          style="display: inline-block;">
+                        <b> Link - {{cardsInfo.qtd_link}}</b>
+                      </p>
+                    </div>
+                  </div>
 
-                    <span *ngIf="cardsInfo.categoria == 'XYZ Monster' ">/ XYZ </span>
-                    <span *ngIf="cardsInfo.categoria == 'Fusion Monster'">/ Fusion </span>
-                    <span *ngIf="cardsInfo.categoria == 'Link Monster'">/ Link </span>
-                    <span *ngIf="cardsInfo.categoria == 'Synchro Monster'||
-                       cardsInfo.categoria == 'Synchro Tuner Monster' ">/ Synchro </span>
-                    <span *ngIf="cardsInfo.categoria == 'Toon Monster'">/ Toon </span>
-                    <span *ngIf="cardsInfo.categoria == 'Effect Monster'">/ Effect </span>
-                    <span *ngIf="cardsInfo.categoria == 'Flip Effect Monster'">/ Flip </span>
-                    <span *ngIf="cardsInfo.categoria == 'Tuner Monster'">/ Turner </span>
-                    <span *ngIf="cardsInfo.categoria == 'Pendulum Effect Monster'">/ Pendulum </span>
-                    ]
-                  </p>
-                </div>
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="max-width: 14%;">
-                  <img src="..\..\assets\img\tiposMonstros\atk.JPG" alt="" width="30px" height="30px" loading="lazy"
-                    style="display: inline-block; margin-top: -25px; margin-left: -10px;">
-                  <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;">ATK / <br><b
-                      [ngStyle]="{'color':setColorAtkDef(cardsInfo.atk)}"> {{cardsInfo.atk}}</b></p>
-                </div>
-                <!--Caso não seja monstro Link-->
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="max-width: 14% !important;"
-                  *ngIf="cardsInfo.categoria !='Link Monster' ">
-                  <img src="..\..\assets\img\tiposMonstros\def.JPG" alt="" width="30px" height="30px" loading="lazy"
-                    style="display: inline-block; margin-top: -25px; margin-left: -10px;">
-                  <p class="nivel" style="display: inline-block; margin-top: -7px; margin-left: 4px;">DEF / <br> <b
-                      [ngStyle]="{'color':setColorAtkDef(cardsInfo.def)}">{{cardsInfo.def}}</b> </p>
-                </div>
-                <!--Caso seja monstro LINK-->
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2" style="max-width: 17% !important;"
-                  *ngIf="cardsInfo.categoria == 'Link Monster' ">
-                  <p class="nivel" style="display: inline-block;  margin-left: 4px;">
-                    <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="30px" height="30px" loading="lazy"
-                      style="display: inline-block;">
-                    <b> Link - {{cardsInfo.qtd_link}}</b>
-                  </p>
-                </div>
               </div>
 
               <!--Descricao Pèndulum-->

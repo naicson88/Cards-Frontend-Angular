@@ -381,3 +381,31 @@
   border-radius: 3px;
   border: solid thin silver;
 }
+
+.row-card-info {
+  padding: 3px; 
+  border-bottom: solid thin #ccc; 
+  height: 39px; 
+  font-size: 14px; 
+  margin-bottom: 1px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-details-div{
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0;
+  height: 32px;
+}
+
+.card-details-div div {
+  border: purple;
+  margin-right: 1vw;
+  vertical-align: middle;
+}
+
+.card-details-div div img {
+  width: 30px;
+  height: 30px;
+}
