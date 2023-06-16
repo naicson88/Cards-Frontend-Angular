@@ -292,6 +292,12 @@
     margin-top: 5px;
   }
 
+  #rarity {
+    width: 100%; 
+    background-color: rgb(164, 154, 231); 
+    height: fit-content;
+  }
+
   #rarity ul {
     display: flex;
     flex-direction: row; 

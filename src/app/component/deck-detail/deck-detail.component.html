@@ -49,7 +49,7 @@
       <!--Raridade-->
       <div class="row" style="border: gold solid thin;" *ngIf="arrInsideDecksCards[0]?.cards.length > 0">
 
-        <div id="rarity" style="width: 100%; background-color: rgb(164, 154, 231); height: fit-content;">
+        <div id="rarity">
           <app-quantity-rarities [rarities]="rarities"  style="width: 35% !important;"> </app-quantity-rarities>
         </div>
 
@@ -159,26 +159,14 @@
 
                       <div *ngIf="cardsInfo.categoria !='Link Monster' ">
                         <img src="..\..\assets\img\outras\Nivel.png" alt="" loading="lazy">
-                        <p class="nivel  p-icon-details"> Level {{cardsInfo.nivel}} </p>
+                        <p class="nivel p-icon-details"> Level {{cardsInfo.nivel}} </p>
                       </div>
 
                       <div >
                         <img [src]='cardsInfo.tipo.tipoCardImgPath' alt="" loading="lazy">
-                        <p class="tipos  p-icon-details">[
-                          <span>{{cardsInfo.tipo.name}} </span>
-
-                          <span *ngIf="cardsInfo.categoria == 'XYZ Monster' ">/ XYZ </span>
-                          <span *ngIf="cardsInfo.categoria == 'Fusion Monster'">/ Fusion </span>
-                          <span *ngIf="cardsInfo.categoria == 'Link Monster'">/ Link </span>
-                          <span *ngIf="cardsInfo.categoria == 'Synchro Monster'||
-                            cardsInfo.categoria == 'Synchro Tuner Monster' ">/ Synchro </span>
-                          <span *ngIf="cardsInfo.categoria == 'Toon Monster'">/ Toon </span>
-                          <span *ngIf="cardsInfo.categoria == 'Effect Monster'">/ Effect </span>
-                          <span *ngIf="cardsInfo.categoria == 'Flip Effect Monster'">/ Flip </span>
-                          <span *ngIf="cardsInfo.categoria == 'Tuner Monster'">/ Turner </span>
-                          <span *ngIf="cardsInfo.categoria == 'Pendulum Effect Monster'">/ Pendulum </span>
-                          ]
-                        </p>
+                        <p class="tipos  p-icon-details">
+                          <span>{{cardsInfo.fullCardTypeDescription}} </span>
+                        </p> 
                       </div>
                   </div>
 
@@ -193,10 +181,9 @@
                         <p class="nivel p-icon-details" > <b [ngStyle]="{'color':setColorAtkDef(cardsInfo.def)}">{{cardsInfo.def}}</b> </p>
                       </div>
                       <!--Caso seja monstro LINK-->
-                      <div *ngIf="cardsInfo.categoria == 'Link Monster' ">
+                      <div  class="card-details-div" *ngIf="cardsInfo.categoria == 'Link Monster' ">
+                        <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="30px" height="30px" loading="lazy">
                         <p class="nivel p-icon-details" >
-                          <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="30px" height="30px" loading="lazy"
-                            style="display: inline-block;">
                           <b> Link - {{cardsInfo.qtd_link}}</b>
                         </p>
                       </div>
