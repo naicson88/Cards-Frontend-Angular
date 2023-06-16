@@ -402,10 +402,59 @@
 .card-details-div div {
   border: purple;
   margin-right: 1vw;
-  vertical-align: middle;
+  display: flex;
 }
 
 .card-details-div div img {
   width: 30px;
   height: 30px;
 }
+
+.row-name-card{
+  border-bottom: solid thin #ccc;
+  height: 30px; 
+  padding-top: 0.5vh;
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
+}
+
+.p-icon-details{
+  display: inline-block; 
+  margin-top: 5px;
+  height: fit-content;
+  margin-left: 6px;
+ 
+}
+
+.row-desc-pendulum{
+  padding: 3px; 
+  border-bottom: solid thin #ccc;
+  height: fit-content;
+  margin-bottom: -5px;
+  display: flex;
+}
+.desc-pendulum-left{
+  position: relative;
+  border-right:solid thin #ccc;
+  min-width: 85px;
+  position: relative;
+
+}
+
+.desc-pendulum-right p{
+  text-align: left; 
+  font-family:'Nunito';
+  font-size:12px; 
+  margin-bottom: 4px;
+  padding-left: 3px;
+}
+
+.escala-icons {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
