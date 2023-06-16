@@ -131,8 +131,8 @@
                 <img [src]='imgTooltip' alt="" width="310px" height="420px" *ngIf="isShowTooltip" class="imgTooltip" >
               </div>
             </div>
-            <!--MONSTROS-->
-            <div class="row-infomacoes-card" *ngIf="cardsInfo.categoria != 'Spell Card' && cardsInfo.categoria != 'Trap Card' && cardsInfo.categoria != 'Skill Card'">
+        
+            <div class="row-infomacoes-card" >
               <!--Nome e raridade-->
               <div class="row row-name-card" >
                 <div>
@@ -147,62 +147,86 @@
                   <h6 style="color: #9370DB"><strong>{{cardsInfo.listCardRarity[0].cardSetCode}}</strong></h6>
                 </div>
               </div>
+                
+                <div class="row row-card-info" *ngIf="cardsInfo.categoria != 'Spell Card' && cardsInfo.categoria != 'Trap Card' && cardsInfo.categoria != 'Skill Card'">
+                  <div class="card-details-div">           
+                      <div >
+                        <img [src]='cardsInfo.atributo.atributoImgPath' alt=""  loading="lazy">
+                        <p class="atributo-card p-icon-details"  [ngClass]="setAttColor(cardsInfo.atributo.name)">
+                          {{cardsInfo.atributo.name}}
+                        </p>
+                      </div>
 
-              <div class="row row-card-info" >
-                <div class="card-details-div">           
-                    <div >
-                      <img [src]='cardsInfo.atributo.atributoImgPath' alt=""  loading="lazy">
-                      <p class="atributo-card p-icon-details"  [ngClass]="setAttColor(cardsInfo.atributo.name)">
-                        {{cardsInfo.atributo.name}}
-                      </p>
-                    </div>
+                      <div *ngIf="cardsInfo.categoria !='Link Monster' ">
+                        <img src="..\..\assets\img\outras\Nivel.png" alt="" loading="lazy">
+                        <p class="nivel  p-icon-details"> Level {{cardsInfo.nivel}} </p>
+                      </div>
 
-                    <div *ngIf="cardsInfo.categoria !='Link Monster' ">
-                      <img src="..\..\assets\img\outras\Nivel.png" alt="" loading="lazy">
-                      <p class="nivel  p-icon-details"> Level {{cardsInfo.nivel}} </p>
-                    </div>
+                      <div >
+                        <img [src]='cardsInfo.tipo.tipoCardImgPath' alt="" loading="lazy">
+                        <p class="tipos  p-icon-details">[
+                          <span>{{cardsInfo.tipo.name}} </span>
 
-                    <div >
-                      <img [src]='cardsInfo.tipo.tipoCardImgPath' alt="" loading="lazy">
-                      <p class="tipos  p-icon-details">[
-                        <span>{{cardsInfo.tipo.name}} </span>
+                          <span *ngIf="cardsInfo.categoria == 'XYZ Monster' ">/ XYZ </span>
+                          <span *ngIf="cardsInfo.categoria == 'Fusion Monster'">/ Fusion </span>
+                          <span *ngIf="cardsInfo.categoria == 'Link Monster'">/ Link </span>
+                          <span *ngIf="cardsInfo.categoria == 'Synchro Monster'||
+                            cardsInfo.categoria == 'Synchro Tuner Monster' ">/ Synchro </span>
+                          <span *ngIf="cardsInfo.categoria == 'Toon Monster'">/ Toon </span>
+                          <span *ngIf="cardsInfo.categoria == 'Effect Monster'">/ Effect </span>
+                          <span *ngIf="cardsInfo.categoria == 'Flip Effect Monster'">/ Flip </span>
+                          <span *ngIf="cardsInfo.categoria == 'Tuner Monster'">/ Turner </span>
+                          <span *ngIf="cardsInfo.categoria == 'Pendulum Effect Monster'">/ Pendulum </span>
+                          ]
+                        </p>
+                      </div>
+                  </div>
 
-                        <span *ngIf="cardsInfo.categoria == 'XYZ Monster' ">/ XYZ </span>
-                        <span *ngIf="cardsInfo.categoria == 'Fusion Monster'">/ Fusion </span>
-                        <span *ngIf="cardsInfo.categoria == 'Link Monster'">/ Link </span>
-                        <span *ngIf="cardsInfo.categoria == 'Synchro Monster'||
-                          cardsInfo.categoria == 'Synchro Tuner Monster' ">/ Synchro </span>
-                        <span *ngIf="cardsInfo.categoria == 'Toon Monster'">/ Toon </span>
-                        <span *ngIf="cardsInfo.categoria == 'Effect Monster'">/ Effect </span>
-                        <span *ngIf="cardsInfo.categoria == 'Flip Effect Monster'">/ Flip </span>
-                        <span *ngIf="cardsInfo.categoria == 'Tuner Monster'">/ Turner </span>
-                        <span *ngIf="cardsInfo.categoria == 'Pendulum Effect Monster'">/ Pendulum </span>
-                        ]
-                      </p>
-                    </div>
+                  <div class="card-details-div">
+                      <div >
+                        <img src="..\..\assets\img\tiposMonstros\atk.JPG" alt="" loading="lazy" title="Attack">&nbsp;
+                        <p class="nivel p-icon-details"><b [ngStyle]="{'color':setColorAtkDef(cardsInfo.atk)}"> {{cardsInfo.atk}}</b></p>
+                      </div>
+                      <!--Caso não seja monstro Link-->
+                      <div *ngIf="cardsInfo.categoria !='Link Monster' ">
+                        <img src="..\..\assets\img\tiposMonstros\def.JPG" alt="" loading="lazy" title="Defense">&nbsp;
+                        <p class="nivel p-icon-details" > <b [ngStyle]="{'color':setColorAtkDef(cardsInfo.def)}">{{cardsInfo.def}}</b> </p>
+                      </div>
+                      <!--Caso seja monstro LINK-->
+                      <div *ngIf="cardsInfo.categoria == 'Link Monster' ">
+                        <p class="nivel p-icon-details" >
+                          <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="30px" height="30px" loading="lazy"
+                            style="display: inline-block;">
+                          <b> Link - {{cardsInfo.qtd_link}}</b>
+                        </p>
+                      </div>
+                  </div>
+
                 </div>
+                
+                <div class="row row-card-info" *ngIf="cardsInfo.categoria == 'Spell Card' || cardsInfo.categoria == 'Trap Card' || cardsInfo.categoria == 'Skill Card'">
 
-                <div class="card-details-div">
-                    <div >
-                      <img src="..\..\assets\img\tiposMonstros\atk.JPG" alt="" loading="lazy" title="Attack">&nbsp;
-                      <p class="nivel p-icon-details"><b [ngStyle]="{'color':setColorAtkDef(cardsInfo.atk)}"> {{cardsInfo.atk}}</b></p>
-                    </div>
-                    <!--Caso não seja monstro Link-->
-                    <div *ngIf="cardsInfo.categoria !='Link Monster' ">
-                      <img src="..\..\assets\img\tiposMonstros\def.JPG" alt="" loading="lazy" title="Defense">&nbsp;
-                      <p class="nivel p-icon-details" > <b [ngStyle]="{'color':setColorAtkDef(cardsInfo.def)}">{{cardsInfo.def}}</b> </p>
-                    </div>
-                    <!--Caso seja monstro LINK-->
-                    <div *ngIf="cardsInfo.categoria == 'Link Monster' ">
-                      <p class="nivel p-icon-details" >
-                        <img src="..\..\assets\img\tiposMonstros\Link.PNG" alt="" width="30px" height="30px" loading="lazy"
-                          style="display: inline-block;">
-                        <b> Link - {{cardsInfo.qtd_link}}</b>
-                      </p>
-                    </div>
+                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 hide-sm"
+                    style="max-width: 14%; padding-right: 1px; padding-left: 1px;">
+                    <img [src]='cardsInfo.atributo.atributoImgPath' alt="Attribute Image" width="30px" height="30px" loading="lazy"
+                      style="display: inline-block;">&nbsp;
+                    <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">
+                      <span *ngIf="cardsInfo.categoria == 'Spell Card'" [ngClass]="setAttColor('SPELL')">SPELL</span>
+                      <span *ngIf="cardsInfo.categoria == 'Trap Card'" [ngClass]="setAttColor('TRAP')">TRAP</span>
+                    </p>
+                  </div>
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-sm"
+                    style="max-width: 16%; padding-right: 1px; padding-left: 1px;"
+                    *ngIf="cardsInfo.propriedade != 'Normal' &&  cardsInfo.propriedade != null">
+                    <img [src]='atributoImagem(cardsInfo.propriedade)' alt="" width="30px" height="30px" loading="lazy"
+                      style="display: inline-block;">
+                    <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">
+                      {{cardsInfo.propriedade}}
+                    </p>
+                  </div>
+  
                 </div>
-
-              </div>
 
               <!--Descricao Pèndulum-->
               <div class="row-desc-pendulum" *ngIf="cardsInfo.escala  != null ">
@@ -250,84 +274,8 @@
                 </div>
               </div>
             </div>
-
-            <!--MAGICAS ARMADILHAS-->
-            <div class="row-infomacoes-card"
-              *ngIf="cardsInfo.categoria == 'Spell Card' || cardsInfo.categoria == 'Trap Card' || cardsInfo.categoria == 'Skill Card'">
-              <!--Nome e raridade-->
-              <div class="row" style="padding: 3px; border-bottom: solid thin #ccc; height: 30px;">
-                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 hide-sm">
-                  <p class="nome-card">
-                    <a [routerLink]="['/card-detail/', cardsInfo.nome]" name="{{cardsInfo.numero}}"
-                      (click)="storedCardId($event)">
-                      {{cardsInfo.nome}}
-                    </a>
-                  </p>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4"
-                  style="text-align: right; margin-top: -3px; margin-right: -10px;">
-                  <span></span>
-                  <h5>{{cardsInfo.listCardRarity[0].cardSetCode}}</h5>
-
-                </div>
-              </div>
-              <div class="row"
-                style="padding: 3px; border-bottom: solid thin #ccc; height: 39px; font-size: 14px; margin-bottom: 1px;">
-
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 hide-sm"
-                  style="max-width: 14%; padding-right: 1px; padding-left: 1px;">
-                  <img [src]='cardsInfo.atributo.atributoImgPath' alt="Attribute Image" width="30px" height="30px" loading="lazy"
-                    style="display: inline-block;">&nbsp;
-                  <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">
-                    <span *ngIf="cardsInfo.categoria == 'Spell Card'" [ngClass]="setAttColor('SPELL')">SPELL</span>
-                    <span *ngIf="cardsInfo.categoria == 'Trap Card'" [ngClass]="setAttColor('TRAP')">TRAP</span>
-                  </p>
-                </div>
-
-                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-sm"
-                  style="max-width: 16%; padding-right: 1px; padding-left: 1px;"
-                  *ngIf="cardsInfo.propriedade != 'Normal' &&  cardsInfo.propriedade != null">
-                  <img [src]='atributoImagem(cardsInfo.propriedade)' alt="" width="30px" height="30px" loading="lazy"
-                    style="display: inline-block;">
-                  <p class="atributo-card" style=" display: inline-block; margin: 0 2px 0 2px;">
-                    {{cardsInfo.propriedade}}
-                  </p>
-                </div>
-
-              </div>
-
-              <!--Descricao Card-->
-              <div class="row" style="padding: 5px; ; height: fit-content">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="text-align: left;">
-                  <p class="card-descr-pend" style="font-size:14px; margin-bottom: 1px;margin-top: 3px;
-                         font-family:'Open Sans', Arial, sans-serif;">
-                    {{cardsInfo.descricao}}
-                  </p> <br>
-                  <p style="margin-bottom: 0;" *ngIf="cardsInfo.arquetipo"> <i> <b>Archetype</b> :
-                      {{cardsInfo.arquetipo}} </i> </p><br>
-                      <span *ngFor="let card of cardsInfo.listCardRarity">
-
-                        <i style="font-size: small; color: rgb(110, 109, 109);">Rarity: </i>&nbsp;                       
-                        <span [ngClass]="setRarityColor(card.card_raridade)" *ngIf="card.rarityDetails != null"
-                         style="font-size: 14px;">{{card.rarityDetails}} &nbsp;&nbsp; </span>
-
-                         <span [ngClass]="setRarityColor(card.card_raridade)" *ngIf="card.rarityDetails == null"
-                         style="font-size: 14px;">{{card.card_raridade}} &nbsp;&nbsp; </span> 
-
-                        <i style="font-size: small; color: rgb(110, 109, 109);">Price: </i>&nbsp;
-                        <span style="color: green;font-size: 14px; font-weight: bold;">
-                          {{card.card_price | currency}}
-                        </span>&nbsp;&nbsp;
-                        <b *ngIf="cardsInfo.listCardRarity.length >= 2"> / </b>
-                     </span> 
-
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
-        <!-- Row div Card Details-->
 
       </div>
       <!--CARDAS EM GERAL-->
@@ -371,8 +319,6 @@
           Stats
         </div>
         <div class="grey-bg">
-          
-
         </div>
       </div>
     </div>
