@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { Card } from 'src/app/classes/Card';
 import { AchetypeService } from 'src/app/service/archetype-service/achetype.service';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 import {Chart} from 'chart.js';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-card-detail',
@@ -37,11 +38,12 @@ export class CardDetailComponent implements OnInit {
 
   keyIsFound:boolean;
 
+  @applyLoader()
   loadCardDetail(){
    // const id = localStorage.getItem("idCard");
     let idd =  Number(localStorage.getItem("idCard"));
    console.log(document.getElementById('idAdmin') as HTMLElement);
-    this.spinner.show();
+
       this.service.getCardDetails(idd).subscribe(data => { 
         console.log(data['card'].id)
         this.card = data['card'];
@@ -53,10 +55,10 @@ export class CardDetailComponent implements OnInit {
         this.totalViews = data['views']['totalQtdViews'];
         this.verifyIfIsLinkCard(data);
         this.setCardTypes(data)
-        this.spinner.hide();
+    
       }, error => {
         console.log(error)
-        this.spinner.hide();
+      
       })  
     
   }
@@ -104,10 +106,15 @@ export class CardDetailComponent implements OnInit {
 
    storeDeckId(id:any, set_type:string){
     let set = set_type != 'DECK' ? 'COLLECTION' : 'DECK'
-    GeneralFunctions.storeInformation("idDeckDetails", id, 'konami', set)
+    // let map = new Map<string, any>([
+    //   ["idDeckDetails", id],
+    //   ["source", "konami"],
+    //   ["set_type", set],
+    // ]);
+     GeneralFunctions.saveDeckInfoLocalStorage(id, "konami", set);
+    // GeneralFunctions.storeDataLocalStorage(map);
+    // GeneralFunctions.storeInformation("idDeckDetails", id, 'konami', set)
   }
-
-
 
   atributoImagem(atributo:string){
     switch(atributo){

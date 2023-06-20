@@ -6,7 +6,7 @@
    <!--<img src="..\..\assets\img\img.jpg" alt="" width="100%" height="150px" >--> 
     
    <div class="search" >
-     <input type="text" placeholder="Search here..."  [matAutocomplete]="auto"  [formControl]="dataCtrl" (click)="generalSearch()">
+     <input type="text" placeholder="Search here..."  [matAutocomplete]="auto"  [formControl]="dataCtrl" (keyup)="generalSearch($event)" #generalSearchInput>
      <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let data of filteredData | async" [value]="data?.name" style="margin-top: 3px; margin-bottom: 3px;" (click)="redirectToPage(data)">
         <img  class="example-option-img" aria-hidden [src]="data.img" height="65px" width="40px" > &nbsp;
@@ -14,7 +14,7 @@
         <small *ngIf="data.setCode?.length > 0"> | SetCode: {{data?.setCode}}</small>
       </mat-option>
     </mat-autocomplete>
-     <button><mat-icon>search</mat-icon></button>
+     <button (click)="clickedGeneralSearch(generalSearchInput.value)"><mat-icon>search</mat-icon></button>
    </div>
 
    <div id="iconAccount"  style="border: solid thin  blue;">
@@ -28,7 +28,7 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item>
           <mat-icon>account_circle</mat-icon>
-          <span>Account Maneger</span>
+          <span (click)="goToAccountManage()">Account Maneger</span>
         </button>
         <button mat-menu-item>
           <mat-icon>exit_to_app</mat-icon>

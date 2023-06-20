@@ -256,7 +256,6 @@
     border:none;
     border-radius:5px;
     box-shadow:0 10px 40px 0 rgba(62,57,107,.07),0 2px 9px 0 rgba(62,57,107,.06)
-
   }
   .card-static  .card-title{font-weight:500;letter-spacing:.05rem;font-size:1.12rem}
 
@@ -291,6 +290,12 @@
     border: solid thin silver;
     border-radius: 10px;
     margin-top: 5px;
+  }
+
+  #rarity {
+    width: 100%; 
+    background-color: rgb(164, 154, 231); 
+    height: fit-content;
   }
 
   #rarity ul {
@@ -382,3 +387,86 @@
   border-radius: 3px;
   border: solid thin silver;
 }
+
+.row-card-info {
+  padding: 3px; 
+  border-bottom: solid thin #ccc; 
+  height: 39px; 
+  font-size: 14px; 
+  margin-bottom: 1px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-details-div{
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0;
+  height: 32px;
+}
+
+.card-details-div div {
+  border: purple;
+  margin-right: 1vw;
+  display: flex;
+}
+
+.card-details-div div img {
+  width: 30px;
+  height: 30px;
+}
+
+.row-name-card{
+  border-bottom: solid thin #ccc;
+  height: 30px; 
+  padding-top: 0.5vh;
+  display: flex;
+  justify-content: space-between;
+  vertical-align: middle;
+}
+
+.p-icon-details{
+  display: inline-block; 
+  margin-top: 5px;
+  height: fit-content;
+  margin-left: 6px;
+ 
+}
+
+.row-desc-pendulum{
+  padding: 3px; 
+  border-bottom: solid thin #ccc;
+  height: fit-content;
+  margin-bottom: -5px;
+  display: flex;
+}
+.desc-pendulum-left{
+  position: relative;
+  border-right:solid thin #ccc;
+  min-width: 85px;
+  position: relative;
+
+}
+
+.desc-pendulum-right p{
+  text-align: left; 
+  font-family:'Nunito';
+  font-size:12px; 
+  margin-bottom: 4px;
+  padding-left: 3px;
+}
+
+.escala-icons {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.card-descr {
+  font-size:14px; 
+  margin-bottom: 1px;
+  margin-top: 3px; 
+}
+

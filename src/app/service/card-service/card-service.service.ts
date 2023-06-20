@@ -25,10 +25,6 @@ export class CardServiceService {
 
   //head = new HttpHeaders().set('Authorization', `Bearer ${this.jwt.getToken()}`).set('Content-Type', 'application/json').set('Accept', 'application/json');
 
-  setCardNumber(cardNumber:number) {
-     this.cardNumber = cardNumber;
-  }
-
   getCardNumber(){
     return this.cardNumber;
   }

@@ -13,35 +13,31 @@ export abstract class GeneralFunctions  {
     public static croppedImage:string = 'https://images.ygoprodeck.com/images/cards_cropped/'
     
 
-    public static relUserCards(cardsFound: Card[], service: CardServiceService) {
+    // public static relUserCards(cardsFound: Card[], service: CardServiceService) {
 
-        let cardNumbers = [];
-        let relUserCard:any[];
+    //     let cardNumbers = [];
+    //     let relUserCard:any[];
 
-        for(var i = 0; i < cardsFound.length; i++){
-            if(cardsFound[i]['numero'] != null){cardNumbers.push(cardsFound[i]['numero'] )}
-           }
+    //     for(var i = 0; i < cardsFound.length; i++){
+    //         if(cardsFound[i]['numero'] != null){cardNumbers.push(cardsFound[i]['numero'] )}
+    //        }
            
-            service.relUserCards(cardNumbers).subscribe(rel =>{
-            relUserCard = rel;
+    //         service.relUserCards(cardNumbers).subscribe(rel =>{
+    //         relUserCard = rel;
           
-            cardsFound.forEach( comp => {
-              relUserCard.map( e => {
-                if(e.cardNumero === comp.numero){
-                  Object.assign(comp, {"qtd": e.qtd})
-                }
-              })
-            })
-            return relUserCard;
-          });         
-    }
+    //         cardsFound.forEach( comp => {
+    //           relUserCard.map( e => {
+    //             if(e.cardNumero === comp.numero){
+    //               Object.assign(comp, {"qtd": e.qtd})
+    //             }
+    //           })
+    //         })
+    //         return relUserCard;
+    //       });         
+    // }
 
-    public static isExtraDeckCard(cardType:string) {
-      
-      if((<any>Object).values(ExtraDeckTypes).includes(cardType))
-          return true;
-      else
-          return false;
+    public static isExtraDeckCard(cardType:string): boolean {  
+      return (<any>Object).values(ExtraDeckTypes).includes(cardType)
     }
 
     public static formatCurrencyNumber(value:number){
@@ -129,6 +125,21 @@ export abstract class GeneralFunctions  {
     localStorage.setItem("set_type", setType);
   }
 
+  public static storeDataLocalStorage(map: Map<string, any> ){
+    map.forEach((value: string, key:any) => {
+      sessionStorage.setItem(key, value);
+    })
+  }
+
+  public static saveDeckInfoLocalStorage(id:any, source:string, setType:string) {
+    let map = new Map<string, any>([
+      ["idDeckDetails", id],
+      ["source", source],
+      ["set_type", setType],
+    ]);
+    console.log(map)
+    this.storeDataLocalStorage(map);
+  }
 
   public static validUser(authService: AuthService, router: Router): Observable<boolean> {
       const result = new Subject<boolean>();

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { KonamiDeck } from 'src/app/classes/KonamiDeck';
 import { AdminDashboardService } from '../admin-dashboard-service';
 import {formatDate } from '@angular/common';
@@ -10,6 +10,7 @@ import { SpinnerService } from 'src/app/service/spinner.service';
 import { DeckCollection } from 'src/app/classes/DeckCollection';
 import { Observable, Subject } from 'rxjs';
 import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -33,6 +34,7 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit() {
     this.createFormDeck(new KonamiDeck())
     this.createCollectionDeck(new DeckCollection())
+    console.log(this.formDeck)
   }
 
   showForm(menu:string){
@@ -50,26 +52,26 @@ export class AdminDashboardComponent implements OnInit {
     this.formDeck.value.lancamento = formatDate(this.formDeck.value.lancamento, 'dd-MM-yyyy', 'en-US')
     this.formDeck.value.description = this.ckEditor.getData(this.myEditor);
 
-    console.log(this.formDeck.value)
     this.adminService.createNewKonamiDeck(this.formDeck.value).subscribe(result => {
       console.warn(result);
       this.toastr.success("Deck information sent to Queue");
       this.formDeck.reset();
     }, error =>{
-      console.log(error.msg)
+      console.log(error)
+      this.toastr.error("Error to create new Deck")
     })
     
   }
 
   createFormDeck(konamiDeck:KonamiDeck){
     this.formDeck = new FormGroup({
-      nome: new FormControl(konamiDeck.nome),
-      setType: new FormControl(konamiDeck.setType),
-      lancamento: new FormControl(konamiDeck.lancamento),
-      imagem: new FormControl(konamiDeck.imagem),
-      isSpeedDuel: new FormControl(konamiDeck.isSpeedDuel),
-      requestSource: new FormControl(konamiDeck.requestSource),
-      setCode: new FormControl(konamiDeck.setCode),
+      nome: new FormControl(konamiDeck.nome, {validators: [Validators.required] , updateOn: 'blur'}),
+      setType: new FormControl(konamiDeck.setType, [Validators.required]),
+      lancamento: new FormControl(konamiDeck.lancamento, [Validators.required]),
+      imagem: new FormControl(konamiDeck.imagem, [Validators.required]),
+      isSpeedDuel: new FormControl(konamiDeck.isSpeedDuel, [Validators.required]),
+      requestSource: new FormControl(konamiDeck.requestSource, [Validators.required]),
+      setCode: new FormControl(konamiDeck.setCode, [Validators.required]),
       isBasedDeck: new FormControl(false),
       description: new FormControl('')
     })
@@ -135,26 +137,25 @@ export class AdminDashboardComponent implements OnInit {
     })
   }
 
+  @applyLoader()
   public searchSets(setType:string): Observable <any> {
     var subject = new Subject<any>();
-    this.spinner.show()
     if(setType == 'DECK'){
       this.adminService.getDecksNames(false).subscribe(names => {
           this.setsSearched = names; 
           subject.next(names);    
-          this.spinner.hide();
-      }, error => {  
-        this.spinner.hide();
+   
+      }, error => { 
         alert("It was not possible search sets")
       })
     } else {
       this.adminService.getSetCollectionNames(setType).subscribe(names => {
           this.setsSearched = names;
           subject.next(names);    
-          this.spinner.hide();
+        
       }, error => { 
         alert("It was not possible search sets")
-        this.spinner.hide();
+      
       },)
     } 
     

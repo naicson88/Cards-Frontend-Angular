@@ -1,13 +1,13 @@
 <div id="main-div">
     <!--Header-->
-    <div class="title-input">
+    <div class="title-input ">
         <h1>{{fullStats.nome}} <span style="font-size: 12px">{{fullStats.lancamento}}</span></h1>
         <div class="description-board">
             <span>Dashboard</span>
         </div>
     </div>
     <!--Cards Attribute-->
-    <div class="cards-attribute card">
+    <div class="cards-attribute card shadows">
         <h5 class="card-header">
             <i class="fas fa-circle"></i> Attribute
         </h5>
@@ -18,7 +18,7 @@
                     <mat-card-title>
                             <div class="card-attribue-head">
                                 <span class="{{attr.name | lowercase }}-color">{{attr.name}}</span> 
-                                <img [src]="attr.atributoImgPath" alt="" width="50px" height="50px">
+                                <img [src]="attr.atributoImgPath" alt="" width="50px" height="50px" loading="lazy">
                             </div>
                     </mat-card-title>
                     <div class="card-attribute-cards-stats">
@@ -30,7 +30,7 @@
        </div>
     </div>
     <!--Card Types and Monster Types-->
-    <div class="type-cards-table-properties">
+    <div class="type-cards-table-properties shadows">
 
         <div class="cards-table card ">
             <h6 class="card-header">
@@ -43,7 +43,7 @@
                         <div class="card-body">
                             <div class="media d-flex" style="justify-content: space-between;">
                                 <div class="align-self-center" >
-                                    <img [src]="generic.path" alt="" width="58px" height="85px">
+                                    <img [src]="generic.path" alt="" width="58px" height="85px" loading="lazy">
                                 </div>
                                 <div style="margin-top: 9px; text-align: center;">
                                     <h3>{{generic.quantity}}x</h3>
@@ -57,7 +57,7 @@
                         <div class="card-body">
                             <div class="media d-flex" style="justify-content: space-between;">
                                 <div class="align-self-center" >
-                                    <img [src]="generic.path" alt="" width="58px" height="85px"> <br>
+                                    <img [src]="generic.path" alt="" width="58px" height="85px" loading="lazy"> <br>
                                     <span style="color: green">{{generic.name}}</span>
                                 </div>
                                 <div class="div-namecard-type-small" >
@@ -81,8 +81,8 @@
                         <mat-card-content>
                             <div class="card-property-mat">      
                                 <div class="head-card-property">
-                                    <img [src]="tipo.tipoCardImgPath" alt="" width="50px" height="50px"> 
-                                    <span style="font-size: smaller">{{tipo.name}}</span>  
+                                    <img [src]="tipo.tipoCardImgPath" alt="" width="50px" height="50px" loading="lazy"> 
+                                    <span style="font-size: 14px" class="fiend-color" class="{{tipo.name | lowercase}}-color color-type">{{tipo.name}}</span>  
                                 </div>                                 
                                <div>
                                 <span style="font-size: smaller">{{tipo.quantity}} Cards</span>  
@@ -97,8 +97,8 @@
         </div>
     </div>
     <!--Attack Defense charts-->
-    <div class="atk-def-chart-div">
-    <div class="atk-chart card">
+    <div class="atk-def-chart-div shadows">
+    <div class="atk-chart card shadows">
         <h5 class="card-header">
             <i class="fal fa-swords"></i> Quantity by Attack
         </h5>
@@ -106,7 +106,7 @@
             <app-barchart [attackDefData]="fullStats?.setStats?.listAtk"></app-barchart>
         </div>
     </div>
-    <div class="def-chart card">
+    <div class="def-chart card shadows">
         <h5 class="card-header">
             <i class="far fa-shield-cross"></i> &nbsp; Quantity by Defense
         </h5>
@@ -117,7 +117,7 @@
     </div>
     </div>
     <!--Stars -->
-    <div class="div-stars-rarities card">
+    <div class="div-stars-rarities card shadows">
         <h5 class="card-header">
             <i class="fas fa-level-up-alt"></i> Monster Level
         </h5>
@@ -127,7 +127,7 @@
                     <mat-card-content>
                     <mat-card-title>
                         <div class="card-stars-head">                     
-                            <img src="assets/img/outras/Nivel.png" alt="" width="40px" height="40px" >
+                            <img src="assets/img/outras/Nivel.png" alt="" width="40px" height="40px" loading="lazy">
                             <span class="span-level-stars">{{level.value}}x</span> 
                         </div>
                     </mat-card-title>
@@ -140,7 +140,7 @@
         </div>
     </div>
     <!--Price and Properties-->
-    <div class="monster-types-div ">
+    <div class="monster-types-div shadows">
         <div class="stars-div card">
             <h5 class="card-header">
                 <i class="fas fa-infinity"></i> Properties
@@ -158,7 +158,7 @@
                     <tbody>
                       <tr *ngFor="let prop of fullStats?.setStats?.listProperties; let i = index">
                         <th scope="row">{{ i + 1}}</th>
-                        <td><img [src]="prop.path" width="40" height="40" alt="Propertie Image"></td>
+                        <td><img [src]="prop.path" width="40" height="40" alt="Propertie Image" loading="lazy"></td>
                         <td>{{prop.name}}</td>
                         <td>{{prop.quantity}}</td>
                       </tr>
@@ -184,7 +184,7 @@
                                        {{valuable.name}}         
                                     </a>
                                     </p>   
-                                    <span style="font-size: 14px; color: green; ">U$$ {{ valuable.value | number : '1.2-2'}}</span><br>
+                                    <span style="font-size: 14px; color: green; "> <strong> U$$ {{ valuable.value | number : '1.2-2'}}</strong></span><br>
                                     <span style="font-size: 14px" [ngClass]="setRarityColor(valuable.rarity)">{{valuable.rarity}}</span>   
                                </div>
                                                     

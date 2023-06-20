@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { AdminDashboardService } from '../../admin-dashboard-service';
+import { applyLoader } from 'src/app/component/shared/decorators/Decorators';
 
 @Component({
   selector: 'app-admin-add-card-deck',
@@ -51,14 +52,14 @@ export class AdminAddCardDeckComponent implements OnInit {
     
   }
 
+  @applyLoader()
   getAllDecks(){ 
-    this.spinner.show();
     this.adminService.getDecksNames(true).subscribe(names => {
       console.log(names)
       this.listAllDecks = names;     
-      this.spinner.hide();
+ 
     }, error => {  
-      this.spinner.hide();
+ 
       alert("It was not possible search sets")
     })
   }

@@ -5,8 +5,13 @@
     padding: 60px 1rem;
 } */
 
+@import './../login/login.component.css';
 
-#main-div {
+.login-container {
+	height: 150vh !important;
+}
+
+/* #main-div {
   margin: 0;
 	padding: 0;
 	display: flex;
@@ -114,5 +119,5 @@ button:hover{
 #return:hover {
 	background: #0f86f5; 
 }
-
+ */
 

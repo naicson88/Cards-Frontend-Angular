@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 
 @Component({
   selector: 'app-quantity-rarities',

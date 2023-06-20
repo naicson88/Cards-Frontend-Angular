@@ -44,3 +44,7 @@ button{
     margin-bottom: 20px;
     
 }
+
+.mat-error{
+   font-size: small;
+}

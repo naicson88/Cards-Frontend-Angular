@@ -113,6 +113,10 @@ export class AuthService {
     return this.http.get<any>(this.base_url+`/auth/resend-password?email=${email}`)
   }
 
+  confirmPassword(pass:string){
+    return this.http.get<any>(this.base_url+`/auth/confirm-password?pass=${pass}`)
+  }
+
   validTokenToChangePassword(token: string) {
     return this.http.get<any>(this.base_url+`/auth/check-token-password?token=${token}`)
   }
@@ -125,8 +129,12 @@ export class AuthService {
     return this.http.get<any>(this.base_url+"actuator/health")
   }
 
-  generalSerach(){
-    return this.http.get<any>(this.base_url+'/home/general-search')
+  generalSerach(param:string){
+    return this.http.get<any>(this.base_url+`/home/general-search?param=${param}`)
+  }
+
+  getIpAddress(): Observable<string> {
+    return this.http.get<any>("http://api.ipify.org/?format=json").pipe(map(res => res.ip));
   }
 }
 

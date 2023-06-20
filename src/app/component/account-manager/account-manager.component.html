@@ -1,0 +1,78 @@
+<div class="container">
+    
+    <div class="div-form" *ngIf="isPasswordOk == false" style="margin-bottom: 100px;">
+        <h5>Confirm Password</h5>
+        <label for="confirmPass" style="font-size: small; color: red;" *ngIf="showWrongPassword == true">Invalid Password!</label><br>
+        <mat-form-field appearance="outline"  class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password"  #confirmPass id="confirmPass" (input)="setWrong()">         
+        </mat-form-field>
+        
+        &nbsp;&nbsp;
+        <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="confirmPassword(confirmPass.value)">
+            Confirm 
+        </button>
+    </div>
+
+    <div class="div-form" *ngIf="!isSuccessPage && isPasswordOk == true">
+        <h5>Manage Account</h5>
+        <small style="margin-left: 5%; color:#1E90FF">* Please note that only fields filled will be changed!</small>
+        <form [formGroup]="formCliente">
+             <p>
+                <mat-form-field appearance="outline"  class="full-width">
+                  <mat-label>Username</mat-label>
+                  <input matInput placeholder="username" formControlName="username" maxlength="15">
+                </mat-form-field>
+              </p>
+                <fieldset >
+                    <legend> Password</legend>
+                    <p>
+                        <mat-form-field appearance="outline"  class="full-width">
+                            <mat-label>New Password</mat-label>
+                            <input matInput type="password" placeholder="New Password" formControlName="pass">
+                        </mat-form-field>
+               
+                        <mat-form-field appearance="outline"  class="full-width">
+                            <mat-label>Repeat Password</mat-label>
+                            <input matInput type="password" placeholder="Repeat Password" formControlName="newpass" onpaste="return false;">
+                        </mat-form-field>
+                    </p>
+                </fieldset>
+
+                <fieldset >
+                    <legend> Email</legend>
+                    <p>
+                        <mat-form-field appearance="outline"  class="full-width">
+                            <mat-label>New Email</mat-label>
+                            <input matInput type="email" name="email" ngModel email placeholder="New Email" formControlName="email">
+                        </mat-form-field>
+               
+                        <mat-form-field appearance="outline"  class="full-width">
+                            <mat-label>Repeat Email</mat-label>
+                            <input matInput type="email" placeholder="Repeat Email" formControlName="newemail" onpaste="return false;">
+                        </mat-form-field>
+                    </p>
+                </fieldset>
+                <div class="button-save">
+                    <button mat-raised-button style="background-color:#1E90FF ; color: white;" (click)="saveAccount()">
+                        Save <mat-icon>save</mat-icon>
+                    </button>
+                </div>
+        </form>
+    
+    </div>
+    
+    <div class="success-div" *ngIf="isSuccessPage">
+        <h1>Account information changed!</h1>
+        <img src="./assets/img/arts/account.jpg" alt="" width="100%" height="80%"> 
+        <a [routerLink]="['/home']">
+            <button mat-raised-button color="accent" id="btnNew" style="margin-top: 20px;">
+                Home Page
+            </button>
+        </a>
+    </div>
+</div>
+
+<div style="margin-top: 10px;">
+    <app-footer></app-footer>
+</div>

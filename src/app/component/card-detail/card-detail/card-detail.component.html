@@ -149,7 +149,7 @@
              <div class="single-set" *ngFor="let sets of konamiSets">
                  <div class="set-img" >
                     <img *ngIf="sets.setType == 'BOX'; else deckimg"  [src]='sets.image' alt="Set Image" width="110px" height="110px" >
-                    <ng-template #deckimg> <img [src]='sets.image' alt="Set Image" width="80px" height="110px" > </ng-template>
+                    <ng-template #deckimg> <img [src]='sets.image' alt="Set Image" width="80px" height="110px" loading="lazy"> </ng-template>
                  </div>
                  <div class="set-description">
                     <ul>

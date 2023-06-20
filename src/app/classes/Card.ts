@@ -1,4 +1,5 @@
 import { Deck } from "./Deck";
+import { RelDeckCards } from "./Rel_Deck_Cards";
 
 
 export class Card {
@@ -31,7 +32,7 @@ export class Card {
 	 
 	 price:number;
 	 rarity:string;
-	 relDeckCards: any
+	 relDeckCards: RelDeckCards []
 	 set_code = new Array();
 	 card_set_code: string;
 	 index:number

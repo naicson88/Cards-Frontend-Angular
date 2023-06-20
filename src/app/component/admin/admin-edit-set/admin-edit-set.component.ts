@@ -7,11 +7,12 @@ import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { SetDetailsDTO } from 'src/app/classes/SetDetailsDTO';
 import { SpinnerService } from 'src/app/service/spinner.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 import { ChangeArtComponent } from '../../shared/change-art/change-art.component';
 import { CkeditorComponent } from '../../shared/ckeditor/ckeditor.component';
 import { AdminDashboardService } from '../admin-dashboard-service';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
+import { applyLoader } from '../../shared/decorators/Decorators';
 
 @Component({
   selector: 'app-admin-edit-set',
@@ -187,15 +188,16 @@ export class AdminEditSetComponent implements OnInit {
       }
   }
 
+  @applyLoader()
   getRelationByDeckId(deckId:number) {
-      this.spinner.show()
+    
       this.service.getRelationByDeckId(deckId).subscribe(result => {
           this.formEditSet.value.relDeckCards = [];
           this.formEditSet.value.relDeckCards = result;
-        this.spinner.hide() ;
+       ;
       }, error => {
         console.log(error)
-        this.spinner.hide()
+      
       })
   }
 

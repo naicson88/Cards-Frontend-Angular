@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { GeneralSearchDTO } from 'src/app/classes/GeneralSearchDTO';
 import { AuthService } from 'src/app/service/auth-service/auth.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 
 @Component({
   selector: 'app-side-menu',
@@ -83,8 +83,8 @@ export class SideMenuComponent implements OnInit {
    private _filterStates(value: string): any[] {
     const filterValue = value.toLowerCase();
     let arr : GeneralSearchDTO[] = [];
-    arr = this.generalSearchArr.filter(data => (data.name.toLowerCase().includes(filterValue)) || (data.setCode != null ? data.setCode.toLowerCase().includes(filterValue) : null));
-    console.log(arr)
+    arr = this.generalSearchArr.filter(data => (data.name.toLowerCase().includes(filterValue)) 
+                                        || (data.setCode != null ? data.setCode.toLowerCase().includes(filterValue) : null));
     return arr
   }
   
@@ -169,18 +169,21 @@ export class SideMenuComponent implements OnInit {
   }
 
   storeDeckId(id:any){
-    //  const id = event.target.name;
-      localStorage.setItem("idDeckDetails", '0');
-      localStorage.setItem("source", "USER");
-      localStorage.setItem("set_type", "DECK");
-    
+      GeneralFunctions.saveDeckInfoLocalStorage(0, "USER", "DECK");
+  }
+
+    generalSearch(e:any){
+      let param = e.target.value
+      
+      if(param.length === 3 || param.length > 3 && this.generalSearchArr.length == 0){
+        this.authService.generalSerach(param).subscribe(data => {
+          this.generalSearchArr = data;
+        })
+      } 
     }
 
-    generalSearch(){
-      this.authService.generalSerach().subscribe(data => {
-        this.generalSearchArr = data;
-        console.log(this.generalSearchArr)
-      })
+    clickedGeneralSearch(value:string){
+      console.log(value)
     }
 
     cardImagem(cardId: any){
@@ -197,7 +200,7 @@ export class SideMenuComponent implements OnInit {
      storeInformations(id:any, setType:string, name:string){
       
       let arg = setType != 'CARD' ? 'idDeckDetails' : 'idCard'
-      GeneralFunctions.storeInformation(arg, id, 'konami', setType)
+      GeneralFunctions.saveDeckInfoLocalStorage(id, "konami", setType);
 
       if(setType == 'DECK')
        this.route.navigate(['/deck-details/', name]);
@@ -207,6 +210,10 @@ export class SideMenuComponent implements OnInit {
        this.route.navigate(['/collection-details/', name]);
       else
         console.log('ERROR: It was not possible redirect in General Search')
+    }
+
+    goToAccountManage() {
+      this.router.navigate(['account-manager'])
     }
 
 }

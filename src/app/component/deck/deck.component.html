@@ -108,7 +108,7 @@
                      </div>
                      <div class="col-md-6 col-sm-10 col-xs-10" style="margin-left: -6px;">
                         <div class="deckuct-image">
-                           <img [src]='deck.imagem' class="img-responsive" height="238px" width="200px" title="{{deck.nome}}">
+                           <img [src]='deck.imagem' class="img-responsive" height="238px" width="200px" title="{{deck.nome}}" loading="lazy">
                            <!-- <span class="tag2 hot">
                               HO
                            </span> -->
@@ -161,7 +161,7 @@
             <div  id="row-list" *ngFor="let decklist of deck" >
 
                     <div  class="img_deck_list">
-                     <img [src]='decklist.imagem'  height="70px" width="50px" title="{{decklist.nome}}" >
+                     <img [src]='decklist.imagem'  height="70px" width="50px" title="{{decklist.nome}}" loading="lazy">
                    </div>  
 
                   <div  class="right-div-row-list">

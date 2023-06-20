@@ -3,22 +3,20 @@ import { Card } from 'src/app/classes/Card';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { DeckService } from 'src/app/service/deck.service';
 import { GenericTypeCard } from 'src/app/Util/enums/GenericTypeCards';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 import { DeckDetailUserService } from './deck-detail-user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Deck } from 'src/app/classes/Deck';
 import { MatDialog } from '@angular/material';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { BehaviorSubject, of } from 'rxjs';
-import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
-import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
-import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog.component';
 
 import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/service/spinner.service';
-import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
 import { ECardRarities } from 'src/app/classes/enum/ECardRarity';
+import { applyLoader } from '../shared/decorators/Decorators';
+import { DialogUtils } from 'src/app/Util/DialogUtils';
 
 
 @Component({
@@ -81,13 +79,13 @@ rarities ={};
 
 mainTitle = "Your Deck"
 
+dialogUtils = new DialogUtils(this.dialog);
+
+  @applyLoader()
   ngOnInit() {
-    this.spinner.show();
 
-      this.loadDeckCards();
-      this.loadRandomCards();
-
-    this.spinner.hide();
+    this.loadDeckCards();
+    this.loadRandomCards();
   }
 
   ngAfterContentInit  (){
@@ -102,32 +100,23 @@ mainTitle = "Your Deck"
   storedCardId(cardNumber:any){
   
     localStorage.setItem("idCard", cardNumber);
-
-    if(cardNumber != null && cardNumber != ""){
-      this.cardService.setCardNumber(cardNumber);
-
-      } else {
-         console.log("Unable to consult this card, try again later.");
-         return false;
-      }
      
     }
 
+@applyLoader()
 loadDeckCards(){
   
-    const id = localStorage.getItem("idDeckDetails");
+    const id = sessionStorage.getItem("idDeckDetails");
     
     if(id == "0"){
-    this.infoDialog('Create your new Deck!');
-    this.deck = new Deck();
-    this.deck.id = 0;
-    this.deck.nome = "";
-    return false;
+      this.dialogUtils.infoDialog('Create your new Deck!');
+      this.deck = new Deck();
+      this.deck.id = 0;
+      this.deck.nome = "";
+      return false;
     }
 
-    this.spinner.show();
     this.deckService.editDeck(id, "User").subscribe(data => {
-      console.log(data)
     this.deck = data
   
     this.mainDeckCards = data['cards'];
@@ -140,13 +129,11 @@ loadDeckCards(){
     this.relDeckCards =  data['rel_deck_cards'];
     this.calculateDeckPrice(this.relDeckCards);
     this.setRelDeckCards();
-    this.spinner.hide();
 
     },
     error =>{
       let errorCode = error.status;
       this.router.navigate(["/error-page", errorCode]);
-      this.spinner.hide();
     })
 }
 
@@ -190,34 +177,29 @@ validTypeDeckCard(cards:any){
 }
 
 setRarityClassAndPriceTitle(){
-
   this.mainDeckCards.forEach((card, index) => {
-    let hiddenRarity = document.getElementById('main_hidden_'+index)
-    let hiddenPrice = document.getElementById('main_hidden_price_'+index);
-    hiddenRarity.className = GeneralFunctions.rarity(card.raridade)   
-    hiddenPrice.title = card.price.toFixed(2);
+    this.setDeckRarityItems(index,card,'main_hidden_','main_hidden_price_')
   });
 
   this.extraDeckCards.forEach((card, index) => {
-    let hiddenRarity = document.getElementById('extra_hidden_'+index)
-    let hiddenPrice = document.getElementById('extra_hidden_price_'+index);
-    hiddenRarity.className = GeneralFunctions.rarity(card.raridade)   
-    hiddenPrice.title = card.price.toFixed(2);
+    this.setDeckRarityItems(index,card,'extra_hidden_','extra_hidden_price_')
   });
 
   this.sideDeckCards.forEach((card, index) => {
-    let hiddenRarity = document.getElementById('side_hidden_'+index)
-    let hiddenPrice = document.getElementById('side_hidden_price_'+index);
-    hiddenRarity.className = GeneralFunctions.rarity(card.raridade)   
-    hiddenPrice.title = card.price.toFixed(2);
+    this.setDeckRarityItems(index,card,'side_hidden_','side_hidden_price_')
   });
   
   this.calculateQtdRarity();
+}
 
+private setDeckRarityItems(index:number, card:Card, firstId:string, secondId:string){
+  let hiddenRarity = document.getElementById(firstId+index)
+  let hiddenPrice = document.getElementById(secondId+index);
+  hiddenRarity.className = GeneralFunctions.rarity(card.raridade)   
+  hiddenPrice.title = card.price.toFixed(2);
 }
 
 countTypeCards(data:Card[], deck:string){
-
       if(deck === 'main'){
        // console.log(data)
         this.typeCard.monster = data.filter(card => card.nivel != null).length;
@@ -259,7 +241,7 @@ setRelDeckCardsTypeDeck(card:Card){
     let rel = this.relDeckCards.find(rel => rel.cardId === card.id);
     let relIndex = this.relDeckCards.findIndex(rel => rel.cardId === card.id);
     if(rel == undefined || rel == null){
-      this.errorDialog("Sorry, some error happened, try again later!");
+      this.dialogUtils.errorDialog("Sorry, some error happened, try again later!");
       return false;
     }
   
@@ -315,7 +297,7 @@ addCardSideDeck(index:any){
  }
 
  this.validAndAddCardRespectiveDeck(index, this.sideDeckCards,"Card added in Side Deck", null)
- this.sideDeckCards[0].relDeckCards.isSideDeck = true
+ this.sideDeckCards[0].relDeckCards[0].isSideDeck = true
 }
 
 addCardExtraDeck(index:any){
@@ -423,10 +405,6 @@ calculateDeckPrice(relDeckCards:any[]){
     "Super Rare": document.getElementsByClassName('Super Rare').length,
     "Ultra Rare" : document.getElementsByClassName('Ultra Rare').length
   }
-  // this.deck.qtdCommon = document.getElementsByClassName('common').length  //this.deck['cards'].filter(rel => rel.raridade == 'Common').length;
-  // this.deck.qtdRare =  document.getElementsByClassName('rare').length //this.deck['cards'].filter(rel => rel.raridade == 'Rare').length;
-  // this.deck.qtdSuperRare = document.getElementsByClassName('super_rare').length// this.deck['cards'].filter(rel => rel.raridade == 'Super Rare').length;
-  // this.deck.qtdUltraRare = document.getElementsByClassName('ultra_rare').length
 
   this.recalculateDeckPrice();
  } 
@@ -459,7 +437,7 @@ calculateDeckPrice(relDeckCards:any[]){
   const dialogRef = this.dialog.open(SearchBoxComponent);
 
   dialogRef.afterClosed().subscribe(result => {
-    
+  
     if(result.data != null && result.data != undefined){
       this.arrayCards = [];
       this.page = 0;
@@ -467,7 +445,7 @@ calculateDeckPrice(relDeckCards:any[]){
       if(result.data.content.length > 0)
         this.validTypeDeckCard(result.data.content);
       else
-        this.warningDialog("No Cards found in this consult")
+        this.dialogUtils.warningDialog("No Cards found in this consult")
 
       this.criterias = result.criterias
     }
@@ -520,7 +498,7 @@ onScroll(){
 consultCardSetCode(cardId:any){
     
   if(cardId == null || cardId == undefined){
-    this.errorDialog("Sorry, can't consult card's set codes.");
+    this.dialogUtils.errorDialog("Sorry, can't consult card's set codes.");
     return false;
   }
 
@@ -537,7 +515,7 @@ consultCardSetCode(cardId:any){
     },
     error =>{
       console.log(error.body)
-      this.errorDialog("ERROR: Something wrong happened, try again later.")
+      this.dialogUtils.errorDialog("ERROR: Something wrong happened, try again later.")
     }) 
 
   } 
@@ -571,7 +549,7 @@ updateCardSetCodeInSpecificDeck(relationArray:RelDeckCards[], cards:Card[], isSi
   cards.forEach(card => {
     card.relDeckCards = []
     relationArray.forEach(rel =>{
-    rel.isSideDeck = isSideDeck == true ? true : false
+    rel.isSideDeck = isSideDeck;
     card.relDeckCards.push(rel)
     })
   })
@@ -638,30 +616,6 @@ findTypeDeckArray(array:string){
 
 }
 
-errorDialog(errorMessage:string){
-  this.dialog.open(ErrorDialogComponent, {
-    data: errorMessage
-  })
-}
-
-infoDialog(infoMessage:string){
-  this.dialog.open(InfoDialogComponent, {
-    data: infoMessage
-  })
-}
-
-warningDialog(warningMessage:string){
-  this.dialog.open(WarningDialogComponent, {
-    data: warningMessage
-  })
-}
-
-successDialog(successMessage:string){
-  this.dialog.open(SuccessDialogComponent,{
-    data: successMessage
-  })
-}
-
 sendToSideDeck(deckType:string, index:number){
     let deck:Card[] = this.findTypeDeckArray(deckType);
     let card:Card = deck[index];
@@ -696,6 +650,7 @@ sendToMainDeck(index:number){
 
 relDeckCardsForSave:RelDeckCards[] = new Array();
 
+@applyLoader()
 saveDeck(){
   
   this.relDeckCardsForSave = [];
@@ -704,10 +659,12 @@ saveDeck(){
 
   deckEdited.id = this.deck.id;
   deckEdited.nome = this.deckNome.nativeElement.value.trim();
+ 
   if(deckEdited.nome == undefined || deckEdited.nome == ""){
-    this.errorDialog("Invalid Deck Name!");
+    this.dialogUtils.errorDialog("Invalid Deck Name!");
     return false;
   }
+
   deckEdited.setType = "DECK";
   
   let options = document.querySelectorAll('option:checked');
@@ -719,17 +676,15 @@ saveDeck(){
   deckEdited.rel_deck_cards = this.relDeckCardsForSave;
   console.log(JSON.stringify(deckEdited))
   this.deckService.saveUserDeck(deckEdited).subscribe(result => {
-    this.spinner.show();
+
     if(result.status == 200)
-      this.successDialog("Deck was successfully saved!")
-      this.spinner.hide();
+      this.dialogUtils.successDialog("Deck was successfully saved!")
 
   }, error =>{
 
-    this.spinner.hide();
-    console.log(JSON.stringify(error))
+    console.log(JSON.stringify(error, null));
     if(error.status != 200)
-      this.errorDialog("Sorry, can't save deck now, try again later :(")
+      this.dialogUtils.errorDialog("Sorry, can't save deck now, try again later :(")
       
   })
 }
@@ -738,33 +693,40 @@ errorMsg:string;
 insertInRelDeckCardForSave(array:Card[], indexSum:number, options:NodeListOf<Element>, deckId:number, isSideDeck:boolean){
 
   for(var i = 0; i < array.length; i++){ 
-    let rel:RelDeckCards = new RelDeckCards()  
+    let rel:RelDeckCards = new RelDeckCards() ;
     let setCode = options[i + indexSum].innerHTML
 
-    if(!setCode.includes("SET CODE") && !setCode.includes(ECardRarities.NOT_DEFINED) && setCode != "") {
-        
-          for(var j = 0; j < array[i].relDeckCards.length; j++){
-            if(array[i].relDeckCards[j].card_set_code == setCode.trim()){
-              rel = array[i].relDeckCards[j]
-              rel.cardId = array[i].id
-              break;
-            }
-          }
+    if(!setCode.includes("SET CODE") && !setCode.includes(ECardRarities.NOT_DEFINED) && setCode != ""  && setCode != "undefined") {
+        let relation:RelDeckCards = array[i].relDeckCards.find(rel => rel.card_set_code === setCode.trim());
+        rel.cardId = array[i].id 
+        rel.quantity = 1
 
-        this.relDeckCardsForSave.push(rel);
+        this.relDeckCardsForSave.push(relation);
 
     } else {    
-        
-      let  rel2:RelDeckCards = new RelDeckCards()
-      rel2.cardNumber = array[i].numero
-      rel2.isSideDeck = isSideDeck
-      rel2.deckId = deckId
-      rel2.cardId = array[i].id
-      rel2.isSpeedDuel = rel.isSpeedDuel == undefined ? false : rel.isSpeedDuel;
+
+      let rel2: RelDeckCards = this.createRelUndefinied(array[i].numero, isSideDeck, false ,deckId,array[i].id)
       this.relDeckCardsForSave.push(rel2);
-      }   
-    
+      
+      }      
   }
+}
+
+createRelUndefinied(cardNumber:number, isSideDeck:boolean, isSpeeduel:boolean, deckId:number, cardId:number): RelDeckCards {
+      let  rel2:RelDeckCards = new RelDeckCards()
+      rel2.cardNumber = cardNumber
+      rel2.isSideDeck = isSideDeck
+      rel2.isSpeedDuel = isSpeeduel
+      rel2.deckId = deckId
+      rel2.cardId = cardId
+      rel2.dt_criacao = new Date();
+      rel2.card_price = 0.0
+      rel2.card_raridade = "undefined"
+      rel2.cardSetCode = "undefined"
+      rel2.setRarityCode = "undefined"
+      rel2.rarityDetails = "undefined"
+      rel2.quantity = 1
+      return rel2;
 }
 
 rearrengeCards(){

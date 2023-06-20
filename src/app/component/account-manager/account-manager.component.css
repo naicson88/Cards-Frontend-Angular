@@ -1,0 +1,67 @@
+/* mudar estilo do Angular Material*/
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: green !important;
+  }
+
+.container {
+    background-color: #fff;
+   display: flex;
+   justify-content: center;
+}
+
+.div-form{
+    width: 70%;
+    border: solid thin silver;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-left: 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.div-form h5{
+    margin-top: 20px;
+    font-weight: 600;
+
+}
+
+form {
+    margin-top: 15px;
+    margin-left: 12%;
+}
+
+legend {
+    margin-bottom: 0px; 
+    font-size: 12px; 
+    font-weight: bold; 
+    color: #1f497d;
+}
+
+.full-width {
+    width: 60%;
+  }
+
+.button-save{
+
+    margin-left: 40%;
+    margin-bottom: 20px;
+}
+
+.success-div{
+    width: 800px;
+    height: 600px;
+    border: solid thin silver;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0px;
+    padding: 10px
+;
+} 
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: green;
+}

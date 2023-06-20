@@ -8,6 +8,11 @@
     display: flex;
     flex-direction: column;
 }
+.shadows{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: solid thin silver;
+    border-radius: 5px;
+}
 
 .card-body{
     padding: 1.0rem !important;
@@ -15,13 +20,13 @@
 
  .title-input{
     height: 120px;
-    border: solid thin blue;
     margin-bottom: 1.5rem;
 } 
 
  h1 {
     font-weight: 700;
     letter-spacing: 1px;
+    margin-bottom: 20px;
 }
 .description-board{
     border-radius: 0.25rem;
@@ -49,14 +54,12 @@
     margin-bottom: 10px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border: solid thin silver;
-
 }
 
 .card-attribue-head{
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .card-attribue-head span {
@@ -95,8 +98,12 @@
 
  .card-types{
     width: 49% !important;
-    margin-bottom: 3px;
+    margin-top: 4px;
 
+}
+
+.color-type{
+    font-weight: 600;
 }
 
 .div-namecard-type-small {
@@ -173,13 +180,19 @@
 }
 
 .monster-stars-card{
-    width: 10%;
+    width: 11%;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 5px;
+}
+
+.sea.serpent-color {
+    color: skyblue;
 }
 
 .body-monster-stars{
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .card-stars-head{
@@ -224,7 +237,7 @@
 
 .card-valuables{
     width: 50%;
-    border: solid thin silver;
+  
 }
 
 .body-valuables{

@@ -107,7 +107,7 @@
                                     <select style="font-size: smaller; " #set (click)="consultCardSetCode(card?.id, i)"
                                         (click)="onChangeCardSetCode(set.value, 'main', i)">
                                         <option [value]="0"
-                                            [selected]="card.relDeckCards.length == 0 || card.relDeckCards.length > 1">SET CODE...</option>
+                                            [selected]="card.relDeckCards.length == 0">SET CODE...</option>
                                         <option *ngFor="let setCode of card.relDeckCards"
                                             [selected]="card.relDeckCards.length == 1" [value]="setCode.card_set_code">
                                             {{setCode.card_set_code}}</option>

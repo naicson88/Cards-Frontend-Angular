@@ -8,7 +8,7 @@ import { RelDeckCards } from 'src/app/classes/Rel_Deck_Cards';
 import { UserSetCollectionDTO } from 'src/app/classes/UserSetCollectionDTO';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
 import { SpinnerService } from 'src/app/service/spinner.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 import { SearchBoxComponent } from '../cards-search/search-box/search-box.component';
 import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { InfoDialogComponent } from '../dialogs/info-dialog/info-dialog/info-dialog.component';
@@ -16,6 +16,8 @@ import { SuccessDialogComponent } from '../dialogs/success-dialog/success-dialog
 import { WarningDialogComponent } from '../dialogs/warning-dialog/warning-dialog.component';
 import { ChangeArtComponent } from '../shared/change-art/change-art.component';
 import { UserSetCollectionService } from './user-setcollection.service';
+import { applyLoader } from '../shared/decorators/Decorators';
+import { DialogUtils } from 'src/app/Util/DialogUtils';
 
 @Component({
   selector: 'app-user-setcollection',
@@ -50,6 +52,8 @@ export class UserSetcollectionComponent implements OnInit {
 
   isNewCollection = false;
 
+  dialogUtils = new DialogUtils(this.dialog);
+
   ngOnInit() {
     this.getSetCollection();
   }
@@ -59,9 +63,9 @@ export class UserSetcollectionComponent implements OnInit {
   breakpoints = {
     320:{slidePerView: 1.6, spaceBetween: 20}
   };
-
+  @applyLoader()
   newSetCollection(){
-    this.infoDialog('Create your new Collection!');
+    this.dialogUtils.infoDialog('Create your new Collection!');
     this.userSetCollecton = new UserSetCollectionDTO();
     this.userSetCollecton.cards = new Array();
     this.userSetCollecton.id = 0;
@@ -70,12 +74,10 @@ export class UserSetcollectionComponent implements OnInit {
     this.originalCollection = this.userSetCollecton.cards.slice(0); 
 
     this.isNewCollection = true;
-    this.spinner.hide();
   }
-
+  @applyLoader()
   getSetCollection(){
-    this.spinner.show();
-    const id = localStorage.getItem("idDeckDetails");
+    const id = sessionStorage.getItem("idDeckDetails");
     
     if(id == "0"){
       this.newSetCollection();
@@ -83,19 +85,17 @@ export class UserSetcollectionComponent implements OnInit {
       return false;
      }
 
-    this.service.getSetCollection(id).subscribe(data => {
+    this.service.getSetCollection(Number(id)).subscribe(data => {
       this.userSetCollecton = data;
       this.setBasedDeck(data['basedDeck'])
       this.rarities = data['konamiRarities']
       this.originalCollection = this.userSetCollecton.cards.slice(0);;
  
       this.putAngularId(this.originalCollection )
-      console.log(this.originalCollection)
 
       }, error => {
-      this.spinner.hide();
       console.log(error);
-      this.errorDialog("It was not possible load this Set Collection, try again later!")
+      this.dialogUtils.errorDialog("It was not possible load this Set Collection, try again later!")
     })
   }
 
@@ -327,36 +327,12 @@ export class UserSetcollectionComponent implements OnInit {
     return urlimg;
   }
 
-  errorDialog(errorMessage:string){
-    this.dialog.open(ErrorDialogComponent, {
-      data: errorMessage
-    })
-  }
   
-  warningDialog(warningMessage:string){
-    this.dialog.open(WarningDialogComponent, {
-      data: warningMessage
-    })
-  }
-  
-  infoDialog(infoMessage:string){
-    this.dialog.open(InfoDialogComponent, {
-      data: infoMessage
-    })
-  }
-  
-  successDialog(successMessage:string){
-    this.dialog.open(SuccessDialogComponent,{
-      data: successMessage
-    })
-  }
-  
-
  criterias = new Array();
+ @applyLoader()
  openDialogSearch() {
     const dialogRef = this.dialog.open(SearchBoxComponent);
 
-    this.spinner.show();
     dialogRef.afterClosed().subscribe(result => {
       if(result.data != null && result.data != undefined && result.data.content.length > 0){
        console.log(result.data)
@@ -364,15 +340,12 @@ export class UserSetcollectionComponent implements OnInit {
       }
 
       else{
-        this.warningDialog("No Cards found!")
+        this.dialogUtils.warningDialog("No Cards found!")
       }
         this.criterias = result.criterias
-        this.spinner.hide();
     }, error => {
-      this.spinner.hide();
         this.toast.error("Sorry, something bad happened, try again later.")
     });
-  this.spinner.hide()
 }
 
   closeSearch(){
@@ -415,17 +388,17 @@ export class UserSetcollectionComponent implements OnInit {
     localStorage.setItem("idCard", cardNumber);
   }
 
+  @applyLoader()
   consultCardSetCode(card){
     
     if(card.cardId == null || card.cardId == undefined){
-      this.errorDialog("Sorry, can't consult card's set codes.");
+      this.dialogUtils.errorDialog("Sorry, can't consult card's set codes.");
       return false;
     }
     
     if(card.searchedRelDeckCards.length == 0){
   
-      this.cardService.findAllRelDeckCardsByCardNumber(card.cardId).subscribe(data => { 
-        this.spinner.show();     
+      this.cardService.findAllRelDeckCardsByCardNumber(card.cardId).subscribe(data => {     
         let relationArray: RelDeckCards[] = data;
         card.listSetCode = [];
         relationArray.forEach(rel => {
@@ -434,13 +407,10 @@ export class UserSetcollectionComponent implements OnInit {
         });
         card.searchedRelDeckCards = relationArray;
         card.quantityOtherCollections = 0;
-
-        this.spinner.hide();
       },
       error =>{
-        this.spinner.hide();
         console.log(error.body)
-        this.errorDialog("ERROR: Something wrong happened, try again later.")
+        this.dialogUtils.errorDialog("ERROR: Something wrong happened, try again later.")
       });
     } 
    
@@ -467,20 +437,18 @@ export class UserSetcollectionComponent implements OnInit {
     //console.log(this.originalCollection);   
   }
 
-
+  @applyLoader()
   saveSetCollection(){
-
     this.closeSearch();
 
     let collectionName = this.nameInput.nativeElement.value;
 
     if(collectionName == "" || collectionName == null){
-      this.warningDialog("Please, fill the Collection's Name!");
+      this.dialogUtils.warningDialog("Please, fill the Collection's Name!");
       this.nameInput.nativeElement.focus();
       return false;
     }
 
-    this.spinner.show();
     this.userSetCollecton.cards = [];
  
     this.setCardsToBeSaved()
@@ -489,12 +457,10 @@ export class UserSetcollectionComponent implements OnInit {
     console.log(this.userSetCollecton)
       this.service.saveSetCollection(this.userSetCollecton).subscribe(data => {
         this.userSetCollecton.cards = this.originalCollection;
-        this.spinner.hide();
-        this.successDialog("Set Collection was successfully saved!");
+        this.dialogUtils.successDialog("Set Collection was successfully saved!");
       }, error => {
-        this.spinner.hide()
         console.log(error);
-        this.errorDialog("Sorry, It was not possible save Collection, try again later!");
+        this.dialogUtils.errorDialog("Sorry, It was not possible save Collection, try again later!");
       })
   }
 
@@ -540,10 +506,11 @@ export class UserSetcollectionComponent implements OnInit {
 
     this.service.createBasedDeck(Number(deckId)).subscribe(result => {
       this.closeDialog();
-      this.successDialog("A Based Deck has been created!")
-      localStorage.setItem("idDeckDetails", result);
-      localStorage.setItem("source", "KONAMI");
-      localStorage.setItem("set_type", "DECK");
+      this.dialogUtils.successDialog("A Based Deck has been created!")
+      // localStorage.setItem("idDeckDetails", result);
+      // localStorage.setItem("source", "KONAMI");
+      // localStorage.setItem("set_type", "DECK");
+      GeneralFunctions.saveDeckInfoLocalStorage(result, "KONAMI", "DECK");
       this.route.navigate(['/userdeck-details/', '']);
 
     }, error => {

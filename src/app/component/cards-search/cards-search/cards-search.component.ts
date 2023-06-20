@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Card } from 'src/app/classes/Card';
 import { Imagens } from 'src/app/classes/Imagens';
 import { CardServiceService } from 'src/app/service/card-service/card-service.service';
-import { GeneralFunctions } from 'src/app/Util/GeneralFunctions';
+import { GeneralFunctions } from 'src/app/Util/Utils';
 
 @Component({
   selector: 'app-cards-search',
@@ -90,18 +90,9 @@ export class CardsSearchComponent implements OnInit {
     this.isShowTooltipDetailed = false;
   }
 
-  openCardDetail(event: any) {
-
-    const cardNumber = event.target.name;
-    if (cardNumber != null && cardNumber != "") {
-      localStorage.setItem("idCard", cardNumber);
-      this.cardService.setCardNumber(cardNumber);
-
-    } else {
-      console.log("Unable to consult this card, try again later.");
-      return false;
-    }
-
+  openCardDetail(numero: any) {
+    debugger
+    localStorage.setItem("idCard", numero);
   }
 
   cardImage: string;
