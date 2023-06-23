@@ -1,0 +1,15 @@
+.price-update-div{
+    width: 60px;
+    height: 60px;
+}
+
+.price-update-div img{
+    width: 60px;
+    height: 60px;
+}
+
+.price-update-div:hover {
+    border: solid thin silver;
+    border-radius: 5px;
+    cursor: pointer;
+}

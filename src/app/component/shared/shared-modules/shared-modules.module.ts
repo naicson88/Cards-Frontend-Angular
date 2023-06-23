@@ -6,14 +6,16 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CkeditorComponent } from '../ckeditor/ckeditor.component';
 import { FormsModule } from '@angular/forms';
 import { ChangeArtComponent } from '../change-art/change-art.component';
+import { PriceUpdateComponent } from '../price-update/price-update.component';
 
 
 @NgModule({
-
   declarations: [
     QuantityRaritiesComponent,
     AddToCollectionComponent, 
-    CkeditorComponent 
+    CkeditorComponent,
+    PriceUpdateComponent
+
   ],
   imports: [
     CommonModule,
@@ -24,13 +26,16 @@ import { ChangeArtComponent } from '../change-art/change-art.component';
   exports: [
     QuantityRaritiesComponent, 
     AddToCollectionComponent, 
-    CkeditorComponent
+    CkeditorComponent,
+    PriceUpdateComponent,
   ],
   entryComponents: [
     QuantityRaritiesComponent, 
     AddToCollectionComponent, 
     CkeditorComponent,
-    ChangeArtComponent
+    ChangeArtComponent,
+    PriceUpdateComponent
+
   ]
 })
 
