@@ -12,29 +12,7 @@ export abstract class GeneralFunctions  {
     public static cardImagem:string = 'https://images.ygoprodeck.com/images/cards/'
     public static croppedImage:string = 'https://images.ygoprodeck.com/images/cards_cropped/'
     
-
-    // public static relUserCards(cardsFound: Card[], service: CardServiceService) {
-
-    //     let cardNumbers = [];
-    //     let relUserCard:any[];
-
-    //     for(var i = 0; i < cardsFound.length; i++){
-    //         if(cardsFound[i]['numero'] != null){cardNumbers.push(cardsFound[i]['numero'] )}
-    //        }
-           
-    //         service.relUserCards(cardNumbers).subscribe(rel =>{
-    //         relUserCard = rel;
-          
-    //         cardsFound.forEach( comp => {
-    //           relUserCard.map( e => {
-    //             if(e.cardNumero === comp.numero){
-    //               Object.assign(comp, {"qtd": e.qtd})
-    //             }
-    //           })
-    //         })
-    //         return relUserCard;
-    //       });         
-    // }
+    Notification: any // Necessario pra rodar function de Notification do browser
 
     public static isExtraDeckCard(cardType:string): boolean {  
       return (<any>Object).values(ExtraDeckTypes).includes(cardType)
@@ -174,5 +152,36 @@ export abstract class GeneralFunctions  {
     public static enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
       return Object.keys(obj).filter(k => Number.isNaN(+k)) as K[];
     }
+
+
+  //////////////////////// NÃO DELETAR //////////////////////////////////////
+  //  notifyBrowser(){
+  //     if(!window.Notification){
+  //         console.log("Browser does not support notifications.");
+  //         return false;
+  //     }
+
+  //     if(Notification.permission === 'granted'){
+  //       new Notification('Hi there!', {
+  //         body: 'How are you doing?',
+  //         icon: 'https://img.icons8.com/?size=512&id=9918&format=png'
+  //       });
+  //     } else {
+  //       Notification.requestPermission().then(p => {
+  //         if(p === 'granted'){
+  //           new Notification('Hi there!', {
+  //             body: 'How are you doing?',
+  //             icon: 'https://img.icons8.com/?size=512&id=9918&format=png'
+  //           });
+  //         } else {
+  //           console.log("Browser does not support notifications.");
+  //           return false;
+  //         }
+  //       }).catch(err => {
+  //           console.error(err);
+  //       })
+  //     }
+
+  //   }
   
 }

@@ -1,8 +1,7 @@
 <div id="mainDiv">
   <div style="width: 100%; margin-bottom: 10px">
     <app-page-header [pageTitle]="mainTitle"></app-page-header>
-  </div>
-  
+  </div> 
 
   <div id="cabecalhoDeck">
 
@@ -83,6 +82,7 @@
 
   </div>
 
+  <app-price-update [typeSearch]="typeSearch" [name]="deckDetails?.nome"></app-price-update>
 
   <div class="p-5  rounded shadow mb-5" style="margin-top: 25px; display: none;" [style.display]="isVisible ? 'block' : 'none'">
     <!-- Rounded tabs -->

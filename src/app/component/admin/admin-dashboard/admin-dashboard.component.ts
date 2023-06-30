@@ -34,7 +34,6 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit() {
     this.createFormDeck(new KonamiDeck())
     this.createCollectionDeck(new DeckCollection())
-    console.log(this.formDeck)
   }
 
   showForm(menu:string){

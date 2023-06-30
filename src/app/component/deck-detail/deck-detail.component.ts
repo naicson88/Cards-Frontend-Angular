@@ -19,11 +19,8 @@ export class DeckDetailComponent implements OnInit {
 
   deckDetails: SetDetailsDTO;
   arrInsideDecksCards: InsideDeck[] = [];
+  typeSearch: string = "SET";
 
-  quantidadePorTipo = [];
-  quantidadePorEstrelas = [];
-  quantidadePorAtributo: any;
-  qtdPorPropriedade = [];
   infoGeralAtk = [];
   infoGeralDef = [];
   cardsValiosos = [];
@@ -73,7 +70,6 @@ export class DeckDetailComponent implements OnInit {
     this.source = source;
     this.service.getDeckDetails(id, source, set_type).subscribe(
       (data) => {
-        console.log(data);
 
         this.deckDetails = data;
         this.arrInsideDecksCards = data["insideDecks"];
@@ -81,8 +77,8 @@ export class DeckDetailComponent implements OnInit {
 
         if (this.arrInsideDecksCards[0].cards.length > 0) {
           this.isVisible = true;
-          this.countsGeneric_type = data["statsQuantityByGenericType"];
-          this.quantidadePorAtributo = data["statsQuantityByAttribute"];
+          // this.countsGeneric_type = data["statsQuantityByGenericType"];
+          // this.quantidadePorAtributo = data["statsQuantityByAttribute"];
 
           this, (this.rarities = data["quantity"]);
 
@@ -101,62 +97,62 @@ export class DeckDetailComponent implements OnInit {
     );
   }
 
-  setQuantityByCardType(types: any) {
-    if (types != null || types != undefined) {
-      Object.entries(types).forEach((item) => {
-        this.quantidadePorTipo.push({
-          Tipo: item[0],
-          Quantidade: item[1],
-        });
-      });
-    }
-  }
+  // setQuantityByCardType(types: any) {
+  //   if (types != null || types != undefined) {
+  //     Object.entries(types).forEach((item) => {
+  //       this.quantidadePorTipo.push({
+  //         Tipo: item[0],
+  //         Quantidade: item[1],
+  //       });
+  //     });
+  //   }
+  // }
 
-  setQuantityByCardProperty(properties: any) {
-    if (properties != null || properties != undefined) {
-      Object.entries(properties).forEach((item) => {
-        if (item[0] != "NORMAL") {
-          this.qtdPorPropriedade.push({
-            Propriedade: item[0],
-            Quantidade: item[1],
-          });
-        }
-      });
-    }
-  }
+  // setQuantityByCardProperty(properties: any) {
+  //   if (properties != null || properties != undefined) {
+  //     Object.entries(properties).forEach((item) => {
+  //       if (item[0] != "NORMAL") {
+  //         this.qtdPorPropriedade.push({
+  //           Propriedade: item[0],
+  //           Quantidade: item[1],
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
-  setQuantityByStars(stars: any) {
-    if (stars != null || stars != undefined) {
-      Object.entries(stars).forEach((star) => {
-        this.quantidadePorEstrelas.push({
-          Estrelas: star[0],
-          Quantidade: star[1],
-        });
-      });
-    }
-  }
+  // setQuantityByStars(stars: any) {
+  //   if (stars != null || stars != undefined) {
+  //     Object.entries(stars).forEach((star) => {
+  //       this.quantidadePorEstrelas.push({
+  //         Estrelas: star[0],
+  //         Quantidade: star[1],
+  //       });
+  //     });
+  //   }
+  // }
 
-  setQuantityByAtk(atks: any) {
-    if (atks != null || atks != undefined) {
-      Object.entries(atks).forEach((atk) => {
-        this.infoGeralAtk.push({
-          Attack: atk[0],
-          Quantidade: atk[1],
-        });
-      });
-    }
-  }
+  // setQuantityByAtk(atks: any) {
+  //   if (atks != null || atks != undefined) {
+  //     Object.entries(atks).forEach((atk) => {
+  //       this.infoGeralAtk.push({
+  //         Attack: atk[0],
+  //         Quantidade: atk[1],
+  //       });
+  //     });
+  //   }
+  // }
 
-  setQuantityByDef(defs: any) {
-    if (defs != null || defs != undefined) {
-      Object.entries(defs).forEach((def) => {
-        this.infoGeralDef.push({
-          Defense: def[0],
-          Quantidade: def[1],
-        });
-      });
-    }
-  }
+  // setQuantityByDef(defs: any) {
+  //   if (defs != null || defs != undefined) {
+  //     Object.entries(defs).forEach((def) => {
+  //       this.infoGeralDef.push({
+  //         Defense: def[0],
+  //         Quantidade: def[1],
+  //       });
+  //     });
+  //   }
+  // }
 
   cardImagem(cardId: any) {
     let urlimg = GeneralFunctions.cardImagem + cardId + ".jpg";

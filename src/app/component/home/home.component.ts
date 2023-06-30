@@ -40,10 +40,7 @@ export class HomeComponent implements OnInit {
      storeDeckId(id:any, setType:string, source:string){
         //  const id = event.target.name;        
          setType =  setType != 'DECK' ? 'COLLECTION' : 'DECK'
-         GeneralFunctions.saveDeckInfoLocalStorage(id, source, setType);
-          // localStorage.setItem("idDeckDetails", id);
-          // localStorage.setItem("source", source);
-          // localStorage.setItem("set_type", setType);        
+         GeneralFunctions.saveDeckInfoLocalStorage(id, source, setType);     
         }
 
 }

@@ -158,7 +158,6 @@ export class RegisterComponent implements OnInit {
     } , error => {
         this.dialogUtils.errorDialog(error.error.msg);
     })
-
   }
 
   return(){
