@@ -3,6 +3,9 @@ import { PriceUpdateServices } from './price-update.services';
 import { ToastrService } from 'ngx-toastr';
 import { applyLoader } from '../decorators/Decorators';
 import { SpinnerService } from 'src/app/service/spinner.service';
+import { AuthService } from 'src/app/service/auth-service/auth.service';
+import { User } from 'src/app/classes/User';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-price-update',
@@ -12,9 +15,16 @@ import { SpinnerService } from 'src/app/service/spinner.service';
 export class PriceUpdateComponent implements OnInit {
   @Input() name:string;
   @Input() typeSearch:string;
-  constructor(public service: PriceUpdateServices,  private toastr: ToastrService, public spinner: SpinnerService ) { }
+  constructor(public service: PriceUpdateServices,  private toastr: ToastrService, public spinner: SpinnerService, public user: AuthService ) { }
+
+
+  isAdmin: boolean = false;
 
   ngOnInit() {
+    this.user.getCurrentUser$().subscribe(data => {
+      if(data['sub'] === environment.userAdmin)
+        this.isAdmin = true;
+    })
   }
 
   getPrice(){
@@ -22,10 +32,8 @@ export class PriceUpdateComponent implements OnInit {
        this.toastr.error("Invalid Set Name!")
        return false;
      }
-
      if(this.typeSearch == "SET")
         this.getSetPrice()
-
   }
 
   @applyLoader()
