@@ -17,7 +17,6 @@ export class AuthInterceptor implements HttpInterceptor, OnInit {
   }
 
    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-     
     if (configg.auth === 'token' && this.jwt && this.jwt.getToken()) {
       request = this.addToken(request, this.jwt.getToken());
     }

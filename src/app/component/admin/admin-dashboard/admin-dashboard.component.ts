@@ -34,7 +34,6 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit() {
     this.createFormDeck(new KonamiDeck())
     this.createCollectionDeck(new DeckCollection())
-    console.log(this.formDeck)
   }
 
   showForm(menu:string){
@@ -46,17 +45,17 @@ export class AdminDashboardComponent implements OnInit {
   }
   
  @ViewChild("myEditor", { static: false }) myEditor: any; 
-
   onSubmit(){  
 
     this.formDeck.value.lancamento = formatDate(this.formDeck.value.lancamento, 'dd-MM-yyyy', 'en-US')
     this.formDeck.value.description = this.ckEditor.getData(this.myEditor);
-
+    this.spinner.show()
     this.adminService.createNewKonamiDeck(this.formDeck.value).subscribe(result => {
-      console.warn(result);
+      console.warn(result); 
       this.toastr.success("Deck information sent to Queue");
-      this.formDeck.reset();
+      this.spinner.hide()
     }, error =>{
+      this.spinner.hide()
       console.log(error)
       this.toastr.error("Error to create new Deck")
     })

@@ -3,7 +3,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 
 export function applyLoader() {
     return function(target: any, propertyKey: String, descriptor: PropertyDescriptor){
-
+        
         const spinner = new SpinnerService(new NgxSpinnerService())
         const metodoOriginal = descriptor.value;
 

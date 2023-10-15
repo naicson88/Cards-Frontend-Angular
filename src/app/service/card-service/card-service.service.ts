@@ -44,7 +44,7 @@ export class CardServiceService {
   }
 
   public findByNumero(numero:any) {  
-    return this.http.get<Card>(this.base_url+`/cards/num/${numero}`)
+    return this.http.get<Card>(this.base_url+`/cards/number/${numero}`)
     .pipe(
       catchError(HandleErros.handleError)
     )
