@@ -20,7 +20,7 @@ export class RouterlinkStoreIdComponent implements OnInit {
   }
 
   storedCardId() {
-    sessionStorage.setItem(this.key, this.id);
+    localStorage.setItem(this.key, this.id);
   }
 
 }

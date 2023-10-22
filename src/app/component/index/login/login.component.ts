@@ -96,6 +96,7 @@ export class LoginComponent implements OnInit {
   }
 
   verifyBadRequest() {
+    debugger
     let url = window.location.href;
 
     if (url.includes('/login;data=true')) {

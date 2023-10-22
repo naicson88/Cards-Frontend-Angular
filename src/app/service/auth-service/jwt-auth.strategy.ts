@@ -10,8 +10,7 @@ export class JwtAuthStrategy implements AuthStrategy<Token> {
     private readonly JWT_TOKEN = 'JWT_TOKEN';
    
     doLoginUser(token: Token): void { 
-       console.log(token)
-       sessionStorage.setItem(this.JWT_TOKEN, token.accessToken);
+       localStorage.setItem(this.JWT_TOKEN, token.accessToken);
     }
     doLogoutUser(): void {
         sessionStorage.removeItem(this.JWT_TOKEN);
@@ -28,6 +27,6 @@ export class JwtAuthStrategy implements AuthStrategy<Token> {
     }
 
     getToken(){
-       return  sessionStorage.getItem(this.JWT_TOKEN);
+       return  localStorage.getItem(this.JWT_TOKEN);
     }
 } 

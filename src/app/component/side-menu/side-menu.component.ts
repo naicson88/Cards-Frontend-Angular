@@ -95,6 +95,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   checkRouter(){
+    
     this.router.events.subscribe((event:any) => {
       
       if(event instanceof NavigationEnd) {

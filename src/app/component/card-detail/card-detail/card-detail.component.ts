@@ -40,9 +40,9 @@ export class CardDetailComponent implements OnInit {
 
   @applyLoader()
   loadCardDetail(){
-   // const id = localStorage.getItem("idCard");
-    let idd =  Number(sessionStorage.getItem("idCard"));
-   console.log(document.getElementById('idAdmin') as HTMLElement);
+
+    let idd =  Number(localStorage.getItem("idCard"));
+    console.log(document.getElementById('idAdmin') as HTMLElement);
 
       this.service.getCardDetails(idd).subscribe(data => { 
         console.log(data['card'].id)

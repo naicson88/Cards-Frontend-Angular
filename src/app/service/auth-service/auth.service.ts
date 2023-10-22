@@ -59,6 +59,7 @@ export class AuthService {
   }*/
   //Logout JWT
   logout(){
+    debugger
     localStorage.removeItem(this.JWT_TOKEN);
     localStorage.removeItem('userRole');
     this.router.navigate(['/index'])

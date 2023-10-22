@@ -36,17 +36,17 @@ export class AuthInterceptor implements HttpInterceptor, OnInit {
    
     let clonedRequest = null;
   
-   var ip = sessionStorage.getItem("Address") === null ? 'NO IP' : sessionStorage.getItem("Address")
-   if(ip === 'NO IP' && (!url.includes("/login") && !url.includes("/register"))) {
-     this.authService.doLogoutAndRedirectToLogin();
-     return null;
-   }  
+  //  var ip = sessionStorage.getItem("Address") === null ? 'NO IP' : sessionStorage.getItem("Address")
+  //  if(ip === 'NO IP' && (!url.includes("/login") && !url.includes("/register"))) {
+  //    this.authService.doLogoutAndRedirectToLogin();
+  //    return null;
+  //  }  
 
-    if(request.url != "http://api.ipify.org/?format=json")
-      request = request.clone({headers: request.headers.append('X-Forwarded-For', ip)});
+    // if(request.url != "http://api.ipify.org/?format=json")
+    //   request = request.clone({headers: request.headers.append('X-Forwarded-For', ip)});
   
     return next.handle(request).pipe(catchError(error => {
-
+      debugger
       if(error.error.msg == 'Bad credentials'){
         this.router.navigate(["/login", {data: true}])
       }
