@@ -1,11 +1,8 @@
-import { Serializer } from "@angular/compiler";
+
 import { Router } from "@angular/router";
 import { Observable, of, Subject } from "rxjs";
-import { Card } from "../classes/Card";
 import { AuthService } from "../service/auth-service/auth.service";
-import { CardServiceService } from "../service/card-service/card-service.service";
 import { ExtraDeckTypes } from "./enums/ExtraDeckTypes";
-
 
 export abstract class GeneralFunctions  {
 
@@ -121,7 +118,7 @@ export abstract class GeneralFunctions  {
 
   public static validUser(authService: AuthService, router: Router): Observable<boolean> {
       const result = new Subject<boolean>();
-
+      
       authService.getUser().subscribe(userReturned => { 
 
         const userRole:string = userReturned.role.roleName
@@ -152,6 +149,10 @@ export abstract class GeneralFunctions  {
     public static enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
       return Object.keys(obj).filter(k => Number.isNaN(+k)) as K[];
     }
+
+    public static concateString(str1:string, str2:string){
+      return str1.concat(str2);
+      }
 
 
   //////////////////////// NÃO DELETAR //////////////////////////////////////

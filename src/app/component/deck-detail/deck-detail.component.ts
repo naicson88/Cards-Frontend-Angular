@@ -7,6 +7,7 @@ import { InsideDeck } from "src/app/classes/InsideDeck";
 import { SpinnerService } from "src/app/service/spinner.service";
 import { GeneralFunctions } from "src/app/Util/Utils";
 import { applyLoader } from "../shared/decorators/Decorators";
+import { Paths } from "src/app/Util/enums/Paths";
 
 @Component({
   selector: "app-deck-detail",
@@ -40,12 +41,18 @@ export class DeckDetailComponent implements OnInit {
 
   imgPath: string;
   mainTitle = "Deck's Details";
+  sessionKey = 'idCard'
+
+  paths = Paths
+  concatString = GeneralFunctions.concateString
+
   constructor(
     private service: DeckService,
     private cardService: CardServiceService,
     private activaeRoute: ActivatedRoute,
     private spinner: SpinnerService,
-    private router: Router
+    private router: Router,
+
   ) {}
 
   ngOnInit() {

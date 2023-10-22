@@ -7,6 +7,8 @@ import { CkeditorComponent } from '../ckeditor/ckeditor.component';
 import { FormsModule } from '@angular/forms';
 import { ChangeArtComponent } from '../change-art/change-art.component';
 import { PriceUpdateComponent } from '../price-update/price-update.component';
+import { RouterlinkStoreIdComponent } from '../routerlink-store-id/routerlink-store-id.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -14,13 +16,15 @@ import { PriceUpdateComponent } from '../price-update/price-update.component';
     QuantityRaritiesComponent,
     AddToCollectionComponent, 
     CkeditorComponent,
-    PriceUpdateComponent
+    PriceUpdateComponent,
+    RouterlinkStoreIdComponent
 
   ],
   imports: [
     CommonModule,
     CKEditorModule,
     FormsModule ,
+    RouterModule
  
   ],
   exports: [
@@ -28,13 +32,15 @@ import { PriceUpdateComponent } from '../price-update/price-update.component';
     AddToCollectionComponent, 
     CkeditorComponent,
     PriceUpdateComponent,
+    RouterlinkStoreIdComponent
   ],
   entryComponents: [
     QuantityRaritiesComponent, 
     AddToCollectionComponent, 
     CkeditorComponent,
     ChangeArtComponent,
-    PriceUpdateComponent
+    PriceUpdateComponent,
+    RouterlinkStoreIdComponent
 
   ]
 })

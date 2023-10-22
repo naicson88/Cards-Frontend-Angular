@@ -55,9 +55,16 @@
 
         <div id="allCards">
           <div *ngFor="let inside of arrInsideDecksCards">
-            <label for="" style="font-size: small"> <b>Cards:</b> <a *ngFor="let card of inside.cards"
-                style="font-size: small;" [routerLink]="['/card-detail/', card.nome]" name="{{card.numero}}"
-                (click)="storedCardId($event)"> &#9830; {{card.nome}} </a> </label>
+            <label for="" style="font-size: small"> 
+              <b>Cards:</b> &#9830;
+                <app-routerlink-store-id *ngFor="let card of inside.cards" style="font-size: small;" 
+                  [path]="paths['CARD_DETAIL']" 
+                  [complement]="card.nome" 
+                  [id]="card.numero"
+                  [key]="sessionKey"
+                  [text]="concatString('♦',card.nome)">
+                </app-routerlink-store-id>
+            </label>
           </div>
         </div>
 
@@ -137,10 +144,13 @@
               <div class="row row-name-card" >
                 <div>
                   <p class="nome-card">
-                    <a [routerLink]="['/card-detail/', cardsInfo.nome]" name="{{cardsInfo.numero}}"
-                      (click)="storedCardId($event)">
-                      {{cardsInfo.nome}}
-                    </a>
+                    <app-routerlink-store-id 
+                      [path]="paths['CARD_DETAIL']" 
+                      [complement]="cardsInfo.nome" 
+                      [id]="cardsInfo.numero"
+                      [key]="sessionKey"
+                      [text]="cardsInfo.nome">
+                    </app-routerlink-store-id>
                   </p>
                 </div>
                 <div>

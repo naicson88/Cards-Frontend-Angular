@@ -98,10 +98,9 @@ dialogUtils = new DialogUtils(this.dialog);
 
 
   storedCardId(cardNumber:any){
-  
-    localStorage.setItem("idCard", cardNumber);
-     
-    }
+    debugger
+    sessionStorage.setItem("idCard", cardNumber);
+  }
 
 @applyLoader()
 loadDeckCards(){

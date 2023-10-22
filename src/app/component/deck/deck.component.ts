@@ -52,7 +52,6 @@ export class DeckComponent implements OnInit {
 
     this.route.data.subscribe(source =>{
       this.source = source.source;
-      console.log(source)
     })
 
 
@@ -93,7 +92,7 @@ export class DeckComponent implements OnInit {
   autocompleteSets(source:string){
     this.service.autcompleteSets(source).subscribe(data => {
       this.arrayAutocomplete = data;
-      console.log(JSON.stringify(this.arrayAutocomplete));
+      //console.log(JSON.stringify(this.arrayAutocomplete));
     })
   }
 

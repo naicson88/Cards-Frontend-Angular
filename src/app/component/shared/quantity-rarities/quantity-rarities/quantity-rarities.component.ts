@@ -39,7 +39,6 @@ export class QuantityRaritiesComponent implements OnInit, OnChanges  {
       if(obj != undefined){
         this.raritiesName = Object.keys(obj)
         this.raritiesQuantity = Object.values(obj)
-        console.log(this.raritiesName, this.raritiesQuantity)
       }   
   }
 

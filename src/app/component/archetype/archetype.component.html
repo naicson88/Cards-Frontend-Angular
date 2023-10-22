@@ -48,9 +48,16 @@
             </div>
             <ul>  
                 <div *ngFor="let arcs of archetype">
-                    <li *ngIf="arcs.arcName.substring(0,1) === 'A'" 
-                    [routerLink]="['/archetypeDetails/', arcs.id]" 
-                    (click)='storedArchetype(arcs.id)' id="{{arcs.id}}">{{arcs.arcName}}</li>
+                    <li *ngIf="arcs.arcName.substring(0,1) === 'A'">
+                        <app-routerlink-store-id  
+                            [path]="'/archetypeDetails/'" 
+                            [complement]="arcs.id" 
+                            [id]="arcs.id"
+                            [key]="'idArchetype'"
+                            [text]="arcs.arcName">
+                        </app-routerlink-store-id>
+                    </li>
+                    
                 </div>
                 
             </ul>
