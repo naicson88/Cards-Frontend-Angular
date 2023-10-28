@@ -8,6 +8,7 @@ export abstract class GeneralFunctions  {
 
     public static cardImagem:string = 'https://images.ygoprodeck.com/images/cards/'
     public static croppedImage:string = 'https://images.ygoprodeck.com/images/cards_cropped/'
+
     
     Notification: any // Necessario pra rodar function de Notification do browser
 
@@ -152,8 +153,7 @@ export abstract class GeneralFunctions  {
 
     public static concateString(str1:string, str2:string){
       return str1.concat(str2);
-      }
-
+    }
 
   //////////////////////// NÃO DELETAR //////////////////////////////////////
   //  notifyBrowser(){

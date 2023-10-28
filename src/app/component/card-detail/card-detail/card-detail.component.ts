@@ -7,6 +7,7 @@ import { GeneralFunctions } from 'src/app/Util/Utils';
 import {Chart} from 'chart.js';
 import { SpinnerService } from 'src/app/service/spinner.service';
 import { applyLoader } from '../../shared/decorators/Decorators';
+import { Paths } from 'src/app/Util/enums/Paths';
 
 @Component({
   selector: 'app-card-detail',
@@ -37,6 +38,7 @@ export class CardDetailComponent implements OnInit {
   mainTitle = "Card's Details"
 
   keyIsFound:boolean;
+  archetypeDetail = Paths['ARCHETYPE_DETAIL']
 
   @applyLoader()
   loadCardDetail(){
@@ -45,7 +47,6 @@ export class CardDetailComponent implements OnInit {
     console.log(document.getElementById('idAdmin') as HTMLElement);
 
       this.service.getCardDetails(idd).subscribe(data => { 
-        console.log(data['card'].id)
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
         this.cardAlternativeNumber = data['card']['alternativeCardNumber']
@@ -57,8 +58,7 @@ export class CardDetailComponent implements OnInit {
         this.setCardTypes(data)
     
       }, error => {
-        console.log(error)
-      
+        console.log(error)    
       })  
     
   }
@@ -195,21 +195,7 @@ export class CardDetailComponent implements OnInit {
     this.isShowTooltip = false;
   }
 
-  storedArchetype(event){
-   const archId = event.target.id;
-   localStorage.setItem("idArchetype", archId);
-   if(archId != null && archId != ""){  
-   
-     this.archService.setArchetypeId(archId);
-
-   } else {
-      console.log("Unable to consult this card, try again later.");
-      return false;
-   }
-  }
-
   cardPriceGrafic(){
-
 
   const data = {
     labels: ['5 Weeks ago', '4 Weeks ago', '3 Weeks ago', '2 Weeks ago', 'Current'],

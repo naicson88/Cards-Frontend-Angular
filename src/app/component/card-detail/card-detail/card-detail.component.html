@@ -88,9 +88,13 @@
                     </p>
                     <p *ngIf="card.archetype?.arcName">
                         <strong>Archetype : </strong> 
-                        <a  [routerLink]="['/archetypeDetails/', card.archetype?.id]"  id='{{card.archetype?.id}}' (click)="storedArchetype($event)" >
-                            {{card.archetype?.arcName}} 
-                        </a>         
+                        <app-routerlink-store-id  
+                          [path]="archetypeDetail" 
+                          [complement]="card.archetype.id" 
+                          [id]="card.archetype.id"
+                          [key]="'idArchetype'"
+                          [text]="card.archetype.arcName">
+                       </app-routerlink-store-id>
                     </p>
                   
                 </div>
@@ -154,8 +158,10 @@
                  <div class="set-description">
                     <ul>
                         <li ><span>Name: </span> 
-                           <span> <a [routerLink]="['/deck-details/', sets.name]" [title]="sets.name"
-                                    name="sets?.id" (click)="storeDeckId(sets?.id, sets.setType)">{{sets.name}}</a> </span>                  
+                           <span> 
+                               <a [routerLink]="['/deck-details/', sets.name]" [title]="sets.name"
+                                  name="sets?.id" (click)="storeDeckId(sets?.id, sets.setType)">{{sets.name}}</a>
+                           </span>                  
                         </li>
                         <li><span>Set Code: </span> {{sets.cardSetCode}} </li>
                         <li><span>Rarity: </span>

@@ -34,7 +34,7 @@ export class SuccessconfirmationComponent implements OnInit {
 
   @applyLoader()
   validToken(){
-    debugger
+    
     if(this.token == undefined || this.token == "")
       this.router.navigate(['/index'])
 

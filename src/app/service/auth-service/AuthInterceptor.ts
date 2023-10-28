@@ -33,8 +33,6 @@ export class AuthInterceptor implements HttpInterceptor, OnInit {
     if(url.includes("/index") && this.jwt.getToken() != null  && this.jwt.getToken() != ""){
       this.router.navigate(['/home'])
     }
-   
-    let clonedRequest = null;
   
   //  var ip = sessionStorage.getItem("Address") === null ? 'NO IP' : sessionStorage.getItem("Address")
   //  if(ip === 'NO IP' && (!url.includes("/login") && !url.includes("/register"))) {
@@ -46,7 +44,7 @@ export class AuthInterceptor implements HttpInterceptor, OnInit {
     //   request = request.clone({headers: request.headers.append('X-Forwarded-For', ip)});
   
     return next.handle(request).pipe(catchError(error => {
-      debugger
+      
       if(error.error.msg == 'Bad credentials'){
         this.router.navigate(["/login", {data: true}])
       }

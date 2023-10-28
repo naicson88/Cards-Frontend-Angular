@@ -153,7 +153,6 @@ export class RegisterComponent implements OnInit {
     this.user.password = pass;
 
     this.authService.changePassword(this.user).subscribe(response => {
-      debugger
       this.dialogUtils.successDialog("Password has been changed successfully!")
       this.router.navigate(['/login'])
     } , error => {

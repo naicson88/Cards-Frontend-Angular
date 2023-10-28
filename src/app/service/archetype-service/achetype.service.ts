@@ -15,10 +15,6 @@ export class AchetypeService {
 
   base_url = environment.devCardsMain
 
-public setArchetypeId(archetypeId:number) {
-    this.archetypeId = archetypeId;
- }
-
  public getArchetypeId(){
    return this.archetypeId;
  }
