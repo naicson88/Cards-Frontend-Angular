@@ -30,6 +30,7 @@ export class CardDetailComponent implements OnInit {
   userKonamiCollectionMap: Map<any,any>
   userHaveByUserCollection: Map<any, any>;
   userHaveByUserCollectionFiltered: string[]
+  qtdUserHasTotal: number
   konamiSets:[] = [];
   totalViews:number;
   isLINKCard: boolean = false;
@@ -44,13 +45,14 @@ export class CardDetailComponent implements OnInit {
   loadCardDetail(){
 
     let idd =  Number(localStorage.getItem("idCard"));
-    console.log(document.getElementById('idAdmin') as HTMLElement);
 
       this.service.getCardDetails(idd).subscribe(data => { 
+        
         this.card = data['card'];
         this.konamiSets = data['konamiSets'];
         this.cardAlternativeNumber = data['card']['alternativeCardNumber']
-        // console.log("CARD: " + JSON.stringify(this.card))
+        this.qtdUserHasTotal = data['qtdUserHasTotal']
+        //console.log(this.card)
        // this.qtdUserHaveByKonamiCollection(data);
         this.qtdUserHaveByUserCollection(data);
         this.totalViews = data['views']['totalQtdViews'];
